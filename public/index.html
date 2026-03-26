@@ -1789,9 +1789,18 @@ async function checkForUpdates() {
       generateFeatureCards(newReleases);
     } else {
       dot.className = 'ub-dot live';
-      text.innerHTML = `최신 상태입니다 · ${latestVersion}`;
+      text.innerHTML = `최신 상태 · ${latestVersion}`;
       container.innerHTML = '';
       document.getElementById('toggleReleases').style.display = 'none';
+      const btn = document.querySelector('.ub-btn');
+      btn.textContent = '✓ 최신 버전이에요!';
+      btn.style.color = 'var(--green)';
+      btn.style.borderColor = 'var(--green)';
+      setTimeout(() => {
+        btn.textContent = '지금 확인';
+        btn.style.color = '';
+        btn.style.borderColor = '';
+      }, 3000);
     }
 
     localStorage.setItem('cc-last-check', JSON.stringify({
@@ -1884,7 +1893,7 @@ setInterval(() => {
   const m = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
   const s = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
   const el = document.getElementById('updateTime');
-  if (el) el.textContent = `다음 업데이트: ${h}:${m}:${s}`;
+  if (el) el.textContent = `다음 자동 업데이트: ${h}:${m}:${s}`;
 }, 1000);
 
 // 캐시 확인 후 첫 로드

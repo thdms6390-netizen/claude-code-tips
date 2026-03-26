@@ -223,7 +223,7 @@
     <div class="card-title">
       <h3>Auto Mode — 권한 승인 자동화 (안전하게)<span class="new-dot"></span></h3>
       <p>매번 "허용하시겠습니까?" 누르는 거 귀찮았죠? 위험한 것만 막고 나머지는 자동 승인.</p>
-      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-red">어제 나옴</span><span class="date">2026.03.24</span></div>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-red date-relative"></span><span class="date">2026.03.24</span></div>
     </div>
     <span class="card-arrow">›</span>
   </div>
@@ -258,7 +258,7 @@
     <div class="card-title">
       <h3>Computer Use — Claude가 직접 마우스 움직이고 클릭하는 거<span class="new-dot"></span></h3>
       <p>진짜로 화면 보고 → 마우스 이동 → 클릭 → 타이핑까지. 사람이 쓰듯이 앱을 조작.</p>
-      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-red">어제 나옴</span><span class="date">2026.03.24 · Desktop</span></div>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-red date-relative"></span><span class="date">2026.03.24 · Desktop</span></div>
     </div>
     <span class="card-arrow">›</span>
   </div>
@@ -1895,6 +1895,21 @@ setInterval(() => {
   const el = document.getElementById('updateTime');
   if (el) el.textContent = `다음 자동 업데이트: ${h}:${m}:${s}`;
 }, 1000);
+
+// 날짜 태그 자동 계산
+document.querySelectorAll('.date-relative').forEach(el => {
+  const dateEl = el.closest('.card-tags')?.querySelector('.date');
+  if (!dateEl) return;
+  const dateStr = dateEl.textContent.split('·')[0].trim().replace(/\./g, '-');
+  const diff = Math.floor((Date.now() - new Date(dateStr)) / 86400000);
+  if (diff === 0) el.textContent = '오늘 나옴';
+  else if (diff === 1) el.textContent = '어제 나옴';
+  else if (diff <= 3) el.textContent = `${diff}일 전`;
+  else if (diff <= 7) el.textContent = '이번 주';
+  else if (diff <= 14) el.textContent = '지난 주';
+  else if (diff <= 30) el.textContent = `${Math.floor(diff / 7)}주 전`;
+  else el.textContent = `${Math.floor(diff / 30)}달 전`;
+});
 
 // 캐시 확인 후 첫 로드
 (function init() {

@@ -95,7 +95,7 @@ ${featureSummary}`;
 
     if (!apiRes.ok) {
       const err = await apiRes.text();
-      return res.status(502).json({ error: `Claude API error: ${apiRes.status}` });
+      return res.status(502).json({ error: `Claude API error: ${apiRes.status}`, detail: err });
     }
 
     const data = await apiRes.json();

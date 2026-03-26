@@ -111,9 +111,9 @@ async function fetchNewBlogPosts(knownBlogDate) {
   return claudeCodePosts;
 }
 
-// 2-3. 블로그 글로 카드 생성
+// 2-3. 블로그 글로 카드 생성 (기능/소식 분류 포함)
 async function generateBlogCards(posts) {
-  if (posts.length === 0) return null;
+  if (posts.length === 0) return { featureCards: null, newsCards: null };
 
   const postSummary = posts.map(p =>
     `### ${p.title} (${p.date})\nURL: ${p.url}\n설명: ${p.desc}\n본문 발췌:\n${p.bodyExcerpt}`
@@ -121,41 +121,48 @@ async function generateBlogCards(posts) {
 
   const prompt = `너는 Claude Code 한국어 팁 사이트의 콘텐츠 작성자야.
 아래는 Anthropic 블로그에서 발표된 Claude Code 관련 새 글이야.
-이걸 기반으로 "최근에 나온 것들" 섹션에 들어갈 HTML 카드를 만들어줘.
 
-규칙:
-1. Claude Code 사용자에게 실제로 영향이 있는 기능/제품만 카드로 만들어. 일반적인 회사 소식은 카드로 만들지 마.
-2. 한국어로, 반말+친근한 톤 (예: "~하는 거", "~할 수 있음")
-3. 기존 카드 스타일을 정확히 따라야 해. 아래 예시처럼:
+각 글을 분류해서 카드를 만들어줘:
+- **기능 소개** (새 기능, 모델 출시, 성능 개선 등 사용자가 직접 쓸 수 있는 것) → "FEATURE_CARDS" 블록에
+- **소식** (인수, 마일스톤, 파트너십, 오픈소스 기부, 조직 변경 등) → "NEWS_CARDS" 블록에
+
+출력 형식:
+<!-- FEATURE_CARDS_START -->
+(기능 카드들 여기에)
+<!-- FEATURE_CARDS_END -->
+<!-- NEWS_CARDS_START -->
+(소식 카드들 여기에)
+<!-- NEWS_CARDS_END -->
+
+카드 규칙:
+1. 한국어로, 반말+친근한 톤
+2. 기존 카드 스타일을 따라:
 
 <example>
-<!-- Feature Name — 날짜 -->
 <div class="card">
   <div class="card-header" onclick="toggle(this)">
     <span class="card-icon">이모지</span>
     <div class="card-title">
       <h3>기능 이름 — 한줄 설명<span class="new-dot"></span></h3>
-      <p>좀 더 자세한 설명. 이게 왜 좋은지.</p>
+      <p>좀 더 자세한 설명.</p>
       <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">카테고리</span><span class="date">날짜 · 별도 제품 발표</span></div>
     </div>
     <span class="card-arrow">›</span>
   </div>
   <div class="card-body">
-    <h4>설명 제목</h4>
-    <p>또는 ul/li로 설명</p>
-    <h4>사용법</h4>
-<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 코멘트</span>
-<span class="c-p">/command</span> <span class="c-g">예시</span></pre>
+    <h4>설명</h4>
+    <ul><li>내용</li></ul>
+    <p><a href="블로그URL" target="_blank">공식 블로그 →</a></p>
   </div>
 </div>
 </example>
 
-4. 태그 클래스: tag-pink(NEW), tag-purple(카테고리), tag-green(실용적), tag-blue(VSCode/MCP 등), tag-red(자주쓰임), tag-orange(자동화)
-5. 코드 블록 내 span 클래스: c-d(주석 회색), c-p(명령어 보라), c-g(텍스트 초록), c-b(굵은 파랑), c-o(옵션 주황)
-6. 날짜 옆에 버전 대신 "별도 제품 발표"를 표기해.
-7. 정말 주목할만한 기능에는 class="card featured"를 사용
-8. 카드만 출력해. 다른 설명이나 마크다운 없이 순수 HTML만.
-9. Claude Code와 관련 없는 일반 소식이면 아무것도 출력하지 마.
+3. 태그 클래스: tag-pink(NEW), tag-purple(카테고리), tag-green(실용적), tag-blue(VSCode/MCP 등), tag-red(자주쓰임/보안), tag-orange(자동화/인수)
+4. 코드 블록 내 span: c-d(주석), c-p(명령어), c-g(텍스트), c-b(굵은파랑), c-o(옵션)
+5. 날짜 옆에 "별도 제품 발표" 표기
+6. 주목할만한 것은 class="card featured"
+7. 카드 HTML만 출력. 마크다운 없이.
+8. Claude Code와 관련 없으면 해당 블록을 비워둬.
 
 블로그 글:
 ${postSummary}`;
@@ -180,12 +187,34 @@ ${postSummary}`;
   }
 
   const data = await res.json();
-  const text = data.content[0].text.trim();
-  const cleaned = text.replace(/^```html\n?/, '').replace(/\n?```$/, '').trim();
+  const text = data.content[0].text.trim()
+    .replace(/^```html\n?/, '').replace(/\n?```$/, '').trim();
 
-  // Claude가 관련 없다고 판단하면 빈 문자열 또는 짧은 응답
-  if (cleaned.length < 50 || !cleaned.includes('class="card')) return null;
-  return cleaned;
+  // 기능 카드와 소식 카드 분리
+  const featureMatch = text.match(/<!-- FEATURE_CARDS_START -->([\s\S]*?)<!-- FEATURE_CARDS_END -->/);
+  const newsMatch = text.match(/<!-- NEWS_CARDS_START -->([\s\S]*?)<!-- NEWS_CARDS_END -->/);
+
+  const featureCards = featureMatch ? featureMatch[1].trim() : null;
+  const newsCards = newsMatch ? newsMatch[1].trim() : null;
+
+  return {
+    featureCards: featureCards && featureCards.includes('class="card') ? featureCards : null,
+    newsCards: newsCards && newsCards.includes('class="card') ? newsCards : null
+  };
+}
+
+// 5-2. 소식 탭에 카드 삽입
+function insertNewsCards(html, cardsHtml) {
+  // "Anthropic 블로그 소식" 섹션 헤더 다음, 첫 카드 앞에 삽입
+  const marker = '<p>Claude Code 관련 공식 발표, 인수, 파트너십 소식 모음</p>\n</div>';
+  const idx = html.indexOf(marker);
+  if (idx === -1) {
+    console.log('⚠️ 소식 탭 삽입 위치를 찾을 수 없습니다. 건너뜀.');
+    return html;
+  }
+  const insertAt = idx + marker.length;
+  html = html.slice(0, insertAt) + '\n\n' + cardsHtml + '\n\n' + html.slice(insertAt);
+  return html;
 }
 
 // 3. 릴리즈 노트에서 주요 기능만 추출 (버그픽스 제외)
@@ -369,11 +398,15 @@ async function main() {
 
   if (blogPosts.length > 0) {
     console.log(`🤖 Claude API로 블로그 카드 생성 중... (${blogPosts.length}개 글)`);
-    const blogCardsHtml = await generateBlogCards(blogPosts);
+    const { featureCards, newsCards } = await generateBlogCards(blogPosts);
 
-    if (blogCardsHtml) {
-      html = insertCards(html, blogCardsHtml, latestVersion);
-      console.log(`✅ 블로그 카드 추가.`);
+    if (featureCards) {
+      html = insertCards(html, featureCards, latestVersion);
+      console.log(`✅ 블로그 기능 카드 → 최신 기능 탭에 추가.`);
+    }
+    if (newsCards) {
+      html = insertNewsCards(html, newsCards);
+      console.log(`✅ 블로그 소식 카드 → 소식 탭에 추가.`);
     }
 
     // KNOWN_BLOG_DATE 업데이트

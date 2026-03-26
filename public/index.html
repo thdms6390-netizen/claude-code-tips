@@ -301,6 +301,36 @@ Settings → General → <span class="c-g">Computer Use 토글 ON</span>
   </div>
 </div>
 
+<!-- Transcript Search — 2026.03.25 -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔎</span>
+    <div class="card-title">
+      <h3>Transcript Search — 대화 기록에서 검색<span class="new-dot"></span></h3>
+      <p>긴 세션에서 아까 했던 거 다시 찾고 싶을 때. Ctrl+O → / 누르면 검색.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-green">실용적</span><span class="date">2026.03.25 · v2.1.83</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 1. 트랜스크립트 모드 진입</span>
+<span class="c-b">Ctrl+O</span>
+
+<span class="c-d"># 2. 검색 시작</span>
+<span class="c-b">/</span> 키 누르고 검색어 입력
+
+<span class="c-d"># 3. 결과 이동</span>
+<span class="c-b">n</span> = 다음 결과 / <span class="c-b">N</span> = 이전 결과</pre>
+    <h4>이럴 때 씀</h4>
+    <ul>
+      <li>세션이 길어져서 아까 Claude가 뭐라고 했는지 기억 안 날 때</li>
+      <li>특정 파일명이나 함수명이 언급된 부분 찾기</li>
+      <li>에러 메시지가 어디서 나왔는지 추적</li>
+    </ul>
+  </div>
+</div>
+
 <!-- 3. Channels — 2026.03.20 -->
 <div class="card">
   <div class="card-header" onclick="toggle(this)">
@@ -461,6 +491,32 @@ Settings → General → <span class="c-g">Computer Use 토글 ON</span>
   </div>
 </div>
 
+<!-- 128K Max Output — 2026.03.17 -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📝</span>
+    <div class="card-title">
+      <h3>128K 최대 출력 — 한 번에 더 길게 쓴다<span class="new-dot"></span></h3>
+      <p>Opus 4.6 기본 64K, 상한 128K. 긴 코드 생성이나 대규모 리팩토링에 유리.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">Opus 4.6</span><span class="date">2026.03.17 · v2.1.77</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 바뀐 건데?</h4>
+    <ul>
+      <li>기존: 최대 출력 ~16K 토큰</li>
+      <li><strong>Opus 4.6</strong>: 기본 64K, 상한 <strong>128K 토큰</strong></li>
+      <li><strong>Sonnet 4.6</strong>: 상한 128K 토큰</li>
+    </ul>
+    <p>긴 파일 전체를 한 번에 생성하거나, 여러 파일을 연속으로 수정할 때 중간에 끊기지 않습니다.</p>
+    <div class="callout callout-tip">
+      <span class="callout-icon">💡</span>
+      <span>출력이 길어질수록 토큰 소모가 큽니다. 필요한 만큼만 요청하세요.</span>
+    </div>
+  </div>
+</div>
+
 <!-- MCP Elicitation — 2026.03.14 -->
 <div class="card">
   <div class="card-header" onclick="toggle(this)">
@@ -528,6 +584,109 @@ Settings → General → <span class="c-g">Computer Use 토글 ON</span>
       <li>Max / Team / Enterprise 플랜에서 사용 가능</li>
       <li>v2.1.77에서 최대 출력 토큰도 64K (상한 128K)로 확장</li>
     </ul>
+  </div>
+</div>
+
+<!-- VSCode Session Management — 2026.03.06 -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">💻</span>
+    <div class="card-title">
+      <h3>VSCode 세션 관리 — 사이드바에서 세션 목록 + Plan 뷰</h3>
+      <p>VSCode에서 모든 Claude 세션을 한눈에. Plan은 마크다운으로 보기 + 코멘트 가능.</p>
+      <div class="card-tags"><span class="tag tag-blue">VSCode</span><span class="date">2026.03.06 · v2.1.70</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>추가된 것</h4>
+    <ul>
+      <li><strong>Activity Bar 스파크 아이콘</strong> — 클릭하면 모든 Claude Code 세션 목록</li>
+      <li>세션을 <strong>에디터 탭</strong>으로 열 수 있음 (사이드바 말고)</li>
+      <li><strong>Plan 마크다운 뷰</strong> — Claude가 만든 계획을 문서로 보면서 코멘트 달기</li>
+    </ul>
+  </div>
+</div>
+
+<!-- /claude-api Skill — 2026.03.05 -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔧</span>
+    <div class="card-title">
+      <h3>/claude-api — Claude API 앱 만들기 도우미</h3>
+      <p>Anthropic SDK 사용법, API 호출 패턴을 Claude가 직접 알려줌. 빌트인 스킬.</p>
+      <div class="card-tags"><span class="tag tag-green">실용적</span><span class="date">2026.03.05 · v2.1.69</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 뭔데?</h4>
+    <p>Claude API나 Anthropic SDK로 앱을 만들 때, <code>/claude-api</code>를 치면 Claude가 API 전문가 모드로 전환됩니다.</p>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-p">/claude-api</span>
+<span class="c-d"># → Claude가 Anthropic SDK 문서를 참조해서</span>
+<span class="c-d"># → API 호출 코드, tool use, 스트리밍 등을 정확하게 작성</span></pre>
+    <h4>이럴 때 씀</h4>
+    <ul>
+      <li>Claude API로 챗봇, 에이전트 만들 때</li>
+      <li>Tool Use, 스트리밍, 배치 API 구현할 때</li>
+      <li>SDK 코드가 최신 버전에 맞는지 확인할 때</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Voice STT 10 Languages — 2026.03.05 -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🎙️</span>
+    <div class="card-title">
+      <h3>Voice 10개 언어 추가 — 총 20개 언어 음성 입력</h3>
+      <p>러시아어, 폴란드어, 터키어, 네덜란드어 등 10개 언어 추가. 목소리로 코딩 지시.</p>
+      <div class="card-tags"><span class="tag tag-blue">Voice</span><span class="date">2026.03.05 · v2.1.69</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>새로 추가된 언어</h4>
+    <p>러시아어, 폴란드어, 터키어, 네덜란드어, 우크라이나어, 그리스어, 체코어, 덴마크어, 스웨덴어, 노르웨이어</p>
+    <h4>음성 입력 사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 설정에서 켜기</span>
+<span class="c-p">/config</span> → Voice 토글 ON
+
+<span class="c-d"># Push-to-talk 키 꾹 누르고 말하기</span>
+<span class="c-d"># 놓으면 자동으로 텍스트 변환 → 전송</span></pre>
+  </div>
+</div>
+
+<!-- Ultrathink — 2026.03.04 -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🧠</span>
+    <div class="card-title">
+      <h3>Ultrathink 복귀 — "ultrathink" 한 마디로 깊게 생각</h3>
+      <p>프롬프트에 "ultrathink" 쓰면 다음 턴만 high effort로 실행. 어려운 문제에 집중.</p>
+      <div class="card-tags"><span class="tag tag-purple">Opus 4.6</span><span class="date">2026.03.04 · v2.1.68</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>effort가 뭔데?</h4>
+    <ul>
+      <li><strong>Low</strong> — 빠르게 답변, 간단한 질문용</li>
+      <li><strong>Medium</strong> — 기본값 (Opus 4.6). 대부분의 작업에 적합</li>
+      <li><strong>High</strong> — 깊이 생각. 복잡한 버그, 아키텍처 설계 등</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 프롬프트에 키워드 포함</span>
+<span class="c-g">ultrathink 이 버그 원인 찾아줘</span>
+
+<span class="c-d"># 또는 effort 레벨 직접 변경</span>
+<span class="c-p">/effort</span> high
+
+<span class="c-d"># Opus 4.6는 기본이 medium effort</span></pre>
+    <div class="callout callout-tip">
+      <span class="callout-icon">💡</span>
+      <span>"ultrathink"은 해당 턴만 high effort. 이후는 다시 기본값으로 돌아갑니다.</span>
+    </div>
   </div>
 </div>
 

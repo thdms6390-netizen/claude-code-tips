@@ -205,7 +205,8 @@
   </div>
 </div>
 
-<div id="newReleases"></div>
+<div id="newReleases" style="display:none"></div>
+<button id="toggleReleases" style="display:none;width:100%;padding:10px;margin-bottom:16px;background:var(--pink-bg);border:1px solid var(--pink-border);border-radius:10px;color:var(--pink);font-size:13px;font-weight:600;cursor:pointer" onclick="const c=document.getElementById('newReleases');const open=c.style.display!=='none';c.style.display=open?'none':'block';this.textContent=open?'📋 릴리즈 노트 펼치기 ▼':'📋 릴리즈 노트 접기 ▲'">📋 릴리즈 노트 펼치기 ▼</button>
 
 <div class="section-head">
   <h2>최근에 나온 것들</h2>
@@ -1557,6 +1558,7 @@ async function checkForUpdates() {
       dot.className = 'ub-dot live';
       text.innerHTML = `<strong>🆕 새 릴리즈 ${newReleases.length}개 발견!</strong> 최신: ${latestVersion}`;
 
+      document.getElementById('toggleReleases').style.display = 'block';
       container.innerHTML = newReleases.map(r => {
         const date = new Date(r.published_at).toLocaleDateString('ko-KR');
         // 릴리즈 노트에서 주요 항목 추출
@@ -1584,6 +1586,7 @@ async function checkForUpdates() {
       dot.className = 'ub-dot live';
       text.innerHTML = `최신 상태입니다 · ${latestVersion}`;
       container.innerHTML = '';
+      document.getElementById('toggleReleases').style.display = 'none';
     }
 
     localStorage.setItem('cc-last-check', JSON.stringify({

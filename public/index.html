@@ -63,6 +63,8 @@
       margin-bottom:16px;overflow:hidden;transition:border-color .2s;
     }
     .card:hover{border-color:var(--border2)}
+    .card.featured{border:1px solid transparent;background-image:linear-gradient(var(--card),var(--card)),linear-gradient(135deg,rgba(124,58,237,.5),rgba(219,39,119,.4),rgba(234,88,12,.35));background-origin:border-box;background-clip:padding-box,border-box;box-shadow:0 0 14px rgba(124,58,237,.09),0 0 28px rgba(219,39,119,.05)}
+    .card.featured:hover{box-shadow:0 0 18px rgba(124,58,237,.15),0 0 36px rgba(219,39,119,.08)}
     .card-header{padding:18px 20px;cursor:pointer;display:flex;align-items:flex-start;gap:14px}
     .card-icon{font-size:24px;flex-shrink:0;margin-top:2px}
     .card-title{flex:1}
@@ -214,7 +216,7 @@
 </div>
 
 <!-- 1. Auto Mode — 2026.03.24 -->
-<div class="card">
+<div class="card featured">
   <div class="card-header" onclick="toggle(this)">
     <span class="card-icon">🤖</span>
     <div class="card-title">
@@ -249,7 +251,7 @@
 </div>
 
 <!-- 1-2. Computer Use — 2026.03.24 -->
-<div class="card">
+<div class="card featured">
   <div class="card-header" onclick="toggle(this)">
     <span class="card-icon">🖱️</span>
     <div class="card-title">
@@ -332,7 +334,7 @@ Settings → General → <span class="c-g">Computer Use 토글 ON</span>
 </div>
 
 <!-- 3. Channels — 2026.03.20 -->
-<div class="card">
+<div class="card featured">
   <div class="card-header" onclick="toggle(this)">
     <span class="card-icon">📡</span>
     <div class="card-title">
@@ -382,7 +384,7 @@ Settings → General → <span class="c-g">Computer Use 토글 ON</span>
 </div>
 
 <!-- 2. /btw — 2026.03.10 -->
-<div class="card">
+<div class="card featured">
   <div class="card-header" onclick="toggle(this)">
     <span class="card-icon">💬</span>
     <div class="card-title">
@@ -422,7 +424,7 @@ Settings → General → <span class="c-g">Computer Use 토글 ON</span>
 </div>
 
 <!-- Dispatch — 2026.03.17 -->
-<div class="card">
+<div class="card featured">
   <div class="card-header" onclick="toggle(this)">
     <span class="card-icon">📱</span>
     <div class="card-title">
@@ -452,7 +454,7 @@ Settings → General → <span class="c-g">Computer Use 토글 ON</span>
 </div>
 
 <!-- Remote Control — 2026.03.17 -->
-<div class="card">
+<div class="card featured">
   <div class="card-header" onclick="toggle(this)">
     <span class="card-icon">🎮</span>
     <div class="card-title">

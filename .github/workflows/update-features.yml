@@ -5,12 +5,9 @@ on:
     # 매일 오전 9시, 오후 9시 (KST) = UTC 0시, 12시
     - cron: '0 0,12 * * *'
   workflow_dispatch: # 수동 실행도 가능
-  repository_dispatch: # 외부 웹훅으로도 트리거 가능
-    types: [new-release]
 
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
   update:
@@ -28,35 +25,14 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: node scripts/update-features.mjs
 
-      - name: Create PR if updated
+      - name: Commit and push to main
         if: steps.update.outputs.updated == 'true'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           VERSION="${{ steps.update.outputs.version }}"
           COUNT="${{ steps.update.outputs.count }}"
 
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-
-          BRANCH="auto/features-${VERSION}"
-          git checkout -b "$BRANCH"
           git add -A
-          git commit -m "새 기능 카드 자동 추가: ${VERSION} (${COUNT}개 릴리즈)"
-          git push origin "$BRANCH"
-
-          gh pr create \
-            --title "🚀 새 기능 카드 자동 추가: ${VERSION}" \
-            --body "$(cat <<EOF
-          ## 자동 생성된 PR
-
-          Claude API가 새 릴리즈 노트를 분석하고 한국어 기능 카드를 생성했습니다.
-
-          - **최신 버전**: ${VERSION}
-          - **새 릴리즈**: ${COUNT}개
-          - **생성 방식**: Claude Sonnet 4.6
-
-          > 카드 내용을 확인하고 머지해주세요.
-          > 수정이 필요하면 이 브랜치에서 직접 편집해도 됩니다.
-          EOF
-          )"
+          git commit -m "🚀 새 기능 카드 자동 추가: ${VERSION} (${COUNT}개 릴리즈)"
+          git push origin main

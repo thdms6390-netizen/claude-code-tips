@@ -2,9 +2,11 @@ name: Update Feature Cards
 
 on:
   schedule:
-    # 매일 오전 9시 (KST) = UTC 0시에 체크
-    - cron: '0 0 * * *'
+    # 매일 오전 9시, 오후 9시 (KST) = UTC 0시, 12시
+    - cron: '0 0,12 * * *'
   workflow_dispatch: # 수동 실행도 가능
+  repository_dispatch: # 외부 웹훅으로도 트리거 가능
+    types: [new-release]
 
 permissions:
   contents: write

@@ -208,41 +208,6 @@
   <p>이게 뭔데? 싶었던 기능들, 최신순으로 정리합니다</p>
 </div>
 
-<!-- 1. Auto Mode — 2026.03.24 -->
-<div class="card featured">
-  <div class="card-header" onclick="toggle(this)">
-    <span class="card-icon">🤖</span>
-    <div class="card-title">
-      <h3>Auto Mode — 권한 승인 자동화 (안전하게)<span class="new-dot"></span></h3>
-      <p>매번 "허용하시겠습니까?" 누르는 거 귀찮았죠? 위험한 것만 막고 나머지는 자동 승인.</p>
-      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-red date-relative"></span><span class="date">2026.01.09 · v2.1.2~</span></div>
-    </div>
-    <span class="card-arrow">›</span>
-  </div>
-  <div class="card-body">
-    <h4>기존 권한 모드와 뭐가 다른데?</h4>
-    <ul>
-      <li><strong>Normal</strong> = 매번 물어봄 (안전하지만 귀찮음)</li>
-      <li><strong>Auto-Accept</strong> = 전부 자동 승인 (편하지만 위험)</li>
-      <li><strong>Auto Mode (NEW)</strong> = 중간 지점. <strong>분류기(classifier)가 매 도구 호출을 검사</strong>해서 위험한 것만 차단</li>
-    </ul>
-    <h4>차단하는 것들</h4>
-    <ul>
-      <li>대량 파일 삭제 / 데이터 유출 시도</li>
-      <li>악성 코드 실행</li>
-      <li>시스템 설정 변경</li>
-    </ul>
-<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 켜는 법</span>
-<span class="c-b">Shift+Tab</span> 으로 모드 전환 → Auto 선택
-<span class="c-d"># 또는 CLI에서</span>
-<span class="c-b">claude</span> <span class="c-o">--permission-mode auto</span></pre>
-    <div class="callout callout-warn">
-      <span class="callout-icon">⚠️</span>
-      <span>샌드박스 환경에서 쓰는 걸 권장. Sonnet 4.6 / Opus 4.6만 지원. 현재 Teams 먼저, Enterprise/API는 곧.</span>
-    </div>
-  </div>
-</div>
-
 <!-- 1-2. Computer Use — 2026.03.24 -->
 <div class="card featured">
   <div class="card-header" onclick="toggle(this)">
@@ -747,6 +712,41 @@ Settings → General → <span class="c-g">Computer Use 토글 ON</span>
   <div class="card-body">
     <p>CLAUDE.md를 직접 작성하지 않아도 Claude가 작업하면서 <strong>자동으로 메모리를 기록</strong>합니다. 다음 세션에서 알아서 떠올려서 적용.</p>
 <pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-p">/memory</span>  <span class="c-d"># 자동 메모리 확인/편집/삭제</span></pre>
+  </div>
+</div>
+
+<!-- Auto Mode — 2026.01.09 -->
+<div class="card featured">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🤖</span>
+    <div class="card-title">
+      <h3>Auto Mode — 권한 승인 자동화 (안전하게)<span class="new-dot"></span></h3>
+      <p>매번 "허용하시겠습니까?" 누르는 거 귀찮았죠? 위험한 것만 막고 나머지는 자동 승인.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-red date-relative"></span><span class="date">2026.01.09 · v2.1.2~</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>기존 권한 모드와 뭐가 다른데?</h4>
+    <ul>
+      <li><strong>Normal</strong> = 매번 물어봄 (안전하지만 귀찮음)</li>
+      <li><strong>Auto-Accept</strong> = 전부 자동 승인 (편하지만 위험)</li>
+      <li><strong>Auto Mode (NEW)</strong> = 중간 지점. <strong>분류기(classifier)가 매 도구 호출을 검사</strong>해서 위험한 것만 차단</li>
+    </ul>
+    <h4>차단하는 것들</h4>
+    <ul>
+      <li>대량 파일 삭제 / 데이터 유출 시도</li>
+      <li>악성 코드 실행</li>
+      <li>시스템 설정 변경</li>
+    </ul>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 켜는 법</span>
+<span class="c-b">Shift+Tab</span> 으로 모드 전환 → Auto 선택
+<span class="c-d"># 또는 CLI에서</span>
+<span class="c-b">claude</span> <span class="c-o">--permission-mode auto</span></pre>
+    <div class="callout callout-warn">
+      <span class="callout-icon">⚠️</span>
+      <span>샌드박스 환경에서 쓰는 걸 권장. Sonnet 4.6 / Opus 4.6만 지원. 현재 Teams 먼저, Enterprise/API는 곧.</span>
+    </div>
   </div>
 </div>
 

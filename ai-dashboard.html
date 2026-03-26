@@ -1,0 +1,1645 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude Code 꿀팁 모음</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Pretendard:wght@400;500;600;700;800&display=swap');
+    :root {
+      --bg:#fafafa; --bg2:#fff; --card:#fff; --border:#e5e5e5; --border2:#d4d4d4;
+      --text:#171717; --text2:#525252; --dim:#a3a3a3;
+      --purple:#7c3aed; --purple-bg:#f3f0ff; --purple-border:#ddd6fe;
+      --green:#059669; --green-bg:#ecfdf5; --green-border:#a7f3d0;
+      --blue:#2563eb; --blue-bg:#eff6ff; --blue-border:#bfdbfe;
+      --orange:#d97706; --orange-bg:#fffbeb; --orange-border:#fde68a;
+      --pink:#db2777; --pink-bg:#fdf2f8; --pink-border:#fbcfe8;
+      --red:#dc2626; --red-bg:#fef2f2; --red-border:#fecaca;
+    }
+    @media(prefers-color-scheme:dark){
+      :root {
+        --bg:#0a0a0a; --bg2:#141414; --card:#1a1a1a; --border:#2a2a2a; --border2:#3a3a3a;
+        --text:#e5e5e5; --text2:#a3a3a3; --dim:#525252;
+        --purple-bg:#1a0a2e; --purple-border:#3b1d6e;
+        --green-bg:#052e1a; --green-border:#065f38;
+        --blue-bg:#0a1628; --blue-border:#1e3a5f;
+        --orange-bg:#1a1000; --orange-border:#5c3d00;
+        --pink-bg:#2a0a1e; --pink-border:#6e1d4e;
+        --red-bg:#1a0a0a; --red-border:#5c1d1d;
+      }
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Pretendard',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+    code,pre{font-family:'JetBrains Mono',monospace}
+
+    /* Layout */
+    .wrap{max-width:860px;margin:0 auto;padding:0 20px}
+
+    /* Header */
+    header{border-bottom:1px solid var(--border);padding:16px 0;position:sticky;top:0;background:var(--bg);z-index:100;backdrop-filter:blur(12px)}
+    .header-inner{display:flex;align-items:center;justify-content:space-between}
+    .header-inner h1{font-size:18px;font-weight:800}
+    .header-inner h1 span{color:var(--purple)}
+
+    /* Tabs */
+    .tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;padding:12px 0 0}
+    .tabs::-webkit-scrollbar{display:none}
+    .tab{
+      padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;
+      color:var(--text2);white-space:nowrap;transition:all .15s;border:1px solid transparent;
+    }
+    .tab:hover{background:var(--bg2);color:var(--text)}
+    .tab.active{background:var(--purple-bg);color:var(--purple);border-color:var(--purple-border)}
+    .tab .cnt{font-size:11px;font-weight:500;color:var(--dim);margin-left:4px}
+
+    /* Content */
+    main{padding:24px 0 80px}
+    .panel{display:none}
+    .panel.active{display:block}
+
+    /* Cards */
+    .card{
+      background:var(--card);border:1px solid var(--border);border-radius:12px;
+      margin-bottom:16px;overflow:hidden;transition:border-color .2s;
+    }
+    .card:hover{border-color:var(--border2)}
+    .card-header{padding:18px 20px;cursor:pointer;display:flex;align-items:flex-start;gap:14px}
+    .card-icon{font-size:24px;flex-shrink:0;margin-top:2px}
+    .card-title{flex:1}
+    .card-title h3{font-size:15px;font-weight:700;margin-bottom:3px}
+    .card-title p{font-size:13px;color:var(--text2)}
+    .card-tags{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+    .tag{font-size:11px;font-weight:600;padding:2px 8px;border-radius:6px}
+    .tag-purple{background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple-border)}
+    .tag-green{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+    .tag-blue{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border)}
+    .tag-orange{background:var(--orange-bg);color:var(--orange);border:1px solid var(--orange-border)}
+    .tag-pink{background:var(--pink-bg);color:var(--pink);border:1px solid var(--pink-border)}
+    .tag-red{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
+    .card-arrow{color:var(--dim);font-size:18px;transition:transform .2s;flex-shrink:0;margin-top:4px}
+    .card.open .card-arrow{transform:rotate(90deg)}
+    .card-body{display:none;padding:0 20px 20px;border-top:1px solid var(--border);margin-top:0}
+    .card.open .card-body{display:block}
+    .card-body h4{font-size:13px;font-weight:700;margin:16px 0 8px;color:var(--text)}
+    .card-body p,.card-body li{font-size:13px;color:var(--text2);line-height:1.7}
+    .card-body ul{padding-left:18px;margin-bottom:12px}
+    .card-body li{margin-bottom:4px}
+
+    /* Code blocks */
+    pre.code{
+      background:var(--bg2);border:1px solid var(--border);border-radius:8px;
+      padding:14px 16px;font-size:12.5px;line-height:1.7;overflow-x:auto;margin:10px 0;
+      position:relative;
+    }
+    pre.code .cp{
+      position:absolute;top:8px;right:8px;background:var(--card);border:1px solid var(--border);
+      padding:3px 10px;border-radius:6px;font-size:11px;cursor:pointer;color:var(--dim);
+      font-family:'JetBrains Mono',monospace;transition:all .15s;
+    }
+    pre.code .cp:hover{color:var(--text);border-color:var(--border2)}
+    .c-p{color:var(--purple)}.c-g{color:var(--green)}.c-b{color:var(--blue)}.c-o{color:var(--orange)}.c-k{color:var(--pink)}.c-d{color:var(--dim)}
+
+    /* Callout */
+    .callout{
+      border-radius:8px;padding:14px 16px;margin:12px 0;font-size:13px;line-height:1.6;
+      display:flex;gap:10px;align-items:flex-start;
+    }
+    .callout-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+    .callout-tip{background:var(--green-bg);border:1px solid var(--green-border);color:var(--green)}
+    .callout-warn{background:var(--orange-bg);border:1px solid var(--orange-border);color:var(--orange)}
+    .callout-info{background:var(--blue-bg);border:1px solid var(--blue-border);color:var(--blue)}
+    .callout-new{background:var(--pink-bg);border:1px solid var(--pink-border);color:var(--pink)}
+
+    /* Section header */
+    .section-head{margin:32px 0 16px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+    .section-head h2{font-size:20px;font-weight:800}
+    .section-head p{font-size:13px;color:var(--text2);margin-top:4px}
+
+    /* New badge */
+    .new-dot{display:inline-block;width:7px;height:7px;background:var(--pink);border-radius:50%;margin-left:6px;vertical-align:middle}
+
+    .date{font-size:11px;color:var(--dim);font-weight:500}
+    .version{font-size:10px;color:var(--dim);font-family:'JetBrains Mono',monospace}
+
+    /* Update banner */
+    .update-banner{
+      background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 20px;
+      margin-bottom:20px;display:flex;align-items:center;gap:14px;justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .update-banner .ub-left{display:flex;align-items:center;gap:10px}
+    .update-banner .ub-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+    .update-banner .ub-dot.live{background:var(--green);animation:pulse 2s infinite}
+    .update-banner .ub-dot.loading{background:var(--orange);animation:pulse 1s infinite}
+    .update-banner .ub-dot.error{background:var(--red)}
+    .update-banner .ub-text{font-size:13px;color:var(--text2)}
+    .update-banner .ub-text strong{color:var(--text)}
+    .update-banner .ub-time{font-size:12px;color:var(--dim);font-family:'JetBrains Mono',monospace}
+    .update-banner .ub-btn{
+      background:var(--bg2);border:1px solid var(--border);padding:6px 14px;border-radius:8px;
+      font-size:12px;cursor:pointer;color:var(--text2);transition:all .15s;
+    }
+    .update-banner .ub-btn:hover{border-color:var(--purple);color:var(--purple)}
+
+    /* New release card */
+    .release-card{
+      background:var(--pink-bg);border:1px solid var(--pink-border);border-radius:12px;
+      padding:16px 20px;margin-bottom:16px;
+    }
+    .release-card h3{font-size:14px;font-weight:700;color:var(--pink);margin-bottom:6px}
+    .release-card p{font-size:13px;color:var(--text2);line-height:1.6}
+    .release-card ul{padding-left:18px;margin-top:8px}
+    .release-card li{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:2px}
+
+    /* Cheat sheet tables */
+    .cheat-table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0}
+    .cheat-table th{text-align:left;padding:8px 12px;font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid var(--border)}
+    .cheat-table td{padding:8px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+    .cheat-table tr:last-child td{border-bottom:none}
+    .cheat-table tr:hover td{background:var(--bg2)}
+    .cheat-table kbd{
+      font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;
+      background:var(--bg2);border:1px solid var(--border);border-radius:4px;
+      padding:2px 6px;white-space:nowrap;
+    }
+    .cheat-table .cmd{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--purple);font-weight:500}
+    .cheat-section{margin:28px 0 8px;font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px}
+
+    footer{text-align:center;padding:40px 20px;border-top:1px solid var(--border);font-size:12px;color:var(--dim)}
+    footer a{color:var(--purple);text-decoration:none}
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="header-inner">
+      <h1>⚡ Claude Code <span>꿀팁</span></h1>
+      <span class="version" id="currentVersion">최신 버전 확인중...</span>
+    </div>
+    <div class="tabs">
+      <div class="tab active" data-tab="new">🆕 최신 기능<span class="new-dot"></span></div>
+      <div class="tab" data-tab="cheat">⌨️ 치트시트</div>
+      <div class="tab" data-tab="dev">💻 개발 꿀팁</div>
+      <div class="tab" data-tab="hooks">🪝 Hooks</div>
+      <div class="tab" data-tab="agent">🤖 에이전트</div>
+      <div class="tab" data-tab="mcp">🔌 MCP</div>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+
+<!-- ==================== 최신 기능 ==================== -->
+<div class="panel active" id="panel-new">
+
+<div class="update-banner" id="updateBanner">
+  <div class="ub-left">
+    <div class="ub-dot live" id="updateDot"></div>
+    <div class="ub-text" id="updateText">1시간마다 새 릴리즈를 자동 확인합니다</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px">
+    <span class="ub-time" id="updateTime">다음 확인: --:--</span>
+    <button class="ub-btn" onclick="checkForUpdates()">지금 확인</button>
+  </div>
+</div>
+
+<div id="newReleases"></div>
+
+<div class="section-head">
+  <h2>최근에 나온 것들</h2>
+  <p>이게 뭔데? 싶었던 기능들, 최신순으로 정리합니다</p>
+</div>
+
+<!-- 1. Auto Mode — 2026.03.24 -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🤖</span>
+    <div class="card-title">
+      <h3>Auto Mode — 권한 승인 자동화 (안전하게)<span class="new-dot"></span></h3>
+      <p>매번 "허용하시겠습니까?" 누르는 거 귀찮았죠? 위험한 것만 막고 나머지는 자동 승인.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-red">어제 나옴</span><span class="date">2026.03.24</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>기존 권한 모드와 뭐가 다른데?</h4>
+    <ul>
+      <li><strong>Normal</strong> = 매번 물어봄 (안전하지만 귀찮음)</li>
+      <li><strong>Auto-Accept</strong> = 전부 자동 승인 (편하지만 위험)</li>
+      <li><strong>Auto Mode (NEW)</strong> = 중간 지점. <strong>분류기(classifier)가 매 도구 호출을 검사</strong>해서 위험한 것만 차단</li>
+    </ul>
+    <h4>차단하는 것들</h4>
+    <ul>
+      <li>대량 파일 삭제 / 데이터 유출 시도</li>
+      <li>악성 코드 실행</li>
+      <li>시스템 설정 변경</li>
+    </ul>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 켜는 법</span>
+<span class="c-b">Shift+Tab</span> 으로 모드 전환 → Auto 선택
+<span class="c-d"># 또는 CLI에서</span>
+<span class="c-b">claude</span> <span class="c-o">--permission-mode auto</span></pre>
+    <div class="callout callout-warn">
+      <span class="callout-icon">⚠️</span>
+      <span>샌드박스 환경에서 쓰는 걸 권장. Sonnet 4.6 / Opus 4.6만 지원. 현재 Teams 먼저, Enterprise/API는 곧.</span>
+    </div>
+  </div>
+</div>
+
+<!-- 1-2. Computer Use — 2026.03.24 -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🖱️</span>
+    <div class="card-title">
+      <h3>Computer Use — Claude가 직접 마우스 움직이고 클릭하는 거<span class="new-dot"></span></h3>
+      <p>진짜로 화면 보고 → 마우스 이동 → 클릭 → 타이핑까지. 사람이 쓰듯이 앱을 조작.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-red">어제 나옴</span><span class="date">2026.03.24 · Desktop</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 뭔데?</h4>
+    <p>Claude가 화면을 <strong>스크린샷으로 계속 캡처</strong>하면서, 어디를 클릭하고 뭘 타이핑할지 판단합니다. 말 그대로 사람이 컴퓨터 쓰는 것처럼 앱을 조작합니다.</p>
+
+    <h4>작동 우선순위 (3단계)</h4>
+    <ul>
+      <li><strong>1순위: Connector</strong> — Gmail, Slack, Calendar 등 API가 있으면 직접 연결 (가장 빠름)</li>
+      <li><strong>2순위: 브라우저</strong> — API 없으면 Chrome 열어서 웹 UI 조작</li>
+      <li><strong>3순위: 화면 제어</strong> — 둘 다 안 되면 마우스+키보드로 직접 조작 (이게 마우스 움직이는 거)</li>
+    </ul>
+
+    <h4>실제로 할 수 있는 것들</h4>
+    <ul>
+      <li>Mac 앱 열어서 버튼 클릭, 폼 입력, 메뉴 탐색</li>
+      <li>폰 시뮬레이터 열어서 개발한 앱 UX 테스트</li>
+      <li>여러 소스에서 데이터 모아서 스프레드시트 채우기</li>
+      <li>API 없는 내부 대시보드/레거시 툴 조작</li>
+      <li>IDE에서 코드 수정 → 테스트 실행 → PR 제출</li>
+    </ul>
+
+    <h4>2024년 베타 vs 지금</h4>
+    <table style="width:100%;font-size:12px;border-collapse:collapse;margin:12px 0">
+      <tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:8px;color:var(--dim)"></th><th style="text-align:left;padding:8px;color:var(--dim)">2024.10 베타</th><th style="text-align:left;padding:8px;color:var(--dim)">2026.03 지금</th></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px;font-weight:600">설치</td><td style="padding:8px">Docker 컨테이너, 개발자 세팅 필요</td><td style="padding:8px;color:var(--green)">Desktop 앱에서 토글 켜기만 하면 끝</td></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px;font-weight:600">정확도</td><td style="padding:8px">OSWorld 22% (작은 버튼 자주 미스클릭)</td><td style="padding:8px;color:var(--green)">OSWorld 72.5% + Zoom Action으로 정밀 클릭</td></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px;font-weight:600">플랫폼</td><td style="padding:8px">Linux Docker</td><td style="padding:8px;color:var(--green)">네이티브 macOS</td></tr>
+      <tr><td style="padding:8px;font-weight:600">모바일</td><td style="padding:8px">불가</td><td style="padding:8px;color:var(--green)">Dispatch로 폰에서 트리거 가능</td></tr>
+    </table>
+
+    <h4>켜는 법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># Claude Desktop 앱에서:</span>
+Settings → General → <span class="c-g">Computer Use 토글 ON</span>
+
+<span class="c-d"># 앱별로 권한 요청이 뜸 (허용/차단 선택)</span></pre>
+
+    <div class="callout callout-warn">
+      <span class="callout-icon">⚠️</span>
+      <span><strong>macOS만</strong> 지원 (Windows 곧). Pro ($20) 또는 Max ($200) 플랜 필요. 화면의 모든 것이 스크린샷으로 캡처되니 <strong>민감한 정보 주의</strong>. 투자/암호화폐 앱은 기본 차단.</span>
+    </div>
+  </div>
+</div>
+
+<!-- 3. Channels — 2026.03.20 -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📡</span>
+    <div class="card-title">
+      <h3>Channels — 외부에서 Claude 세션에 메시지를 "보내는" 기능<span class="new-dot"></span></h3>
+      <p>Telegram, Discord, CI 알림 등이 터미널로 바로 들어옴. Claude가 즉시 반응.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">실시간</span><span class="date">2026.03.20 · v2.1.81</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>기존 방식과 뭐가 다른데?</h4>
+    <ul>
+      <li><strong>MCP</strong> = Claude가 필요할 때 "가져오는" 것 (pull)</li>
+      <li><strong>Channels</strong> = 외부에서 Claude한테 "밀어넣는" 것 (push)</li>
+    </ul>
+    <p>예를 들어 CI 빌드가 실패하면 → 알림이 터미널에 바로 뜨고 → Claude가 에러 로그를 읽고 → 알아서 디버깅 시작합니다.</p>
+
+    <h4>실제 사용 예시: Telegram에서 코딩 지시하기</h4>
+    <p>커피 마시면서 폰으로 Telegram 메시지를 보내면, 내 컴퓨터에서 돌고 있는 Claude가 코드를 수정합니다.</p>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 1. Telegram 봇 만들기 (BotFather에서)</span>
+<span class="c-d"># 2. 플러그인 설치</span>
+<span class="c-p">/plugin install</span> telegram@claude-plugins-official
+
+<span class="c-d"># 3. 토큰 설정</span>
+<span class="c-p">/telegram:configure</span> &lt;봇-토큰&gt;
+
+<span class="c-d"># 4. Channels 켜고 시작</span>
+<span class="c-b">claude</span> <span class="c-o">--channels</span> plugin:telegram@claude-plugins-official
+
+<span class="c-d"># 5. Telegram에서 봇에게 메시지 → 페어링 코드 받기</span>
+<span class="c-p">/telegram:access pair</span> &lt;코드&gt;
+<span class="c-p">/telegram:access policy</span> allowlist  <span class="c-d"># 나만 허용</span></pre>
+
+    <div class="callout callout-tip">
+      <span class="callout-icon">💡</span>
+      <span>Channels는 세션이 켜져 있을 때만 작동합니다. 24/7 자동화가 필요하면 Scheduled Tasks를 쓰세요.</span>
+    </div>
+
+    <h4>이런 데 쓰면 좋음</h4>
+    <ul>
+      <li>CI 파이프라인 실패 → 자동 디버깅 시작</li>
+      <li>모니터링 알림 → Claude가 지표 확인 후 Slack에 보고</li>
+      <li>Telegram/Discord에서 폰으로 작업 지시</li>
+      <li>웹훅 → Claude 세션으로 이벤트 전달</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 2. /btw — 2026.03.10 -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">💬</span>
+    <div class="card-title">
+      <h3>/btw — 작업 중에 딴 질문 하기 (컨텍스트 안 더러워짐)</h3>
+      <p>Claude가 코딩하는 중에 궁금한 거 물어봐도 메인 대화에 안 섞임. 토큰도 절약.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-red">자주쓰임</span><span class="date">2026.03.10 · v2.1.72</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 중요한데?</h4>
+    <p>Claude가 열심히 코드 작성 중일 때 "아 이 라이브러리 최신 버전 뭐지?" 같은 질문을 하면, 그게 대화 기록에 쌓여서 컨텍스트가 낭비됩니다. <code>/btw</code>는 이걸 해결합니다:</p>
+    <ul>
+      <li>질문과 답변이 <strong>대화 기록에 안 남음</strong> → 토큰 절약 (최대 ~50%)</li>
+      <li>메인 작업이 <strong>계속 돌아감</strong> (백그라운드에서 중단 안 됨)</li>
+      <li>현재 대화 컨텍스트를 <strong>다 볼 수 있음</strong> (Claude가 읽은 코드 참조 가능)</li>
+    </ul>
+
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># Claude가 코딩 중일 때 그냥 입력:</span>
+<span class="c-p">/btw</span> <span class="c-g">이 프로젝트에서 쓰는 ORM이 뭐야?</span>
+<span class="c-p">/btw</span> <span class="c-g">React 19에서 useEffect 변경된 거 있어?</span>
+<span class="c-p">/btw</span> <span class="c-g">아까 수정한 함수 왜 그렇게 짠 거야?</span></pre>
+
+    <h4>제약사항</h4>
+    <ul>
+      <li><strong>읽기 전용</strong> — 파일 수정이나 명령어 실행은 불가</li>
+      <li><strong>1회성</strong> — 한 질문에 한 답변, 후속 대화 없음</li>
+      <li>프롬프트 캐시를 재사용해서 추가 비용 최소</li>
+    </ul>
+
+    <div class="callout callout-tip">
+      <span class="callout-icon">💡</span>
+      <span>긴 세션에서 잡다한 질문이 많을수록 효과 큼. "이거 뭐지?" 싶으면 무조건 <code>/btw</code>로 물어보세요.</span>
+    </div>
+  </div>
+</div>
+
+<!-- Dispatch — 2026.03.17 -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📱</span>
+    <div class="card-title">
+      <h3>Dispatch — 폰에서 "이거 해" 하면 컴퓨터가 알아서 실행<span class="new-dot"></span></h3>
+      <p>QR 코드 찍으면 폰↔데스크탑 연결. 밖에서 폰으로 지시하면 Computer Use로 자동 작업.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">Desktop</span><span class="tag tag-blue">+Computer Use</span><span class="date">2026.03.17</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 Remote Control이랑 뭐가 다른데?</h4>
+    <ul>
+      <li><strong>Remote Control</strong> = 다른 기기에서 터미널 세션을 이어받는 것</li>
+      <li><strong>Dispatch</strong> = 폰에서 <strong>새 작업을 던지면</strong> Desktop 앱이 자동으로 실행. Computer Use(마우스/키보드 제어)까지 사용 가능</li>
+    </ul>
+    <h4>어떻게 쓰는데?</h4>
+    <ul>
+      <li>Desktop 앱(Cowork) → QR 코드 스캔 → 폰과 페어링</li>
+      <li>폰에서 "이 기능 구현해줘" 메시지 전송</li>
+      <li>컴퓨터가 알아서 코딩 → 완료되면 폰으로 알림</li>
+    </ul>
+    <div class="callout callout-info">
+      <span class="callout-icon">ℹ️</span>
+      <span>컴퓨터는 켜져 있어야 합니다 (클라우드가 아닌 로컬 실행). Max ($100/월) 먼저 지원, Pro ($20/월) 곧 지원.</span>
+    </div>
+  </div>
+</div>
+
+<!-- MCP Elicitation — 2026.03.14 -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">💬</span>
+    <div class="card-title">
+      <h3>MCP Elicitation — MCP 서버가 중간에 질문하기</h3>
+      <p>MCP 도구 실행 도중에 사용자에게 추가 정보를 물어볼 수 있는 기능.</p>
+      <div class="card-tags"><span class="tag tag-blue">MCP</span><span class="date">2026.03.14 · v2.1.76</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <p>DB 마이그레이션 MCP 서버가 실행 중에 "이 테이블 삭제해도 되나요?" 같은 대화형 확인을 할 수 있습니다. 기존에는 한 번 실행되면 끝이었는데, 이제 중간에 인터랙션 가능.</p>
+  </div>
+</div>
+
+<!-- /context — 2026.03.12 -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📊</span>
+    <div class="card-title">
+      <h3>/context — 컨텍스트 사용량 시각화 + 최적화 제안</h3>
+      <p>컬러 그리드로 뭐가 컨텍스트를 많이 먹는지 보여주고, 줄이는 방법까지 알려줌.</p>
+      <div class="card-tags"><span class="tag tag-green">실용적</span><span class="date">2026.03.12 · v2.1.74</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-p">/context</span>
+<span class="c-d"># → 어떤 도구/메시지가 컨텍스트를 많이 차지하는지 시각화</span>
+<span class="c-d"># → 메모리 bloat, 용량 경고, 최적화 팁 제공</span></pre>
+  </div>
+</div>
+
+<!-- Code Review — 2026.03.09 -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔍</span>
+    <div class="card-title">
+      <h3>Code Review — 멀티 에이전트 PR 리뷰</h3>
+      <p>여러 에이전트가 동시에 PR을 리뷰. 버그, 보안, 리그레션 각각 전담.</p>
+      <div class="card-tags"><span class="tag tag-purple">멀티에이전트</span><span class="date">2026.03.09 · 플러그인</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <p>GitHub에 PR이 올라오면 자동으로 여러 에이전트를 파견해서 버그, 보안 취약점, 리그레션을 병렬 리뷰. GitHub Actions로 연동 가능.</p>
+  </div>
+</div>
+
+<!-- 1M Context — 2026.03.13 -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🧠</span>
+    <div class="card-title">
+      <h3>Opus 4.6 — 1M 토큰 컨텍스트 윈도우</h3>
+      <p>대규모 코드베이스를 한 세션에서 전부 분석 가능. Max/Team/Enterprise 플랜.</p>
+      <div class="card-tags"><span class="tag tag-purple">Opus 4.6</span><span class="date">2026.03.13 · v2.1.75</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <p>기존 200K에서 <strong>5배 확장</strong>. 중소규모 프로젝트 전체를 컨텍스트에 넣고 작업할 수 있습니다.</p>
+    <ul>
+      <li>Max / Team / Enterprise 플랜에서 사용 가능</li>
+      <li>v2.1.77에서 최대 출력 토큰도 64K (상한 128K)로 확장</li>
+    </ul>
+  </div>
+</div>
+
+<!-- HTTP Hooks — 2026.02.28 -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🌐</span>
+    <div class="card-title">
+      <h3>HTTP Hooks — 셸 명령 대신 웹훅으로 Hook 실행</h3>
+      <p>Hook을 URL로 POST 요청 보내는 방식으로도 사용 가능. 서버리스 연동에 편리.</p>
+      <div class="card-tags"><span class="tag tag-blue">Hooks</span><span class="date">2026.02.28 · v2.1.63</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <p>기존에는 Hook이 셸 명령어만 가능했는데, 이제 <strong>HTTP URL로 JSON POST</strong>도 됩니다. Lambda, Cloud Functions, 외부 서비스에 직접 연결 가능.</p>
+  </div>
+</div>
+
+<!-- Claude Code on Web — 2026.02.25 -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">☁️</span>
+    <div class="card-title">
+      <h3>Claude Code on the Web — 브라우저에서 바로 코딩</h3>
+      <p>claude.ai/code에서 터미널 없이 Claude Code 실행. 클라우드 환경.</p>
+      <div class="card-tags"><span class="tag tag-green">웹</span><span class="date">2026.02.25</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <p>로컬에 아무것도 설치하지 않아도 <strong>claude.ai/code</strong>에서 Claude Code를 실행할 수 있습니다. 클라우드 환경에서 돌아가니 긴 작업도 PC 안 켜도 됩니다.</p>
+  </div>
+</div>
+
+<!-- Sonnet 4.6 — 2026.02.17 -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">✨</span>
+    <div class="card-title">
+      <h3>Sonnet 4.6 — 새 기본 모델</h3>
+      <p>1M 컨텍스트, 확장 사고(thinking), 코딩/에이전틱 성능 향상. 기본 모델로 교체됨.</p>
+      <div class="card-tags"><span class="tag tag-purple">모델</span><span class="date">2026.02.17 · v2.1.45</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <p>Sonnet 4.5 대비 코딩 벤치마크 대폭 향상. <strong>1M 컨텍스트</strong> + <strong>확장 사고(Extended Thinking)</strong> 지원. Claude Code의 새 기본 모델.</p>
+  </div>
+</div>
+
+<!-- Auto Memory — 2026.02.05 -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🧠</span>
+    <div class="card-title">
+      <h3>Auto Memory — Claude가 알아서 기억하고 떠올리기</h3>
+      <p>프로젝트 규칙, 빌드 명령어, 디버깅 패턴 등을 자동으로 기록/재사용.</p>
+      <div class="card-tags"><span class="tag tag-orange">자동화</span><span class="date">2026.02.05 · v2.1.32</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <p>CLAUDE.md를 직접 작성하지 않아도 Claude가 작업하면서 <strong>자동으로 메모리를 기록</strong>합니다. 다음 세션에서 알아서 떠올려서 적용.</p>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-p">/memory</span>  <span class="c-d"># 자동 메모리 확인/편집/삭제</span></pre>
+  </div>
+</div>
+
+<!-- Plugin Marketplace — 2026.01.09 -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🧩</span>
+    <div class="card-title">
+      <h3>Plugin Marketplace — 플러그인 설치/관리</h3>
+      <p>커뮤니티가 만든 플러그인을 마켓에서 검색하고 한 줄로 설치.</p>
+      <div class="card-tags"><span class="tag tag-green">생태계</span><span class="date">2026.01.09 · v2.1.3</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-p">/plugin</span>  <span class="c-d"># 마켓플레이스 탐색, 설치, 활성화/비활성화</span>
+<span class="c-p">/reload-plugins</span>  <span class="c-d"># 재시작 없이 플러그인 변경사항 적용</span></pre>
+  </div>
+</div>
+
+<!-- /loop — 2026.03.07 -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔁</span>
+    <div class="card-title">
+      <h3>/loop — 반복 실행 (세션 내 cron)</h3>
+      <p>"5분마다 배포 상태 확인해" 같은 반복 작업을 세션 안에서 자동화.</p>
+      <div class="card-tags"><span class="tag tag-orange">자동화</span><span class="date">2026.03.07 · v2.1.71</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 기본 사용법</span>
+<span class="c-p">/loop 5m</span> <span class="c-g">배포 끝났는지 확인해</span>
+<span class="c-p">/loop 30m</span> <span class="c-g">PR 리뷰 상태 체크</span>
+<span class="c-p">/loop 1h</span> <span class="c-g">npm test 돌려서 flaky 테스트 잡아</span>
+<span class="c-p">/loop</span> <span class="c-g">빌드 확인해</span>  <span class="c-d"># 기본 10분 간격</span>
+
+<span class="c-d"># 다른 슬래시 명령어 반복 실행</span>
+<span class="c-p">/loop 20m /review-pr 1234</span>
+
+<span class="c-d"># 일회성 리마인더</span>
+<span class="c-g">3시에 릴리즈 브랜치 푸시하라고 알려줘</span>
+<span class="c-g">45분 후에 테스트 통과했는지 확인해</span></pre>
+
+    <ul>
+      <li>세션 닫으면 자동 종료 (영구 자동화는 <code>/schedule</code> 사용)</li>
+      <li>최대 50개 태스크, 3일 후 자동 만료</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 4. 예약 실행 — 2026.03.07 -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⏰</span>
+    <div class="card-title">
+      <h3>예약 실행 — 컴퓨터 꺼도 돌아가는 자동화</h3>
+      <p>/loop은 세션 안에서만. /schedule은 클라우드에서 24/7 실행됨.</p>
+      <div class="card-tags"><span class="tag tag-purple">클라우드</span><span class="date">2026.03.07 · v2.1.71</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>3가지 옵션 비교</h4>
+    <table style="width:100%;font-size:12px;border-collapse:collapse;margin:12px 0">
+      <tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:8px;color:var(--dim)">방식</th><th style="text-align:left;padding:8px;color:var(--dim)">실행 위치</th><th style="text-align:left;padding:8px;color:var(--dim)">PC 꺼도?</th><th style="text-align:left;padding:8px;color:var(--dim)">세션 닫아도?</th></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px;font-weight:600">/loop</td><td style="padding:8px">내 컴퓨터</td><td style="padding:8px;color:var(--red)">❌</td><td style="padding:8px;color:var(--red)">❌</td></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px;font-weight:600">Desktop 예약</td><td style="padding:8px">내 컴퓨터</td><td style="padding:8px;color:var(--red)">❌</td><td style="padding:8px;color:var(--green)">✅</td></tr>
+      <tr><td style="padding:8px;font-weight:600">/schedule (Cloud)</td><td style="padding:8px">Anthropic 클라우드</td><td style="padding:8px;color:var(--green)">✅</td><td style="padding:8px;color:var(--green)">✅</td></tr>
+    </table>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># Cron 표현식 예시</span>
+<span class="c-p">*/15 * * * *</span>    <span class="c-d"># 15분마다</span>
+<span class="c-p">0 9 * * *</span>       <span class="c-d"># 매일 오전 9시</span>
+<span class="c-p">0 9 * * 1-5</span>     <span class="c-d"># 평일 오전 9시</span>
+<span class="c-p">30 2 1 * *</span>      <span class="c-d"># 매월 1일 새벽 2:30</span></pre>
+  </div>
+</div>
+
+<!-- 5. Worktrees — 2026.02.19 -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🌳</span>
+    <div class="card-title">
+      <h3>Worktrees — 파일 충돌 없는 병렬 작업</h3>
+      <p>같은 레포에서 터미널 2개 열고 동시에 다른 기능 개발. Git worktree 기반.</p>
+      <div class="card-tags"><span class="tag tag-green">병렬</span><span class="date">2026.02.19 · v2.1.49</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 터미널 1: 기능 개발</span>
+<span class="c-b">claude</span> <span class="c-o">--worktree</span> <span class="c-g">feature-auth</span>
+<span class="c-d"># → .claude/worktrees/feature-auth/ 에 별도 복사본 생성</span>
+<span class="c-d"># → 브랜치: worktree-feature-auth</span>
+
+<span class="c-d"># 터미널 2: 버그 수정 (동시에!)</span>
+<span class="c-b">claude</span> <span class="c-o">--worktree</span> <span class="c-g">bugfix-123</span>
+<span class="c-d"># → 각자 독립된 파일, 충돌 없음</span></pre>
+    <ul>
+      <li>변경 없이 종료 → 워크트리 자동 삭제</li>
+      <li>변경 있으면 → 유지할지 물어봄</li>
+      <li><code>.gitignore</code>에 <code>.claude/worktrees/</code> 추가 권장</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 6. Fast Mode — 2026.02.07 -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⚡</span>
+    <div class="card-title">
+      <h3>Fast Mode — 같은 모델, 2.5배 빠른 응답</h3>
+      <p>모델이 바뀌는 게 아님! Opus 4.6 그대로인데 응답 속도만 빨라짐. 대신 비쌈.</p>
+      <div class="card-tags"><span class="tag tag-blue">속도</span><span class="date">2026.02.07 · v2.1.36</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>오해하기 쉬운 포인트</h4>
+    <ul>
+      <li>❌ "빠른 대신 멍청한 모델로 바뀐다" → 아닙니다. <strong>같은 Opus 4.6</strong></li>
+      <li>❌ "/effort low랑 같은 거 아냐?" → 다릅니다. effort는 사고 깊이를 줄이는 것, fast는 인프라 최적화</li>
+      <li>✅ 핵심: API 레벨에서 지연시간 최적화. 품질 동일, 속도 2.5배, 비용 상승</li>
+    </ul>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-p">/fast</span>   <span class="c-d"># 토글 on/off, 프롬프트에 ↯ 표시됨</span></pre>
+    <div class="callout callout-tip">
+      <span class="callout-icon">💡</span>
+      <span>세션 <strong>처음부터</strong> 켜세요. 중간에 켜면 이전 대화까지 비싼 요금이 적용됩니다.</span>
+    </div>
+  </div>
+</div>
+
+<!-- 7. Agent Teams — 2026.02.05 -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">👥</span>
+    <div class="card-title">
+      <h3>Agent Teams — Claude 여러 개가 팀으로 일하기</h3>
+      <p>리드 1명 + 팀원 N명이 각자 다른 파일을 동시 수정. 서로 대화도 함.</p>
+      <div class="card-tags"><span class="tag tag-pink">BETA</span><span class="tag tag-orange">실험적</span><span class="date">2026.02.05 · v2.1.32</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>기존 서브에이전트와 뭐가 다른데?</h4>
+    <ul>
+      <li><strong>서브에이전트</strong> = 리드가 시키면 하고 결과만 보고 (상하관계)</li>
+      <li><strong>Agent Teams</strong> = 팀원끼리 직접 대화하고 작업 목록을 공유 (협업)</li>
+    </ul>
+    <h4>켜는 법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-b">export</span> <span class="c-p">CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS</span>=<span class="c-g">1</span>
+<span class="c-b">claude</span></pre>
+    <h4>실제 사용 예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-g">"팀 만들어서 PR #142를 리뷰해줘.
+- 보안 전문가 1명
+- 성능 전문가 1명
+- 테스트 커버리지 체커 1명"</span></pre>
+    <div class="callout callout-warn">
+      <span class="callout-icon">⚠️</span>
+      <span>팀원 수만큼 토큰을 쓰니까 비용 주의. 3~5명이 적당하고, 파일 충돌 안 나게 각자 다른 파일을 맡기세요.</span>
+    </div>
+  </div>
+</div>
+
+<!-- 8. Chrome 통합 — 2026.01.02 -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🌐</span>
+    <div class="card-title">
+      <h3>Chrome 통합 — 터미널에서 브라우저 조종</h3>
+      <p>localhost:3000 열어서 버튼 클릭, 폼 입력, 콘솔 에러 확인까지 Claude가 대신.</p>
+      <div class="card-tags"><span class="tag tag-green">테스트</span><span class="tag tag-blue">자동화</span><span class="date">2026.01.02 · v2.0.72</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>설치</h4>
+    <ul>
+      <li>Chrome 확장 프로그램 "Claude in Chrome" 설치</li>
+      <li><code>claude --chrome</code> 으로 시작 (또는 <code>/chrome</code> → 기본 활성화)</li>
+    </ul>
+    <h4>이런 걸 할 수 있음</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 로컬 앱 테스트</span>
+<span class="c-g">"localhost:3000 열어서 로그인 폼에
+잘못된 이메일 넣어보고, 에러 메시지 뜨는지 확인해"</span>
+
+<span class="c-d"># 콘솔 디버깅</span>
+<span class="c-g">"대시보드 열고 콘솔에 에러 있는지 확인해"</span></pre>
+    <div class="callout callout-info">
+      <span class="callout-icon">ℹ️</span>
+      <span>내 브라우저의 로그인 상태를 그대로 사용합니다. Gmail, Notion 등 이미 로그인한 사이트에서 동작 가능.</span>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<!-- ==================== 치트시트 ==================== -->
+<div class="panel" id="panel-cheat">
+
+<div class="section-head">
+  <h2>명령어 & 단축키 치트시트</h2>
+  <p>매일 쓰는 것들 위주로 정리. 전부 외울 필요 없고 필요할 때 찾아 쓰세요.</p>
+</div>
+
+<!-- 매일 쓰는 핵심 -->
+<div class="cheat-section">⭐ 매일 쓰는 핵심</div>
+<table class="cheat-table">
+  <thead><tr><th>명령어</th><th>설명</th><th>언제 씀?</th></tr></thead>
+  <tbody>
+    <tr><td><span class="cmd">/btw</span> 질문</td><td>작업 중 사이드 질문 (대화 기록에 안 남음)</td><td>궁금한 거 물어볼 때마다</td></tr>
+    <tr><td><span class="cmd">/compact</span></td><td>대화 컨텍스트 압축</td><td>대화가 길어져서 느려질 때</td></tr>
+    <tr><td><span class="cmd">/cost</span></td><td>토큰 사용량 / 비용 확인</td><td>비용 체크할 때</td></tr>
+    <tr><td><span class="cmd">/rewind</span></td><td>코드를 이전 시점으로 복원 (대화는 유지)</td><td>Claude가 코드를 망쳤을 때</td></tr>
+    <tr><td><span class="cmd">/effort</span> low|high|auto</td><td>사고 깊이 조절</td><td>간단한 작업=low, 복잡한 거=high</td></tr>
+    <tr><td><span class="cmd">/model</span></td><td>모델 전환 (Opus/Sonnet/Haiku)</td><td>빠른 작업에 Sonnet, 복잡한 건 Opus</td></tr>
+    <tr><td><span class="cmd">/fast</span></td><td>같은 모델 2.5배 빠른 응답 (비용 증가)</td><td>급할 때</td></tr>
+    <tr><td><span class="cmd">/clear</span></td><td>대화 초기화</td><td>새 작업 시작할 때</td></tr>
+    <tr><td><span class="cmd">/diff</span></td><td>변경사항 diff 뷰어</td><td>뭐가 바뀌었는지 확인할 때</td></tr>
+    <tr><td><span class="cmd">/context</span></td><td>컨텍스트 사용량 시각화 + 최적화 팁</td><td>느려졌을 때 뭐가 무거운지 확인</td></tr>
+    <tr><td><span class="cmd">/copy</span></td><td>마지막 응답 클립보드 복사</td><td>결과물 복사할 때</td></tr>
+    <tr><td><span class="cmd">/export</span></td><td>대화 내용 텍스트로 저장</td><td>기록 남기고 싶을 때</td></tr>
+    <tr><td><span class="cmd">/branch</span></td><td>대화 분기 (실험용)</td><td>다른 접근법 시도할 때</td></tr>
+    <tr><td><kbd>!</kbd> 명령어</td><td>셸 명령 직접 실행 (Claude 안 거침)</td><td>npm test, git status 등 빠르게</td></tr>
+    <tr><td><kbd>@</kbd>파일경로</td><td>파일 참조 자동완성</td><td>특정 파일 언급할 때</td></tr>
+  </tbody>
+</table>
+
+<!-- 키보드 단축키 -->
+<div class="cheat-section">⌨️ 키보드 단축키</div>
+<table class="cheat-table">
+  <thead><tr><th>단축키</th><th>설명</th></tr></thead>
+  <tbody>
+    <tr><td><kbd>Ctrl+C</kbd></td><td>생성 중단 / 입력 취소</td></tr>
+    <tr><td><kbd>Ctrl+D</kbd></td><td>Claude Code 종료</td></tr>
+    <tr><td><kbd>Ctrl+L</kbd></td><td>터미널 화면 클리어 (대화는 유지)</td></tr>
+    <tr><td><kbd>Ctrl+V</kbd></td><td>클립보드 이미지 붙여넣기 (스크린샷→코드)</td></tr>
+    <tr><td><kbd>Ctrl+B</kbd></td><td>현재 작업 백그라운드로 보내기</td></tr>
+    <tr><td><kbd>Ctrl+T</kbd></td><td>태스크 목록 토글</td></tr>
+    <tr><td><kbd>Ctrl+O</kbd></td><td>상세 출력 토글 (도구 사용 내역 보기)</td></tr>
+    <tr><td><kbd>Ctrl+R</kbd></td><td>명령어 히스토리 검색</td></tr>
+    <tr><td><kbd>Ctrl+G</kbd></td><td>외부 에디터에서 프롬프트 편집</td></tr>
+    <tr><td><kbd>Ctrl+F</kbd> ×2</td><td>백그라운드 에이전트 전부 강제 종료</td></tr>
+    <tr><td><kbd>Esc Esc</kbd></td><td>/rewind 빠른 실행</td></tr>
+    <tr><td><kbd>Shift+Tab</kbd></td><td>권한 모드 전환 (Normal → Auto → Plan)</td></tr>
+    <tr><td><kbd>Alt+P</kbd> / <kbd>⌥P</kbd></td><td>모델 빠르게 전환</td></tr>
+    <tr><td><kbd>Alt+T</kbd> / <kbd>⌥T</kbd></td><td>확장 사고(thinking) 토글</td></tr>
+    <tr><td><kbd>Space</kbd> 길게</td><td>음성 입력 (Push-to-talk)</td></tr>
+    <tr><td><kbd>Shift+Enter</kbd></td><td>줄바꿈 (멀티라인 입력)</td></tr>
+    <tr><td><kbd>↑</kbd> / <kbd>↓</kbd></td><td>이전 입력 히스토리 탐색</td></tr>
+    <tr><td><kbd>\</kbd>+<kbd>Enter</kbd></td><td>줄바꿈 (모든 터미널에서 동작)</td></tr>
+  </tbody>
+</table>
+
+<!-- 슬래시 명령어 전체 -->
+<div class="cheat-section">/ 슬래시 명령어 — 세션 관리</div>
+<table class="cheat-table">
+  <thead><tr><th>명령어</th><th>설명</th></tr></thead>
+  <tbody>
+    <tr><td><span class="cmd">/resume</span></td><td>이전 세션 이어서 (이름/ID 또는 선택 화면)</td></tr>
+    <tr><td><span class="cmd">/branch</span> / <span class="cmd">/fork</span></td><td>현재 대화 분기점 생성 (실험용)</td></tr>
+    <tr><td><span class="cmd">/rename</span> 이름</td><td>세션 이름 변경 (프롬프트 바에 표시)</td></tr>
+    <tr><td><span class="cmd">/export</span></td><td>대화 내용 텍스트 파일로 저장</td></tr>
+    <tr><td><span class="cmd">/copy</span></td><td>마지막 응답 클립보드에 복사</td></tr>
+    <tr><td><span class="cmd">/context</span></td><td>컨텍스트 사용량 시각화 (컬러 그리드)</td></tr>
+    <tr><td><span class="cmd">/color</span> red|blue|...</td><td>세션별 프롬프트 바 색상 구분</td></tr>
+    <tr><td><span class="cmd">/stats</span></td><td>일일 사용량 시각화 (세션 수, 연속일 등)</td></tr>
+    <tr><td><span class="cmd">/desktop</span></td><td>CLI 세션을 Desktop 앱으로 이동</td></tr>
+    <tr><td><span class="cmd">/remote-control</span></td><td>다른 기기에서 세션 이어받기 (QR)</td></tr>
+  </tbody>
+</table>
+
+<div class="cheat-section">/ 슬래시 명령어 — 설정 & 도구</div>
+<table class="cheat-table">
+  <thead><tr><th>명령어</th><th>설명</th></tr></thead>
+  <tbody>
+    <tr><td><span class="cmd">/init</span></td><td>CLAUDE.md 자동 생성 (프로젝트 분석)</td></tr>
+    <tr><td><span class="cmd">/memory</span></td><td>CLAUDE.md 편집 + 자동 메모리 관리</td></tr>
+    <tr><td><span class="cmd">/mcp</span></td><td>MCP 서버 연결/관리</td></tr>
+    <tr><td><span class="cmd">/hooks</span></td><td>설정된 Hook 확인</td></tr>
+    <tr><td><span class="cmd">/permissions</span></td><td>도구별 권한 설정</td></tr>
+    <tr><td><span class="cmd">/agents</span></td><td>서브에이전트 설정 관리</td></tr>
+    <tr><td><span class="cmd">/skills</span></td><td>커스텀 명령어 목록</td></tr>
+    <tr><td><span class="cmd">/plugin</span></td><td>플러그인 설치/관리</td></tr>
+    <tr><td><span class="cmd">/chrome</span></td><td>Chrome 브라우저 통합 설정</td></tr>
+    <tr><td><span class="cmd">/vim</span></td><td>Vim 편집 모드 토글</td></tr>
+    <tr><td><span class="cmd">/theme</span></td><td>테마 변경 (라이트/다크/색맹 등)</td></tr>
+    <tr><td><span class="cmd">/keybindings</span></td><td>단축키 커스터마이징</td></tr>
+    <tr><td><span class="cmd">/doctor</span></td><td>설치 진단 (문제 해결)</td></tr>
+    <tr><td><span class="cmd">/release-notes</span></td><td>체인지로그 보기</td></tr>
+  </tbody>
+</table>
+
+<div class="cheat-section">/ 슬래시 명령어 — 자동화 & 리뷰</div>
+<table class="cheat-table">
+  <thead><tr><th>명령어</th><th>설명</th></tr></thead>
+  <tbody>
+    <tr><td><span class="cmd">/loop</span> 5m 작업</td><td>5분마다 반복 실행 (세션 내 cron)</td></tr>
+    <tr><td><span class="cmd">/schedule</span></td><td>클라우드 예약 실행 (24/7, PC 꺼도)</td></tr>
+    <tr><td><span class="cmd">/security-review</span></td><td>변경사항 보안 취약점 분석</td></tr>
+    <tr><td><span class="cmd">/simplify</span></td><td>코드 리뷰 & 최적화</td></tr>
+    <tr><td><span class="cmd">/pr-comments</span></td><td>GitHub PR 코멘트 가져오기</td></tr>
+    <tr><td><span class="cmd">/install-github-app</span></td><td>GitHub Actions 앱 설치</td></tr>
+    <tr><td><span class="cmd">/tasks</span></td><td>백그라운드 작업 목록 관리</td></tr>
+  </tbody>
+</table>
+
+<!-- CLI 플래그 -->
+<div class="cheat-section">🚀 CLI 실행 플래그 (자주 쓰는 것)</div>
+<table class="cheat-table">
+  <thead><tr><th>플래그</th><th>설명</th><th>예시</th></tr></thead>
+  <tbody>
+    <tr><td><kbd>-p</kbd> / <kbd>--print</kbd></td><td>비대화형 — 결과만 출력하고 종료</td><td><span class="cmd">claude -p "설명해"</span></td></tr>
+    <tr><td><kbd>-c</kbd> / <kbd>--continue</kbd></td><td>마지막 세션 이어서</td><td><span class="cmd">claude -c</span></td></tr>
+    <tr><td><kbd>-r</kbd> / <kbd>--resume</kbd></td><td>이름/ID로 세션 재개</td><td><span class="cmd">claude -r "auth-작업"</span></td></tr>
+    <tr><td><kbd>-w</kbd> / <kbd>--worktree</kbd></td><td>독립 워크트리에서 작업</td><td><span class="cmd">claude -w feature-x</span></td></tr>
+    <tr><td><kbd>-n</kbd> / <kbd>--name</kbd></td><td>세션 이름 지정</td><td><span class="cmd">claude -n "결제-구현"</span></td></tr>
+    <tr><td><kbd>--model</kbd></td><td>모델 지정</td><td><span class="cmd">claude --model sonnet</span></td></tr>
+    <tr><td><kbd>--allowedTools</kbd></td><td>허용할 도구 지정</td><td><span class="cmd">claude --allowedTools "Read,Glob"</span></td></tr>
+    <tr><td><kbd>--chrome</kbd></td><td>Chrome 통합 켜기</td><td><span class="cmd">claude --chrome</span></td></tr>
+    <tr><td><kbd>--channels</kbd></td><td>외부 푸시 알림 수신</td><td><span class="cmd">claude --channels plugin:telegram@...</span></td></tr>
+    <tr><td><kbd>--verbose</kbd></td><td>상세 로그 출력</td><td><span class="cmd">claude --verbose</span></td></tr>
+    <tr><td><kbd>--effort</kbd></td><td>사고 깊이 지정</td><td><span class="cmd">claude --effort high</span></td></tr>
+    <tr><td><kbd>--bare</kbd></td><td>최소 모드 (빠른 시작)</td><td><span class="cmd">claude --bare</span></td></tr>
+  </tbody>
+</table>
+
+<!-- 파이핑 -->
+<div class="cheat-section">🔗 파이프 & 조합 트릭</div>
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔗</span>
+    <div class="card-title">
+      <h3>입출력 파이프 활용법</h3>
+      <p>Claude를 Unix 명령어처럼 파이프에 끼워넣기</p>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 결과를 클립보드로</span>
+<span class="c-b">claude</span> <span class="c-o">-p</span> <span class="c-g">"이 함수 설명해"</span> | <span class="c-b">pbcopy</span>
+
+<span class="c-d"># 파일 내용을 입력으로</span>
+<span class="c-b">cat</span> error.log | <span class="c-b">claude</span> <span class="c-o">-p</span> <span class="c-g">"이 에러 분석해"</span>
+
+<span class="c-d"># PR diff 리뷰</span>
+<span class="c-b">gh</span> pr diff 42 | <span class="c-b">claude</span> <span class="c-o">-p</span> <span class="c-g">"코드 리뷰해"</span>
+
+<span class="c-d"># JSON 출력</span>
+<span class="c-b">claude</span> <span class="c-o">-p</span> <span class="c-g">"목록 만들어"</span> <span class="c-o">--output-format json</span>
+
+<span class="c-d"># 결과 파일 저장</span>
+<span class="c-b">claude</span> <span class="c-o">-p</span> <span class="c-g">"README 작성해"</span> > README.md</pre>
+  </div>
+</div>
+
+<!-- 빠른 참조 -->
+<div class="cheat-section">📁 설정 파일 위치</div>
+<table class="cheat-table">
+  <thead><tr><th>파일</th><th>용도</th></tr></thead>
+  <tbody>
+    <tr><td><kbd>~/.claude/settings.json</kbd></td><td>글로벌 설정 (hooks, permissions 등)</td></tr>
+    <tr><td><kbd>.claude/settings.json</kbd></td><td>프로젝트별 설정 (팀 공유)</td></tr>
+    <tr><td><kbd>CLAUDE.md</kbd></td><td>프로젝트 지시사항 (규칙, 명령어, 아키텍처)</td></tr>
+    <tr><td><kbd>~/.claude/rules/</kbd></td><td>글로벌 규칙 파일 디렉토리</td></tr>
+    <tr><td><kbd>.claude/rules/</kbd></td><td>프로젝트별 규칙 파일</td></tr>
+    <tr><td><kbd>~/.claude/keybindings.json</kbd></td><td>커스텀 키바인딩</td></tr>
+  </tbody>
+</table>
+
+</div>
+
+<!-- ==================== 개발 꿀팁 ==================== -->
+<div class="panel" id="panel-dev">
+
+<div class="section-head">
+  <h2>개발할 때 바로 쓰는 팁</h2>
+  <p>복사해서 바로 쓸 수 있는 실전 명령어와 워크플로우</p>
+</div>
+
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">💬</span>
+    <div class="card-title">
+      <h3>/btw로 토큰 아끼기</h3>
+      <p>코딩 중 잡질문은 /btw로 — 대화 기록에 안 쌓여서 토큰 50% 절약</p>
+      <div class="card-tags"><span class="tag tag-red">자주쓰임</span><span class="tag tag-pink">NEW</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># Claude가 작업 중일 때:</span>
+<span class="c-p">/btw</span> <span class="c-g">이 함수 뭐하는 거야?</span>
+<span class="c-p">/btw</span> <span class="c-g">prisma에서 soft delete 하는 법?</span>
+<span class="c-p">/btw</span> <span class="c-g">아까 왜 그 방식으로 구현했어?</span></pre>
+    <p>오버레이로 답변이 뜨고, 메인 작업은 계속 진행. 컨텍스트 오염 없음.</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔥</span>
+    <div class="card-title">
+      <h3>TS 에러 전부 자동으로 잡기</h3>
+      <p>tsc 돌리고 → 에러 읽고 → 고치고 → 다시 돌리기를 0 에러까지 반복</p>
+      <div class="card-tags"><span class="tag tag-red">자주쓰임</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-b">claude</span> <span class="c-o">-p</span> <span class="c-g">"tsc --noEmit 돌려서 에러 전부 확인하고 하나씩 수정해. 0개 될 때까지 반복"</span></pre>
+    <div class="callout callout-tip"><span class="callout-icon">💡</span><span>lint 에러도 동일하게 가능: <code>"pnpm lint 돌려서 에러 전부 수정해"</code></span></div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🧪</span>
+    <div class="card-title">
+      <h3>테스트 없는 파일 전부 찾아서 테스트 작성</h3>
+      <p>소스 파일과 테스트 파일을 대조해서, 빠진 것만 자동 생성</p>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-b">claude</span> <span class="c-o">-p</span> <span class="c-g">"src/ 파일 중 테스트가 없는 것을 찾아서 테스트 작성해. 기존 테스트 패턴 따라가"</span></pre>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📸</span>
+    <div class="card-title">
+      <h3>스크린샷 붙여넣기 → 코드</h3>
+      <p>디자인 캡처 Ctrl+V로 붙여넣으면 바로 구현</p>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 1. 디자인/스크린샷을 클립보드에 복사</span>
+<span class="c-d"># 2. Claude Code에서 Ctrl+V</span>
+<span class="c-d"># 3. 이렇게 입력:</span>
+<span class="c-g">"이 디자인 그대로 구현해. React + Tailwind. 반응형. 다크모드."</span></pre>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔄</span>
+    <div class="card-title">
+      <h3>프레임워크 마이그레이션</h3>
+      <p>Jest→Vitest, Express→Fastify 등 대규모 전환을 자동으로</p>
+      <div class="card-tags"><span class="tag tag-orange">대규모</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-b">claude</span> <span class="c-o">-p</span> <span class="c-g">"Jest 테스트를 Vitest로 전부 마이그레이션해.
+설정 파일도 바꾸고, 전부 통과하는지 확인해"</span></pre>
+    <p>실제로 50K 라인 프로젝트를 반나절 만에 마이그레이션했다는 사례 다수.</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔒</span>
+    <div class="card-title">
+      <h3>코드베이스 읽기 전용 탐색</h3>
+      <p>처음 보는 레포 파악할 때 — 실수로 수정 못하게 읽기 전용으로</p>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-b">claude</span> <span class="c-o">--allowedTools</span> <span class="c-g">"Read,Glob,Grep"</span>
+<span class="c-d"># 파일 읽기/검색만 가능, 수정/실행 불가</span></pre>
+    <div class="callout callout-tip"><span class="callout-icon">💡</span><span>"이 프로젝트 아키텍처 설명해줘" 하면 전체 구조를 분석해서 정리해줍니다.</span></div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⏪</span>
+    <div class="card-title">
+      <h3>실수했을 때 코드만 되돌리기</h3>
+      <p>/rewind — 대화는 유지하면서 파일만 이전 시점으로 복원 <span class="date">2025.09 · v2.0.0</span></p>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-p">/rewind</span>         <span class="c-d"># 시점 선택 화면 뜸</span>
+<span class="c-d"># 또는</span>
+<span class="c-p">Esc Esc</span>         <span class="c-d"># 더블탭으로 빠르게</span></pre>
+    <p>대화 컨텍스트는 남아있으니까 "아까 방식 말고 다르게 해봐" 가 바로 됩니다.</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">💰</span>
+    <div class="card-title">
+      <h3>토큰 절약법</h3>
+      <p>/effort로 사고 깊이 조절 + /compact로 컨텍스트 압축 <span class="date">/effort 2026.03.14 · v2.1.76</span></p>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-p">/effort low</span>     <span class="c-d"># 간단한 작업 (이름 바꾸기, 포맷팅 등)</span>
+<span class="c-p">/effort high</span>    <span class="c-d"># 복잡한 작업 (아키텍처, 디버깅)</span>
+<span class="c-p">/effort auto</span>    <span class="c-d"># Claude가 알아서 판단 (기본값)</span>
+<span class="c-p">/compact</span>        <span class="c-d"># 대화가 길어졌을 때 컨텍스트 압축</span>
+<span class="c-p">/cost</span>           <span class="c-d"># 현재 세션 토큰 사용량 확인</span></pre>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🎤</span>
+    <div class="card-title">
+      <h3>음성으로 코딩 지시</h3>
+      <p>Space 길게 누르면 음성 입력 시작. 타이핑이 귀찮을 때. <span class="date">2026.03.03 · v2.1.69</span></p>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># Space바 꾹 누르기 → 🎤 음성 입력 시작</span>
+<span class="c-g">"이 API 엔드포인트에 레이트 리미팅 추가하고,
+테스트도 작성해줘"</span>
+<span class="c-d"># Space바 놓기 → 입력 완료</span></pre>
+  </div>
+</div>
+
+</div>
+
+<!-- ==================== Hooks ==================== -->
+<div class="panel" id="panel-hooks">
+
+<div class="section-head">
+  <h2>Hooks 실전 레시피</h2>
+  <p>settings.json에 복사해서 바로 쓸 수 있는 Hook 설정들</p>
+</div>
+
+<div class="callout callout-info" style="margin-bottom:20px">
+  <span class="callout-icon">ℹ️</span>
+  <span><strong>Hook이 뭔데?</strong> — Claude가 특정 행동을 할 때 자동으로 실행되는 셸 명령어. "파일 수정하면 자동 포맷팅" 같은 자동화. <code>~/.claude/settings.json</code> 또는 프로젝트 <code>.claude/settings.json</code>에 설정. <span class="date" style="color:var(--dim)">2025.09~ · HTTP hooks 2026.03~</span></span>
+</div>
+
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">✨</span>
+    <div class="card-title">
+      <h3>파일 수정 후 자동 Prettier</h3>
+      <p>Claude가 파일을 수정할 때마다 자동으로 포맷팅</p>
+      <div class="card-tags"><span class="tag tag-red">자주쓰임</span><span class="tag tag-green">PostToolUse</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button>{
+  <span class="c-p">"hooks"</span>: {
+    <span class="c-g">"PostToolUse"</span>: [
+      {
+        <span class="c-b">"matcher"</span>: <span class="c-o">"Edit|Write"</span>,
+        <span class="c-b">"command"</span>: <span class="c-o">"npx prettier --write \"$FILE_PATH\""</span>
+      }
+    ]
+  }
+}</pre>
+    <div class="callout callout-tip"><span class="callout-icon">💡</span><span>Python이면 <code>"command": "black \"$FILE_PATH\""</code> 으로 바꾸세요.</span></div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">💬</span>
+    <div class="card-title">
+      <h3>작업 완료 → Slack 알림</h3>
+      <p>Claude가 내 입력을 기다릴 때 Slack으로 알림 전송</p>
+      <div class="card-tags"><span class="tag tag-purple">Notification</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button>{
+  <span class="c-p">"hooks"</span>: {
+    <span class="c-g">"Notification"</span>: [
+      {
+        <span class="c-b">"command"</span>: <span class="c-o">"curl -s -X POST \"$SLACK_WEBHOOK_URL\" -H 'Content-type: application/json' -d '{\"text\": \"🤖 Claude 작업 완료! 확인해주세요.\"}'"</span>
+      }
+    ]
+  }
+}</pre>
+    <p>긴 작업 시키고 딴 거 하다가 Slack 알림 받으면 돌아오면 됩니다.</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🚫</span>
+    <div class="card-title">
+      <h3>위험한 명령어 자동 차단</h3>
+      <p>rm -rf, DROP TABLE, --force 같은 위험 명령 실행 전 차단</p>
+      <div class="card-tags"><span class="tag tag-orange">PreToolUse</span><span class="tag tag-red">보안</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button>{
+  <span class="c-p">"hooks"</span>: {
+    <span class="c-g">"PreToolUse"</span>: [
+      {
+        <span class="c-b">"matcher"</span>: <span class="c-o">"Bash"</span>,
+        <span class="c-b">"command"</span>: <span class="c-o">"echo \"$COMMAND\" | grep -qE 'rm -rf|DROP TABLE|--force|git push.*-f' && echo 'BLOCKED: 위험한 명령어' && exit 1 || exit 0"</span>
+      }
+    ]
+  }
+}</pre>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📊</span>
+    <div class="card-title">
+      <h3>모든 도구 사용 로그 남기기</h3>
+      <p>Claude가 뭘 했는지 전부 기록 — 감사(audit) 목적</p>
+      <div class="card-tags"><span class="tag tag-blue">PostToolUse</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button>{
+  <span class="c-p">"hooks"</span>: {
+    <span class="c-g">"PostToolUse"</span>: [
+      {
+        <span class="c-b">"command"</span>: <span class="c-o">"echo \"$(date '+%H:%M:%S') [$TOOL_NAME] $FILE_PATH\" >> /tmp/claude-audit.log"</span>
+      }
+    ]
+  }
+}</pre>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🧪</span>
+    <div class="card-title">
+      <h3>커밋할 때마다 자동 테스트</h3>
+      <p>git commit 감지 → npm test 자동 실행</p>
+      <div class="card-tags"><span class="tag tag-green">PostToolUse</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button>{
+  <span class="c-p">"hooks"</span>: {
+    <span class="c-g">"PostToolUse"</span>: [
+      {
+        <span class="c-b">"matcher"</span>: <span class="c-o">"Bash(git commit)"</span>,
+        <span class="c-b">"command"</span>: <span class="c-o">"npm test 2>&1 | tail -5"</span>
+      }
+    ]
+  }
+}</pre>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🧠</span>
+    <div class="card-title">
+      <h3>컨텍스트 압축 전에 중요 규칙 재주입</h3>
+      <p>대화가 길어져서 압축될 때 핵심 규칙이 사라지지 않도록</p>
+      <div class="card-tags"><span class="tag tag-purple">PreCompact</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button>{
+  <span class="c-p">"hooks"</span>: {
+    <span class="c-g">"PreCompact"</span>: [
+      {
+        <span class="c-b">"command"</span>: <span class="c-o">"cat .claude/rules/critical.md"</span>
+      }
+    ]
+  }
+}</pre>
+    <p><code>.claude/rules/critical.md</code>에 절대 잊으면 안 되는 규칙을 적어두면, 압축 후에도 유지됩니다.</p>
+  </div>
+</div>
+
+</div>
+
+<!-- ==================== 에이전트 ==================== -->
+<div class="panel" id="panel-agent">
+
+<div class="section-head">
+  <h2>에이전트 활용법</h2>
+  <p>서브에이전트, Agent Teams, 파이프라인 자동화</p>
+</div>
+
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🏃</span>
+    <div class="card-title">
+      <h3>-p 플래그: 비대화형 실행</h3>
+      <p>스크립트나 CI에서 Claude를 명령어처럼 사용. 결과를 파이프 가능.</p>
+      <div class="card-tags"><span class="tag tag-red">자주쓰임</span><span class="tag tag-blue">자동화</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 결과를 클립보드로</span>
+<span class="c-b">claude</span> <span class="c-o">-p</span> <span class="c-g">"이 함수 설명해"</span> | <span class="c-b">pbcopy</span>
+
+<span class="c-d"># PR diff를 리뷰</span>
+<span class="c-b">gh</span> pr diff 42 | <span class="c-b">claude</span> <span class="c-o">-p</span> <span class="c-g">"코드 리뷰해"</span>
+
+<span class="c-d"># 여러 PR 일괄 리뷰</span>
+<span class="c-b">gh</span> pr list --json number -q '.[].number' | \
+  <span class="c-b">xargs</span> -I{} sh -c '<span class="c-b">gh</span> pr diff {} | <span class="c-b">claude</span> <span class="c-o">-p</span> <span class="c-g">"리뷰해"</span>'
+
+<span class="c-d"># GitHub Actions에서</span>
+- run: gh pr diff ${{ github.event.number }} | claude -p "보안 이슈 확인"</pre>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">👥</span>
+    <div class="card-title">
+      <h3>Agent Teams 실전 사용법</h3>
+      <p>병렬 코드 리뷰, 동시 리팩토링, 경쟁 방식 디버깅</p>
+      <div class="card-tags"><span class="tag tag-pink">BETA</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>1. 병렬 코드 리뷰</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-g">"팀 만들어. 3명:
+1) 보안 관점 리뷰어
+2) 성능 관점 리뷰어
+3) 테스트 커버리지 체커
+PR #142를 각자 리뷰하고 종합해줘"</span></pre>
+
+    <h4>2. 동시 리팩토링</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-g">"팀 만들어서 이 3개 모듈을 동시에 리팩토링해:
+- auth/ 담당 1명
+- api/ 담당 1명
+- database/ 담당 1명
+서로 인터페이스는 맞춰"</span></pre>
+
+    <h4>3. 경쟁 방식 디버깅</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-g">"이 버그를 2명이 각자 다른 가설로 디버깅해.
+결과 비교해서 맞는 쪽 채택"</span></pre>
+
+    <div class="callout callout-warn"><span class="callout-icon">⚠️</span><span>환경변수 <code>CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1</code> 필요. 팀원 간 파일 충돌 주의 — Worktree 병행 추천.</span></div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🌳</span>
+    <div class="card-title">
+      <h3>Worktree + Agent 조합</h3>
+      <p>각 에이전트에게 독립된 파일 복사본을 줘서 충돌 원천 차단</p>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 터미널 1: feature A</span>
+<span class="c-b">claude</span> <span class="c-o">--worktree</span> feature-a
+
+<span class="c-d"># 터미널 2: feature B (동시에)</span>
+<span class="c-b">claude</span> <span class="c-o">--worktree</span> feature-b
+
+<span class="c-d"># 각자 다른 브랜치에서 독립 작업 → 나중에 merge</span></pre>
+    <p>서브에이전트에도 worktree 적용 가능:</p>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 서브에이전트 설정 (frontmatter)</span>
+<span class="c-p">isolation</span>: <span class="c-g">worktree</span>  <span class="c-d"># 각 서브에이전트가 독립 워크트리에서 실행</span></pre>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📱</span>
+    <div class="card-title">
+      <h3>Remote Control — 어디서든 세션 이어받기</h3>
+      <p>CLI에서 시작한 작업을 폰이나 다른 PC에서 이어서 <span class="date">2026.02.24 · v2.1.51</span></p>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-p">/remote-control</span>  <span class="c-d"># QR 코드 생성</span>
+<span class="c-d"># → 다른 기기에서 스캔 → 동일 세션 이어받기</span>
+
+<span class="c-d"># 또는 Desktop 앱 연동</span>
+<span class="c-p">/desktop</span>  <span class="c-d"># CLI 세션을 Desktop 앱으로 이동</span></pre>
+  </div>
+</div>
+
+</div>
+
+<!-- ==================== MCP ==================== -->
+<div class="panel" id="panel-mcp">
+
+<div class="section-head">
+  <h2>MCP 실전 조합</h2>
+  <p>어떤 MCP 서버를 조합하면 뭘 할 수 있는지</p>
+</div>
+
+<div class="callout callout-info" style="margin-bottom:20px">
+  <span class="callout-icon">ℹ️</span>
+  <span><strong>MCP가 뭔데?</strong> — Claude가 외부 서비스(GitHub, Slack, DB 등)에 직접 접근할 수 있게 해주는 연결 규격. <code>/mcp</code> 명령어로 설치/관리.</span>
+</div>
+
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🎯</span>
+    <div class="card-title">
+      <h3>티켓 → PR 완전 자동화</h3>
+      <p>Linear + GitHub + Slack으로 풀 사이클</p>
+      <div class="card-tags"><span class="tag tag-red">인기 #1</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>필요한 MCP 서버</h4>
+    <ul>
+      <li><strong>Linear MCP</strong> — 티켓 읽기/상태 업데이트</li>
+      <li><strong>GitHub MCP</strong> — 브랜치/커밋/PR 관리</li>
+      <li><strong>Slack MCP</strong> — 팀 알림 전송</li>
+    </ul>
+    <h4>한 마디면 끝</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-g">"Linear FE-342 읽고, 구현하고, PR 만들고, Slack #frontend에 알려줘"</span></pre>
+    <p>Claude가 순서대로: 티켓 조회 → 브랜치 생성 → 코드 작성 → 테스트 → PR → Slack 알림 → Linear 상태 변경</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🎨</span>
+    <div class="card-title">
+      <h3>Figma → 코드 자동 구현</h3>
+      <p>Figma URL 붙여넣으면 프로젝트 스택에 맞게 컴포넌트 생성</p>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <ul><li><strong>Figma MCP</strong> — 디자인 컨텍스트, 스크린샷, 토큰 가져오기</li></ul>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># Figma URL을 그냥 붙여넣기</span>
+<span class="c-g">"https://figma.com/design/xxx?node-id=123
+이 컴포넌트를 우리 프로젝트에 맞게 구현해"</span></pre>
+    <p>Code Connect가 설정되어 있으면 기존 컴포넌트에 자동 매핑됩니다.</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🐛</span>
+    <div class="card-title">
+      <h3>Sentry 에러 → 자동 수정 PR</h3>
+      <p>프로덕션 에러를 감지하고 수정 코드를 자동으로 PR</p>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <ul>
+      <li><strong>Sentry MCP</strong> — 에러 로그/스택트레이스 읽기</li>
+      <li><strong>GitHub MCP</strong> — 수정 PR 생성</li>
+    </ul>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-g">"Sentry에서 최근 에러 중 가장 빈번한 거 확인하고,
+원인 분석해서 수정 PR 만들어"</span></pre>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🗄️</span>
+    <div class="card-title">
+      <h3>DB 분석 & 최적화</h3>
+      <p>스키마 읽기 → 느린 쿼리 분석 → 인덱스/마이그레이션 생성</p>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <ul><li><strong>PostgreSQL MCP</strong> (또는 MongoDB, Supabase)</li></ul>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-g">"DB 스키마 분석하고, 느린 쿼리 있는지 확인하고,
+필요한 인덱스 추천해서 마이그레이션 파일 만들어"</span></pre>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔍</span>
+    <div class="card-title">
+      <h3>MCP 서버 어디서 찾나요?</h3>
+      <p>10,000개+ 서버가 있는 디렉토리 모음</p>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <ul>
+      <li><strong>awesome-mcp-servers</strong> (GitHub) — 가장 포괄적인 큐레이션 목록</li>
+      <li><strong>MCP.so</strong> — 3,000+ 서버 검색엔진</li>
+      <li><strong>Smithery</strong> — 2,200+ 서버, 카테고리별 탐색</li>
+      <li><strong>MCPMarket.com</strong> — GitHub Stars 기준 Top 100 리더보드</li>
+      <li><strong>공식 MCP servers 레포</strong> — Anthropic 레퍼런스 구현체</li>
+    </ul>
+    <h4>인기 MCP Top 5</h4>
+    <table style="width:100%;font-size:12px;border-collapse:collapse;margin:12px 0">
+      <tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:8px;color:var(--dim)">#</th><th style="text-align:left;padding:8px;color:var(--dim)">이름</th><th style="text-align:left;padding:8px;color:var(--dim)">용도</th><th style="text-align:left;padding:8px;color:var(--dim)">Stars</th></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">1</td><td style="padding:8px;font-weight:600">GitHub MCP</td><td style="padding:8px">PR, 이슈, 코드 관리</td><td style="padding:8px">⭐ 5K+</td></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">2</td><td style="padding:8px;font-weight:600">Puppeteer MCP</td><td style="padding:8px">브라우저 자동화</td><td style="padding:8px">⭐ 3K+</td></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">3</td><td style="padding:8px;font-weight:600">PostgreSQL MCP</td><td style="padding:8px">DB 쿼리/스키마</td><td style="padding:8px">⭐ 2K+</td></tr>
+      <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">4</td><td style="padding:8px;font-weight:600">Slack MCP</td><td style="padding:8px">팀 알림/채널 읽기</td><td style="padding:8px">⭐ 1.5K+</td></tr>
+      <tr><td style="padding:8px">5</td><td style="padding:8px;font-weight:600">Figma MCP</td><td style="padding:8px">디자인 → 코드</td><td style="padding:8px">⭐ 1K+</td></tr>
+    </table>
+  </div>
+</div>
+
+</div>
+
+</div>
+</main>
+
+<footer>
+  <p>Claude Code 꿀팁 모음 · 2026-03-24 · <a href="https://code.claude.com/docs" target="_blank">공식 문서</a></p>
+</footer>
+
+<script>
+function toggle(header) {
+  header.closest('.card').classList.toggle('open');
+}
+
+function copyCode(btn) {
+  const pre = btn.closest('pre');
+  const text = pre.innerText.replace('복사','').replace('✓ 복사됨','').trim();
+  navigator.clipboard.writeText(text);
+  btn.textContent = '✓ 복사됨';
+  setTimeout(() => btn.textContent = '복사', 1500);
+}
+
+// Tab switching
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
+// ==================== AUTO UPDATE ====================
+const KNOWN_VERSION = 'v2.1.81'; // 현재 페이지에 반영된 버전
+const CHECK_INTERVAL = 60 * 60 * 1000; // 1시간
+let nextCheckTime = Date.now() + CHECK_INTERVAL;
+let lastSeenVersion = localStorage.getItem('cc-last-version') || KNOWN_VERSION;
+
+// CORS 프록시 목록 (로컬 HTML에서 API 호출 시 필요)
+const CORS_PROXIES = [
+  url => url, // 직접 시도 먼저
+  url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+  url => `https://corsproxy.io/?${encodeURIComponent(url)}`,
+];
+
+async function fetchWithProxy(url) {
+  for (const proxy of CORS_PROXIES) {
+    try {
+      const res = await fetch(proxy(url), { signal: AbortSignal.timeout(8000) });
+      if (res.ok) return res;
+    } catch(e) { continue; }
+  }
+  throw new Error('모든 소스에서 실패');
+}
+
+async function checkForUpdates() {
+  const dot = document.getElementById('updateDot');
+  const text = document.getElementById('updateText');
+  dot.className = 'ub-dot loading';
+  text.innerHTML = '확인중...';
+
+  try {
+    // 1. npm registry에서 최신 버전 확인
+    const npmRes = await fetchWithProxy('https://registry.npmjs.org/@anthropic-ai/claude-code/latest');
+    const npmData = await npmRes.json();
+    const latestVersion = 'v' + npmData.version;
+    document.getElementById('currentVersion').textContent = `최신: ${latestVersion}`;
+
+    // 2. GitHub releases에서 최근 릴리즈 노트 가져오기
+    const ghRes = await fetchWithProxy('https://api.github.com/repos/anthropics/claude-code/releases?per_page=5');
+    const releases = await ghRes.json();
+
+    // 3. 새 릴리즈가 있는지 확인
+    const newReleases = releases.filter(r =>
+      !r.prerelease && r.tag_name > lastSeenVersion
+    );
+
+    const container = document.getElementById('newReleases');
+
+    if (newReleases.length > 0) {
+      dot.className = 'ub-dot live';
+      text.innerHTML = `<strong>🆕 새 릴리즈 ${newReleases.length}개 발견!</strong> 최신: ${latestVersion}`;
+
+      container.innerHTML = newReleases.map(r => {
+        const date = new Date(r.published_at).toLocaleDateString('ko-KR');
+        // 릴리즈 노트에서 주요 항목 추출
+        const body = r.body || '';
+        const items = body
+          .split('\n')
+          .filter(l => l.match(/^[\-\*]\s/))
+          .slice(0, 8)
+          .map(l => l.replace(/^[\-\*]\s*/, '').replace(/\*\*/g, ''))
+          .map(l => `<li>${escapeHtml(l)}</li>`)
+          .join('');
+
+        return `
+          <div class="release-card">
+            <h3>🚀 ${escapeHtml(r.tag_name)} — ${date}</h3>
+            <p>${escapeHtml(r.name || '')}</p>
+            ${items ? `<ul>${items}</ul>` : ''}
+            <p style="margin-top:8px"><a href="${r.html_url}" target="_blank" style="color:var(--purple);text-decoration:none;font-size:12px">전체 릴리즈 노트 보기 →</a></p>
+          </div>
+        `;
+      }).join('');
+
+      localStorage.setItem('cc-last-version', newReleases[0].tag_name);
+    } else {
+      dot.className = 'ub-dot live';
+      text.innerHTML = `최신 상태입니다 · ${latestVersion}`;
+      container.innerHTML = '';
+    }
+
+    localStorage.setItem('cc-last-check', JSON.stringify({
+      time: Date.now(),
+      version: latestVersion,
+      releases: releases.slice(0, 5).map(r => ({
+        tag: r.tag_name,
+        name: r.name,
+        date: r.published_at,
+        url: r.html_url,
+        body: (r.body || '').slice(0, 500)
+      }))
+    }));
+
+  } catch (e) {
+    const dot = document.getElementById('updateDot');
+    const text = document.getElementById('updateText');
+    dot.className = 'ub-dot error';
+    text.innerHTML = `업데이트 확인 실패 (${e.message}). 1시간 후 재시도.`;
+  }
+
+  nextCheckTime = Date.now() + CHECK_INTERVAL;
+}
+
+function escapeHtml(s) {
+  if (!s) return '';
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// 카운트다운 업데이트
+setInterval(() => {
+  const diff = Math.max(0, nextCheckTime - Date.now());
+  const m = String(Math.floor(diff / 60000)).padStart(2, '0');
+  const s = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
+  const el = document.getElementById('updateTime');
+  if (el) el.textContent = `다음 확인: ${m}:${s}`;
+}, 1000);
+
+// 캐시 확인 후 첫 로드
+(function init() {
+  try {
+    const cache = JSON.parse(localStorage.getItem('cc-last-check'));
+    if (cache && Date.now() - cache.time < CHECK_INTERVAL) {
+      document.getElementById('currentVersion').textContent = `최신: ${cache.version}`;
+      document.getElementById('updateText').innerHTML = `최신 상태 · ${cache.version}`;
+      nextCheckTime = cache.time + CHECK_INTERVAL;
+      return;
+    }
+  } catch(e) {}
+  // 5초 후 첫 확인 (페이지 로드 방해 안하게)
+  setTimeout(checkForUpdates, 5000);
+})();
+
+// 1시간마다 반복
+setInterval(checkForUpdates, CHECK_INTERVAL);
+</script>
+
+</body>
+</html>

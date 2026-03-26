@@ -421,6 +421,46 @@ Settings → General → <span class="c-g">Computer Use 토글 ON</span>
   </div>
 </div>
 
+<!-- Remote Control — 2026.03.17 -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🎮</span>
+    <div class="card-title">
+      <h3>Remote Control — 다른 기기에서 터미널 세션 이어받기<span class="new-dot"></span></h3>
+      <p>QR 코드 하나로 폰이나 다른 PC에서 현재 CLI 세션을 그대로 이어서 작업.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">멀티디바이스</span><span class="date">2026.03.17 · v2.1.79</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>Dispatch랑 뭐가 다른데?</h4>
+    <ul>
+      <li><strong>Remote Control</strong> = 현재 돌고 있는 CLI 세션을 다른 기기에서 <strong>그대로 이어받는</strong> 것 (같은 세션)</li>
+      <li><strong>Dispatch</strong> = 폰에서 <strong>새 작업을 던지는</strong> 것 (Desktop 앱 + Computer Use)</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># CLI에서 QR 코드 생성</span>
+<span class="c-p">/remote-control</span>
+
+<span class="c-d"># → QR 코드가 터미널에 표시됨</span>
+<span class="c-d"># → 폰이나 다른 PC에서 스캔</span>
+<span class="c-d"># → 동일 세션을 그대로 이어서 작업</span>
+
+<span class="c-d"># CLI → Desktop 앱으로 이동도 가능</span>
+<span class="c-p">/desktop</span></pre>
+    <h4>이럴 때 씀</h4>
+    <ul>
+      <li>회사에서 시작한 작업을 집에서 이어하기</li>
+      <li>터미널 작업을 Desktop 앱으로 옮겨서 더 편하게 보기</li>
+      <li>긴 작업 걸어두고 폰으로 진행 상황 확인 + 지시</li>
+    </ul>
+    <div class="callout callout-tip">
+      <span class="callout-icon">💡</span>
+      <span>세션이 살아있는 동안만 연결 가능. <code>/clear</code> 하면 끊깁니다.</span>
+    </div>
+  </div>
+</div>
+
 <!-- MCP Elicitation — 2026.03.14 -->
 <div class="card">
   <div class="card-header" onclick="toggle(this)">

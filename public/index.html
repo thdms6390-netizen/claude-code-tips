@@ -1713,7 +1713,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 const KNOWN_VERSION = 'v2.1.82'; // 테스트용 임시 낮춤
 const CHECK_INTERVAL = 60 * 60 * 1000; // 1시간
 let nextCheckTime = Date.now() + CHECK_INTERVAL;
-let lastSeenVersion = localStorage.getItem('cc-last-version') || KNOWN_VERSION;
+let lastSeenVersion = KNOWN_VERSION;
 
 // CORS 프록시 목록 (로컬 HTML에서 API 호출 시 필요)
 const CORS_PROXIES = [
@@ -1782,8 +1782,6 @@ async function checkForUpdates() {
           </div>
         `;
       }).join('');
-
-      localStorage.setItem('cc-last-version', newReleases[0].tag_name);
 
       // 서버리스 함수로 한국어 기능 카드 자동 생성
       generateFeatureCards(newReleases);

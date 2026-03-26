@@ -1787,6 +1787,9 @@ async function checkForUpdates() {
 
       // 서버리스 함수로 한국어 기능 카드 자동 생성
       generateFeatureCards(newReleases);
+
+      // GitHub Action 트리거 → 전체 유저에게 영구 반영
+      fetch('/api/trigger-update', { method: 'POST' }).catch(() => {});
     } else {
       dot.className = 'ub-dot live';
       text.innerHTML = `최신 상태 · ${latestVersion}`;

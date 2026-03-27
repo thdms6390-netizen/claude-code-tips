@@ -1536,12 +1536,19 @@ document.querySelectorAll('.date-relative').forEach(el => {
     var age = now - d.getTime();
     var isRecent = age <= ONE_WEEK;
 
-    // NEW 태그: 1주일 지나면 숨김
-    if (!isRecent) {
+    if (isRecent) {
+      // 1주일 이내: 제목에 dot 없으면 추가
+      var h3 = card.querySelector('h3');
+      if (h3 && !h3.querySelector('.new-dot')) {
+        var dot = document.createElement('span');
+        dot.className = 'new-dot';
+        h3.appendChild(dot);
+      }
+    } else {
+      // 1주일 지남: NEW 태그, new-dot 숨김
       card.querySelectorAll('.tag-pink').forEach(function(tag) {
         if (tag.textContent.trim() === 'NEW') tag.style.display = 'none';
       });
-      // new-dot도 숨김
       card.querySelectorAll('.new-dot').forEach(function(dot) { dot.style.display = 'none'; });
     }
 

@@ -209,7 +209,7 @@
       </div>
     </div>
     <div class="tabs">
-      <div class="tab active" data-tab="new">최신 기능<span class="new-dot"></span></div>
+      <div class="tab active" data-tab="new">최신 기능</div>
       <div class="tab" data-tab="cheat">치트시트</div>
       <div class="tab" data-tab="news">소식</div>
     </div>
@@ -1209,6 +1209,26 @@ Settings → General → <span class="c-g">Computer Use 토글 ON</span>
   <p>Claude Code 관련 공식 발표, 인수, 파트너십 소식 모음</p>
 </div>
 
+<!-- /compact 버그 수정 — 2026.03.26 -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔧</span>
+    <div class="card-title">
+      <h3>/compact 대화 길어지면 터지던 버그 수정</h3>
+      <p>대화가 너무 길어지면 /compact 자체가 "context exceeded"로 실패하던 문제가 해결됨.</p>
+      <div class="card-tags"><span class="tag tag-red">버그 수정</span><span class="tag tag-purple">CLI</span><span class="date">2026.03.26 · v2.1.85</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 문제였냐면</h4>
+    <p>대화가 길어져서 컨텍스트 정리하려고 <code>/compact</code> 쳤는데, 정작 compact 요청 자체가 컨텍스트에 안 들어가서 "context exceeded" 에러가 나던 상황. 정리하려는데 정리가 안 되는 아이러니였음.</p>
+    <h4>이제는</h4>
+    <p>대화가 아무리 길어도 <code>/compact</code>가 정상 동작함. 긴 세션 자주 쓰는 사람한테는 꽤 중요한 수정.</p>
+    <p><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.85" target="_blank">릴리즈 노트 →</a></p>
+  </div>
+</div>
+
 <!-- Enabling Claude Code to work more autonomously — 2026.03.02 -->
 <div class="card">
   <div class="card-header" onclick="toggle(this)">
@@ -1489,6 +1509,64 @@ document.querySelectorAll('.date-relative').forEach(el => {
   else if (diff <= 30) el.textContent = `${Math.floor(diff / 7)}주 전`;
   else el.textContent = `${Math.floor(diff / 30)}달 전`;
 });
+
+// 1주일 기준 NEW 태그 및 new-dot 자동 관리
+(function(){
+  const ONE_WEEK = 7 * 86400000;
+  const now = Date.now();
+
+  function parseCardDate(dateText) {
+    // "2026.03.25", "2025. 3. 26." 등 다양한 형식 처리
+    const clean = dateText.split('·')[0].trim().replace(/\s/g, '').replace(/\.$/,'');
+    const parts = clean.split('.');
+    if (parts.length >= 3) {
+      return new Date(parts[0], parts[1] - 1, parts[2]);
+    }
+    return new Date(clean.replace(/\./g, '-'));
+  }
+
+  // 각 패널별로 1주일 이내 카드가 있는지 추적
+  var panelHasRecent = {};
+
+  document.querySelectorAll('.card').forEach(function(card) {
+    var dateEl = card.querySelector('.date');
+    if (!dateEl) return;
+    var d = parseCardDate(dateEl.textContent);
+    if (isNaN(d)) return;
+    var age = now - d.getTime();
+    var isRecent = age <= ONE_WEEK;
+
+    // NEW 태그: 1주일 지나면 숨김
+    if (!isRecent) {
+      card.querySelectorAll('.tag-pink').forEach(function(tag) {
+        if (tag.textContent.trim() === 'NEW') tag.style.display = 'none';
+      });
+      // new-dot도 숨김
+      card.querySelectorAll('.new-dot').forEach(function(dot) { dot.style.display = 'none'; });
+    }
+
+    // 소속 패널 찾기
+    if (isRecent) {
+      var panel = card.closest('.panel');
+      if (panel) panelHasRecent[panel.id] = true;
+    }
+  });
+
+  // 탭에 dot 표시
+  document.querySelectorAll('.tab').forEach(function(tab) {
+    var tabName = tab.getAttribute('data-tab');
+    var panelId = 'panel-' + tabName;
+    // 기존 하드코딩된 new-dot 제거
+    var existingDot = tab.querySelector('.new-dot');
+    if (existingDot) existingDot.remove();
+    // 1주일 이내 카드 있으면 dot 추가
+    if (panelHasRecent[panelId]) {
+      var dot = document.createElement('span');
+      dot.className = 'new-dot';
+      tab.appendChild(dot);
+    }
+  });
+})();
 
 // 현재 버전 표시
 document.getElementById('currentVersion').textContent = KNOWN_VERSION;

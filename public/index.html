@@ -17,8 +17,7 @@
       --pink:#db2777; --pink-bg:#fdf2f8; --pink-border:#fbcfe8;
       --red:#dc2626; --red-bg:#fef2f2; --red-border:#fecaca;
     }
-    @media(prefers-color-scheme:dark){
-      :root {
+    [data-theme="dark"] {
         --bg:#0a0a0a; --bg2:#141414; --card:#1a1a1a; --border:#2a2a2a; --border2:#3a3a3a;
         --text:#e5e5e5; --text2:#a3a3a3; --dim:#525252;
         --purple-bg:#1a0a2e; --purple-border:#3b1d6e;
@@ -27,7 +26,6 @@
         --orange-bg:#1a1000; --orange-border:#5c3d00;
         --pink-bg:#2a0a1e; --pink-border:#6e1d4e;
         --red-bg:#1a0a0a; --red-border:#5c1d1d;
-      }
     }
     *{margin:0;padding:0;box-sizing:border-box}
     body{font-family:'Pretendard',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
@@ -171,9 +169,21 @@
     .cheat-table .cmd{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--purple);font-weight:500}
     .cheat-section{margin:28px 0 8px;font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px}
 
+    /* Theme toggle */
+    .theme-toggle{
+      background:var(--bg2);border:1px solid var(--border);border-radius:8px;
+      padding:5px 10px;cursor:pointer;font-size:16px;line-height:1;
+      transition:all .15s;color:var(--text2);display:flex;align-items:center;gap:6px;
+    }
+    .theme-toggle:hover{border-color:var(--purple);color:var(--purple)}
+    .header-right{display:flex;align-items:center;gap:10px}
+
     footer{text-align:center;padding:40px 20px;border-top:1px solid var(--border);font-size:12px;color:var(--dim)}
     footer a{color:var(--purple);text-decoration:none}
   </style>
+  <script>
+    (function(){var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t)})();
+  </script>
 </head>
 <body>
 
@@ -181,7 +191,10 @@
   <div class="wrap">
     <div class="header-inner">
       <h1>⚡ Claude Code <span>Note</span></h1>
-      <span class="version" id="currentVersion">최신 버전 확인중...</span>
+      <div class="header-right">
+        <span class="version" id="currentVersion">최신 버전 확인중...</span>
+        <button class="theme-toggle" id="themeToggle" title="다크/라이트 모드 전환">🌙</button>
+      </div>
     </div>
     <div class="tabs">
       <div class="tab active" data-tab="new">최신 기능<span class="new-dot"></span></div>
@@ -1365,6 +1378,25 @@ Settings → General → <span class="c-g">Computer Use 토글 ON</span>
 </footer>
 
 <script>
+// 다크/라이트 모드 토글
+(function(){
+  const toggle = document.getElementById('themeToggle');
+  const saved = localStorage.getItem('theme');
+  if (saved) {
+    document.documentElement.setAttribute('data-theme', saved);
+    toggle.textContent = saved === 'dark' ? '☀️' : '🌙';
+  } else {
+    toggle.textContent = '🌙';
+  }
+  toggle.addEventListener('click', function(){
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    toggle.textContent = next === 'dark' ? '☀️' : '🌙';
+  });
+})();
+
 function toggle(header) {
   header.closest('.card').classList.toggle('open');
 }

@@ -212,6 +212,67 @@
   <p>이게 뭔데? 싶었던 기능들, 최신순으로 정리합니다</p>
 </div>
 
+<!-- Hooks 조건부 실행 — 2025. 3. 26. -->
+<div class="card featured">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🎯</span>
+    <div class="card-title">
+      <h3>Hooks 조건부 실행 — 원하는 상황에서만 훅 발동<span class="new-dot"></span></h3>
+      <p>훅에 <code>if</code> 조건을 달아서 특정 명령어에서만 실행되게 할 수 있음. 불필요한 프로세스 낭비 없이 훅을 정교하게 제어 가능.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">Hooks</span><span class="tag tag-green">실용적</span><span class="tag tag-red">자주쓰임</span><span class="date">2025. 3. 26. · v2.1.85</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 좋냐면</h4>
+    <p>기존엔 훅이 모든 상황에서 무조건 실행됐는데, 이제 <code>if</code> 필드로 조건을 걸 수 있음. 예를 들어 <code>git</code> 관련 명령어를 실행할 때만 훅이 발동되게 하거나, 특정 파일 작업에서만 동작하게 제한할 수 있는 거야. 쓸데없이 훅이 자꾸 뜨는 거 방지됨.</p>
+    <h4>설정 예시 (settings.json)</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># git 명령어 실행할 때만 이 훅이 발동됨</span>
+{
+  <span class="c-p">"hooks"</span>: {
+    <span class="c-p">"PreToolUse"</span>: [
+      {
+        <span class="c-g">"if"</span>: <span class="c-b">"Bash(git *)"</span>,
+        <span class="c-g">"command"</span>: <span class="c-o">"echo 'git 명령어 감지!'"</span>
+      }
+    ]
+  }
+}</pre>
+    <h4>조건 문법</h4>
+    <p>권한 규칙 문법을 그대로 사용함. <code>Bash(git *)</code>, <code>Write(src/**)</code> 같은 식으로 툴 이름 + 패턴으로 쓰면 됨.</p>
+  </div>
+</div>
+
+<!-- MCP headersHelper 멀티 서버 — 2025. 3. 26. -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔌</span>
+    <div class="card-title">
+      <h3>MCP headersHelper 멀티 서버 지원 — 하나의 헬퍼로 여러 서버 처리<span class="new-dot"></span></h3>
+      <p>MCP 헤더 헬퍼 스크립트에서 어느 서버에 연결 중인지 알 수 있게 됨. 서버마다 헬퍼를 따로 안 만들어도 돼.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-blue">MCP</span><span class="tag tag-purple">설정</span><span class="date">2025. 3. 26. · v2.1.85</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>추가된 환경변수</h4>
+    <ul>
+      <li><code>CLAUDE_CODE_MCP_SERVER_NAME</code> — 현재 연결 중인 MCP 서버 이름</li>
+      <li><code>CLAUDE_CODE_MCP_SERVER_URL</code> — 현재 연결 중인 MCP 서버 URL</li>
+    </ul>
+    <h4>활용 예시 (headersHelper 스크립트)</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 서버 이름에 따라 다른 토큰을 돌려줌</span>
+<span class="c-p">if</span> [ <span class="c-g">"$CLAUDE_CODE_MCP_SERVER_NAME"</span> = <span class="c-o">"my-api-server"</span> ]; <span class="c-p">then</span>
+  <span class="c-p">echo</span> <span class="c-g">'{"Authorization": "Bearer token-for-api"}'</span>
+<span class="c-p">else</span>
+  <span class="c-p">echo</span> <span class="c-g">'{"Authorization": "Bearer token-default"}'</span>
+<span class="c-p">fi</span></pre>
+    <p>MCP 서버 여러 개 운영 중이면 이제 헬퍼 하나로 다 처리할 수 있는 거야.</p>
+  </div>
+</div>
+
+
+
 <!-- Transcript Search — 2026.03.25 -->
 <div class="card">
   <div class="card-header" onclick="toggle(this)">
@@ -1328,7 +1389,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.84'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.85'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
 
 // 다음 업데이트 시간 (오전 9시 KST) 카운트다운

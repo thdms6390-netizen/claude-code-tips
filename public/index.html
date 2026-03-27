@@ -119,6 +119,18 @@
     .section-head h2{font-size:20px;font-weight:800}
     .section-head p{font-size:13px;color:var(--text2);margin-top:4px}
 
+    /* Section head row */
+    .section-head-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+    .section-head-row{align-items:flex-end}
+    .filter-check{
+      display:flex;align-items:center;gap:6px;cursor:pointer;
+      font-size:12px;font-weight:600;color:var(--text2);white-space:nowrap;flex-shrink:0;
+      user-select:none;margin-bottom:-1px;padding-bottom:12px;
+    }
+    .filter-check input{accent-color:var(--purple);width:14px;height:14px;cursor:pointer}
+    .filter-check:hover span{color:var(--purple)}
+    .card.hide-filtered{display:none}
+
     /* New badge */
     .new-dot{display:inline-block;width:7px;height:7px;background:var(--pink);border-radius:50%;margin-left:6px;vertical-align:middle}
 
@@ -221,8 +233,13 @@
 </div>
 
 <div class="section-head">
-  <h2>최근에 나온 것들</h2>
-  <p>이게 뭔데? 싶었던 기능들, 최신순으로 정리합니다</p>
+  <div class="section-head-row">
+    <div>
+      <h2>최근에 나온 것들</h2>
+      <p>이게 뭔데? 싶었던 기능들, 최신순으로 정리합니다</p>
+    </div>
+    <label class="filter-check" id="filterFeatured"><input type="checkbox"><span>추천만 보기</span></label>
+  </div>
 </div>
 
 <!-- Hooks 조건부 실행 — 2025. 3. 26. -->
@@ -1396,6 +1413,19 @@ Settings → General → <span class="c-g">Computer Use 토글 ON</span>
     toggle.textContent = next === 'dark' ? '☀️' : '🌙';
   });
 })();
+
+// 추천만 보기 필터
+document.querySelector('#filterFeatured input').addEventListener('change', function(){
+  const on = this.checked;
+  const panel = document.getElementById('panel-new');
+  panel.querySelectorAll('.card').forEach(function(card){
+    if (on && !card.classList.contains('featured')) {
+      card.classList.add('hide-filtered');
+    } else {
+      card.classList.remove('hide-filtered');
+    }
+  });
+});
 
 function toggle(header) {
   header.closest('.card').classList.toggle('open');

@@ -2,8 +2,8 @@ name: Update Feature Cards
 
 on:
   schedule:
-    # 매일 오후 5시, 10시 (KST) = UTC 8시, 13시
-    - cron: '17 8,13 * * *'
+    # 매일 오전 10시, 오후 5시 (KST) = UTC 1시, 8시
+    - cron: '17 1,8 * * *'
   workflow_dispatch: # 수동 실행도 가능
 
 permissions:

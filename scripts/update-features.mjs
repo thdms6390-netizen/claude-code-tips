@@ -293,7 +293,7 @@ async function generateCards(features) {
 5. 코드 블록 내 span 클래스: c-d(주석 회색), c-p(명령어 보라), c-g(텍스트 초록), c-b(굵은 파랑), c-o(옵션 주황)
 6. 여러 버전의 기능이라도 주제가 비슷하면 하나의 카드로 합쳐도 됨
 7. 정말 주목할만한 기능(자주 쓰이거나 임팩트 큰 것)에는 class="card featured"를 사용
-8. 카드 body 마지막에 릴리즈 노트 바로가기 링크를 넣어: <p><a href="릴리즈URL" target="_blank">릴리즈 노트 →</a></p>
+8. 카드 body 마지막에 릴리즈 노트 바로가기 링크를 넣어: <p class="release-link"><a href="릴리즈URL" target="_blank">릴리즈 노트 보기 →</a></p>
 9. 카드만 출력해. 다른 설명이나 마크다운 없이 순수 HTML만.
 
 새 릴리즈 내용:

@@ -151,6 +151,12 @@
     .update-banner .ub-text{font-size:13px;color:var(--text2)}
     .update-banner .ub-text strong{color:var(--text)}
     .update-banner .ub-time{font-size:12px;color:var(--dim);font-family:'JetBrains Mono',monospace}
+    .version-badge{
+      display:inline-flex;align-items:center;gap:6px;
+      background:var(--purple-bg);border:1px solid var(--purple-border);border-radius:6px;
+      padding:3px 10px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;
+      color:var(--purple);
+    }
     .update-banner .ub-btn{
       background:var(--bg2);border:1px solid var(--border);padding:6px 14px;border-radius:8px;
       font-size:12px;cursor:pointer;color:var(--text2);transition:all .15s;
@@ -250,7 +256,7 @@
     <div class="card-title">
       <h3>/skills 메뉴 알파벳 정렬 — 찾기 훨씬 쉬워짐<span class="new-dot"></span></h3>
       <p>/skills 목록이 이제 알파벳 순으로 정렬돼서 원하는 스킬 빠르게 스캔할 수 있음.</p>
-      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">UX</span><span class="date">2026. 3. 27. · v2.1.86</span></div>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">UX</span><span class="date">2026.03.28 · v2.1.86</span></div>
     </div>
     <span class="card-arrow">›</span>
   </div>
@@ -296,6 +302,7 @@
 }</pre>
     <h4>조건 문법</h4>
     <p>권한 규칙 문법을 그대로 사용함. <code>Bash(git *)</code>, <code>Write(src/**)</code> 같은 식으로 툴 이름 + 패턴으로 쓰면 됨.</p>
+    <p><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.85" target="_blank">릴리즈 노트 →</a></p>
   </div>
 </div>
 
@@ -324,6 +331,7 @@
   <span class="c-p">echo</span> <span class="c-g">'{"Authorization": "Bearer token-default"}'</span>
 <span class="c-p">fi</span></pre>
     <p>MCP 서버 여러 개 운영 중이면 이제 헬퍼 하나로 다 처리할 수 있는 거야.</p>
+    <p><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.85" target="_blank">릴리즈 노트 →</a></p>
   </div>
 </div>
 
@@ -1500,21 +1508,21 @@ document.querySelectorAll('.tab').forEach(tab => {
 const KNOWN_VERSION = 'v2.1.86'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
 
-// 다음 업데이트 시간 (오후 5:17, 10:17 KST) 카운트다운
+// 다음 업데이트 시간 (오전 10:17, 오후 5:17 KST) 카운트다운
 function getNextUpdateTime() {
   const now = new Date();
   const kst = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
-  const times = [{ h: 17, m: 17 }, { h: 22, m: 17 }];
+  const times = [{ h: 10, m: 17 }, { h: 17, m: 17 }];
   const offset = kst.getTime() - now.getTime();
   for (const t of times) {
     const next = new Date(kst);
     next.setHours(t.h, t.m, 0, 0);
     if (next > kst) return new Date(next.getTime() - offset);
   }
-  // 오늘 다 지남 → 내일 오후 5:17
+  // 오늘 다 지남 → 내일 오전 10:17
   const next = new Date(kst);
   next.setDate(next.getDate() + 1);
-  next.setHours(17, 17, 0, 0);
+  next.setHours(10, 17, 0, 0);
   return new Date(next.getTime() - offset);
 }
 
@@ -1609,7 +1617,7 @@ document.querySelectorAll('.date-relative').forEach(el => {
 
 // 현재 버전 표시
 document.getElementById('currentVersion').textContent = KNOWN_VERSION;
-document.getElementById('updateText').innerHTML = `현재 반영 버전: ${KNOWN_VERSION} · 매일 오후 5시, 10시 자동 업데이트`;
+document.getElementById('updateText').innerHTML = `<strong style="color:var(--purple)">${KNOWN_VERSION}</strong> 반영 중 · 매일 오전 10시, 오후 5시 자동 업데이트`;
 </script>
 
 </body>

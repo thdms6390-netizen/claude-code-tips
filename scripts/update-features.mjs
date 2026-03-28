@@ -238,8 +238,8 @@ function extractNotableFeatures(releases) {
     if (lines.length > 0) {
       features.push({
         version: r.tag_name,
-        date: new Date(r.published_at).toLocaleDateString('ko-KR', { year: 'numeric', month: 'numeric', day: 'numeric' }),
-        isoDate: r.published_at.split('T')[0],
+        date: new Date(r.published_at).toLocaleDateString('ko-KR', { year: 'numeric', month: 'numeric', day: 'numeric', timeZone: 'Asia/Seoul' }),
+        isoDate: new Date(r.published_at).toLocaleDateString('sv-SE', { timeZone: 'Asia/Seoul' }),
         name: r.name || r.tag_name,
         url: r.html_url,
         lines

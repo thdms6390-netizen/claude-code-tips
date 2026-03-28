@@ -327,19 +327,12 @@ ${featureSummary}`;
 
 // 5. index.html에 카드 삽입
 function insertCards(html, cardsHtml, newVersion) {
-  // "최근에 나온 것들" 섹션 헤더 바로 다음, 첫 번째 카드 앞에 삽입
-  const marker = '<!-- 1. Auto Mode';
+  // AUTO_INSERT_MARKER 바로 다음에 삽입
+  const marker = '<!-- AUTO_INSERT_MARKER -->';
   const idx = html.indexOf(marker);
-  if (idx === -1) {
-    // 대체: section-head 다음 첫 카드 앞
-    const altMarker = '<div class="section-head">\n  <h2>최근에 나온 것들</h2>';
-    const altIdx = html.indexOf(altMarker);
-    if (altIdx === -1) throw new Error('삽입 위치를 찾을 수 없습니다');
-    const afterSection = html.indexOf('</div>', altIdx + altMarker.length) + 6;
-    html = html.slice(0, afterSection) + '\n\n' + cardsHtml + '\n\n' + html.slice(afterSection);
-  } else {
-    html = html.slice(0, idx) + cardsHtml + '\n\n' + html.slice(idx);
-  }
+  if (idx === -1) throw new Error('삽입 위치를 찾을 수 없습니다 (AUTO_INSERT_MARKER 없음)');
+  const insertAt = idx + marker.length;
+  html = html.slice(0, insertAt) + '\n' + cardsHtml + '\n' + html.slice(insertAt);
 
   // KNOWN_VERSION 업데이트
   html = html.replace(

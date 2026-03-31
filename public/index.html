@@ -249,6 +249,70 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- Named Subagents @mention — 2025.3.31 -->
+<div class="card featured">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🤖</span>
+    <div class="card-title">
+      <h3>서브에이전트 @멘션 — 이름으로 바로 불러오기<span class="new-dot"></span></h3>
+      <p>이제 @멘션 자동완성에 이름 붙은 서브에이전트가 뜸. 여러 에이전트 굴릴 때 훨씬 편해짐.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">멀티에이전트</span><span class="tag tag-red">자주쓰임</span><span class="date">2025.3.31 · v2.1.88</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 뭔데?</h4>
+    <p>Claude Code에서 서브에이전트(subagent)를 여러 개 띄워 쓸 때, 각각에 이름을 붙여두면 이제 <code>@</code> 타이핑만 해도 자동완성 목록에 바로 뜸. 에이전트 이름 기억해서 직접 입력할 필요 없이 골라서 멘션하면 끝.</p>
+    <h4>이런 식으로 써봐</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 프롬프트창에서 @만 치면 등록된 서브에이전트 목록이 뜸</span>
+<span class="c-g">@</span><span class="c-p">reviewer</span> <span class="c-g">이 코드 리뷰해줘</span>
+
+<span class="c-d"># 이름 일부만 쳐도 필터링됨</span>
+<span class="c-g">@test</span>  <span class="c-d">→ test-runner, tester 등 자동완성 후보 등장</span></pre>
+    <h4>왜 좋냐면</h4>
+    <ul>
+      <li>에이전트 이름 외울 필요 없이 <code>@</code> 하나로 목록 탐색 가능</li>
+      <li>멀티에이전트 워크플로우 짤 때 실수 줄어듦</li>
+      <li>팀에서 공유하는 에이전트 구성이 있을 때 특히 편함</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.88" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- PermissionDenied Hook — 2025.3.31 -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔒</span>
+    <div class="card-title">
+      <h3>PermissionDenied 훅 — 거절당했을 때 재시도 제어하기<span class="new-dot"></span></h3>
+      <p>자동 모드에서 권한 거절이 뜰 때 훅으로 가로채서 "다시 해봐"라고 모델에게 알려줄 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">훅/자동화</span><span class="tag tag-orange">자동화</span><span class="date">2025.3.31 · v2.1.88</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떻게 동작하냐면</h4>
+    <p>Claude Code의 auto 모드 classifier가 특정 작업을 거절(deny)했을 때, 이제 <code>PermissionDenied</code> 훅이 발동됨. 이 훅에서 <code>{retry: true}</code>를 반환하면 모델한테 "이거 다시 시도해도 됨"이라고 신호를 보낼 수 있는 거야.</p>
+    <h4>훅 설정 예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># .claude/hooks.js (예시)</span>
+<span class="c-b">export</span> <span class="c-p">const</span> <span class="c-g">PermissionDenied</span> = <span class="c-p">async</span> ({ tool, reason }) => {
+  <span class="c-d">// 특정 조건일 때만 재시도 허용</span>
+  <span class="c-b">if</span> (tool === <span class="c-o">'read_file'</span> && reason === <span class="c-o">'sandbox'</span>) {
+    <span class="c-b">return</span> { <span class="c-g">retry: true</span> };
+  }
+  <span class="c-d">// 기본은 그냥 거절 유지</span>
+  <span class="c-b">return</span> {};
+};</pre>
+    <h4>이럴 때 유용해</h4>
+    <ul>
+      <li>자동화 파이프라인에서 일시적 권한 오류를 훅으로 핸들링하고 싶을 때</li>
+      <li>거절 사유에 따라 재시도 여부를 세밀하게 컨트롤하고 싶을 때</li>
+      <li>모델이 거절에 막혀 멈추는 대신 다른 방법을 스스로 찾게 하고 싶을 때</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.88" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- /skills 알파벳 정렬 — 2026. 3. 27. -->
 <div class="card">
   <div class="card-header" onclick="toggle(this)">
@@ -1497,7 +1561,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.87'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.88'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
 
 // 다음 업데이트 시간 (오전 10:17, 오후 5:17 KST) 카운트다운

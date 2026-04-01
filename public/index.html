@@ -249,6 +249,123 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- Named Subagents @ Mention — 2025. 4. 1. -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🤖</span>
+    <div class="card-title">
+      <h3>Named Subagents — @ 멘션으로 서브에이전트 바로 호출<span class="new-dot"></span></h3>
+      <p>서브에이전트에 이름을 붙여두면 @ 타입어헤드에서 바로 선택할 수 있음. 복잡한 멀티에이전트 워크플로우가 훨씬 편해짐.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">에이전트</span><span class="date">2026. 4. 1. · v2.1.89</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 뭔데?</h4>
+    <p>이름이 붙은 서브에이전트를 대화창에서 <code>@</code>로 멘션하면 타입어헤드 목록에 뜸. 매번 설정 뒤적일 필요 없이 특정 역할의 에이전트를 즉시 불러올 수 있는 거야.</p>
+    <h4>사용 예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 대화창에서 @ 입력하면 등록된 서브에이전트 목록이 뜸</span>
+<span class="c-p">@</span><span class="c-g">my-reviewer</span> <span class="c-g">이 PR 코드 리뷰해줘</span>
+
+<span class="c-d"># 멀티에이전트 워크플로우에서도 바로 호출 가능</span>
+<span class="c-p">@</span><span class="c-g">test-runner</span> <span class="c-g">전체 테스트 돌리고 결과 요약해줘</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.89" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- PermissionDenied Hook + defer — 2026. 4. 1. -->
+<div class="card featured">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔐</span>
+    <div class="card-title">
+      <h3>훅 권한 제어 강화 — 거부 후 재시도, 일시정지 후 재개까지<span class="new-dot"></span></h3>
+      <p>훅으로 할 수 있는 게 확 늘었음. 툴 호출을 일시정지했다가 나중에 재개하거나, 자동 거부된 툴을 훅에서 재시도 신호를 보내는 것도 가능.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">훅/자동화</span><span class="tag tag-orange">자동화</span><span class="tag tag-red">자주쓰임</span><span class="date">2026. 4. 1. · v2.1.89</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>새로 추가된 훅 기능 2가지</h4>
+    <ul>
+      <li><strong>PreToolUse에서 <code>"defer"</code> 반환</strong> — headless 세션(<code>-p</code>)에서 툴 호출을 일시정지할 수 있음. 나중에 <code>-p --resume</code>으로 재개하면 훅이 다시 평가됨. 사람이 개입해야 하는 승인 워크플로우에 딱 맞는 거야.</li>
+      <li><strong>PermissionDenied 훅</strong> — 자동 모드 분류기가 툴을 거부했을 때 발동됨. <code>{retry: true}</code>를 반환하면 모델한테 "다시 시도해봐"라고 알려줄 수 있음.</li>
+    </ul>
+    <h4>defer — 일시정지 후 재개</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># PreToolUse 훅에서 defer 반환 예시 (JS)</span>
+<span class="c-p">export default</span> <span class="c-g">async function</span>({ tool_name, tool_input }) {
+  <span class="c-p">if</span> (tool_name === <span class="c-g">"Bash"</span> && needsApproval(tool_input)) {
+    <span class="c-p">return</span> { <span class="c-o">decision</span>: <span class="c-g">"defer"</span> }; <span class="c-d">// 여기서 멈춤</span>
+  }
+}
+
+<span class="c-d"># 나중에 CLI에서 재개</span>
+<span class="c-p">claude</span> <span class="c-o">-p --resume</span> <span class="c-g">&lt;session-id&gt;</span></pre>
+    <h4>PermissionDenied — 재시도 신호 보내기</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># PermissionDenied 훅 예시 (JS)</span>
+<span class="c-p">export default</span> <span class="c-g">async function</span>({ tool_name }) {
+  <span class="c-d">// 거부됐지만 조건 맞으면 재시도 허용</span>
+  <span class="c-p">if</span> (canRetry(tool_name)) {
+    <span class="c-p">return</span> { <span class="c-o">retry</span>: <span class="c-b">true</span> };
+  }
+}</pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.89" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- Edit tool 개선 — 2026. 4. 1. -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">✏️</span>
+    <div class="card-title">
+      <h3>Edit 툴 개선 — Read 없이 바로 편집 가능<span class="new-dot"></span></h3>
+      <p><code>sed -n</code>이나 <code>cat</code>으로 본 파일을 별도 Read 호출 없이 바로 Edit할 수 있게 됨. 불필요한 단계가 줄어서 더 빠르게 작업 가능.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">편집</span><span class="tag tag-green">실용적</span><span class="date">2026. 4. 1. · v2.1.89</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 바뀐 거야?</h4>
+    <p>기존엔 Bash로 <code>cat</code>이나 <code>sed -n</code>으로 파일 내용을 봤더라도, Edit 툴을 쓰려면 다시 <code>Read</code>를 해야 했음. 이제는 그 과정이 필요 없어. Bash로 파일 내용을 확인한 다음 곧바로 Edit 툴로 수정할 수 있는 거야.</p>
+    <h4>전/후 비교</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 기존: Bash로 보고 → Read로 다시 읽고 → Edit</span>
+<span class="c-p">Bash</span>: <span class="c-g">sed -n '10,20p' src/index.ts</span>
+<span class="c-p">Read</span>: <span class="c-g">src/index.ts</span>   <span class="c-d">← 이 단계가 필요했음</span>
+<span class="c-p">Edit</span>: <span class="c-g">src/index.ts</span> ...
+
+<span class="c-d"># 이제: Bash로 보고 → 바로 Edit</span>
+<span class="c-p">Bash</span>: <span class="c-g">sed -n '10,20p' src/index.ts</span>
+<span class="c-p">Edit</span>: <span class="c-g">src/index.ts</span> ...  <span class="c-d">← 바로 가능!</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.89" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- MCP 연결 속도 개선 — 2026. 4. 1. -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⚡</span>
+    <div class="card-title">
+      <h3>MCP 연결 속도 개선 — 느린 서버 때문에 멈추지 않음<span class="new-dot"></span></h3>
+      <p>헤드리스 모드(<code>-p</code>)에서 MCP 연결을 기다리지 않고 바로 실행할 수 있음. 서버 연결은 최대 5초만 기다리도록 바뀜.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-blue">MCP</span><span class="tag tag-orange">자동화</span><span class="date">2026. 4. 1. · v2.1.89</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라진 거야?</h4>
+    <ul>
+      <li><strong>MCP_CONNECTION_NONBLOCKING=true</strong> — <code>-p</code> 모드에서 MCP 연결 대기를 완전히 건너뜀. CI/자동화 환경에서 느린 MCP 서버 때문에 파이프라인이 멈추는 일이 없어짐.</li>
+      <li><strong>연결 타임아웃 5초 제한</strong> — <code>--mcp-config</code>로 지정한 서버 연결이 이제 최대 5초만 기다림. 가장 느린 서버 때문에 전체가 블로킹되는 상황이 없어지는 거야.</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># MCP 연결 대기 완전히 스킵 (자동화/CI 환경에서 유용)</span>
+<span class="c-p">MCP_CONNECTION_NONBLOCKING</span>=<span class="c-g">true</span> <span class="c-p">claude</span> <span class="c-o">-p</span> <span class="c-g">"작업 내용"</span>
+
+<span class="c-d"># --mcp-config 사용 시 느린 서버는 5초 후 자동 스킵됨</span>
+<span class="c-p">claude</span> <span class="c-o">--mcp-config</span> <span class="c-g">./mcp.json</span> <span class="c-o">-p</span> <span class="c-g">"작업 내용"</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.89" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- Named Subagents @mention — 2025.3.31 -->
 <div class="card featured">
   <div class="card-header" onclick="toggle(this)">
@@ -1561,7 +1678,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.88'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.89'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
 
 // 다음 업데이트 시간 (오전 10:17, 오후 5:17 KST) 카운트다운

@@ -249,6 +249,61 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- /powerup — 2026. 4. 2. -->
+<div class="card featured">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⚡</span>
+    <div class="card-title">
+      <h3>/powerup — Claude Code 기능을 인터랙티브하게 배우기<span class="new-dot"></span></h3>
+      <p>애니메이션 데모와 함께 Claude Code의 기능들을 직접 체험하며 배울 수 있는 인터랙티브 튜토리얼 명령어.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">학습</span><span class="tag tag-red">자주쓰임</span><span class="date">2026. 4. 2. · v2.1.90</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 뭐야?</h4>
+    <p>Claude Code 안에서 바로 실행할 수 있는 인터랙티브 레슨이야. 각 기능을 애니메이션 데모로 보여주면서 직접 따라해볼 수 있어서, 문서 읽는 것보다 훨씬 빠르게 익힐 수 있음.</p>
+    <ul>
+      <li>Claude Code의 주요 기능들을 단계별로 소개해줌</li>
+      <li>그냥 설명 텍스트가 아니라 실제 동작하는 애니메이션 데모로 보여줌</li>
+      <li>처음 Claude Code 쓰는 사람한테도, 몰랐던 기능 발견하고 싶은 사람한테도 유용함</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># Claude Code 세션에서 바로 실행</span>
+<span class="c-p">/powerup</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.90" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- --resume 개선 — 2026. 4. 2. -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔁</span>
+    <div class="card-title">
+      <h3>--resume 개선 — 자동화 세션은 목록에서 빠짐<span class="new-dot"></span></h3>
+      <p>--resume으로 세션 고를 때 <code>claude -p</code>나 SDK로 만들어진 세션은 이제 안 보여. 내가 직접 쓴 세션만 딱 나옴.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">UX 개선</span><span class="tag tag-green">실용적</span><span class="date">2026. 4. 2. · v2.1.90</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 바뀐 거야?</h4>
+    <p>전에는 <code>--resume</code> 피커를 열면 자동화 스크립트나 SDK가 만든 세션까지 전부 섞여서 나왔어. 이제는 그런 세션들은 걸러지고, 내가 직접 대화한 세션만 보여줌.</p>
+    <ul>
+      <li><code>claude -p</code> (파이프 모드)로 생성된 세션 → 목록에서 제외</li>
+      <li>SDK 호출로 생성된 세션 → 목록에서 제외</li>
+      <li>덕분에 이어하고 싶은 세션을 훨씬 빠르게 찾을 수 있음</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 이전 세션 목록에서 골라서 이어하기</span>
+<span class="c-p">claude</span> <span class="c-o">--resume</span>
+
+<span class="c-d"># 특정 세션 ID로 바로 이어하기</span>
+<span class="c-p">claude</span> <span class="c-o">--resume</span> <span class="c-g">세션ID</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.90" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- Named Subagents @ Mention — 2025. 4. 1. -->
 <div class="card">
   <div class="card-header" onclick="toggle(this)">
@@ -1678,7 +1733,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.89'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.90'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
 
 // 다음 업데이트 시간 (오전 10:17, 오후 5:17 KST) 카운트다운

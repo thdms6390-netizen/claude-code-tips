@@ -112,16 +112,20 @@ async function fetchNewBlogPosts(knownBlogDate) {
 }
 
 // 2-3. 블로그 글로 카드 생성 (기능/소식 분류 포함)
-async function generateBlogCards(posts) {
+async function generateBlogCards(posts, existingTitles = []) {
   if (posts.length === 0) return { featureCards: null, newsCards: null };
 
   const postSummary = posts.map(p =>
     `### ${p.title} (${p.date})\nURL: ${p.url}\n설명: ${p.desc}\n본문 발췌:\n${p.bodyExcerpt}`
   ).join('\n\n---\n\n');
 
+  const existingTitlesList = existingTitles.length > 0
+    ? `\n\n⚠️ 중복 금지! 아래는 이미 존재하는 카드 제목들이야. 같은 기능이나 비슷한 내용의 카드를 절대 다시 만들지 마:\n${existingTitles.map(t => `- ${t}`).join('\n')}\n`
+    : '';
+
   const prompt = `너는 Claude Code 한국어 팁 사이트의 콘텐츠 작성자야.
 아래는 Anthropic 블로그에서 발표된 Claude Code 관련 새 글이야.
-
+${existingTitlesList}
 각 글을 분류해서 카드를 만들어줘:
 - **기능 소개** (새 기능, 모델 출시, 성능 개선 등 사용자가 직접 쓸 수 있는 것) → "FEATURE_CARDS" 블록에
 - **소식** (인수, 마일스톤, 파트너십, 오픈소스 기부, 조직 변경 등) → "NEWS_CARDS" 블록에
@@ -217,6 +221,17 @@ function insertNewsCards(html, cardsHtml) {
   return html;
 }
 
+// 2-4. 기존 카드 제목 추출 (중복 방지용)
+function extractExistingCardTitles(html) {
+  const titles = [];
+  const pattern = /<h3>([^<]+?)(?:<span class="new-dot"><\/span>)?<\/h3>/g;
+  let m;
+  while ((m = pattern.exec(html)) !== null) {
+    titles.push(m[1].trim());
+  }
+  return titles;
+}
+
 // 3. 릴리즈 노트에서 주요 기능만 추출 (버그픽스 제외)
 function extractNotableFeatures(releases) {
   const features = [];
@@ -251,17 +266,21 @@ function extractNotableFeatures(releases) {
 }
 
 // 4. Claude API로 한국어 카드 HTML 생성
-async function generateCards(features) {
+async function generateCards(features, existingTitles = []) {
   if (features.length === 0) return null;
 
   const featureSummary = features.map(f =>
     `### ${f.version} (${f.date})\nRelease URL: ${f.url}\n${f.lines.map(l => `- ${l}`).join('\n')}`
   ).join('\n\n');
 
+  const existingTitlesList = existingTitles.length > 0
+    ? `\n\n⚠️ 중복 금지! 아래는 이미 존재하는 카드 제목들이야. 같은 기능이나 비슷한 내용의 카드를 절대 다시 만들지 마:\n${existingTitles.map(t => `- ${t}`).join('\n')}\n`
+    : '';
+
   const prompt = `너는 Claude Code 한국어 팁 사이트의 콘텐츠 작성자야.
 아래는 Claude Code의 새 릴리즈에서 추가된 주요 기능들이야.
 이걸 기반으로 "최근에 나온 것들" 섹션에 들어갈 HTML 카드를 만들어줘.
-
+${existingTitlesList}
 규칙:
 1. 사소한 환경변수 추가, 마이너한 설정 옵션은 카드로 만들지 마. 사용자가 실제로 체감하는 주요 기능만.
 2. 한국어로, 반말+친근한 톤 (예: "~하는 거", "~할 수 있음")
@@ -355,6 +374,10 @@ async function main() {
   let updated = false;
   let latestVersion = knownVersion;
 
+  // 기존 카드 제목 추출 (중복 방지)
+  const existingTitles = extractExistingCardTitles(html);
+  console.log(`📋 기존 카드 ${existingTitles.length}개 감지 (중복 방지용)`);
+
   // === 소스 1: GitHub Releases ===
   console.log('\n🔍 새 릴리즈 확인 중...');
   const newReleases = await fetchNewReleases(knownVersion);
@@ -368,9 +391,11 @@ async function main() {
       console.log('ℹ️ 주요 기능 변경 없음 (버그 픽스만). 버전만 업데이트.');
     } else {
       console.log(`🤖 Claude API로 릴리즈 카드 생성 중... (${features.reduce((a, f) => a + f.lines.length, 0)}개 항목)`);
-      const cardsHtml = await generateCards(features);
+      const cardsHtml = await generateCards(features, existingTitles);
       if (cardsHtml) {
         html = insertCards(html, cardsHtml, latestVersion);
+        // 새로 추가된 카드 제목도 목록에 반영 (블로그 카드 생성 시 중복 방지)
+        existingTitles.push(...extractExistingCardTitles(cardsHtml));
         updated = true;
         console.log(`✅ 릴리즈 카드 ${features.length}개 추가.`);
       }
@@ -392,7 +417,7 @@ async function main() {
 
   if (blogPosts.length > 0) {
     console.log(`🤖 Claude API로 블로그 카드 생성 중... (${blogPosts.length}개 글)`);
-    const { featureCards, newsCards } = await generateBlogCards(blogPosts);
+    const { featureCards, newsCards } = await generateBlogCards(blogPosts, existingTitles);
 
     if (featureCards) {
       html = insertCards(html, featureCards, latestVersion);

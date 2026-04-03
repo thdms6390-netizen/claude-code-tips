@@ -249,6 +249,39 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- MCP Tool Result 크기 제한 해제 — 2026.4.3 -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📦</span>
+    <div class="card-title">
+      <h3>MCP 툴 결과 최대 500K — DB 스키마 통째로 넘기기<span class="new-dot"></span></h3>
+      <p>MCP 툴 응답이 너무 길어서 잘리던 문제, 이제 500K까지 늘릴 수 있음. DB 스키마 같은 덩어리 큰 데이터도 그대로 전달 가능.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-blue">MCP</span><span class="date">2026.4.3 · v2.1.91</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 뭔데?</h4>
+    <p>기존엔 MCP 툴이 반환하는 결과 크기에 제한이 있어서, DB 스키마나 긴 파일 목록 같은 데이터가 중간에 잘렸음. 이제 MCP 툴 응답의 <code>_meta</code>에 <code>anthropic/maxResultSizeChars</code> 어노테이션을 넣으면 최대 500K까지 늘릴 수 있음.</p>
+    <h4>어떻게 써?</h4>
+    <p>MCP 서버 쪽 툴 응답에 아래처럼 메타 정보를 추가하면 됨:</p>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># MCP 툴 result에 _meta 추가 (서버 코드 예시)</span>
+{
+  <span class="c-g">"content"</span>: <span class="c-g">"...긴 DB 스키마..."</span>,
+  <span class="c-g">"_meta"</span>: {
+    <span class="c-g">"anthropic/maxResultSizeChars"</span>: <span class="c-b">500000</span>
+  }
+}</pre>
+    <h4>이런 경우에 유용함</h4>
+    <ul>
+      <li>DB 전체 스키마를 한 번에 Claude에게 넘길 때</li>
+      <li>대형 JSON 설정 파일을 MCP로 읽어올 때</li>
+      <li>툴 결과가 잘려서 Claude가 엉뚱한 답을 냈던 경우</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.91" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- /powerup — 2026. 4. 2. -->
 <div class="card featured">
   <div class="card-header" onclick="toggle(this)">
@@ -1670,7 +1703,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.90'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.91'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
 
 // 다음 업데이트 시간 (오전 10:17, 오후 5:17 KST) 카운트다운

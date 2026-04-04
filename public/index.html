@@ -249,6 +249,66 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- Bedrock Setup Wizard — 2026.4.4 -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🧙</span>
+    <div class="card-title">
+      <h3>Bedrock 설정 마법사 — AWS 연동을 단계별로<span class="new-dot"></span></h3>
+      <p>로그인 화면에서 AWS 인증, 리전 설정, 자격증명 확인, 모델 고정까지 대화형으로 한 번에 끝낼 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">Bedrock</span><span class="tag tag-green">실용적</span><span class="date">2026.4.4 · v2.1.92</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 좋냐면</h4>
+    <p>기존엔 AWS Bedrock 연동할 때 문서 찾아가며 환경변수 직접 설정해야 해서 진입장벽이 꽤 높았음. 이제 로그인 화면에서 <strong>"3rd-party platform"</strong> 선택하면 마법사가 뜨면서 아래 순서대로 안내해줌:</p>
+    <ul>
+      <li>① AWS 인증 방식 선택 (SSO, access key 등)</li>
+      <li>② 리전 설정</li>
+      <li>③ 자격증명 검증 (실제로 연결 확인까지)</li>
+      <li>④ 사용할 모델 고정</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># Claude Code 실행 후 로그인 화면에서</span>
+<span class="c-g">3. Use a 3rd-party platform</span>  <span class="c-d">← 이걸 선택</span>
+<span class="c-d"># → Bedrock 설정 마법사 자동 시작</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.92" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- /cost 모델별 상세 내역 — 2026.4.4 -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">💰</span>
+    <div class="card-title">
+      <h3>/cost 상세 내역 — 모델별·캐시 히트 분석까지<span class="new-dot"></span></h3>
+      <p>구독 사용자라면 /cost 명령어로 어떤 모델에 얼마나 썼는지, 캐시가 얼마나 절약됐는지 바로 볼 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">비용 관리</span><span class="tag tag-red">자주쓰임</span><span class="date">2026.4.4 · v2.1.92</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라졌냐면</h4>
+    <p>기존 <code>/cost</code>는 전체 합계만 보여줬는데, 이제 구독 사용자한테는 훨씬 자세한 내역이 나옴:</p>
+    <ul>
+      <li><strong>모델별 breakdown</strong> — Sonnet, Opus 각각 얼마나 썼는지</li>
+      <li><strong>캐시 히트 breakdown</strong> — 캐시 덕분에 얼마나 아꼈는지</li>
+    </ul>
+    <p>어떤 작업에서 토큰을 많이 쓰는지 파악하고 싶을 때 유용함. 캐시 히트율이 낮으면 프롬프트 구조 바꿔서 비용 줄이는 힌트도 얻을 수 있음.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 세션 중 언제든 입력</span>
+<span class="c-p">/cost</span>
+
+<span class="c-d"># 출력 예시 (구독 사용자)</span>
+<span class="c-g">claude-sonnet-4-5   : $0.042</span>
+<span class="c-g">claude-opus-4-5     : $0.018</span>
+<span class="c-g">Cache hits          : $0.009 saved</span>
+<span class="c-g">Total               : $0.060</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.92" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- MCP Tool Result 크기 제한 해제 — 2026.4.3 -->
 <div class="card">
   <div class="card-header" onclick="toggle(this)">
@@ -1703,7 +1763,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.91'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.92'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
 
 // 다음 업데이트 시간 (오전 10:17, 오후 5:17 KST) 카운트다운

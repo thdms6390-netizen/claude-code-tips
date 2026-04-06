@@ -231,10 +231,11 @@
 <div class="update-banner" id="updateBanner">
   <div class="ub-left">
     <div class="ub-dot live" id="updateDot"></div>
-    <div class="ub-text" id="updateText">1시간마다 새 릴리즈를 자동 확인합니다</div>
+    <div class="ub-text" id="updateText">새 릴리즈가 나오면 버튼을 눌러 업데이트하세요</div>
   </div>
   <div style="display:flex;align-items:center;gap:12px">
-    <span class="ub-time" id="updateTime">다음 자동 업데이트: --:--:--</span>
+    <span class="ub-time" id="updateTime"></span>
+    <button class="ub-btn" id="manualUpdateBtn" onclick="triggerUpdate()">🔄 지금 업데이트</button>
   </div>
 </div>
 
@@ -1766,32 +1767,39 @@ document.querySelectorAll('.tab').forEach(tab => {
 const KNOWN_VERSION = 'v2.1.92'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
 
-// 다음 업데이트 시간 (오전 10:17, 오후 5:17 KST) 카운트다운
-function getNextUpdateTime() {
-  const now = new Date();
-  const kst = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
-  const times = [{ h: 10, m: 17 }, { h: 17, m: 17 }];
-  const offset = kst.getTime() - now.getTime();
-  for (const t of times) {
-    const next = new Date(kst);
-    next.setHours(t.h, t.m, 0, 0);
-    if (next > kst) return new Date(next.getTime() - offset);
-  }
-  // 오늘 다 지남 → 내일 오전 10:17
-  const next = new Date(kst);
-  next.setDate(next.getDate() + 1);
-  next.setHours(10, 17, 0, 0);
-  return new Date(next.getTime() - offset);
-}
 
-setInterval(() => {
-  const diff = Math.max(0, getNextUpdateTime() - Date.now());
-  const h = String(Math.floor(diff / 3600000)).padStart(2, '0');
-  const m = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
-  const s = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
-  const el = document.getElementById('updateTime');
-  if (el) el.textContent = `다음 자동 업데이트: ${h}:${m}:${s}`;
-}, 1000);
+function triggerUpdate() {
+  const btn = document.getElementById('manualUpdateBtn');
+  const dot = document.getElementById('updateDot');
+  const text = document.getElementById('updateText');
+  btn.disabled = true;
+  btn.textContent = '⏳ 요청 중...';
+  dot.className = 'ub-dot loading';
+  fetch('/api/trigger-update', { method: 'POST' })
+    .then(r => r.json())
+    .then(data => {
+      if (data.ok) {
+        btn.textContent = '✅ 워크플로우 시작됨!';
+        text.innerHTML = '업데이트가 시작되었습니다 · 1~2분 후 새로고침하세요';
+        dot.className = 'ub-dot live';
+      } else {
+        throw new Error(data.error || 'Unknown error');
+      }
+    })
+    .catch(err => {
+      btn.textContent = '❌ 실패';
+      dot.className = 'ub-dot error';
+      text.textContent = '업데이트 요청에 실패했습니다';
+      console.error(err);
+    })
+    .finally(() => {
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.textContent = '🔄 지금 업데이트';
+        dot.className = 'ub-dot live';
+      }, 5000);
+    });
+}
 
 // 날짜 태그 자동 계산
 document.querySelectorAll('.date-relative').forEach(el => {
@@ -1875,7 +1883,7 @@ document.querySelectorAll('.date-relative').forEach(el => {
 
 // 현재 버전 표시
 document.getElementById('currentVersion').textContent = KNOWN_VERSION;
-document.getElementById('updateText').innerHTML = `<strong style="color:var(--purple)">${KNOWN_VERSION}</strong> 반영 중 · 매일 오전 10시, 오후 5시 자동 업데이트`;
+document.getElementById('updateText').innerHTML = `<strong style="color:var(--purple)">${KNOWN_VERSION}</strong> 반영 중`;
 </script>
 
 </body>

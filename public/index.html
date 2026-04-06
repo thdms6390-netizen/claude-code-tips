@@ -1803,15 +1803,15 @@ function checkStatus() {
         setBanner('running');
         setTimeout(checkStatus, 10000);
       } else if (data.latestVersion && data.latestVersion === KNOWN_VERSION) {
-        setBanner('latest', `<strong style="color:var(--purple)">${KNOWN_VERSION}</strong> 반영 중`);
+        setBanner('latest', `<strong style="color:var(--purple)">${KNOWN_VERSION}</strong> 반영 중 · 매일 밤 10시 자동 업데이트`);
       } else if (data.latestVersion) {
         setBanner('outdated', `새 버전 <strong style="color:var(--pink)">${data.latestVersion}</strong> 출시 · 버튼을 눌러 업데이트하세요`);
       } else {
-        setBanner('latest', `<strong style="color:var(--purple)">${KNOWN_VERSION}</strong> 반영 중`);
+        setBanner('latest', `<strong style="color:var(--purple)">${KNOWN_VERSION}</strong> 반영 중 · 매일 밤 10시 자동 업데이트`);
       }
     })
     .catch(() => {
-      setBanner('latest', `<strong style="color:var(--purple)">${KNOWN_VERSION}</strong> 반영 중`);
+      setBanner('latest', `<strong style="color:var(--purple)">${KNOWN_VERSION}</strong> 반영 중 · 매일 밤 10시 자동 업데이트`);
     });
 }
 

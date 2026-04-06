@@ -1768,38 +1768,73 @@ const KNOWN_VERSION = 'v2.1.92'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
 
 
-function triggerUpdate() {
+function setBanner(state, msg) {
   const btn = document.getElementById('manualUpdateBtn');
   const dot = document.getElementById('updateDot');
   const text = document.getElementById('updateText');
-  btn.disabled = true;
-  btn.textContent = '⏳ 요청 중...';
-  dot.className = 'ub-dot loading';
+  if (state === 'running') {
+    dot.className = 'ub-dot loading';
+    text.innerHTML = msg || '⏳ 업데이트 중...';
+    btn.disabled = true;
+    btn.textContent = '⏳ 업데이트 중...';
+  } else if (state === 'latest') {
+    dot.className = 'ub-dot live';
+    text.innerHTML = msg || '✅ 현재 최신 버전입니다!';
+    btn.disabled = false;
+    btn.textContent = '🔄 지금 업데이트';
+  } else if (state === 'outdated') {
+    dot.className = 'ub-dot live';
+    text.innerHTML = msg || '새 버전이 있습니다';
+    btn.disabled = false;
+    btn.textContent = '🔄 지금 업데이트';
+  } else if (state === 'error') {
+    dot.className = 'ub-dot error';
+    text.textContent = msg || '상태 확인 실패';
+    btn.disabled = false;
+    btn.textContent = '🔄 지금 업데이트';
+  }
+}
+
+function checkStatus() {
+  fetch('/api/workflow-status')
+    .then(r => r.json())
+    .then(data => {
+      if (data.status === 'in_progress' || data.status === 'queued') {
+        setBanner('running');
+        setTimeout(checkStatus, 10000);
+      } else if (data.latestVersion && data.latestVersion === KNOWN_VERSION) {
+        setBanner('latest', `✅ 현재 최신 버전입니다! <strong style="color:var(--purple)">${KNOWN_VERSION}</strong>`);
+      } else if (data.latestVersion) {
+        setBanner('outdated', `새 버전 <strong style="color:var(--pink)">${data.latestVersion}</strong> 출시 · 버튼을 눌러 업데이트하세요`);
+      } else {
+        setBanner('latest', `<strong style="color:var(--purple)">${KNOWN_VERSION}</strong> 반영 중`);
+      }
+    })
+    .catch(() => {
+      setBanner('latest', `<strong style="color:var(--purple)">${KNOWN_VERSION}</strong> 반영 중`);
+    });
+}
+
+function triggerUpdate() {
+  setBanner('running', '⏳ 워크플로우 요청 중...');
   fetch('/api/trigger-update', { method: 'POST' })
     .then(r => r.json())
     .then(data => {
       if (data.ok) {
-        btn.textContent = '✅ 워크플로우 시작됨!';
-        text.innerHTML = '업데이트가 시작되었습니다 · 1~2분 후 새로고침하세요';
-        dot.className = 'ub-dot live';
+        setBanner('running', '⏳ 업데이트 중... 잠시 후 새로고침하세요');
+        setTimeout(checkStatus, 15000);
       } else {
         throw new Error(data.error || 'Unknown error');
       }
     })
     .catch(err => {
-      btn.textContent = '❌ 실패';
-      dot.className = 'ub-dot error';
-      text.textContent = '업데이트 요청에 실패했습니다';
+      setBanner('error', '업데이트 요청에 실패했습니다');
       console.error(err);
-    })
-    .finally(() => {
-      setTimeout(() => {
-        btn.disabled = false;
-        btn.textContent = '🔄 지금 업데이트';
-        dot.className = 'ub-dot live';
-      }, 5000);
+      setTimeout(() => setBanner('latest', `<strong style="color:var(--purple)">${KNOWN_VERSION}</strong> 반영 중`), 5000);
     });
 }
+
+checkStatus();
 
 // 날짜 태그 자동 계산
 document.querySelectorAll('.date-relative').forEach(el => {
@@ -1883,7 +1918,7 @@ document.querySelectorAll('.date-relative').forEach(el => {
 
 // 현재 버전 표시
 document.getElementById('currentVersion').textContent = KNOWN_VERSION;
-document.getElementById('updateText').innerHTML = `<strong style="color:var(--purple)">${KNOWN_VERSION}</strong> 반영 중`;
+document.getElementById('updateText').innerHTML = '상태 확인 중...';
 </script>
 
 </body>

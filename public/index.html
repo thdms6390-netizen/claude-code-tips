@@ -1780,8 +1780,8 @@ function setBanner(state, msg) {
   } else if (state === 'latest') {
     dot.className = 'ub-dot live';
     text.innerHTML = msg || '✅ 현재 최신 버전입니다!';
-    btn.disabled = false;
-    btn.textContent = '🔄 지금 업데이트';
+    btn.disabled = true;
+    btn.textContent = '✅ 최신 버전입니다';
   } else if (state === 'outdated') {
     dot.className = 'ub-dot live';
     text.innerHTML = msg || '새 버전이 있습니다';

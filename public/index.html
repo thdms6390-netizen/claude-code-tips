@@ -250,6 +250,96 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- /effort 기본값 변경 — 2026. 4. 8. -->
+<div class="card featured">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⚡</span>
+    <div class="card-title">
+      <h3>/effort 기본값 → high로 상향<span class="new-dot"></span></h3>
+      <p>API 키·Bedrock·팀·엔터프라이즈 유저는 이제 기본이 high effort. 더 깊게 생각하고, 더 잘 짜줌.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-red">자주쓰임</span><span class="tag tag-purple">응답 품질</span><span class="date">2026. 4. 8. · v2.1.94</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 바뀐 거야?</h4>
+    <p>기존에는 기본 effort 레벨이 <strong>medium</strong>이었는데, v2.1.94부터 아래 유저들은 자동으로 <strong>high</strong>로 올라감:</p>
+    <ul>
+      <li>API 키 직접 사용하는 경우</li>
+      <li>Amazon Bedrock / Vertex AI / Foundry 연동</li>
+      <li>Claude Team / Enterprise 플랜</li>
+    </ul>
+    <h4>왜 좋아?</h4>
+    <p>별도 설정 없이도 Claude가 더 꼼꼼하게 추론하고, 복잡한 코드 작업이나 버그 수정에서 체감 품질이 올라감. 반대로 빠른 응답이 필요하면 직접 낮출 수도 있어.</p>
+    <h4>effort 직접 조절하기</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 현재 effort 레벨 확인 및 변경</span>
+<span class="c-p">/effort</span>
+
+<span class="c-d"># low로 낮추기 (빠른 응답 원할 때)</span>
+<span class="c-p">/effort</span> <span class="c-g">low</span>
+
+<span class="c-d"># 다시 high로 올리기</span>
+<span class="c-p">/effort</span> <span class="c-g">high</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.94" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- Slack MCP 채널 링크 — 2026. 4. 8. -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">💬</span>
+    <div class="card-title">
+      <h3>Slack MCP 채널 링크 — 메시지 보낸 채널 바로 열기<span class="new-dot"></span></h3>
+      <p>Claude가 Slack 채널에 메시지를 보내면, 어디에 보냈는지 클릭 가능한 링크로 바로 보여줌.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-blue">MCP</span><span class="tag tag-green">실용적</span><span class="date">2026. 4. 8. · v2.1.94</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떻게 달라져?</h4>
+    <p>Slack MCP로 메시지를 보내면 이제 터미널에 이렇게 뜸:</p>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 기존: 그냥 텍스트로만 표시됨</span>
+<span class="c-g">Sent message to #dev-team</span>
+
+<span class="c-d"># 변경 후: 채널명이 클릭 가능한 링크로 표시</span>
+<span class="c-g">Slacked</span> <span class="c-b">#dev-team</span>  <span class="c-d">← 클릭하면 바로 Slack 채널로 이동</span></pre>
+    <h4>이게 왜 편해?</h4>
+    <p>자동화로 여러 채널에 메시지를 뿌릴 때, 어디에 뭐가 갔는지 바로 확인하고 채널로 이동할 수 있어서 검증이 훨씬 빠름. Slack MCP 쓰는 사람이라면 즉시 체감되는 개선.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.94" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- UserPromptSubmit 훅 세션 제목 설정 — 2026. 4. 8. -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🏷️</span>
+    <div class="card-title">
+      <h3>훅으로 세션 제목 자동 지정 — UserPromptSubmit 확장<span class="new-dot"></span></h3>
+      <p>UserPromptSubmit 훅에서 이제 세션 제목까지 설정할 수 있음. 자동화 파이프라인에서 세션 구분이 훨씬 쉬워짐.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="tag tag-purple">Hooks</span><span class="date">2026. 4. 8. · v2.1.94</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 추가됐어?</h4>
+    <p><code>UserPromptSubmit</code> 훅의 출력에 <code>hookSpecificOutput.sessionTitle</code> 필드가 생겼음. 여기에 문자열을 넣으면 그게 세션 제목으로 설정됨.</p>
+    <h4>사용 예시 (훅 스크립트)</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button"><span class="c-d"># UserPromptSubmit 훅 출력 예시 (JSON)</span>
+{
+  <span class="c-g">"hookSpecificOutput"</span>: {
+    <span class="c-g">"sessionTitle"</span>: <span class="c-g">"결제 버그 수정 - 2026-04-08"</span>
+  }
+}</pre>
+    <h4>어디에 써?</h4>
+    <ul>
+      <li>프롬프트 내용을 보고 자동으로 의미 있는 세션 이름 붙이기</li>
+      <li>티켓 번호나 날짜를 세션 제목에 자동 포함</li>
+      <li><code>/resume</code>로 세션 목록 볼 때 뭐가 뭔지 한눈에 파악</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.94" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- Bedrock Setup Wizard — 2026.4.4 -->
 <div class="card">
   <div class="card-header" onclick="toggle(this)">
@@ -1764,7 +1854,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.92'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.94'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
 
 

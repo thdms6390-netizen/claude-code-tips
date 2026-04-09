@@ -250,6 +250,43 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- v2.1.97 — 2026. 4. 9. -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔴</span>
+    <div class="card-title">
+      <h3>● N running — 실시간 서브에이전트 현황 표시<span class="new-dot"></span></h3>
+      <p><code>/agents</code> 화면에서 지금 몇 개의 서브에이전트가 살아 있는지 바로 확인할 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">에이전트</span><span class="date">2026. 4. 9. · v2.1.97</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 뭔데?</h4>
+    <p><code>/agents</code> 목록에서 각 에이전트 타입 옆에 <strong>● 3 running</strong> 같은 인디케이터가 붙음. 멀티 에이전트 작업 중에 뭔가 살아 돌아가고 있는지 한눈에 파악 가능.</p>
+    <h4>같이 추가된 것들</h4>
+    <ul>
+      <li><strong>Focus View (<code>Ctrl+O</code>)</strong> — <code>NO_FLICKER</code> 모드에서 토글하면 프롬프트 + 툴 요약 한 줄 + 최종 응답만 깔끔하게 보여줌. 로그 홍수 없이 핵심만.</li>
+      <li><strong><code>refreshInterval</code> 설정</strong> — 상태바 명령어를 N초마다 자동 재실행. 실시간 정보를 상태바에 계속 띄워둘 수 있음.</li>
+      <li><strong><code>workspace.git_worktree</code></strong> — 상태바 JSON 입력에 현재 디렉토리가 git worktree 안인지 여부가 넘어옴. 상태바 스크립트에서 worktree 분기 처리할 때 유용.</li>
+      <li><strong>Cedar 정책 파일 문법 하이라이팅</strong> — <code>.cedar</code>, <code>.cedarpolicy</code> 확장자 지원 추가.</li>
+    </ul>
+    <h4>Focus View 켜기</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># NO_FLICKER 모드로 실행 후 Ctrl+O로 토글</span>
+<span class="c-p">NO_FLICKER</span>=<span class="c-g">1</span> claude
+<span class="c-d"># → Ctrl+O 누르면 집중 뷰 ↔ 전체 뷰 전환</span></pre>
+    <h4>상태바 자동 갱신 설정 예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># settings.json (상태바 N초 갱신)</span>
+{
+  <span class="c-g">"statusLine"</span>: {
+    <span class="c-g">"command"</span>: <span class="c-g">"./my-status.sh"</span>,
+    <span class="c-o">"refreshInterval"</span>: <span class="c-b">5</span>
+  }
+}</pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.97" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- /effort 기본값 변경 — 2026. 4. 8. -->
 <div class="card featured">
   <div class="card-header" onclick="toggle(this)">
@@ -1854,7 +1891,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.96'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.97'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
 
 

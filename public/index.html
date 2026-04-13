@@ -250,6 +250,36 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- /team-onboarding — 2026. 4. 11. -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🧑‍🤝‍🧑</span>
+    <div class="card-title">
+      <h3>/team-onboarding — 팀원 온보딩 가이드 자동 생성<span class="new-dot"></span></h3>
+      <p>내 Claude Code 사용 패턴을 분석해서 새 팀원이 바로 쓸 수 있는 온보딩 문서를 뚝딱 만들어줌.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">팀 협업</span><span class="tag tag-green">실용적</span><span class="date">2026. 4. 11. · v2.1.101</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 뭐야?</h4>
+    <p>로컬에 쌓인 Claude Code 사용 이력을 기반으로, 팀원이 처음 합류했을 때 참고할 수 있는 램프업 가이드를 자동으로 만들어주는 커맨드야. 프로젝트 컨벤션, 자주 쓰는 명령어, 워크플로우 같은 게 정리돼서 나옴.</p>
+    <h4>왜 좋아?</h4>
+    <ul>
+      <li>온보딩 문서 따로 쓸 필요 없이 Claude가 내 패턴 보고 알아서 정리해줌</li>
+      <li>새 팀원한테 바로 공유 가능한 형태로 뽑아줌</li>
+      <li>팀마다 다른 Claude 사용 방식을 그대로 반영함</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 온보딩 가이드 생성</span>
+<span class="c-p">/team-onboarding</span>
+
+<span class="c-d"># 생성된 가이드를 파일로 저장해서 팀원에게 공유</span>
+<span class="c-p">/team-onboarding</span> <span class="c-g">> ONBOARDING.md</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.101" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- Google Vertex AI Setup Wizard — 2026. 4. 10. -->
 <div class="card">
   <div class="card-header" onclick="toggle(this)">
@@ -1986,7 +2016,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.98'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.104'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
 
 

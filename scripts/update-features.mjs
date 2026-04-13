@@ -42,7 +42,17 @@ async function fetchNewReleases(knownVersion) {
   if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
   const releases = await res.json();
 
-  return releases.filter(r => !r.prerelease && r.tag_name > knownVersion);
+  // semver 비교 (문자열 비교는 v2.1.100 > v2.1.92 같은 케이스에서 깨짐)
+  const parseVer = v => v.replace(/^v/, '').split('.').map(Number);
+  const isNewer = (a, b) => {
+    const pa = parseVer(a), pb = parseVer(b);
+    for (let i = 0; i < Math.max(pa.length, pb.length); i++) {
+      if ((pa[i] || 0) > (pb[i] || 0)) return true;
+      if ((pa[i] || 0) < (pb[i] || 0)) return false;
+    }
+    return false;
+  };
+  return releases.filter(r => !r.prerelease && isNewer(r.tag_name, knownVersion));
 }
 
 // 2-2. Anthropic 블로그에서 Claude Code 관련 새 글 가져오기

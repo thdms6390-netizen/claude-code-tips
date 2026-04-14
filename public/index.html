@@ -250,6 +250,122 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- PreCompact Hook — 2026. 4. 14. -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🛡️</span>
+    <div class="card-title">
+      <h3>PreCompact 훅 — 컴팩트 직전에 끼어들기<span class="new-dot"></span></h3>
+      <p>대화가 압축되기 전에 훅을 실행할 수 있음. 필요하면 컴팩트 자체를 막는 것도 가능.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">Hooks</span><span class="date">2026. 4. 14. · v2.1.105</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 유용함?</h4>
+    <p>Claude Code가 컨텍스트가 길어지면 자동으로 <code>/compact</code>를 돌리는데, 그 타이밍을 훅으로 가로챌 수 있음. 예를 들어 중요한 작업 중간에 갑자기 압축되는 걸 막거나, 압축 전에 현재 상태를 파일로 저장하거나, 조건에 따라 아예 블록할 수 있음.</p>
+    <h4>블록 방법 두 가지</h4>
+    <ul>
+      <li>훅 스크립트에서 <strong>exit code 2</strong>로 종료하면 컴팩트가 중단됨</li>
+      <li>stdout으로 <code>{"decision":"block"}</code>을 반환해도 동일하게 블록됨</li>
+    </ul>
+    <h4>설정 예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># ~/.claude/settings.json</span>
+{
+  <span class="c-p">"hooks"</span>: {
+    <span class="c-g">"PreCompact"</span>: [
+      {
+        <span class="c-p">"hooks"</span>: [
+          {
+            <span class="c-p">"type"</span>: <span class="c-g">"command"</span>,
+            <span class="c-p">"command"</span>: <span class="c-g">"node ~/scripts/before-compact.js"</span>
+          }
+        ]
+      }
+    ]
+  }
+}</pre>
+    <h4>스크립트에서 블록하는 법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># exit code 2로 블록</span>
+<span class="c-p">exit</span> <span class="c-o">2</span>
+
+<span class="c-d"># 또는 JSON으로 블록</span>
+<span class="c-p">echo</span> <span class="c-g">'{"decision":"block"}'</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.105" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- EnterWorktree path 파라미터 — 2026. 4. 14. -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🌿</span>
+    <div class="card-title">
+      <h3>Worktree 경로 직접 지정 — 기존 워크트리로 바로 이동<span class="new-dot"></span></h3>
+      <p>EnterWorktree 툴에 <code>path</code> 파라미터가 추가됨. 새로 만들지 않고 이미 있는 워크트리로 바로 들어갈 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">Worktrees</span><span class="tag tag-green">실용적</span><span class="date">2026. 4. 14. · v2.1.105</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라짐?</h4>
+    <p>기존에는 워크트리를 새로 생성할 때만 자동으로 진입할 수 있었음. 이제 <code>path</code>를 명시하면 이미 존재하는 워크트리 디렉토리로 Claude가 직접 이동할 수 있어서, 멀티 에이전트가 각자 다른 워크트리를 넘나들 때 훨씬 편해짐.</p>
+    <h4>활용 시나리오</h4>
+    <ul>
+      <li>Agent Teams에서 서브에이전트가 특정 브랜치 워크트리만 담당하도록 지정</li>
+      <li>이미 체크아웃된 워크트리를 재사용해서 불필요한 중복 생성 방지</li>
+      <li>병렬 작업 중 특정 워크트리 상태를 점검하러 잠깐 들어갔다 나오는 것도 가능</li>
+    </ul>
+    <h4>사용 예시 (Claude에게 지시할 때)</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 이미 만들어진 워크트리 경로로 바로 들어가도록 요청</span>
+<span class="c-g">"../my-repo-feature-branch 워크트리로 이동해서
+ 거기서 테스트 돌려줘"</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.105" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- 플러그인 백그라운드 모니터 — 2026. 4. 14. -->
+<div class="card featured">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔌</span>
+    <div class="card-title">
+      <h3>플러그인 백그라운드 모니터 — 스킬 실행하면 자동으로 감시 시작<span class="new-dot"></span></h3>
+      <p>플러그인 매니페스트에 <code>monitors</code> 키를 선언하면, 세션 시작 또는 스킬 호출 시 백그라운드 모니터가 자동으로 붙음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">Plugins</span><span class="tag tag-orange">자동화</span><span class="date">2026. 4. 14. · v2.1.105</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떻게 동작함?</h4>
+    <p>플러그인의 매니페스트 최상위에 <code>monitors</code> 키를 추가하면 됨. 세션이 시작될 때 자동으로 arm되거나, 특정 스킬을 invoke할 때 함께 실행됨. 플러그인이 실행되는 동안 로그 감시, 상태 체크, 알림 발송 같은 걸 알아서 돌릴 수 있음.</p>
+    <h4>활용 예시</h4>
+    <ul>
+      <li>스킬 실행 중 에러 로그를 실시간 감시하다가 이상 감지 시 Claude에게 알림</li>
+      <li>빌드/테스트 스킬 invoke 시 CPU·메모리 사용량 모니터 자동 시작</li>
+      <li>세션 내내 특정 파일 변경을 감지해서 자동으로 후속 작업 트리거</li>
+    </ul>
+    <h4>매니페스트 설정 예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># plugin.json (플러그인 매니페스트)</span>
+{
+  <span class="c-p">"name"</span>: <span class="c-g">"my-plugin"</span>,
+  <span class="c-p">"skills"</span>: [ <span class="c-o">...</span> ],
+  <span class="c-p">"monitors"</span>: [
+    {
+      <span class="c-p">"name"</span>: <span class="c-g">"log-watcher"</span>,
+      <span class="c-p">"command"</span>: <span class="c-g">"node monitors/log-watcher.js"</span>,
+      <span class="c-p">"trigger"</span>: <span class="c-g">"session_start"</span>
+    },
+    {
+      <span class="c-p">"name"</span>: <span class="c-g">"build-monitor"</span>,
+      <span class="c-p">"command"</span>: <span class="c-g">"node monitors/build-monitor.js"</span>,
+      <span class="c-p">"trigger"</span>: <span class="c-g">"skill_invoke"</span>,
+      <span class="c-p">"skill"</span>: <span class="c-g">"run-build"</span>
+    }
+  ]
+}</pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.105" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- /team-onboarding — 2026. 4. 11. -->
 <div class="card">
   <div class="card-header" onclick="toggle(this)">
@@ -2016,7 +2132,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.104'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.105'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
 
 

@@ -250,6 +250,39 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- /recap — 세션 복귀할 때 요약 브리핑 · 2026-04-15 -->
+<div class="card featured">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📋</span>
+    <div class="card-title">
+      <h3>/recap — 자리 비웠다가 돌아와도 바로 파악<span class="new-dot"></span></h3>
+      <p>세션에 다시 들어오면 "지금까지 뭐 했는지" 자동으로 요약해줌. 긴 작업 중간에 자리 비웠다 돌아와도 흐름 안 끊겨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">세션</span><span class="tag tag-red">자주쓰임</span><span class="date">2026-04-15 · v2.1.108</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이런 거야</h4>
+    <p>오래된 세션에 다시 접속하거나, 한참 자리 비웠다 돌아오면 Claude가 자동으로 "지금까지 이런 작업 했고, 여기까지 왔어요" 식으로 브리핑해줌. <code>/recap</code> 명령으로 수동으로도 불러올 수 있고, <code>/config</code>에서 자동 실행 여부도 설정 가능.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 지금 세션 요약 바로 보기</span>
+<span class="c-p">/recap</span>
+
+<span class="c-d"># /config에서 자동 recap 켜기/끄기 설정 가능</span>
+<span class="c-p">/config</span>
+
+<span class="c-d"># 텔레메트리 꺼둔 경우 환경변수로 강제 활성화</span>
+<span class="c-g">CLAUDE_CODE_ENABLE_AWAY_SUMMARY</span><span class="c-o">=1</span></pre>
+    <h4>이럴 때 진짜 유용함</h4>
+    <ul>
+      <li>밥 먹고 왔는데 어디까지 했는지 기억 안 날 때</li>
+      <li>Worktree나 멀티 세션 전환해서 컨텍스트 날아갔을 때</li>
+      <li>오래된 세션 <code>--resume</code>으로 다시 열었을 때</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.108" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- PreCompact Hook — 2026. 4. 14. -->
 <div class="card">
   <div class="card-header" onclick="toggle(this)">
@@ -2132,7 +2165,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.107'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.108'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
 
 

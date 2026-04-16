@@ -250,6 +250,97 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- xhigh effort + theme auto + /less-permission-prompts + /ultrareview — 2026.4.17 -->
+<div class="card featured">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🚀</span>
+    <div class="card-title">
+      <h3>/ultrareview — 멀티 에이전트 울트라 코드 리뷰<span class="new-dot"></span></h3>
+      <p>클라우드에서 병렬 에이전트들이 PR 또는 현재 브랜치를 입체적으로 뜯어봐 줌. 혼자 리뷰할 때보다 훨씬 촘촘하게.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">코드 리뷰</span><span class="tag tag-red">자주쓰임</span><span class="date">2026.4.17 · v2.1.111</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 좋냐면</h4>
+    <ul>
+      <li>인수 없이 쓰면 현재 브랜치 전체를 분석해 줌</li>
+      <li>PR 번호를 넘기면 GitHub에서 직접 가져와서 리뷰</li>
+      <li>여러 에이전트가 병렬로 분석 → 누락 없이 종합적인 피드백</li>
+      <li>기존 <code>/review</code>보다 훨씬 깊고 광범위한 리뷰 가능</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 현재 브랜치 전체 리뷰</span>
+<span class="c-p">/ultrareview</span>
+
+<span class="c-d"># 특정 GitHub PR 번호로 리뷰</span>
+<span class="c-p">/ultrareview</span> <span class="c-g">142</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.111" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- /less-permission-prompts — 2026.4.17 -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔐</span>
+    <div class="card-title">
+      <h3>/less-permission-prompts — 권한 팝업 줄여주는 자동 허용목록 생성기<span class="new-dot"></span></h3>
+      <p>대화 기록을 분석해서 "어차피 항상 허용하는 것들"을 골라 settings.json에 자동으로 추가해 줌. 반복되는 권한 승인 클릭에서 해방.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="tag tag-green">실용적</span><span class="date">2026.4.17 · v2.1.111</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>작동 방식</h4>
+    <ul>
+      <li>지금까지의 트랜스크립트에서 읽기 전용 Bash·MCP 툴 호출 패턴을 스캔</li>
+      <li>안전하게 허용해도 되는 것들을 우선순위별로 정리해서 보여줌</li>
+      <li>확인하면 <code>.claude/settings.json</code>에 allowlist로 자동 추가</li>
+      <li>매번 "허용할까요?" 뜨는 거 확 줄어들어서 작업 흐름이 훨씬 매끄러워짐</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 트랜스크립트 분석 후 허용목록 제안 받기</span>
+<span class="c-p">/less-permission-prompts</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.111" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- xhigh effort + Auto theme — 2026.4.17 -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⚡</span>
+    <div class="card-title">
+      <h3>xhigh 에포트 + 터미널 자동 테마 — 디테일 업그레이드<span class="new-dot"></span></h3>
+      <p>Opus 4.7 전용 <code>xhigh</code> 에포트 레벨 추가 (high와 max 사이), 그리고 터미널 다크/라이트 모드에 맞게 자동으로 색상 바꿔주는 테마 옵션도 생겼어.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">설정</span><span class="date">2026.4.17 · v2.1.111</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>xhigh 에포트</h4>
+    <ul>
+      <li>Opus 4.7 한정으로 <code>high</code>와 <code>max</code> 사이의 새 레벨</li>
+      <li>max까지 쓰기엔 오버킬인데 high론 좀 아쉬울 때 딱 맞음</li>
+      <li>다른 모델에서 쓰면 자동으로 <code>high</code>로 폴백</li>
+    </ul>
+    <h4>Auto 테마</h4>
+    <ul>
+      <li>터미널 다크/라이트 설정을 자동으로 감지해서 맞춰줌</li>
+      <li>터미널 모드 바꿀 때마다 수동으로 테마 변경할 필요 없음</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># xhigh 에포트 설정 (Opus 4.7)</span>
+<span class="c-p">/effort</span> <span class="c-g">xhigh</span>
+
+<span class="c-d"># CLI 옵션으로도 가능</span>
+<span class="c-o">--effort</span> <span class="c-g">xhigh</span>
+
+<span class="c-d"># 터미널 자동 테마 적용</span>
+<span class="c-p">/theme</span>  <span class="c-d"># → "Auto (match terminal)" 선택</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.111" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- /tui + /focus — 2026.4.16. -->
 <div class="card">
   <div class="card-header" onclick="toggle(this)">
@@ -2269,7 +2360,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.110'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.111'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
 
 

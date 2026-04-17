@@ -153,7 +153,7 @@ ${existingTitlesList}
 2. 기존 카드 스타일을 따라:
 
 <example>
-<div class="card">
+<div class="card" data-cat="카테고리">
   <div class="card-header" onclick="toggle(this)">
     <span class="card-icon">이모지</span>
     <div class="card-title">
@@ -172,6 +172,11 @@ ${existingTitlesList}
 </example>
 
 3. 태그 클래스: tag-pink(NEW), tag-purple(카테고리), tag-green(실용적), tag-blue(VSCode/MCP 등), tag-red(자주쓰임/보안), tag-orange(자동화/인수)
+3-1. ⚠️ FEATURE_CARDS 블록의 카드에는 반드시 data-cat 속성을 붙여. 4가지 중 하나:
+    - data-cat="core" → 핵심 기능 (모델, UI, 출력, Computer Use 등)
+    - data-cat="cmd" → 명령어 (슬래시 명령어, CLI 등)
+    - data-cat="auto" → 자동화 (Hooks, Agent, Schedule 등)
+    - data-cat="dev" → 개발 도구 (MCP, Worktrees, VSCode 등)
 4. 코드 블록 내 span: c-d(주석), c-p(명령어), c-g(텍스트), c-b(굵은파랑), c-o(옵션)
 5. 날짜 옆에 "별도 제품 발표" 표기
 6. 주목할만한 것은 class="card featured"
@@ -298,7 +303,7 @@ ${existingTitlesList}
 
 <example>
 <!-- Feature Name — 날짜 -->
-<div class="card">
+<div class="card" data-cat="카테고리">
   <div class="card-header" onclick="toggle(this)">
     <span class="card-icon">이모지</span>
     <div class="card-title">
@@ -324,6 +329,11 @@ ${existingTitlesList}
 7. 정말 주목할만한 기능(자주 쓰이거나 임팩트 큰 것)에는 class="card featured"를 사용
 8. 카드 body 마지막에 릴리즈 노트 바로가기 링크를 넣어: <p class="release-link"><a href="릴리즈URL" target="_blank">릴리즈 노트 보기 →</a></p>
 9. 카드만 출력해. 다른 설명이나 마크다운 없이 순수 HTML만.
+10. ⚠️ 반드시 각 카드 div에 data-cat 속성을 붙여야 해. 아래 4가지 중 하나를 선택:
+    - data-cat="core" → 핵심 기능 (모델, UI, 출력, 입력, Computer Use, 음성, 검색 등 메인 기능)
+    - data-cat="cmd" → 명령어 (슬래시 명령어, CLI 플래그, 세션 관리 등)
+    - data-cat="auto" → 자동화 (Hooks, Agent, Schedule, Loop, Plugin, 권한 모드 등)
+    - data-cat="dev" → 개발 도구 (MCP, Worktrees, VSCode, Chrome, Edit 개선, 외부 연동 등)
 
 새 릴리즈 내용:
 ${featureSummary}`;

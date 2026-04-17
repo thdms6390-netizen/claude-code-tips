@@ -41,7 +41,7 @@
     .header-inner h1 span{color:var(--purple)}
 
     /* Tabs */
-    .tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;padding:12px 0 0}
+    .tabs{display:flex;align-items:center;gap:2px;overflow-x:auto;scrollbar-width:none;padding:12px 0 0}
     .tabs::-webkit-scrollbar{display:none}
     .tab{
       padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;
@@ -194,7 +194,7 @@
       transition:all .15s;color:var(--text2);display:flex;align-items:center;gap:6px;
     }
     .theme-toggle:hover{border-color:var(--purple);color:var(--purple)}
-    .header-right{display:flex;align-items:center;gap:10px}
+    .header-right{display:flex;align-items:flex-end;flex-direction:column;gap:4px}
 
     footer{text-align:center;padding:40px 20px;border-top:1px solid var(--border);font-size:12px;color:var(--dim)}
     footer a{color:var(--purple);text-decoration:none}
@@ -210,8 +210,9 @@
     <div class="header-inner">
       <h1>⚡ Claude Code <span>Note</span></h1>
       <div class="header-right">
-        <span class="version" id="currentVersion">최신 버전 확인중...</span>
+        <span class="version" id="currentVersion" style="display:none"></span>
         <button class="theme-toggle" id="themeToggle" title="다크/라이트 모드 전환">🌙</button>
+        <span style="font-size:10px;color:var(--dim);opacity:.5">by 소들</span>
       </div>
     </div>
     <div class="tabs">
@@ -1935,7 +1936,7 @@ Settings → General → <span class="c-g">Computer Use 토글 ON</span>
     <tr><td><span class="cmd">/compact</span></td><td>대화 컨텍스트 압축</td><td>대화가 길어져서 느려질 때</td></tr>
     <tr><td><span class="cmd">/cost</span></td><td>토큰 사용량 / 비용 확인</td><td>비용 체크할 때</td></tr>
     <tr><td><span class="cmd">/rewind</span></td><td>코드를 이전 시점으로 복원 (대화는 유지)</td><td>Claude가 코드를 망쳤을 때</td></tr>
-    <tr><td><span class="cmd">/effort</span> low|high|auto</td><td>사고 깊이 조절</td><td>간단한 작업=low, 복잡한 거=high</td></tr>
+    <tr><td><span class="cmd">/effort</span> low|high|xhigh</td><td>사고 깊이 조절</td><td>간단한 작업=low, 복잡한 거=high/xhigh</td></tr>
     <tr><td><span class="cmd">/model</span></td><td>모델 전환 (Opus/Sonnet/Haiku)</td><td>빠른 작업에 Sonnet, 복잡한 건 Opus</td></tr>
     <tr><td><span class="cmd">/fast</span></td><td>같은 모델 2.5배 빠른 응답 (비용 증가)</td><td>급할 때</td></tr>
     <tr><td><span class="cmd">/clear</span></td><td>대화 초기화</td><td>새 작업 시작할 때</td></tr>
@@ -1946,6 +1947,9 @@ Settings → General → <span class="c-g">Computer Use 토글 ON</span>
     <tr><td><span class="cmd">/branch</span></td><td>대화 분기 (실험용)</td><td>다른 접근법 시도할 때</td></tr>
     <tr><td><kbd>!</kbd> 명령어</td><td>셸 명령 직접 실행 (Claude 안 거침)</td><td>npm test, git status 등 빠르게</td></tr>
     <tr><td><kbd>@</kbd>파일경로</td><td>파일 참조 자동완성</td><td>특정 파일 언급할 때</td></tr>
+    <tr><td><span class="cmd">/plan</span></td><td>읽기 전용 모드 (코드 수정 없이 분석만)</td><td>접근법 검토할 때</td></tr>
+    <tr><td><span class="cmd">/intro</span></td><td>CLAUDE.md 대화형 생성 (프로젝트 분석)</td><td>새 프로젝트 셋업할 때</td></tr>
+    <tr><td><span class="cmd">/recap</span></td><td>세션 요약 (돌아왔을 때 자동으로도 뜸)</td><td>어디까지 했는지 파악할 때</td></tr>
   </tbody>
 </table>
 
@@ -1980,7 +1984,8 @@ Settings → General → <span class="c-g">Computer Use 토글 ON</span>
 <table class="cheat-table">
   <thead><tr><th>명령어</th><th>설명</th></tr></thead>
   <tbody>
-    <tr><td><span class="cmd">/resume</span></td><td>이전 세션 이어서 (이름/ID 또는 선택 화면)</td></tr>
+    <tr><td><span class="cmd">/resume</span></td><td>이전 세션 이어서 (Ctrl+A로 전체 보기)</td></tr>
+    <tr><td><span class="cmd">/recap</span></td><td>현재 세션 요약 (세션 복귀 시 자동 표시)</td></tr>
     <tr><td><span class="cmd">/branch</span> / <span class="cmd">/fork</span></td><td>현재 대화 분기점 생성 (실험용)</td></tr>
     <tr><td><span class="cmd">/rename</span> 이름</td><td>세션 이름 변경 (프롬프트 바에 표시)</td></tr>
     <tr><td><span class="cmd">/export</span></td><td>대화 내용 텍스트 파일로 저장</td></tr>
@@ -2009,6 +2014,8 @@ Settings → General → <span class="c-g">Computer Use 토글 ON</span>
     <tr><td><span class="cmd">/vim</span></td><td>Vim 편집 모드 토글</td></tr>
     <tr><td><span class="cmd">/theme</span></td><td>테마 변경 (라이트/다크/색맹 등)</td></tr>
     <tr><td><span class="cmd">/keybindings</span></td><td>단축키 커스터마이징</td></tr>
+    <tr><td><span class="cmd">/ide</span></td><td>VS Code 확장 연결 (diff 뷰어 연동)</td></tr>
+    <tr><td><span class="cmd">/terminal-setup</span></td><td>Option+Enter 줄바꿈 설정 (터미널별)</td></tr>
     <tr><td><span class="cmd">/doctor</span></td><td>설치 진단 (문제 해결)</td></tr>
     <tr><td><span class="cmd">/release-notes</span></td><td>체인지로그 보기</td></tr>
   </tbody>
@@ -2022,7 +2029,11 @@ Settings → General → <span class="c-g">Computer Use 토글 ON</span>
     <tr><td><span class="cmd">/schedule</span></td><td>클라우드 예약 실행 (24/7, PC 꺼도)</td></tr>
     <tr><td><span class="cmd">/security-review</span></td><td>변경사항 보안 취약점 분석</td></tr>
     <tr><td><span class="cmd">/simplify</span></td><td>코드 리뷰 & 최적화</td></tr>
+    <tr><td><span class="cmd">/ultrareview</span></td><td>클라우드 멀티에이전트 코드 리뷰 (PR 번호 가능)</td></tr>
     <tr><td><span class="cmd">/pr-comments</span></td><td>GitHub PR 코멘트 가져오기</td></tr>
+    <tr><td><span class="cmd">/less-permission-prompts</span></td><td>권한 물어보기 줄이기 (allowlist 자동 생성)</td></tr>
+    <tr><td><span class="cmd">/powerup</span></td><td>Claude Code 기능 인터랙티브 튜토리얼</td></tr>
+    <tr><td><span class="cmd">/team-onboarding</span></td><td>팀원용 온보딩 가이드 생성</td></tr>
     <tr><td><span class="cmd">/install-github-app</span></td><td>GitHub Actions 앱 설치</td></tr>
     <tr><td><span class="cmd">/tasks</span></td><td>백그라운드 작업 목록 관리</td></tr>
   </tbody>
@@ -2091,6 +2102,40 @@ Settings → General → <span class="c-g">Computer Use 토글 ON</span>
   </tbody>
 </table>
 
+<!-- 프로 팁 -->
+<div class="cheat-section">💡 프로 팁</div>
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">💡</span>
+    <div class="card-title">
+      <h3>알면 생산성 2배 되는 꿀팁들</h3>
+      <p>자주 안 쓰지만 알면 엄청 편한 것들</p>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>비용 절감</h4>
+    <ul>
+      <li><code>ENABLE_PROMPT_CACHING_1H=1</code> — 프롬프트 캐시 1시간 유지 (API키/Bedrock/Vertex 사용자)</li>
+      <li><code>FORCE_PROMPT_CACHING_5M=1</code> — 5분 캐시 (빠른 반복 작업용)</li>
+      <li>큰 코드베이스에서 토큰 비용 대폭 절감 가능</li>
+    </ul>
+    <h4>워크플로우</h4>
+    <ul>
+      <li>빈 프롬프트에서 <kbd>/</kbd> 치면 전체 명령어 목록 (커스텀 포함)</li>
+      <li><kbd>Shift+Tab</kbd>으로 권한 모드 빠르게 전환 (Normal → Auto → Plan)</li>
+      <li><code>claude --continue</code>로 마지막 세션 바로 이어서 시작</li>
+      <li><code>/intro</code>로 프로젝트 시작할 때 CLAUDE.md 세팅하면 이후 세션이 훨씬 정확해짐</li>
+    </ul>
+    <h4>디버깅</h4>
+    <ul>
+      <li><kbd>[</kbd> 키로 전체 대화 내역을 터미널 스크롤백에 덤프</li>
+      <li><kbd>v</kbd> 키로 외부 에디터에서 대화 내역 열기</li>
+      <li><code>CLAUDE_CODE_NO_FLICKER=1</code> — 깜빡임 없는 풀스크린 모드</li>
+    </ul>
+  </div>
+</div>
+
 </div>
 
 <!-- REMOVED: 개발 Note, MCP panels -->
@@ -2106,23 +2151,46 @@ Settings → General → <span class="c-g">Computer Use 토글 ON</span>
   <p>Claude Code 관련 공식 발표, 인수, 파트너십 소식 모음</p>
 </div>
 
-<!-- /compact 버그 수정 — 2026.03.26 -->
-<div class="card">
+<!-- Desktop 앱 리디자인 — 2026.04.15 -->
+<div class="card featured">
   <div class="card-header" onclick="toggle(this)">
-    <span class="card-icon">🔧</span>
+    <span class="card-icon">🖥️</span>
     <div class="card-title">
-      <h3>/compact 대화 길어지면 터지던 버그 수정</h3>
-      <p>대화가 너무 길어지면 /compact 자체가 "context exceeded"로 실패하던 문제가 해결됨.</p>
-      <div class="card-tags"><span class="tag tag-red">버그 수정</span><span class="tag tag-purple">CLI</span><span class="date">2026.03.27 · v2.1.85</span></div>
+      <h3>Claude Code Desktop 앱 완전 리디자인</h3>
+      <p>사이드바에서 멀티 세션 관리, 드래그앤드롭 레이아웃까지. 터미널 밖에서도 Claude Code를 풀로 쓸 수 있게 됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">Desktop</span><span class="date">2026.04.15 · 별도 제품 발표</span></div>
     </div>
     <span class="card-arrow">›</span>
   </div>
   <div class="card-body">
-    <h4>뭐가 문제였냐면</h4>
-    <p>대화가 길어져서 컨텍스트 정리하려고 <code>/compact</code> 쳤는데, 정작 compact 요청 자체가 컨텍스트에 안 들어가서 "context exceeded" 에러가 나던 상황. 정리하려는데 정리가 안 되는 아이러니였음.</p>
-    <h4>이제는</h4>
-    <p>대화가 아무리 길어도 <code>/compact</code>가 정상 동작함. 긴 세션 자주 쓰는 사람한테는 꽤 중요한 수정.</p>
-    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.85" target="_blank">릴리즈 노트 보기 →</a></p>
+    <h4>뭐가 달라졌는데?</h4>
+    <ul>
+      <li>사이드바로 여러 세션을 한눈에 관리</li>
+      <li>드래그앤드롭으로 레이아웃 자유롭게 배치</li>
+      <li>Mac, Windows 모두 지원</li>
+      <li>CLI의 모든 기능을 GUI에서 그대로 사용 가능</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Computer Use for Pro/Max — 2026.03 -->
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🖱️</span>
+    <div class="card-title">
+      <h3>Computer Use — Pro/Max 사용자 정식 공개</h3>
+      <p>Claude가 직접 파일 열고, 클릭하고, 브라우저 조작까지. 개발 도구를 실제로 만져주는 기능.</p>
+      <div class="card-tags"><span class="tag tag-green">실용적</span><span class="tag tag-blue">Computer Use</span><span class="date">2026.03 · 별도 제품 발표</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떻게 쓰는 건데?</h4>
+    <ul>
+      <li>Claude가 마우스/키보드를 직접 조작해서 앱을 사용</li>
+      <li>개발 도구 실행, 브라우저 테스트, UI 확인 등 자동화</li>
+      <li>Pro/Max 구독자 대상으로 정식 공개</li>
+    </ul>
   </div>
 </div>
 
@@ -2517,9 +2585,6 @@ document.getElementById('currentVersion').textContent = KNOWN_VERSION;
 document.getElementById('updateText').innerHTML = '상태 확인 중...';
 </script>
 
-<footer style="text-align:center;padding:24px 16px;font-size:13px;color:var(--text2)">
-  소들이가 만듦 <span style="color:var(--pink)">♥</span>
-</footer>
 
 </body>
 </html>

@@ -267,6 +267,62 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- Native Binary — 2026. 4. 18. -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⚡</span>
+    <div class="card-title">
+      <h3>네이티브 바이너리 실행 — JS 번들 대신 플랫폼 전용 바이너리로<span class="new-dot"></span></h3>
+      <p>Claude Code CLI가 이제 JavaScript 번들 대신 플랫폼별 네이티브 바이너리로 실행돼. 체감 성능이 더 빨라지고 무거운 JS 런타임 오버헤드가 줄어드는 거.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">성능</span><span class="date">2026. 4. 18. · v2.1.113</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라진 거야?</h4>
+    <p>기존에는 CLI가 Node.js 번들(JS)로 동작했는데, 이제부터는 OS·아키텍처에 맞는 네이티브 바이너리를 자동으로 내려받아서 실행해. 별도로 뭔가 설정할 필요 없이 <code>npm update</code>만 해도 자동으로 적용됨.</p>
+    <h4>어떻게 확인해?</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 최신 버전으로 업데이트</span>
+<span class="c-p">npm</span> <span class="c-g">update -g @anthropic-ai/claude-code</span>
+
+<span class="c-d"># 버전 확인 — v2.1.113 이상이면 네이티브 바이너리 적용됨</span>
+<span class="c-p">claude</span> <span class="c-o">--version</span></pre>
+    <h4>플랫폼별 지원</h4>
+    <p>macOS (Apple Silicon / Intel), Linux (x64 / arm64) 등 주요 플랫폼용 바이너리가 optional dependency로 자동 설치돼. 지원 안 되는 환경이면 기존 JS 방식으로 폴백함.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.113" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- sandbox.network.deniedDomains — 2026. 4. 18. -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🚫</span>
+    <div class="card-title">
+      <h3>deniedDomains 설정 — 허용 도메인 안에서도 특정 주소는 차단<span class="new-dot"></span></h3>
+      <p>샌드박스 네트워크 설정에 예외 차단 기능이 생겼어. <code>allowedDomains</code>에 와일드카드로 넓게 열어놨어도, 특정 도메인만 콕 집어서 막을 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">보안</span><span class="tag tag-orange">자동화</span><span class="date">2026. 4. 18. · v2.1.113</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 필요해?</h4>
+    <p><code>allowedDomains: ["*.example.com"]</code> 처럼 와일드카드로 넓게 허용했을 때, 그 안에 있는 특정 서브도메인은 접근 못 하게 막고 싶을 때 쓰는 거. 예를 들어 내부 관리자 API 엔드포인트만 차단하는 식으로 활용 가능.</p>
+    <h4>설정 방법 (settings.json)</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># ~/.claude/settings.json</span>
+{
+  <span class="c-p">"sandbox"</span>: {
+    <span class="c-p">"network"</span>: {
+      <span class="c-g">"allowedDomains"</span>: [<span class="c-o">"*.mycompany.com"</span>],
+      <span class="c-g">"deniedDomains"</span>: [<span class="c-o">"admin.mycompany.com"</span>, <span class="c-o">"internal.mycompany.com"</span>]
+    }
+  }
+}</pre>
+    <h4>우선순위</h4>
+    <p><code>deniedDomains</code>가 <code>allowedDomains</code>보다 우선 적용돼. 즉, 허용 목록에 들어있어도 차단 목록에 있으면 무조건 막힘. 세밀한 네트워크 제어가 필요한 팀 환경에서 유용함.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.113" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- xhigh effort + theme auto + /less-permission-prompts + /ultrareview — 2026.4.17 -->
 <div class="card featured" data-cat="core">
   <div class="card-header" onclick="toggle(this)">
@@ -2444,7 +2500,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.112'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.114'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
 
 

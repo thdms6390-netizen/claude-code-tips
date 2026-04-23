@@ -267,6 +267,68 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- Vim Visual Mode — 2026. 4. 23. -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⌨️</span>
+    <div class="card-title">
+      <h3>Vim Visual Mode — 터미널에서 진짜 vim처럼 선택하기<span class="new-dot"></span></h3>
+      <p>이제 Claude Code 입력창에서 <code>v</code>, <code>V</code>로 텍스트 선택하고 vim 연산자까지 쓸 수 있음. vim 유저라면 손이 그대로 따라가는 느낌.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">에디터</span><span class="tag tag-red">자주쓰임</span><span class="date">2026. 4. 23. · v2.1.118</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라졌냐면</h4>
+    <ul>
+      <li><code>v</code> — 문자 단위 Visual Mode 진입. 커서 이동하면 범위가 하이라이트됨</li>
+      <li><code>V</code> — 줄 단위 Visual-Line Mode 진입. 통째로 한 줄씩 선택</li>
+      <li>선택 후 <code>d</code>, <code>y</code>, <code>c</code> 같은 vim 연산자 그대로 사용 가능</li>
+      <li>선택 영역이 시각적으로 바로 표시돼서 뭘 선택했는지 한눈에 보임</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># Claude Code 입력창에서 vim 모드 활성화 상태일 때</span>
+<span class="c-p">v</span>          <span class="c-d"># 문자 단위 visual mode 진입</span>
+<span class="c-p">V</span>          <span class="c-d"># 줄 단위 visual-line mode 진입</span>
+<span class="c-g">hjkl</span>       <span class="c-d"># 이동하면서 선택 범위 확장</span>
+<span class="c-o">d</span> / <span class="c-o">y</span> / <span class="c-o">c</span>  <span class="c-d"># 삭제 / 복사 / 교체</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.118" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- DISABLE_UPDATES + claude plugin tag — 2026. 4. 23. -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔒</span>
+    <div class="card-title">
+      <h3>DISABLE_UPDATES + claude plugin tag — 업데이트 완전 차단 & 플러그인 태그 관리<span class="new-dot"></span></h3>
+      <p>기업 환경에서 업데이트를 아예 막고 싶을 때 쓰는 환경변수 추가. 플러그인 버전 태그도 CLI에서 바로 생성 가능해짐.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="tag tag-blue">플러그인</span><span class="date">2026. 4. 23. · v2.1.118</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>DISABLE_UPDATES — 업데이트 완전 봉쇄</h4>
+    <ul>
+      <li>기존 <code>DISABLE_AUTOUPDATER</code>는 자동 업데이트만 막음. 근데 <code>claude update</code>는 여전히 됐음</li>
+      <li><code>DISABLE_UPDATES=1</code> 설정하면 수동 업데이트 명령어까지 전부 차단</li>
+      <li>CI 환경이나 버전 고정이 필요한 팀에서 유용함</li>
+    </ul>
+    <h4>claude plugin tag — 플러그인 릴리즈 태그 생성</h4>
+    <ul>
+      <li>플러그인을 배포할 때 버전 태그를 CLI에서 바로 만들 수 있음</li>
+      <li>버전 형식 검증도 자동으로 해줌 (잘못된 버전 입력하면 에러)</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 업데이트 완전 차단 (자동 + 수동 모두)</span>
+<span class="c-b">export</span> <span class="c-g">DISABLE_UPDATES</span>=<span class="c-o">1</span>
+
+<span class="c-d"># 플러그인 릴리즈 태그 생성</span>
+<span class="c-p">claude plugin tag</span> <span class="c-g">v1.2.0</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.118" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- Native Binary — 2026. 4. 18. -->
 <div class="card" data-cat="core">
   <div class="card-header" onclick="toggle(this)">
@@ -2529,7 +2591,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.117'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.118'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
 
 

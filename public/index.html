@@ -267,6 +267,36 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- prUrlTemplate + CLAUDE_CODE_HIDE_CWD — 2026.4.24 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔧</span>
+    <div class="card-title">
+      <h3>prUrlTemplate + CLAUDE_CODE_HIDE_CWD — PR 배지 커스텀 & 시작 화면 정리<span class="new-dot"></span></h3>
+      <p>PR 배지를 GitHub 말고 사내 코드리뷰 URL로 바꾸고, 시작 로고에서 작업 디렉터리 경로를 숨길 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">설정</span><span class="date">2026.4.24 · v2.1.119</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>prUrlTemplate — PR 배지 링크 바꾸기</h4>
+    <p>기본적으로 하단 PR 배지는 github.com 링크를 가리키는데, 사내 GitLab이나 Gerrit 같은 커스텀 코드리뷰 시스템을 쓴다면 <code>prUrlTemplate</code>으로 URL 패턴을 직접 지정할 수 있어.</p>
+    <h4>설정 방법 (settings.json)</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># .claude/settings.json 또는 ~/.claude/settings.json</span>
+{
+  <span class="c-p">"prUrlTemplate"</span>: <span class="c-g">"https://gitlab.mycompany.com/{org}/{repo}/-/merge_requests/{number}"</span>
+}</pre>
+    <h4>CLAUDE_CODE_HIDE_CWD — 시작 로고에서 경로 숨기기</h4>
+    <p>Claude Code를 실행하면 시작 로고에 현재 작업 디렉터리가 표시되는데, 화면 공유하거나 스크린샷 찍을 때 경로가 노출되기 싫다면 이 환경변수로 숨길 수 있어.</p>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 터미널에서 바로 적용</span>
+<span class="c-b">CLAUDE_CODE_HIDE_CWD</span>=<span class="c-g">1</span> claude
+
+<span class="c-d"># 또는 쉘 설정에 영구 등록 (~/.zshrc, ~/.bashrc)</span>
+<span class="c-p">export</span> <span class="c-b">CLAUDE_CODE_HIDE_CWD</span>=<span class="c-g">1</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.119" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- Vim Visual Mode — 2026. 4. 23. -->
 <div class="card" data-cat="core">
   <div class="card-header" onclick="toggle(this)">
@@ -2591,7 +2621,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.118'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.119'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
 
 

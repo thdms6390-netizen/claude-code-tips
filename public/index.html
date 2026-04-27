@@ -267,6 +267,55 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- claude ultrareview [target] — 2026.4.25 -->
+<div class="card featured" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🤖</span>
+    <div class="card-title">
+      <h3>claude ultrareview [target] — CI에서 비대화형 코드 리뷰<span class="new-dot"></span></h3>
+      <p>대화 없이 터미널·CI 파이프라인에서 바로 울트라 리뷰 돌리고 결과를 stdout으로 받는 거.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="tag tag-purple">CLI</span><span class="date">2026.4.25 · v2.1.120</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떻게 쓰는 거?</h4>
+    <ul>
+      <li><code>claude ultrareview</code> — 현재 브랜치 리뷰 (stdout 출력)</li>
+      <li><code>claude ultrareview 42</code> — GitHub PR #42 리뷰</li>
+      <li>CI 파이프라인에서 PR 올라올 때마다 자동으로 리뷰 돌리기 가능</li>
+      <li>인터랙티브 없이 실행되니까 스크립트·훅에 그냥 넣으면 됨</li>
+    </ul>
+    <h4>기존 /ultrareview 슬래시 커맨드와의 차이</h4>
+    <ul>
+      <li><code>/ultrareview</code>는 대화 세션 안에서 쓰는 슬래시 커맨드</li>
+      <li><code>claude ultrareview</code>는 세션 없이 단독 실행 — CI/CD에 딱 맞음</li>
+      <li>결과가 stdout으로 나오니까 <code>| tee review.txt</code> 같은 파이프도 자유롭게</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.120" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+<!-- ${CLAUDE_EFFORT} 스킬 변수 — 2026.4.25 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⚡</span>
+    <div class="card-title">
+      <h3>${CLAUDE_EFFORT} — 스킬에서 현재 에포트 수준 참조하기<span class="new-dot"></span></h3>
+      <p>스킬 파일 안에서 <code>${CLAUDE_EFFORT}</code>를 쓰면 현재 설정된 에포트(low/normal/high/xhigh)를 그대로 가져올 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="tag tag-purple">스킬</span><span class="date">2026.4.25 · v2.1.120</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>활용 예시</h4>
+    <ul>
+      <li>스킬 프롬프트에 <code>현재 에포트: ${CLAUDE_EFFORT}</code> 넣으면 동적으로 교체됨</li>
+      <li>에포트에 따라 스킬 동작을 다르게 분기시킬 수 있음</li>
+      <li>예: xhigh일 때만 전체 테스트 실행, normal이면 변경된 파일만 체크</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.120" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
 <!-- prUrlTemplate + CLAUDE_CODE_HIDE_CWD — 2026.4.24 -->
 <div class="card" data-cat="dev">
   <div class="card-header" onclick="toggle(this)">
@@ -2621,9 +2670,9 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.119'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.120'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
-const LAST_UPDATE = '2026-04-27T17:06:53Z'; // 루틴 마지막 실행 시간 (UTC)
+const LAST_UPDATE = '2026-04-27T18:08:18Z'; // 루틴 마지막 실행 시간 (UTC)
 
 
 function setBanner(state, msg) {

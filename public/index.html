@@ -267,6 +267,89 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- alwaysLoad MCP 옵션 — 2026.4.28 -->
+<div class="card featured" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔌</span>
+    <div class="card-title">
+      <h3>alwaysLoad — MCP 툴 검색 지연 없이 항상 로딩<span class="new-dot"></span></h3>
+      <p>MCP 서버 설정에 <code>alwaysLoad: true</code> 추가하면, 해당 서버의 모든 툴이 tool-search 지연 없이 세션 시작부터 바로 사용 가능.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-blue">MCP</span><span class="date">2026.4.28 · v2.1.121</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떻게 쓰는 거?</h4>
+    <ul>
+      <li>MCP 서버 config에 <code>"alwaysLoad": true</code> 추가</li>
+      <li>해당 서버 툴들이 tool-search 지연(deferral) 단계를 건너뜀</li>
+      <li>자주 쓰는 MCP 서버는 이걸 켜두면 매번 로딩 대기 없이 바로 접근 가능</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.121" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+<!-- claude plugin prune — 2026.4.28 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🧹</span>
+    <div class="card-title">
+      <h3>claude plugin prune — 고아 플러그인 의존성 정리<span class="new-dot"></span></h3>
+      <p>자동 설치됐지만 더 이상 쓰이지 않는 플러그인 의존성을 한 번에 삭제하는 거.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">CLI</span><span class="date">2026.4.28 · v2.1.121</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>명령어</h4>
+    <ul>
+      <li><code>claude plugin prune</code> — 고아 의존성 검색 후 삭제</li>
+      <li><code>claude plugin uninstall --prune</code> — 언인스톨 시 의존성도 같이 정리(cascade)</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.121" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+<!-- PostToolUse 출력 교체 전체 툴 확장 — 2026.4.28 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🪝</span>
+    <div class="card-title">
+      <h3>PostToolUse 출력 교체 — 이제 모든 툴에 적용 가능<span class="new-dot"></span></h3>
+      <p><code>hookSpecificOutput.updatedToolOutput</code>으로 툴 결과를 훅에서 교체하는 기능이 기존 MCP 툴에서 Bash·Edit 등 모든 툴로 확장됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="tag tag-purple">Hooks</span><span class="date">2026.4.28 · v2.1.121</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>활용 예시</h4>
+    <ul>
+      <li>Bash 툴 실행 결과를 훅에서 가공·필터링해서 Claude에게 다른 내용으로 전달 가능</li>
+      <li>이전엔 MCP 툴에서만 됐지만 이제 내장 툴 전부 지원</li>
+      <li>PostToolUse 훅에서 <code>hookSpecificOutput.updatedToolOutput</code> 반환하면 적용됨</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.121" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+<!-- 풀스크린 UX 개선 — 2026.4.28 -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🖥️</span>
+    <div class="card-title">
+      <h3>풀스크린 UX 3종 개선 — 스크롤·다이얼로그·URL 클릭<span class="new-dot"></span></h3>
+      <p>풀스크린 모드에서 타이핑 시 스크롤 위치 고정, 화면 넘치는 다이얼로그 스크롤 지원, 줄 바꿈된 URL 어느 줄이든 클릭 가능.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">터미널 UI</span><span class="date">2026.4.28 · v2.1.121</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>개선 내용</h4>
+    <ul>
+      <li>프롬프트 타이핑 중 위로 스크롤해 읽어도 화면이 맨 아래로 튀어오르지 않음</li>
+      <li>터미널보다 큰 다이얼로그를 방향키·PgUp/PgDn·마우스 휠로 스크롤 가능</li>
+      <li>여러 줄에 걸쳐 줄 바꿈된 긴 URL도 아무 줄이나 클릭하면 전체 URL 오픈</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.121" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
 <!-- claude ultrareview [target] — 2026.4.25 -->
 <div class="card featured" data-cat="cmd">
   <div class="card-header" onclick="toggle(this)">
@@ -2670,9 +2753,9 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.120'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.121'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
-const LAST_UPDATE = '2026-04-28T00:25:22Z'; // 루틴 마지막 실행 시간 (UTC)
+const LAST_UPDATE = '2026-04-28T01:17:20Z'; // 루틴 마지막 실행 시간 (UTC)
 
 
 function setBanner(state, msg) {

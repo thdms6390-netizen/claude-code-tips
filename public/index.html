@@ -267,6 +267,35 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- Bedrock Service Tier — 2026.4.29 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🏷️</span>
+    <div class="card-title">
+      <h3>Bedrock 서비스 티어 선택 — AWS 요청 우선순위 직접 지정<span class="new-dot"></span></h3>
+      <p>환경변수 하나로 Bedrock 호출 시 default·flex·priority 중 원하는 티어를 골라서 보낼 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">AWS</span><span class="tag tag-blue">Bedrock</span><span class="date">2026.4.29 · v2.1.122</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 필요해?</h4>
+    <p>AWS Bedrock은 요청 처리 우선순위를 티어로 관리함. 기존엔 기본값만 쓸 수 있었는데, 이제 <code>ANTHROPIC_BEDROCK_SERVICE_TIER</code>를 설정하면 <code>X-Amzn-Bedrock-Service-Tier</code> 헤더로 자동 전달됨.</p>
+    <ul>
+      <li><strong>default</strong> — 기본 처리 (변경 없음)</li>
+      <li><strong>flex</strong> — 유연한 처리 (비용 최적화)</li>
+      <li><strong>priority</strong> — 우선 처리 (속도 우선, 엔터프라이즈용)</li>
+    </ul>
+    <h4>설정법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># .env 또는 셸 설정에 추가</span>
+<span class="c-b">ANTHROPIC_BEDROCK_SERVICE_TIER</span>=<span class="c-g">priority</span>
+
+<span class="c-d"># 또는 실행 시 인라인으로</span>
+<span class="c-b">ANTHROPIC_BEDROCK_SERVICE_TIER</span>=<span class="c-g">flex</span> <span class="c-p">claude</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.122" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- alwaysLoad MCP 옵션 — 2026.4.28 -->
 <div class="card featured" data-cat="dev">
   <div class="card-header" onclick="toggle(this)">
@@ -2753,7 +2782,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.121'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.122'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-04-28T21:18:20Z'; // 루틴 마지막 실행 시간 (UTC)
 

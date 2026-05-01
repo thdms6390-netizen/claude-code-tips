@@ -267,6 +267,83 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- claude project purge — 2026.5.1 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🗑️</span>
+    <div class="card-title">
+      <h3>claude project purge — 프로젝트 상태 완전 삭제<span class="new-dot"></span></h3>
+      <p>프로젝트의 대화 기록·작업·파일 이력·설정을 한 번에 지우는 명령어가 추가됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">명령어</span><span class="tag tag-green">프로젝트 관리</span><span class="date">2026.5.1 · v2.1.126</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>사용법</h4>
+    <ul>
+      <li><code>claude project purge</code> — 현재 디렉토리 프로젝트 상태 삭제</li>
+      <li><code>claude project purge [path]</code> — 특정 경로 지정 가능</li>
+      <li><code>--dry-run</code>: 실제 삭제 없이 뭐가 지워질지 미리 확인</li>
+      <li><code>-y / --yes</code>: 확인 없이 바로 삭제</li>
+      <li><code>-i / --interactive</code>: 항목별로 선택해서 삭제</li>
+      <li><code>--all</code>: 모든 프로젝트 상태 일괄 삭제</li>
+    </ul>
+    <h4>삭제되는 것들</h4>
+    <ul>
+      <li>대화 트랜스크립트 (transcripts)</li>
+      <li>작업 목록 (tasks)</li>
+      <li>파일 수정 이력 (file history)</li>
+      <li>설정 항목 (config entry)</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.126" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+<!-- 터미널 OAuth 로그인 — 2026.5.1 -->
+<div class="card featured" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔐</span>
+    <div class="card-title">
+      <h3>터미널 OAuth 로그인 — WSL2·SSH·컨테이너에서도 이제 된다<span class="new-dot"></span></h3>
+      <p>브라우저 콜백이 localhost에 닿지 못하는 환경에서도 OAuth 코드를 터미널에 직접 붙여넣어 로그인할 수 있게 됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">인증</span><span class="tag tag-green">WSL2·SSH</span><span class="date">2026.5.1 · v2.1.126</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 필요해?</h4>
+    <p>WSL2, SSH 터널, Docker 컨테이너 같은 환경에서는 브라우저로 OAuth 인증을 해도 콜백 URL(<code>http://localhost:...</code>)이 클라이언트에 도달하지 못해서 로그인이 멈추는 문제가 있었음.</p>
+    <h4>이제 어떻게 해?</h4>
+    <ul>
+      <li><code>claude auth login</code> 실행</li>
+      <li>브라우저에서 인증 완료 후 표시된 코드를 복사</li>
+      <li>터미널 프롬프트에 코드를 붙여넣으면 로그인 완료</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.126" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+<!-- /model picker 게이트웨이 통합 — 2026.5.1 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔌</span>
+    <div class="card-title">
+      <h3>/model 피커 — 커스텀 게이트웨이 모델 목록 자동 표시<span class="new-dot"></span></h3>
+      <p><code>ANTHROPIC_BASE_URL</code>을 커스텀 게이트웨이로 설정해두면, <code>/model</code> 피커가 그 게이트웨이의 <code>/v1/models</code>에서 모델 목록을 직접 불러옴.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-blue">게이트웨이</span><span class="tag tag-purple">모델 선택</span><span class="date">2026.5.1 · v2.1.126</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>누구한테 유용해?</h4>
+    <p>Anthropic API 대신 자체 게이트웨이(LiteLLM, 기업 프록시 등)를 쓰는 팀에서 유용함. 지금까지는 게이트웨이가 어떤 모델을 지원하는지 <code>/model</code> 피커에서 볼 수 없었음.</p>
+    <h4>설정 방법</h4>
+    <ul>
+      <li><code>ANTHROPIC_BASE_URL=https://your-gateway.example.com</code> 설정</li>
+      <li><code>/model</code> 실행 → 게이트웨이의 <code>/v1/models</code> 엔드포인트에서 모델 목록 자동 로드</li>
+      <li>게이트웨이가 OpenAI 호환 API면 대부분 동작함</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.126" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
 <!-- Bedrock Service Tier — 2026.4.29 -->
 <div class="card" data-cat="dev">
   <div class="card-header" onclick="toggle(this)">
@@ -2782,9 +2859,9 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.123'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.126'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
-const LAST_UPDATE = '2026-05-01T00:37:30Z'; // 루틴 마지막 실행 시간 (UTC)
+const LAST_UPDATE = '2026-05-01T03:18:31Z'; // 루틴 마지막 실행 시간 (UTC)
 
 
 function setBanner(state, msg) {

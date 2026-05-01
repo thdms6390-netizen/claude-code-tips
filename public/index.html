@@ -344,6 +344,27 @@
     <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.126" target="_blank">릴리즈 노트 보기 →</a></p>
   </div>
 </div>
+<!-- /resume PR URL search — 2026.4.28 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔍</span>
+    <div class="card-title">
+      <h3>/resume PR URL 검색 — PR 주소로 세션 바로 찾기<span class="new-dot"></span></h3>
+      <p>/resume 검색창에 PR URL을 입력하면 해당 PR에서 작업했던 세션을 바로 찾을 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">세션 관리</span><span class="date">2026.4.28 · v2.1.122</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떻게 쓰는 거야</h4>
+    <ul>
+      <li><code>/resume</code>로 세션 목록 열고 검색창에 GitHub PR URL 붙여넣기</li>
+      <li>그 PR 작업 중에 시작했던 세션을 바로 찾아서 이어 시작할 수 있는 거</li>
+      <li>PR 번호나 브랜치 이름으로 기억 못 해도 URL만 있으면 되니까 훨씬 편함</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.122" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
 <!-- Bedrock Service Tier — 2026.4.29 -->
 <div class="card" data-cat="dev">
   <div class="card-header" onclick="toggle(this)">
@@ -2861,7 +2882,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 // ==================== AUTO UPDATE ====================
 const KNOWN_VERSION = 'v2.1.126'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
-const LAST_UPDATE = '2026-05-01T15:23:59Z'; // 루틴 마지막 실행 시간 (UTC)
+const LAST_UPDATE = '2026-05-01T18:28:20Z'; // 루틴 마지막 실행 시간 (UTC)
 
 
 function setBanner(state, msg) {

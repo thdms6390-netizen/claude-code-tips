@@ -267,6 +267,69 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- --channels 콘솔 인증 — 2026.5.4 -->
+<div class="card featured" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📡</span>
+    <div class="card-title">
+      <h3>--channels 콘솔 인증 지원 — API 키로도 채널 쓰기<span class="new-dot"></span></h3>
+      <p>기존엔 OAuth 로그인 사용자만 쓸 수 있던 --channels 기능이 이제 API 키(콘솔) 인증에서도 동작함.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">Channels</span><span class="tag tag-green">API 키</span><span class="date">2026.5.4 · v2.1.128</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라졌냐</h4>
+    <ul>
+      <li><code>--channels</code> 플래그가 이제 콘솔(API 키) 인증에서도 동작</li>
+      <li>관리형 설정(managed settings)을 쓰는 콘솔 조직은 <code>channelsEnabled: true</code>를 별도 설정해야 활성화됨</li>
+      <li>Channels는 외부에서 실행 중인 Claude 세션에 메시지를 보내는 기능 — 이제 API 키 사용자도 쓸 수 있는 거</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.128" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+<!-- /mcp 도구 수 표시 — 2026.5.4 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔌</span>
+    <div class="card-title">
+      <h3>/mcp 도구 수 표시 — 연결 서버 상태 한눈에<span class="new-dot"></span></h3>
+      <p>/mcp 명령어가 각 서버의 도구 개수를 보여주고, 도구 0개로 연결된 서버는 별도로 경고 표시해줌.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-blue">MCP</span><span class="date">2026.5.4 · v2.1.128</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이런 상황에 유용함</h4>
+    <ul>
+      <li><code>/mcp</code> 입력 시 각 서버에 연결된 툴 개수가 바로 표시됨</li>
+      <li>툴 0개로 연결된 서버는 별도로 플래그 표시 → 설정 오류·빈 서버를 빠르게 파악 가능</li>
+      <li>MCP 서버가 제대로 연결됐는지 헷갈릴 때 <code>/mcp</code> 하나로 바로 진단할 수 있는 거</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.128" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+<!-- Auto mode 에러 힌트 — 2026.5.4 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🤖</span>
+    <div class="card-title">
+      <h3>Auto mode 에러 힌트 — 막혔을 때 다음 행동 안내<span class="new-dot"></span></h3>
+      <p>Auto mode에서 분류기 오류가 나면 재시도·/compact·--debug 중 뭘 해야 할지 힌트를 함께 보여주는 거.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="date">2026.5.4 · v2.1.128</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떻게 달라지냐</h4>
+    <ul>
+      <li>Auto mode 실행 중 classifier error 발생 시 힌트가 함께 표시됨</li>
+      <li>제시되는 행동: 재시도(retry), <code>/compact</code>으로 컨텍스트 줄이기, <code>--debug</code>로 자세한 로그 확인</li>
+      <li>무인 장시간 실행 중 막혔을 때 뭘 해야 할지 몰랐는데, 이제 힌트가 생겨서 덜 답답한 거</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.128" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
 <!-- claude project purge — 2026.5.1 -->
 <div class="card" data-cat="cmd">
   <div class="card-header" onclick="toggle(this)">
@@ -2880,9 +2943,9 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.126'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.128'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
-const LAST_UPDATE = '2026-05-04T21:20:01Z'; // 루틴 마지막 실행 시간 (UTC)
+const LAST_UPDATE = '2026-05-05T00:15:39Z'; // 루틴 마지막 실행 시간 (UTC)
 
 
 function setBanner(state, msg) {

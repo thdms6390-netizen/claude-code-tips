@@ -267,6 +267,48 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- CLAUDE_CODE_SESSION_ID — 2026-05-06 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔑</span>
+    <div class="card-title">
+      <h3>CLAUDE_CODE_SESSION_ID — Bash 툴에 세션 ID 자동 주입<span class="new-dot"></span></h3>
+      <p>Bash 툴 서브프로세스 환경에 세션 ID가 자동으로 넘어와서, 훅(hooks)의 session_id와 바로 연결 가능.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="date">2026.05.06 · v2.1.132</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>무슨 거냐면</h4>
+    <ul>
+      <li>Bash 툴로 실행하는 셸 스크립트 안에서 <code>$CLAUDE_CODE_SESSION_ID</code> 환경변수를 바로 쓸 수 있음</li>
+      <li>훅(hooks)에 넘어오는 <code>session_id</code>와 동일한 값 — 세션 추적·로깅에 활용 가능</li>
+      <li>별도 설정 없이 자동으로 주입됨</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.132" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+<!-- CLAUDE_CODE_DISABLE_ALTERNATE_SCREEN — 2026-05-06 -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🖥️</span>
+    <div class="card-title">
+      <h3>CLAUDE_CODE_DISABLE_ALTERNATE_SCREEN — 네이티브 스크롤백 유지하기<span class="new-dot"></span></h3>
+      <p>풀스크린 alternate-screen 렌더러를 끄고 터미널 원래 스크롤백에 대화를 그대로 남길 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">터미널 UI</span><span class="date">2026.05.06 · v2.1.132</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>사용 방법</h4>
+    <ul>
+      <li><code>CLAUDE_CODE_DISABLE_ALTERNATE_SCREEN=1</code> 환경변수를 설정하면 풀스크린 렌더러가 꺼짐</li>
+      <li>WSL·SSH·컨테이너처럼 alternate-screen이 불편한 환경에서 유용함</li>
+      <li>대화 내용이 터미널 네이티브 스크롤백에 남아서 위로 올려볼 수 있음</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.132" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
 <!-- Ctrl+R 히스토리 기본값 복원 — 2026.5.6 -->
 <div class="card" data-cat="cmd">
   <div class="card-header" onclick="toggle(this)">
@@ -2985,9 +3027,9 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.131'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.132'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
-const LAST_UPDATE = '2026-05-06T21:09:17Z'; // 루틴 마지막 실행 시간 (UTC)
+const LAST_UPDATE = '2026-05-07T00:14:54Z'; // 루틴 마지막 실행 시간 (UTC)
 
 
 function setBanner(state, msg) {

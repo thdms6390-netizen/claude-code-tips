@@ -267,6 +267,50 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- worktree.baseRef — 2026-05-07 -->
+<div class="card featured" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🌿</span>
+    <div class="card-title">
+      <h3>worktree.baseRef — 워크트리 분기 기준 선택<span class="new-dot"></span></h3>
+      <p><code>fresh</code>는 원격 기본 브랜치에서, <code>head</code>는 로컬 HEAD에서 브랜치를 딴다. 이제 워크트리 생성 기준을 직접 고를 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-blue">Worktree</span><span class="date">2026.05.07 · v2.1.133</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>설정 방법</h4>
+    <ul>
+      <li><code>worktree.baseRef: "fresh"</code> — 항상 <code>origin/&lt;기본 브랜치&gt;</code>에서 새 워크트리를 만듦 (기존 기본값)</li>
+      <li><code>worktree.baseRef: "head"</code> — 현재 로컬 HEAD 기준으로 브랜치를 딴다</li>
+      <li><code>--worktree</code> 플래그, <code>EnterWorktree</code> 훅, 에이전트 격리 워크트리 모두에 적용됨</li>
+      <li>로컬에서 직접 커밋을 쌓고 있는 상태라면 <code>"head"</code>로 두면 그 위에서 작업 가능</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.133" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+<!-- 훅 에포트 수준 주입 — 2026-05-07 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⚡</span>
+    <div class="card-title">
+      <h3>훅에서도 에포트 수준 받기 — effort.level + $CLAUDE_EFFORT<span class="new-dot"></span></h3>
+      <p>훅(hook)이 실행될 때 현재 에포트 수준이 JSON 입력과 환경변수로 함께 전달됨. 스킬뿐 아니라 훅에서도 에포트 분기 가능.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="tag tag-purple">Hooks</span><span class="date">2026.05.07 · v2.1.133</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떻게 쓰는 거냐면</h4>
+    <ul>
+      <li>훅 스크립트에서 <code>$CLAUDE_EFFORT</code> 환경변수로 현재 에포트(low/normal/high/xhigh) 바로 읽기 가능</li>
+      <li>또는 훅 JSON 입력의 <code>effort.level</code> 필드로 확인 가능</li>
+      <li>예: <code>xhigh</code>일 때만 전체 린트 실행, <code>low</code>면 훅 동작 스킵</li>
+      <li>PostToolUse·PreToolUse·Stop 등 모든 훅 이벤트에서 사용 가능</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.133" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
 <!-- CLAUDE_CODE_SESSION_ID — 2026-05-06 -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -3027,9 +3071,9 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.132'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.133'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
-const LAST_UPDATE = '2026-05-07T21:08:23Z'; // 루틴 마지막 실행 시간 (UTC)
+const LAST_UPDATE = '2026-05-08T00:11:43Z'; // 루틴 마지막 실행 시간 (UTC)
 
 
 function setBanner(state, msg) {

@@ -5,3 +5,415 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <title>Claude Code Note 모음</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Pretendard:wght@400;500;600;700;800&display=swap');
+    :root {
+      --bg:#fafafa; --bg2:#fff; --card:#fff; --border:#e5e5e5; --border2:#d4d4d4;
+      --text:#171717; --text2:#525252; --dim:#a3a3a3;
+      --purple:#7c3aed; --purple-bg:#f3f0ff; --purple-border:#ddd6fe;
+      --green:#059669; --green-bg:#ecfdf5; --green-border:#a7f3d0;
+      --blue:#2563eb; --blue-bg:#eff6ff; --blue-border:#bfdbfe;
+      --orange:#d97706; --orange-bg:#fffbeb; --orange-border:#fde68a;
+      --pink:#db2777; --pink-bg:#fdf2f8; --pink-border:#fbcfe8;
+      --red:#dc2626; --red-bg:#fef2f2; --red-border:#fecaca;
+    }
+    [data-theme="dark"] {
+        --bg:#0a0a0a; --bg2:#141414; --card:#1a1a1a; --border:#2a2a2a; --border2:#3a3a3a;
+        --text:#e5e5e5; --text2:#a3a3a3; --dim:#525252;
+        --purple-bg:#1a0a2e; --purple-border:#3b1d6e;
+        --green-bg:#052e1a; --green-border:#065f38;
+        --blue-bg:#0a1628; --blue-border:#1e3a5f;
+        --orange-bg:#1a1000; --orange-border:#5c3d00;
+        --pink-bg:#2a0a1e; --pink-border:#6e1d4e;
+        --red-bg:#1a0a0a; --red-border:#5c1d1d;
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Pretendard',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+    code,pre{font-family:'JetBrains Mono',monospace}
+
+    /* Layout */
+    .wrap{max-width:860px;margin:0 auto;padding:0 20px}
+
+    /* Header */
+    header{border-bottom:1px solid var(--border);padding:16px 0;position:sticky;top:0;background:var(--bg);z-index:100;backdrop-filter:blur(12px)}
+    .header-inner{display:flex;align-items:center;justify-content:space-between}
+    .header-inner h1{font-size:18px;font-weight:800}
+    .header-inner h1 span{color:var(--purple)}
+
+    /* Tabs */
+    .tabs{display:flex;align-items:center;gap:2px;overflow-x:auto;scrollbar-width:none;padding:12px 0 0}
+    .tabs::-webkit-scrollbar{display:none}
+    .tab{
+      padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;
+      color:var(--text2);white-space:nowrap;transition:all .15s;border:1px solid transparent;
+    }
+    .tab:hover{background:var(--bg2);color:var(--text)}
+    .tab.active{background:var(--purple-bg);color:var(--purple);border-color:var(--purple-border)}
+    .tab .cnt{font-size:11px;font-weight:500;color:var(--dim);margin-left:4px}
+
+    /* Content */
+    main{padding:24px 0 80px}
+    .panel{display:none}
+    .panel.active{display:block}
+
+    /* Cards */
+    .card{
+      background:var(--card);border:1px solid var(--border);border-radius:12px;
+      margin-bottom:16px;overflow:hidden;transition:border-color .2s;
+    }
+    .card:hover{border-color:var(--border2)}
+    .card.featured{border:1px solid transparent;background-image:linear-gradient(var(--card),var(--card)),linear-gradient(135deg,rgba(124,58,237,.5),rgba(219,39,119,.4),rgba(234,88,12,.35));background-origin:border-box;background-clip:padding-box,border-box;box-shadow:0 0 14px rgba(124,58,237,.09),0 0 28px rgba(219,39,119,.05)}
+    .card.featured:hover{box-shadow:0 0 18px rgba(124,58,237,.15),0 0 36px rgba(219,39,119,.08)}
+    .card-header{padding:18px 20px;cursor:pointer;display:flex;align-items:flex-start;gap:14px}
+    .card-icon{font-size:24px;flex-shrink:0;margin-top:2px}
+    .card-title{flex:1}
+    .card-title h3{font-size:15px;font-weight:700;margin-bottom:3px}
+    .card-title p{font-size:13px;color:var(--text2)}
+    .card-tags{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+    .tag{font-size:11px;font-weight:600;padding:2px 8px;border-radius:6px}
+    .tag-purple{background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple-border)}
+    .tag-green{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+    .tag-blue{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border)}
+    .tag-orange{background:var(--orange-bg);color:var(--orange);border:1px solid var(--orange-border)}
+    .tag-pink{background:var(--pink-bg);color:var(--pink);border:1px solid var(--pink-border)}
+    .tag-red{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
+    .card-arrow{color:var(--dim);font-size:18px;transition:transform .2s;flex-shrink:0;margin-top:4px}
+    .card.open .card-arrow{transform:rotate(90deg)}
+    .card-body{display:none;padding:0 20px 20px;border-top:1px solid var(--border);margin-top:0}
+    .card.open .card-body{display:block}
+    .card-body h4{font-size:13px;font-weight:700;margin:16px 0 8px;color:var(--text)}
+    .card-body p,.card-body li{font-size:13px;color:var(--text2);line-height:1.7}
+    .card-body ul{padding-left:18px;margin-bottom:12px}
+    .card-body li{margin-bottom:4px}
+
+    /* Code blocks */
+    pre.code{
+      background:var(--bg2);border:1px solid var(--border);border-radius:8px;
+      padding:14px 16px;font-size:12.5px;line-height:1.7;overflow-x:auto;margin:10px 0;
+      position:relative;
+    }
+    pre.code .cp{
+      position:absolute;top:8px;right:8px;background:var(--card);border:1px solid var(--border);
+      padding:3px 10px;border-radius:6px;font-size:11px;cursor:pointer;color:var(--dim);
+      font-family:'JetBrains Mono',monospace;transition:all .15s;
+    }
+    pre.code .cp:hover{color:var(--text);border-color:var(--border2)}
+    .c-p{color:var(--purple)}.c-g{color:var(--green)}.c-b{color:var(--blue)}.c-o{color:var(--orange)}.c-k{color:var(--pink)}.c-d{color:var(--dim)}
+
+    /* Callout */
+    .callout{
+      border-radius:8px;padding:14px 16px;margin:12px 0;font-size:13px;line-height:1.6;
+      display:flex;gap:10px;align-items:flex-start;
+    }
+    .callout-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+    .callout-tip{background:var(--green-bg);border:1px solid var(--green-border);color:var(--green)}
+    .callout-warn{background:var(--orange-bg);border:1px solid var(--orange-border);color:var(--orange)}
+    .callout-info{background:var(--blue-bg);border:1px solid var(--blue-border);color:var(--blue)}
+    .callout-new{background:var(--pink-bg);border:1px solid var(--pink-border);color:var(--pink)}
+    .release-link{margin-top:12px;font-size:12px;text-align:right}
+    .release-link a{color:var(--dim);text-decoration:none}
+    .release-link a:hover{color:var(--text2);text-decoration:underline}
+
+    /* Section header */
+    .section-head{margin:32px 0 16px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+    .section-head h2{font-size:20px;font-weight:800}
+    .section-head p{font-size:13px;color:var(--text2);margin-top:4px}
+
+    /* Section head row */
+    .section-head-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+    .section-head-row{align-items:flex-end}
+    .filter-check{
+      display:flex;align-items:center;gap:6px;cursor:pointer;
+      font-size:12px;font-weight:600;color:var(--text2);white-space:nowrap;flex-shrink:0;
+      user-select:none;margin-bottom:-1px;padding-bottom:12px;
+    }
+    .filter-check input{accent-color:var(--purple);width:14px;height:14px;cursor:pointer}
+    .filter-check:hover span{color:var(--purple)}
+    .card.hide-filtered{display:none}
+    .sub-tabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:16px}
+    .sub-tab{
+      padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;
+      color:var(--text2);border:1px solid var(--border);transition:all .15s;white-space:nowrap;
+    }
+    .sub-tab:hover{border-color:var(--purple);color:var(--purple)}
+    .sub-tab.active{background:var(--purple);color:#fff;border-color:var(--purple)}
+    .card.hide-cat{display:none}
+
+    /* New badge */
+    .new-dot{display:inline-block;width:7px;height:7px;background:var(--pink);border-radius:50%;margin-left:6px;vertical-align:middle}
+
+    .date{font-size:11px;color:var(--dim);font-weight:500}
+    .version{font-size:10px;color:var(--dim);font-family:'JetBrains Mono',monospace}
+
+    /* Update banner */
+    .update-banner{
+      background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 20px;
+      margin-bottom:20px;display:flex;align-items:center;gap:14px;justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .update-banner .ub-left{display:flex;align-items:center;gap:10px}
+    .update-banner .ub-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+    .update-banner .ub-dot.live{background:var(--green);animation:pulse 2s infinite}
+    .update-banner .ub-dot.loading{background:var(--orange);animation:pulse 1s infinite}
+    .update-banner .ub-dot.error{background:var(--red)}
+    .update-banner .ub-text{font-size:13px;color:var(--text2)}
+    .update-banner .ub-text strong{color:var(--text)}
+    .update-banner .ub-time{font-size:12px;color:var(--dim);font-family:'JetBrains Mono',monospace}
+    .version-badge{
+      display:inline-flex;align-items:center;gap:6px;
+      background:var(--purple-bg);border:1px solid var(--purple-border);border-radius:6px;
+      padding:3px 10px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;
+      color:var(--purple);
+    }
+    .update-banner .ub-btn{
+      background:var(--bg2);border:1px solid var(--border);padding:6px 14px;border-radius:8px;
+      font-size:12px;cursor:pointer;color:var(--text2);transition:all .15s;
+    }
+    .update-banner .ub-btn:hover{border-color:var(--purple);color:var(--purple)}
+
+    /* New release card */
+    .release-card{
+      background:var(--pink-bg);border:1px solid var(--pink-border);border-radius:12px;
+      padding:16px 20px;margin-bottom:16px;
+    }
+    .release-card h3{font-size:14px;font-weight:700;color:var(--pink);margin-bottom:6px}
+    .release-card p{font-size:13px;color:var(--text2);line-height:1.6}
+    .release-card ul{padding-left:18px;margin-top:8px}
+    .release-card li{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:2px}
+
+    /* Cheat sheet tables */
+    .cheat-table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0}
+    .cheat-table th{text-align:left;padding:8px 12px;font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid var(--border)}
+    .cheat-table td{padding:8px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+    .cheat-table tr:last-child td{border-bottom:none}
+    .cheat-table tr:hover td{background:var(--bg2)}
+    .cheat-table kbd{
+      font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;
+      background:var(--bg2);border:1px solid var(--border);border-radius:4px;
+      padding:2px 6px;white-space:nowrap;
+    }
+    .cheat-table .cmd{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--purple);font-weight:500}
+    .cheat-section{margin:28px 0 8px;font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px}
+
+    /* Theme toggle */
+    .theme-toggle{
+      background:var(--bg2);border:1px solid var(--border);border-radius:8px;
+      padding:5px 10px;cursor:pointer;font-size:16px;line-height:1;
+      transition:all .15s;color:var(--text2);display:flex;align-items:center;gap:6px;
+    }
+    .theme-toggle:hover{border-color:var(--purple);color:var(--purple)}
+    .header-right{display:flex;align-items:flex-end;flex-direction:column;gap:4px}
+
+    footer{text-align:center;padding:40px 20px;border-top:1px solid var(--border);font-size:12px;color:var(--dim)}
+    footer a{color:var(--purple);text-decoration:none}
+  </style>
+  <script>
+    (function(){var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t)})();
+  </script>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="header-inner">
+      <h1>⚡ Claude Code <span>Note</span></h1>
+      <div class="header-right">
+        <span class="version" id="currentVersion" style="display:none"></span>
+        <button class="theme-toggle" id="themeToggle" title="다크/라이트 모드 전환">🌙</button>
+        <span style="font-size:10px;color:var(--dim);opacity:.5">by 소들</span>
+      </div>
+    </div>
+    <div class="tabs">
+      <div class="tab active" data-tab="new">최신 기능</div>
+      <div class="tab" data-tab="cheat">치트시트</div>
+      <div class="tab" data-tab="news">소식</div>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+
+<!-- ==================== 최신 기능 ==================== -->
+<div class="panel active" id="panel-new">
+
+<div class="update-banner" id="updateBanner">
+  <div class="ub-left">
+    <div class="ub-dot live" id="updateDot"></div>
+    <div class="ub-text" id="updateText">새 릴리즈가 나오면 버튼을 눌러 업데이트하세요</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px">
+    <span class="ub-time" id="updateTime"></span>
+    <button class="ub-btn" id="manualUpdateBtn" onclick="triggerUpdate()">🔄 지금 업데이트</button>
+  </div>
+</div>
+
+<div class="section-head">
+  <div class="section-head-row">
+    <div>
+      <h2>최근에 나온 것들</h2>
+      <p>이게 뭐데? 싶었던 기능들, 최신순으로 정리합니다</p>
+    </div>
+    <label class="filter-check" id="filterFeatured"><input type="checkbox"><span>추천만 보기</span></label>
+  </div>
+</div>
+
+<div class="sub-tabs" id="subTabs">
+  <div class="sub-tab active" data-cat="all">전체</div>
+  <div class="sub-tab" data-cat="core">핵심 기능</div>
+  <div class="sub-tab" data-cat="cmd">명령어</div>
+  <div class="sub-tab" data-cat="auto">자동화</div>
+  <div class="sub-tab" data-cat="dev">개발 도구</div>
+</div>
+
+<!-- AUTO_INSERT_MARKER -->
+<!-- autoMode.hard_deny — 2026-05-08 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🛡️</span>
+    <div class="card-title">
+      <h3>autoMode.hard_deny — Auto Mode 분류기보다 먼저 차단<span class="new-dot"></span></h3>
+      <p>Auto Mode 분류기가 허용하더라도 <code>hard_deny</code> 규칙에 걸리면 무조건 거부. 분류기 위에 올라타는 보안 레이어를 직접 정의할 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="tag tag-red">보안</span><span class="date">2026.05.08 · v2.1.136</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떻게 쓰는 거야?</h4>
+    <ul>
+      <li><code>settings.autoMode.hard_deny</code>에 차단할 분류기 규칙 패턴을 추가</li>
+      <li>Auto Mode 분류기가 판단하기 전에 먼저 평가돼서 매칭되면 무조건 거부</li>
+      <li>민감한 파일 접근이나 특정 명령을 항상 차단하는 보안 강화 레이어로 활용 가능</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.136" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- worktree.baseRef — 2026-05-07 -->
+<div class="card featured" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🌿</span>
+    <div class="card-title">
+      <h3>worktree.baseRef — 워크트리 분기 기준 선택<span class="new-dot"></span></h3>
+      <p><code>fresh</code>는 원격 기본 브랜치에서, <code>head</code>는 로컈 HEAD에서 브랜치를 딶다. 이제 워크트리 생성 기준을 직접 고를 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-blue">Worktree</span><span class="date">2026.05.07 · v2.1.133</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>설정 방법</h4>
+    <ul>
+      <li><code>worktree.baseRef: "fresh"</code> — 항상 <code>origin/&lt;기본 브랜치&gt;</code>에서 새 워크트리를 만듦 (기존 기본값)</li>
+      <li><code>worktree.baseRef: "head"</code> — 현재 로컈 HEAD 기준으로 브랜치를 딶다</li>
+      <li><code>--worktree</code> 플래그, <code>EnterWorktree</code> 훅, 에이전트 격리 워크트리 모두에 적용됨</li>
+      <li>로컈에서 직접 커밋을 쌓고 있는 상태라면 <code>"head"</code>로 두면 그 위에서 작업 가능</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.133" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+<!-- 훅 에포트 수준 주입 — 2026-05-07 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⚡</span>
+    <div class="card-title">
+      <h3>훅에서도 에포트 수준 받기 — effort.level + $CLAUDE_EFFORT<span class="new-dot"></span></h3>
+      <p>훅(hook)이 실행될 때 현재 에포트 수준이 JSON 입력과 환경변수로 함께 전달됨. 스크릴븐 아니라 훅에서도 에포트 분기 가능.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="tag tag-purple">Hooks</span><span class="date">2026.05.07 · v2.1.133</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떻게 쓰는 거냀면</h4>
+    <ul>
+      <li>훅 스크립트에서 <code>$CLAUDE_EFFORT</code> 환경변수로 현재 에포트(low/normal/high/xhigh) 바로 읽기 가능</li>
+      <li>또는 훅 JSON 입력의 <code>effort.level</code> 필드로 확인 가능</li>
+      <li>예: <code>xhigh</code>일 때만 전체 맰트 실행, <code>low</code>면 훅 동작 스�</li>
+      <li>PostToolUse·PreToolUse·Stop 등 모든 훅 이벤트에서 사용 가능</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.133" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+<!-- CLAUDE_CODE_SESSION_ID — 2026-05-06 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔑</span>
+    <div class="card-title">
+      <h3>CLAUDE_CODE_SESSION_ID — Bash 툴에 세션 ID 자동 주입<span class="new-dot"></span></h3>
+      <p>Bash 툴 서브프로세스 환경에 세션 ID가 자동으로 넘어와서, 훅(hooks)의 session_id와 바로 연결 가능.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="date">2026.05.06 · v2.1.132</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>무슨 거냀면</h4>
+    <ul>
+      <li>Bash 툴로 실행하는 쉘 스크립트 안에서 <code>$CLAUDE_CODE_SESSION_ID</code> 환경변수를 바로 쓸 수 있음</li>
+      <li>훅(hooks)에 넘어오는 <code>session_id</code>와 동일한 값 — 세션 추적·로깅에 활용 가능</li>
+      <li>별도 설정 없이 자동으로 주입됨</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.132" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+<!-- CLAUDE_CODE_DISABLE_ALTERNATE_SCREEN — 2026-05-06 -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🖥️</span>
+    <div class="card-title">
+      <h3>CLAUDE_CODE_DISABLE_ALTERNATE_SCREEN — 네이티브 스크롤백 유지하기<span class="new-dot"></span></h3>
+      <p>풀스크린 alternate-screen 렌더러를 끄고 터미널 원래 스크롤백에 대화를 그대로 남길 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">터미널 UI</span><span class="date">2026.05.06 · v2.1.132</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>사용 방법</h4>
+    <ul>
+      <li><code>CLAUDE_CODE_DISABLE_ALTERNATE_SCREEN=1</code> 환경변수를 설정하면 풀스크린 렌더러가 꺼집</li>
+      <li>WSL·SSH·컨테이너의 alternate-screen이 불편한 환경에서 유용함</li>
+      <li>대화 내용이 터미널 네이티브 스크롤백에 남아서 위로 올려볼 수 있음</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.132" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+<!-- Ctrl+R 히스토리 기본값 복원 — 2026.5.6 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔍</span>
+    <div class="card-title">
+      <h3>Ctrl+R 히스토리 검색 — 전체 프로젝트 기본값 복원<span class="new-dot"></span></h3>
+      <p>Ctrl+R 히스토리 픽커가 다시 전체 프로젝트 기록을 기본으로 검색하도록 되돌아옴. Ctrl+S로 현재 프로젝트·세션으로 좋힐 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">히스토리</span><span class="date">2026.5.6 · v2.1.129</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>변경 내용</h4>
+    <ul>
+      <li>v2.1.124~v2.1.128에서 현재 프로젝트 범위로만 검색하도록 바뀌었다가 원래대로 복원</li>
+      <li><strong>Ctrl+R</strong> — 전체 프로젝트·세션에서 과거 프롬프트 검색 (기본값)</li>
+      <li><strong>Ctrl+S</strong> — 현재 프로젝트나 세션으로 범위 좋히기</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.129" target="_blank">릴리슈 노트 보기 →</a></p>
+  </div>
+</div>
+<!-- --plugin-url 플래그 — 2026.5.6 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔗</span>
+    <div class="card-title">
+      <h3>--plugin-url 플래그 — URL에서 플러그인 직접 로드<span class="new-dot"></span></h3>
+      <p>플러그인 .zip 파일을 URL로 지정해서 현재 세션에 바로 불러올 수 있음. 로컈 설치 없이 URL만 있으면 됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-blue">플러그인</span><span class="date">2026.5.6 · v2.1.129</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>사용법</h4>
+    <ul>
+      <li><code>claude --plugin-url https://example.com/myplugin.zip</code> 형태로 실행</li>
+      <li>로컈에 설치하지 않고 URL에 있는 .zip 플러그인을 세션에 즉시 로드하는 거</li>
+      <li>팀원과 플러그인 공유하거나 테스트할 때 설치 없이 바로 써볼 수 있음</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.129" target="_blank">릴리슈 노트 보기 →</a></p>
+  </div>
+</div>

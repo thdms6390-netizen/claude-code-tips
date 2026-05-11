@@ -267,6 +267,69 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- claude agents 에이전트 뷰 — 2026-05-11 -->
+<div class="card featured" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🤖</span>
+    <div class="card-title">
+      <h3>claude agents — 에이전트 뷰 (Research Preview)<span class="new-dot"></span></h3>
+      <p>서브에이전트 목록·상태를 한눈에 보는 전용 뷰. <code>claude agents</code> 명령으로 실행하는 거.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">에이전트</span><span class="date">2026.05.11 · v2.1.139</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>에이전트 뷰란?</h4>
+    <ul>
+      <li><code>claude agents</code> 명령으로 실행하는 새 인터페이스 (Research Preview)</li>
+      <li>실행 중인 서브에이전트 목록과 상태를 한눈에 파악할 수 있음</li>
+      <li>멀티 에이전트 작업 시 흐름 추적이 훨씬 편해짐</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.139" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+<!-- /goal 완료 조건 설정 — 2026-05-11 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🎯</span>
+    <div class="card-title">
+      <h3>/goal — 세션 완료 조건 직접 설정<span class="new-dot"></span></h3>
+      <p>Claude가 언제 "다 했다"고 판단할지 직접 정의하는 명령. 자동화 루프 제어에 특히 유용한 거.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">슬래시 명령</span><span class="tag tag-green">실용적</span><span class="date">2026.05.11 · v2.1.139</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>/goal 사용법</h4>
+    <ul>
+      <li>세션 중 <code>/goal</code>로 완료 조건을 입력하면 Claude가 그 조건 기준으로 작업 종료 여부 판단</li>
+      <li>Auto mode나 서브에이전트 작업에서 목표가 달성됐는지 체크하는 용도로 쓸 수 있음</li>
+      <li>조건을 명확히 설정할수록 불필요한 반복이 줄어듦</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.139" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+<!-- 훅 args 직접 실행 + continueOnBlock — 2026-05-11 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔗</span>
+    <div class="card-title">
+      <h3>훅 args 직접 실행 + continueOnBlock — 훅 제어 두 가지 업그레이드<span class="new-dot"></span></h3>
+      <p>훅에 args 배열로 명령 직접 지정, PostToolUse에서 차단 후에도 계속 진행할지 결정할 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="date">2026.05.11 · v2.1.139</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>두 가지 훅 개선</h4>
+    <ul>
+      <li><code>args: string[]</code> 필드로 exec form 직접 지정 — 셸 없이 명령 실행 가능, 인수 분리도 명확해짐</li>
+      <li>PostToolUse 훅에 <code>continueOnBlock: true</code> 설정 시 차단이 발생해도 Claude가 계속 진행하는 거</li>
+      <li>기존 <code>command</code> 방식과 하위 호환 — 기존 설정 그대로 써도 됨</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.139" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
 <!-- autoMode hard_deny — 2026-05-08 -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -3100,9 +3163,9 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.138'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.139'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
-const LAST_UPDATE = '2026-05-11T12:20:55Z'; // 루틴 마지막 실행 시간 (UTC)
+const LAST_UPDATE = '2026-05-11T21:10:23Z'; // 루틴 마지막 실행 시간 (UTC)
 
 
 function setBanner(state, msg) {

@@ -267,6 +267,35 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- autoMode hard_deny — 2026-05-08 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🛑</span>
+    <div class="card-title">
+      <h3>autoMode.hard_deny — 무조건 차단하는 자동모드 규칙<span class="new-dot"></span></h3>
+      <p>Auto mode classifier에서 사용자 의도나 허용 예외와 상관없이 무조건 차단하는 규칙 추가. 위험한 명령 강력 차단용.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-red">보안</span><span class="tag tag-orange">자동화</span><span class="date">2026.05.08 · v2.1.136</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 다른데?</h4>
+    <ul>
+      <li>기존 auto mode 규칙은 컨텍스트나 사용자 의도에 따라 우회가 가능했음</li>
+      <li><code>hard_deny</code>는 어떤 상황에서도 무조건 차단 — 우회 불가</li>
+      <li><code>.claude/settings.json</code>의 <code>autoMode.hard_deny</code>에 정의</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d">// .claude/settings.json</span>
+<span class="c-g">{</span>
+  <span class="c-b">"autoMode"</span>: <span class="c-g">{</span>
+    <span class="c-b">"hard_deny"</span>: <span class="c-g">[</span><span class="c-g">"rm -rf"</span>, <span class="c-g">"git push --force"</span><span class="c-g">]</span>
+  <span class="c-g">}</span>
+<span class="c-g">}</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.136" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- worktree.baseRef — 2026-05-07 -->
 <div class="card featured" data-cat="dev">
   <div class="card-header" onclick="toggle(this)">
@@ -3071,9 +3100,9 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.133'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.138'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
-const LAST_UPDATE = '2026-05-08T18:08:22Z'; // 루틴 마지막 실행 시간 (UTC)
+const LAST_UPDATE = '2026-05-11T07:37:29Z'; // 루틴 마지막 실행 시간 (UTC)
 
 
 function setBanner(state, msg) {

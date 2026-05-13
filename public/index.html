@@ -267,6 +267,78 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- agent view — 2026-05-11 -->
+<div class="card featured" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">👀</span>
+    <div class="card-title">
+      <h3>claude agents — 모든 세션을 한눈에 보는 에이전트 뷰<span class="new-dot"></span></h3>
+      <p>실행 중인 거, 내 응답 기다리는 거, 완료된 거를 하나의 리스트에서 관리. 여러 세션 동시에 돌릴 때 진짜 편함.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">에이전트</span><span class="tag tag-green">실용적</span><span class="date">2026.05.11 · v2.1.139</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 좋은데?</h4>
+    <ul>
+      <li>여러 세션을 동시에 돌리고 있을 때 상태를 한 화면에서 확인</li>
+      <li>"running" / "blocked on you" / "done" 으로 명확히 구분</li>
+      <li>Research Preview로 공개됨</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 터미널에서 실행</span>
+<span class="c-b">claude</span> <span class="c-p">agents</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.139" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- /goal — 2026-05-11 -->
+<div class="card featured" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🎯</span>
+    <div class="card-title">
+      <h3>/goal — 완료 조건 설정하면 그거 만족할 때까지 알아서 돌아감<span class="new-dot"></span></h3>
+      <p>"X 테스트 다 통과할 때까지 고쳐" 같이 목표 설정하면 Claude가 여러 턴에 걸쳐 계속 작업. interactive, -p, Remote Control 다 지원.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">명령어</span><span class="tag tag-orange">자동화</span><span class="date">2026.05.11 · v2.1.139</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떻게 동작하는데?</h4>
+    <ul>
+      <li>completion condition 설정 → Claude가 조건 만족까지 계속 작업</li>
+      <li>오버레이 패널에 경과 시간, 턴 수, 토큰 사용량 실시간 표시</li>
+      <li>interactive 모드 + <code>-p</code> 비대화형 + Remote Control 전부 지원</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 세션 안에서</span>
+<span class="c-p">/goal</span> <span class="c-g">테스트 다 통과시켜</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.139" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- transcript view navigation — 2026-05-11 -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⌨️</span>
+    <div class="card-title">
+      <h3>Transcript 뷰 키보드 내비게이션 강화<span class="new-dot"></span></h3>
+      <p>긴 세션 뒤져볼 때 단축키로 빠르게 이동. <code>{</code>/<code>}</code>로 유저 프롬프트 점프, <code>v</code>로 단축키 패널 토글.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">UI</span><span class="date">2026.05.11 · v2.1.139</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>단축키</h4>
+    <ul>
+      <li><kbd>?</kbd> — 전체 단축키 도움말</li>
+      <li><kbd>{</kbd> / <kbd>}</kbd> — 이전/다음 유저 프롬프트로 점프</li>
+      <li><kbd>v</kbd> — 단축키 패널 토글</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.139" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- autoMode hard_deny — 2026-05-08 -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -3100,9 +3172,9 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.138'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.140'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
-const LAST_UPDATE = '2026-05-11T12:20:55Z'; // 루틴 마지막 실행 시간 (UTC)
+const LAST_UPDATE = '2026-05-13T02:54:33Z'; // 루틴 마지막 실행 시간 (UTC)
 
 
 function setBanner(state, msg) {

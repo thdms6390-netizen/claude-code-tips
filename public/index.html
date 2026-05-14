@@ -267,6 +267,54 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- Rewind Summarize up to here — 2026-05-13 -->
+<div class="card featured" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🗜️</span>
+    <div class="card-title">
+      <h3>Rewind "Summarize up to here" — 옛날 컨텍스트만 골라서 압축<span class="new-dot"></span></h3>
+      <p>긴 세션에서 앞부분 토큰이 무거울 때, 최근 작업은 그대로 두고 옛날 히스토리만 요약해서 컨텍스트 다이어트하는 거.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-green">실용적</span><span class="tag tag-purple">세션 관리</span><span class="date">2026.05.13 · v2.1.141</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>왜 좋은데?</h4>
+    <ul>
+      <li>기존 <code>/compact</code>는 전체 대화를 한 번에 압축 → 최근 맥락도 흐려짐</li>
+      <li>이건 Rewind 메뉴에서 특정 지점까지만 압축 → 그 후 작업은 풀 컨텍스트 유지</li>
+      <li>긴 세션 막판에 컨텍스트 한계 다가올 때 유용</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># Rewind 메뉴 열기</span>
+<kbd>Esc</kbd> <kbd>Esc</kbd>
+<span class="c-d"># 메뉴에서 "Summarize up to here" 선택</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.141" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- Hook terminalSequence — 2026-05-13 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔔</span>
+    <div class="card-title">
+      <h3>Hook <code>terminalSequence</code> — 훅에서 데스크탑 알림/벨 발사<span class="new-dot"></span></h3>
+      <p>훅 JSON 출력에 <code>terminalSequence</code> 필드 추가하면 데스크탑 알림, 윈도우 제목 변경, 시스템 벨까지 컨트롤 가능. 백그라운드 훅도 가능.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="tag tag-purple">Hooks</span><span class="date">2026.05.13 · v2.1.141</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 다른데?</h4>
+    <ul>
+      <li>기존 훅은 controlling terminal 있어야 알림 가능 → 백그라운드/원격 훅에선 못 씀</li>
+      <li><code>terminalSequence</code> 필드 쓰면 controlling terminal 없어도 OSC 시퀀스를 직접 emit</li>
+      <li>긴 작업 끝나면 시스템 알림으로 받기 같은 시나리오에 유용</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.141" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- agent view — 2026-05-11 -->
 <div class="card featured" data-cat="core">
   <div class="card-header" onclick="toggle(this)">
@@ -3172,9 +3220,9 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.140'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.141'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
-const LAST_UPDATE = '2026-05-13T02:54:33Z'; // 루틴 마지막 실행 시간 (UTC)
+const LAST_UPDATE = '2026-05-14T04:53:27Z'; // 루틴 마지막 실행 시간 (UTC)
 
 
 function setBanner(state, msg) {

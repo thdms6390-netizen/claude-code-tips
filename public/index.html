@@ -267,6 +267,44 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- claude agents 플래그 확장 — 2026.5.15 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🤖</span>
+    <div class="card-title">
+      <h3>claude agents 플래그 대폭 확장 — 백그라운드 세션 세밀하게 제어하기<span class="new-dot"></span></h3>
+      <p>디스패치된 백그라운드 에이전트 세션에 모델, 에포트, MCP 설정, 권한 모드까지 직접 지정할 수 있게 됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">에이전트</span><span class="tag tag-orange">자동화</span><span class="date">2026.5.15 · v2.1.142</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>추가된 플래그 목록</h4>
+    <ul>
+      <li><code>--model</code> — 백그라운드 세션에서 쓸 모델 지정</li>
+      <li><code>--effort</code> — 에포트 수준 직접 설정 (low / medium / high / xhigh)</li>
+      <li><code>--permission-mode</code> — 권한 모드 선택 (auto, bypassPermissions 등)</li>
+      <li><code>--mcp-config</code> — 별도 MCP 설정 파일 경로 지정</li>
+      <li><code>--settings</code> — 커스텀 설정 파일 적용</li>
+      <li><code>--plugin-dir</code> — 플러그인 디렉터리 경로 지정</li>
+      <li><code>--add-dir</code> — 세션에 추가 작업 디렉터리 포함</li>
+      <li><code>--dangerously-skip-permissions</code> — 권한 확인 완전 생략 (위험, 신중히)</li>
+    </ul>
+    <h4>사용 예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 특정 모델 + 에포트로 백그라운드 에이전트 실행</span>
+<span class="c-p">claude agents</span> <span class="c-o">--model</span> <span class="c-g">claude-opus-4-5</span> <span class="c-o">--effort</span> <span class="c-g">high</span>
+
+<span class="c-d"># MCP 설정 + 플러그인 디렉터리 따로 지정</span>
+<span class="c-p">claude agents</span> <span class="c-o">--mcp-config</span> <span class="c-g">./mcp-bg.json</span> <span class="c-o">--plugin-dir</span> <span class="c-g">./plugins</span>
+
+<span class="c-d"># 자동화 파이프라인용: 권한 확인 생략 + auto 모드</span>
+<span class="c-p">claude agents</span> <span class="c-o">--permission-mode</span> <span class="c-g">auto</span> <span class="c-o">--dangerously-skip-permissions</span></pre>
+    <h4>이게 왜 좋냐면</h4>
+    <p>이전까지는 <code>claude agents</code>로 백그라운드 세션을 띄울 때 설정을 세밀하게 제어하기가 어려웠는데, 이제 메인 세션이랑 완전히 다른 모델·권한·MCP 구성으로 에이전트를 돌릴 수 있음. 예를 들어 무거운 작업엔 Opus + xhigh, 빠른 반복 작업엔 Sonnet + low 이런 식으로 분리해서 운용 가능.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.142" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- Rewind Summarize up to here — 2026-05-13 -->
 <div class="card featured" data-cat="core">
   <div class="card-header" onclick="toggle(this)">
@@ -3220,7 +3258,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.141'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.142'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-05-14T04:53:27Z'; // 루틴 마지막 실행 시간 (UTC)
 

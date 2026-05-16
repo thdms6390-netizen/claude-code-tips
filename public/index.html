@@ -267,6 +267,79 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- Plugin dependency enforcement — 2026.5.16 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔗</span>
+    <div class="card-title">
+      <h3>플러그인 의존성 강제 적용 — 비활성화 전에 체인 확인<span class="new-dot"></span></h3>
+      <p>의존 관계 있는 플러그인을 끄려 하면 막아주고, 활성화 시엔 필요한 것들 자동으로 다 켜줌.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="date">2026.5.16 · v2.1.143</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 좋냐면</h4>
+    <p>플러그인 A가 플러그인 B에 의존하는데 B를 그냥 꺼버리면 A가 망가지는 상황이 생겼었음. 이제 <code>claude plugin disable</code> 할 때 의존하는 플러그인이 있으면 거절하면서, 안전하게 끄는 순서를 복붙 가능한 힌트로 알려줌. 반대로 <code>claude plugin enable</code> 하면 필요한 의존 플러그인들도 자동으로 같이 활성화됨.</p>
+    <h4>사용 예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 의존성 있는 플러그인 끄려 하면 체인 힌트 출력</span>
+<span class="c-p">claude plugin disable</span> <span class="c-g">my-plugin</span>
+
+<span class="c-d"># 플러그인 활성화 시 의존성 자동 함께 켜짐</span>
+<span class="c-p">claude plugin enable</span> <span class="c-g">my-plugin</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.143" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- Plugin marketplace context cost — 2026.5.16 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">💰</span>
+    <div class="card-title">
+      <h3>/plugin 마켓플레이스 비용 미리보기 — 설치 전에 토큰 소모 확인<span class="new-dot"></span></h3>
+      <p>플러그인 둘러볼 때 턴당·호출당 예상 토큰 비용이 바로 보임. 쓰기 전에 얼마나 들지 파악 가능.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">개발 도구</span><span class="date">2026.5.16 · v2.1.143</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이런 상황에 유용함</h4>
+    <p>플러그인 마켓플레이스에서 browse할 때 각 플러그인 카드에 <strong>턴당 예상 토큰</strong>과 <strong>호출당 예상 토큰</strong>이 함께 표시됨. 컨텍스트를 많이 잡아먹는 플러그인인지 미리 파악하고 선택할 수 있어서, 비용 계획 짜기가 훨씬 쉬워짐.</p>
+    <h4>확인하는 법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 마켓플레이스 열어서 플러그인별 예상 비용 확인</span>
+<span class="c-p">/plugin</span>
+<span class="c-d"># browse 탭에서 각 플러그인 옆에 토큰 예상치 표시됨</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.143" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- worktree.bgIsolation: none — 2026.5.16 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🌿</span>
+    <div class="card-title">
+      <h3>worktree.bgIsolation: "none" — 워크트리 없이 백그라운드 세션 돌리기<span class="new-dot"></span></h3>
+      <p>워크트리 쓰기 어려운 환경에서, 백그라운드 세션이 현재 작업 디렉토리를 그냥 직접 편집하게 할 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">개발 도구</span><span class="tag tag-green">실용적</span><span class="date">2026.5.16 · v2.1.143</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>언제 쓰냐면</h4>
+    <p>모노레포, 대형 레포, 특수한 빌드 환경 등에서 Git worktree 자체가 불가능하거나 불편한 경우가 있음. 기존엔 백그라운드 세션이 무조건 <code>EnterWorktree</code>를 거쳐야 했는데, 이제 <code>bgIsolation: "none"</code> 설정 하나로 그 과정 없이 작업 디렉토리를 바로 편집하게 할 수 있음.</p>
+    <h4>설정 방법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># .claude/settings.json 또는 settings.local.json에 추가</span>
+{
+  <span class="c-g">"worktree"</span>: {
+    <span class="c-g">"bgIsolation"</span>: <span class="c-o">"none"</span>
+  }
+}</pre>
+    <h4>주의할 점</h4>
+    <p>백그라운드 세션이 현재 브랜치 파일을 직접 건드리게 되므로, 충돌 위험이 있는 환경에서는 신중하게 써야 함. worktree가 실용적인 환경이라면 기본 격리 방식을 유지하는 게 안전함.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.143" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- claude agents 플래그 확장 — 2026.5.15 -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -3258,7 +3331,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.142'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.143'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-05-14T04:53:27Z'; // 루틴 마지막 실행 시간 (UTC)
 

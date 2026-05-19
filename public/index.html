@@ -267,6 +267,44 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- /resume 백그라운드 세션 지원 + 완료 알림 시간 표시 — 2026.5.19 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⏱️</span>
+    <div class="card-title">
+      <h3>/resume 백그라운드 세션 지원 — bg 세션도 이어받을 수 있음<span class="new-dot"></span></h3>
+      <p><code>claude --bg</code>나 에이전트 뷰로 띄운 백그라운드 세션도 /resume 목록에 뜨고, 완료 알림에 경과 시간까지 보여줌.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">세션</span><span class="tag tag-orange">자동화</span><span class="date">2026.5.19 · v2.1.144</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라졌냐면</h4>
+    <ul>
+      <li>기존에는 <code>/resume</code> 목록에 인터랙티브 세션만 나왔는데, 이제 백그라운드 세션도 같이 뜸</li>
+      <li>백그라운드 세션은 목록에서 <code>bg</code> 배지로 구분돼서 한눈에 알 수 있음</li>
+      <li>서브에이전트 완료 알림에 경과 시간이 표시됨 — 예: <code>Agent completed · 3h 2m 5s</code></li>
+      <li>오래 돌린 작업이 얼마나 걸렸는지 바로 확인 가능</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 백그라운드로 세션 시작</span>
+<span class="c-p">claude</span> <span class="c-o">--bg</span> <span class="c-g">"테스트 전체 돌리고 결과 정리해줘"</span>
+
+<span class="c-d"># 나중에 /resume 열면 bg 세션도 목록에 뜸</span>
+<span class="c-p">/resume</span>
+
+<span class="c-d"># 완료 알림 예시</span>
+<span class="c-g">Agent completed · 3h 2m 5s</span></pre>
+    <h4>이런 상황에 유용해</h4>
+    <ul>
+      <li>백그라운드로 오래 걸리는 작업 돌려놓고 나중에 결과 확인하고 싶을 때</li>
+      <li>여러 bg 세션 띄워두고 하나씩 이어받아서 후속 작업 할 때</li>
+      <li>얼마나 걸렸는지 파악해서 다음 작업 시간 예측할 때</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.144" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- Plugin dependency enforcement — 2026.5.16 -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -3331,7 +3369,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.143'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.144'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-05-18T06:37:14Z'; // 루틴 마지막 실행 시간 (UTC)
 

@@ -267,6 +267,71 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- claude agents --json — 2026-05-19 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🤖</span>
+    <div class="card-title">
+      <h3><code>claude agents --json</code> — 세션 목록을 JSON으로 뽑기<span class="new-dot"></span></h3>
+      <p>실행 중인 Claude 세션들을 JSON으로 출력. tmux-resurrect, status bar, 세션 picker 같은 스크립트 만들 때 유용.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">CLI</span><span class="tag tag-orange">자동화</span><span class="date">2026.05.19 · v2.1.145</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># JSON으로 출력</span>
+<span class="c-b">claude</span> <span class="c-p">agents</span> <span class="c-o">--json</span>
+
+<span class="c-d"># jq로 awaiting 세션만 골라내기</span>
+<span class="c-b">claude</span> <span class="c-p">agents</span> <span class="c-o">--json</span> | <span class="c-b">jq</span> <span class="c-g">'.[] | select(.status=="awaiting")'</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.145" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- agents 탭 제목 알림 — 2026-05-19 -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔢</span>
+    <div class="card-title">
+      <h3>터미널 탭 제목에 awaiting-input 카운트<span class="new-dot"></span></h3>
+      <p><code>claude agents</code> 띄워둔 탭이 백그라운드에 있어도 제목에 "내 응답 기다리는 에이전트 N개" 숫자 표시. alt-tab 안 해도 알 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-green">실용적</span><span class="tag tag-purple">UI</span><span class="date">2026.05.19 · v2.1.145</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>왜 좋은데?</h4>
+    <ul>
+      <li>여러 세션 돌리면서 다른 작업 중일 때, 어느 에이전트가 응답 기다리는지 한눈에 확인</li>
+      <li>알림 켜둘 필요 없이 탭 제목만 봐도 됨</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.145" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- Read tool PARTIAL view — 2026-05-19 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📖</span>
+    <div class="card-title">
+      <h3>Read 도구 — 큰 파일도 부분 view로 처리<span class="new-dot"></span></h3>
+      <p>전체 읽기 요청이 토큰 한계를 넘으면 hard error 대신 truncated 첫 페이지 + "PARTIAL view" 안내 반환. 큰 HTML/로그 다룰 때 더 안전해짐.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-green">실용적</span><span class="date">2026.05.19 · v2.1.145</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 다른데?</h4>
+    <ul>
+      <li>예전: 토큰 초과하면 그냥 에러 → 자동화 흐름이 막힘</li>
+      <li>지금: 첫 페이지를 부분으로 보여주고 "PARTIAL" 표시 → 모델이 알아서 offset으로 다음 페이지 읽음</li>
+      <li>큰 HTML 파일을 다루는 routine/스크립트에 특히 유용</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.145" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- /resume 백그라운드 세션 지원 + 완료 알림 시간 표시 — 2026.5.19 -->
 <div class="card" data-cat="cmd">
   <div class="card-header" onclick="toggle(this)">
@@ -3369,9 +3434,9 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.144'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.145'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
-const LAST_UPDATE = '2026-05-18T06:37:14Z'; // 루틴 마지막 실행 시간 (UTC)
+const LAST_UPDATE = '2026-05-20T03:23:55Z'; // 루틴 마지막 실행 시간 (UTC)
 
 
 function setBanner(state, msg) {

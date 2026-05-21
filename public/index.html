@@ -267,6 +267,34 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- /simplify → /code-review 이름 변경 — 2026-05-21 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📝</span>
+    <div class="card-title">
+      <h3><code>/simplify</code> → <code>/code-review</code>로 이름 바뀜 + effort 옵션 추가<span class="new-dot"></span></h3>
+      <p>기존 <code>/simplify</code>가 <code>/code-review</code>로 개명. effort level도 같이 지정 가능 (low/medium/high).</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">명령어</span><span class="tag tag-red">변경됨</span><span class="date">2026.05.21 · v2.1.146</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라졌는데?</h4>
+    <ul>
+      <li>이름: <code>/simplify</code> → <code>/code-review</code></li>
+      <li>리뷰 강도 조절: <code>/code-review high</code>처럼 effort level 지정 가능</li>
+      <li>기존 <code>/simplify</code> 단축키나 워크플로우 쓰던 사람은 갱신 필요</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 기본</span>
+<span class="c-p">/code-review</span>
+
+<span class="c-d"># 깊게 리뷰</span>
+<span class="c-p">/code-review</span> <span class="c-g">high</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.146" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- claude agents --json — 2026-05-19 -->
 <div class="card" data-cat="cmd">
   <div class="card-header" onclick="toggle(this)">
@@ -3434,9 +3462,9 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.145'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.146'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
-const LAST_UPDATE = '2026-05-20T03:23:55Z'; // 루틴 마지막 실행 시간 (UTC)
+const LAST_UPDATE = '2026-05-21T02:18:28Z'; // 루틴 마지막 실행 시간 (UTC)
 
 
 function setBanner(state, msg) {

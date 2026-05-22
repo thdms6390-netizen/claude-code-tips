@@ -267,6 +267,58 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- Pinned background sessions — 2026-05-21 -->
+<div class="card featured" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📌</span>
+    <div class="card-title">
+      <h3>핀 백그라운드 세션 — 메모리 부족해도 안 죽이는 세션<span class="new-dot"></span></h3>
+      <p><code>claude agents</code>에서 <kbd>Ctrl+T</kbd>로 세션 핀하면 idle이어도 살아있고, Claude Code 업데이트 시 자동 재시작. 메모리 부족 상황에서도 핀 안 한 세션부터 먼저 종료됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-green">실용적</span><span class="tag tag-purple">세션 관리</span><span class="date">2026.05.21 · v2.1.147</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>왜 좋은데?</h4>
+    <ul>
+      <li>중요한 장기 작업 세션을 시스템 메모리 압박에서 보호</li>
+      <li>Claude Code 업데이트되면 자동으로 in-place 재시작 (수동 재시작 X)</li>
+      <li>핀 안 한 세션이 먼저 정리됨 → 우선순위 자연스럽게 관리</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># agents 화면에서 세션 선택 후</span>
+<kbd>Ctrl+T</kbd></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.147" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- /code-review --comment — 2026-05-21 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">💬</span>
+    <div class="card-title">
+      <h3><code>/code-review --comment</code> — 리뷰 결과를 GitHub PR에 인라인 코멘트로<span class="new-dot"></span></h3>
+      <p>코드 리뷰 결과를 콘솔에만 출력하지 말고 GitHub PR에 line-by-line 인라인 코멘트로 자동 등록. PR 리뷰 자동화에 유용.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="tag tag-purple">PR 리뷰</span><span class="date">2026.05.21 · v2.1.147</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 콘솔에 출력</span>
+<span class="c-p">/code-review</span> <span class="c-g">high</span>
+
+<span class="c-d"># PR 인라인 코멘트로 자동 등록</span>
+<span class="c-p">/code-review</span> <span class="c-g">high</span> <span class="c-o">--comment</span></pre>
+    <h4>워크플로우 아이디어</h4>
+    <ul>
+      <li>PR 만들고 <code>/code-review --comment</code> 한 번 → 리뷰어 부담 줄어듦</li>
+      <li>CI에서 자동으로 돌리면 봇 리뷰어 역할</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.147" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- /simplify → /code-review 이름 변경 — 2026-05-21 -->
 <div class="card" data-cat="cmd">
   <div class="card-header" onclick="toggle(this)">
@@ -3462,9 +3514,9 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.146'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.148'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
-const LAST_UPDATE = '2026-05-21T02:18:28Z'; // 루틴 마지막 실행 시간 (UTC)
+const LAST_UPDATE = '2026-05-22T05:58:26Z'; // 루틴 마지막 실행 시간 (UTC)
 
 
 function setBanner(state, msg) {

@@ -267,6 +267,53 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- /usage 카테고리별 breakdown — 2026-05-22 -->
+<div class="card featured" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📊</span>
+    <div class="card-title">
+      <h3><code>/usage</code> — 한계 사용량을 카테고리별로 쪼개서 보기<span class="new-dot"></span></h3>
+      <p>한계 다 차서 거지같을 때, 누가 진짜 범인인지 확인 가능. 스킬/서브에이전트/플러그인/MCP 서버별로 토큰 소모 breakdown 제공.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-green">실용적</span><span class="tag tag-purple">사용량</span><span class="date">2026.05.22 · v2.1.149</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>왜 좋은데?</h4>
+    <ul>
+      <li>이전 <code>/usage</code>: 총량만 보여줌 → "왜 이렇게 많이 썼지?" 답 X</li>
+      <li>지금: 스킬, 서브에이전트, 플러그인, MCP 서버별로 분해 → 무거운 거 골라내고 끄거나 정리 가능</li>
+      <li>한계 자주 차는 사람한테 진짜 유용</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-p">/usage</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.149" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- GFM 체크박스 — 2026-05-22 -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">☑️</span>
+    <div class="card-title">
+      <h3>Markdown 출력에 GitHub 스타일 체크박스 지원<span class="new-dot"></span></h3>
+      <p><code>- [ ] todo</code> / <code>- [x] done</code> 마크다운이 진짜 체크박스로 렌더링. To-do 리스트 형태로 작업 진행 상황 보기 좋아짐.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">UI</span><span class="date">2026.05.22 · v2.1.149</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 마크다운 입력</span>
+- [x] 로그인 구현
+- [x] 회원가입 구현
+- [ ] 이메일 인증
+- [ ] 비밀번호 재설정</pre>
+    <p>이전엔 그냥 bullet으로 표시 → 지금은 GitHub처럼 ✅/⬜ 체크박스로 렌더링.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.149" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- Pinned background sessions — 2026-05-21 -->
 <div class="card featured" data-cat="core">
   <div class="card-header" onclick="toggle(this)">
@@ -3516,7 +3563,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 // ==================== AUTO UPDATE ====================
 const KNOWN_VERSION = 'v2.1.150'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
-const LAST_UPDATE = '2026-05-22T05:58:26Z'; // 루틴 마지막 실행 시간 (UTC)
+const LAST_UPDATE = '2026-05-26T02:33:18Z'; // 루틴 마지막 실행 시간 (UTC)
 
 
 function setBanner(state, msg) {

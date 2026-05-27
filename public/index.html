@@ -267,6 +267,69 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- /reload-skills — 2026.5.27 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔄</span>
+    <div class="card-title">
+      <h3>/reload-skills — 세션 재시작 없이 스킬 다시 불러오기<span class="new-dot"></span></h3>
+      <p>스킬 디렉토리를 수정했는데 세션 껐다 켜기 귀찮았지? 이제 /reload-skills 하나로 바로 반영됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">명령어</span><span class="tag tag-red">자주쓰임</span><span class="date">2026.5.27 · v2.1.152</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 좋냐면</h4>
+    <p>스킬 파일 추가하거나 수정할 때마다 Claude Code를 껐다 켜야 했는데, 이제 그럴 필요 없음. <code>/reload-skills</code> 치면 현재 세션 유지한 채로 스킬 디렉토리를 다시 스캔해서 바로 반영해줌. 스킬 개발 중에 반복 수정할 때 특히 편함.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 스킬 파일 수정 후 세션 유지한 채로 다시 로드</span>
+<span class="c-p">/reload-skills</span>
+
+<span class="c-d"># 이후 바로 새 스킬 사용 가능</span>
+<span class="c-p">/skills</span> <span class="c-d"># 목록에 반영됐는지 확인</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.152" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- MessageDisplay 훅 — 2026.5.27 -->
+<div class="card featured" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🎭</span>
+    <div class="card-title">
+      <h3>MessageDisplay 훅 — Claude 응답을 표시 직전에 가로채기<span class="new-dot"></span></h3>
+      <p>Claude가 뭔가 답하기 직전, 훅으로 그 텍스트를 바꾸거나 아예 숨길 수 있음. 출력 커스터마이징의 끝판왕.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="tag tag-red">자주쓰임</span><span class="date">2026.5.27 · v2.1.152</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떻게 쓰냐면</h4>
+    <p>기존 훅들은 툴 실행 전후에 끼어들 수 있었는데, <code>MessageDisplay</code>는 어시스턴트 메시지 텍스트가 <strong>화면에 표시되기 직전</strong>에 발동함. 이 훅에서 텍스트를 변환하거나 특정 조건에서 아예 숨길 수 있어서 팀 환경에서 출력 포맷 통일하거나, 민감한 정보 마스킹하거나, 특정 패턴 강조 표시 같은 걸 자동으로 할 수 있음.</p>
+    <h4>활용 예시</h4>
+    <ul>
+      <li>응답에 포함된 API 키 패턴 자동 마스킹</li>
+      <li>팀 규칙에 맞게 출력 포맷 일괄 변환</li>
+      <li>특정 경고 메시지가 포함되면 강조 텍스트 앞에 붙이기</li>
+      <li>디버그 모드에서만 보여줄 내용 조건부 숨기기</li>
+    </ul>
+    <h4>설정 예시 (CLAUDE.md 또는 설정 파일)</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button"><span class="c-d"># .claude/settings.json 훅 등록</span>
+<span class="c-g">{
+  "hooks": {
+    "MessageDisplay": [
+      {
+        "command": </span><span class="c-b">"python3 .claude/hooks/transform_output.py"</span><span class="c-g">
+      }
+    ]
+  }
+}</span>
+
+<span class="c-d"># transform_output.py — stdin으로 메시지 받아서 stdout으로 변환 출력</span>
+<span class="c-d"># 빈 출력 반환하면 해당 메시지 숨김 처리</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.152" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- /usage 카테고리별 breakdown — 2026-05-22 -->
 <div class="card featured" data-cat="cmd">
   <div class="card-header" onclick="toggle(this)">
@@ -3561,7 +3624,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.150'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.152'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-05-26T02:33:18Z'; // 루틴 마지막 실행 시간 (UTC)
 

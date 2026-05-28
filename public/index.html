@@ -267,6 +267,29 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- Claude Opus 4.8 in /claude-api — 2026.5.29 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📖</span>
+    <div class="card-title">
+      <h3>/claude-api에 Opus 4.8 추가 — 4.7→4.8 마이그레이션 가이드까지<span class="new-dot"></span></h3>
+      <p>/claude-api 스킬이 Opus 4.8을 지원하고, 4.7에서 4.8로 넘어가는 방법도 알려줌.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">명령어</span><span class="date">2026.5.29 · v2.1.154</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 바뀐 거야?</h4>
+    <p><code>/claude-api</code> 스킬 안에 Opus 4.8 모델 정보가 추가됐고, 기존에 4.7 기반으로 앱을 만들고 있었다면 4.8로 어떻게 올려야 하는지 마이그레이션 가이드도 같이 제공돼. API 앱 개발 중에 바로 물어볼 수 있어서 편함.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># /claude-api 스킬 열고 Opus 4.8 관련 질문하기</span>
+<span class="c-p">/claude-api</span>
+<span class="c-d"># 예: "Opus 4.7에서 4.8로 마이그레이션하는 법 알려줘"</span>
+<span class="c-g">Opus 4.7에서 4.8로 마이그레이션하는 법 알려줘</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.154" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <div class="card featured" data-cat="core">
   <div class="card-header" onclick="toggle(this)">
     <span class="card-icon">🧠</span>
@@ -3715,7 +3738,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.153'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.154'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-05-28'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-05-28T03:01:34Z'; // 루틴 마지막 실행 시간 (UTC)
 

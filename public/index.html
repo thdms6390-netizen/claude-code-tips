@@ -267,6 +267,38 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<div class="card featured" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🧠</span>
+    <div class="card-title">
+      <h3>Opus 4.8 출시 — 더 믿음직한 에이전트 협업 모델<span class="new-dot"></span></h3>
+      <p>Opus 4.7 대비 벤치마크 전반 개선, Claude Code에 dynamic workflows 추가, Fast Mode는 3배 저렴해짐.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">모델</span><span class="tag tag-red">자주쓰임</span><span class="date">2026-05-28</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라졌냐면</h4>
+    <ul>
+      <li>Opus 4.7 대비 코딩·에이전트·추론·지식 작업 벤치마크 전반 향상</li>
+      <li>Claude Code에 <strong>dynamic workflows</strong> 추가 — 아주 큰 규모의 문제도 단계적으로 분해해서 처리 가능</li>
+      <li>Fast Mode(2.5× 속도) 가격이 이전 모델 대비 <strong>3배 저렴</strong>해짐</li>
+      <li>claude.ai에서 사용자가 에포트 수준 직접 조절 가능</li>
+      <li>Super-Agent 벤치마크에서 모든 케이스 완료한 유일한 모델</li>
+      <li>CursorBench에서 모든 에포트 수준에서 이전 Opus 초과</li>
+      <li>컴퓨터 사용·브라우저 에이전트에서 Online-Mind2Web 84% 달성</li>
+      <li>가격은 Opus 4.7과 동일</li>
+    </ul>
+    <h4>Claude Code에서 체감되는 변화</h4>
+    <ul>
+      <li>복잡한 멀티 서비스 탐색에서 스스로 실수를 잡고, 계획이 허술하면 되묻는 판단력 향상</li>
+      <li>긴 세션에서 컨텍스트·스타일 지시를 더 잘 유지</li>
+      <li>툴 호출 효율 개선 — 같은 지능 수준에서 더 적은 스텝으로 완료</li>
+    </ul>
+    <p><a href="https://www.anthropic.com/news/claude-opus-4-8" target="_blank">공식 블로그 →</a></p>
+  </div>
+</div>
+
 <!-- /model 동작 변경 — 2026-05-28 -->
 <div class="card featured" data-cat="cmd">
   <div class="card-header" onclick="toggle(this)">
@@ -3684,7 +3716,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 
 // ==================== AUTO UPDATE ====================
 const KNOWN_VERSION = 'v2.1.153'; // 현재 페이지에 반영된 버전
-const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
+const KNOWN_BLOG_DATE = '2026-05-28'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-05-28T03:01:34Z'; // 루틴 마지막 실행 시간 (UTC)
 
 

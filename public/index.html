@@ -267,6 +267,41 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- skipLfs — 2026.05.28 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📦</span>
+    <div class="card-title">
+      <h3>skipLfs — LFS 파일 빼고 플러그인 클론하기<span class="new-dot"></span></h3>
+      <p>github/git 플러그인 소스에서 Git LFS 다운로드를 건너뛸 수 있는 옵션. 무거운 바이너리 포함된 플러그인 설치할 때 속도 확 줄어듦.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">플러그인</span><span class="date">2026.05.28 · v2.1.153</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 필요해?</h4>
+    <p>플러그인 소스가 Git LFS로 대용량 파일(모델, 바이너리, 에셋 등)을 관리하는 경우, 설치할 때 그 파일까지 전부 받아오느라 느려지는 문제가 있었어. <code>skipLfs: true</code>를 설정하면 LFS 포인터 파일만 받고 실제 파일은 스킵해서 설치가 훨씬 빨라짐.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># CLAUDE.json 또는 플러그인 설정 파일에서</span>
+{
+  <span class="c-g">"plugins"</span>: [
+    {
+      <span class="c-g">"source"</span>: <span class="c-g">"github"</span>,
+      <span class="c-g">"repo"</span>: <span class="c-g">"some-org/some-plugin"</span>,
+      <span class="c-o">"skipLfs"</span>: <span class="c-b">true</span>
+    }
+  ]
+}</pre>
+    <h4>언제 쓰면 좋아?</h4>
+    <ul>
+      <li>플러그인 설치 속도가 비정상적으로 느릴 때</li>
+      <li>LFS 파일이 실제 플러그인 동작에 필요 없는 경우 (문서, 테스트용 에셋 등)</li>
+      <li>CI/CD 환경에서 플러그인 설치 시간 줄이고 싶을 때</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.153" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- /reload-skills — 2026.5.27 -->
 <div class="card" data-cat="cmd">
   <div class="card-header" onclick="toggle(this)">
@@ -3624,7 +3659,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.152'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.153'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-03-25'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-05-26T02:33:18Z'; // 루틴 마지막 실행 시간 (UTC)
 

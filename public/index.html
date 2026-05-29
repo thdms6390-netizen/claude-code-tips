@@ -267,6 +267,41 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- claude plugin init — 플러그인 스캐폴딩 도구 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔧</span>
+    <div class="card-title">
+      <h3>claude plugin init — 플러그인 뼈대 한 줄로 생성<span class="new-dot"></span></h3>
+      <p>새 플러그인 만들 때 디렉토리 구조·파일 자동 생성. 처음부터 안 짜도 됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">플러그인</span><span class="tag tag-green">실용적</span><span class="date">2026.05.30 · v2.1.157</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 뭔데?</h4>
+    <p><code>claude plugin init &lt;name&gt;</code>을 실행하면 <code>.claude/skills/</code> 안에 플러그인 뼈대를 자동으로 만들어줌. 파일 구조, 기본 설정 파일까지 한 번에 생성되니까 처음 플러그인 만드는 사람도 헤맬 필요 없음.</p>
+    <h4>같이 추가된 것들</h4>
+    <ul>
+      <li><strong>/plugin 자동완성</strong> — 서브커맨드, 설치된 플러그인 이름, 마켓플레이스 플러그인까지 탭 키로 자동완성</li>
+      <li><strong>워크플로우 키워드 트리거 설정</strong> — <code>/config</code>에서 "Workflow keyword trigger" 켜고 끄기 가능. 프롬프트에 "workflow"라는 단어가 들어가도 다이나믹 워크플로우가 자동 발동되지 않게 차단할 수 있음</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 새 플러그인 스캐폴드 생성</span>
+<span class="c-p">claude plugin init</span> <span class="c-g">my-plugin</span>
+
+<span class="c-d"># 생성되는 경로</span>
+<span class="c-g">.claude/skills/my-plugin/</span>
+
+<span class="c-d"># /plugin 서브커맨드 자동완성 (탭 누르면 목록 뜸)</span>
+<span class="c-p">/plugin</span> <span class="c-o">[Tab]</span>
+
+<span class="c-d"># 워크플로우 키워드 트리거 끄기</span>
+<span class="c-p">/config</span> <span class="c-g">→ Workflow keyword trigger → off</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.157" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- Claude Opus 4.8 in /claude-api — 2026.5.29 -->
 <div class="card" data-cat="cmd">
   <div class="card-header" onclick="toggle(this)">
@@ -3738,7 +3773,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.156'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.157'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-05-28'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-05-28T03:01:34Z'; // 루틴 마지막 실행 시간 (UTC)
 

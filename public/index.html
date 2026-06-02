@@ -267,6 +267,26 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- Auto mode on Bedrock/Vertex/Foundry — 2026-05-30 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">☁️</span>
+    <div class="card-title">
+      <h3>Auto Mode — Bedrock/Vertex/Foundry에서도 가능 (Opus 4.7/4.8)<span class="new-dot"></span></h3>
+      <p>지금까지 Auto Mode는 Anthropic 직접 사용자만 됐는데, AWS Bedrock / Google Vertex / Microsoft Foundry에서도 Opus 4.7/4.8로 사용 가능해짐. 엔터프라이즈 환경에서도 자동 권한 승인 가능.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="tag tag-blue">엔터프라이즈</span><span class="date">2026.05.30 · v2.1.158</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 환경변수 설정</span>
+<span class="c-b">export</span> <span class="c-o">CLAUDE_CODE_ENABLE_AUTO_MODE=1</span></pre>
+    <p>설정 후 Bedrock/Vertex/Foundry 세션에서 Opus 4.7/4.8 쓰면 Auto Mode 자동 활성화.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.158" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- claude plugin init — 플러그인 스캐폴딩 도구 -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -3775,7 +3795,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 // ==================== AUTO UPDATE ====================
 const KNOWN_VERSION = 'v2.1.159'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-05-28'; // 블로그 글 반영 기준일
-const LAST_UPDATE = '2026-05-28T03:01:34Z'; // 루틴 마지막 실행 시간 (UTC)
+const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 
 
 function setBanner(state, msg) {

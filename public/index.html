@@ -267,6 +267,36 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- v2.1.160 — 2026.6.2 -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🛡️</span>
+    <div class="card-title">
+      <h3>셸 시작 파일 쓰기 전 확인 프롬프트 — 의도치 않은 실행 방지<span class="new-dot"></span></h3>
+      <p>Claude가 <code>.zshenv</code>, <code>.zlogin</code>, <code>.bash_login</code>, <code>~/.config/git/</code>에 쓰려 할 때 이제 먼저 물어봄. 자동으로 셸 설정이 바뀌는 사고를 막아주는 거.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">보안</span><span class="date">2026.6.2 · v2.1.160</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>왜 중요해?</h4>
+    <p>셸 시작 파일(<code>.zshenv</code>, <code>.zlogin</code>, <code>.bash_login</code>)이나 Git 설정 디렉터리(<code>~/.config/git/</code>)는 터미널을 열 때마다 자동 실행되는 스크립트가 담겨 있어. Claude가 여기에 뭔가를 몰래 쓰면 의도치 않은 명령이 계속 실행될 수 있었는데, 이제 반드시 확인 단계를 거치게 됨.</p>
+    <h4>어떻게 동작해?</h4>
+    <ul>
+      <li>Claude가 해당 파일에 쓰기를 시도하면 확인 프롬프트가 뜸</li>
+      <li>사용자가 명시적으로 허용해야만 실제로 쓰기가 진행됨</li>
+      <li>Auto Mode에서도 이 확인은 생략되지 않음</li>
+    </ul>
+    <h4>적용 대상 파일</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 확인 프롬프트가 뜨는 경로들</span>
+<span class="c-g">~/.zshenv</span>
+<span class="c-g">~/.zlogin</span>
+<span class="c-g">~/.bash_login</span>
+<span class="c-g">~/.config/git/</span>  <span class="c-d"># Git 전역 훅·설정 포함</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.160" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- Auto mode on Bedrock/Vertex/Foundry — 2026-05-30 -->
 <div class="card" data-cat="dev">
   <div class="card-header" onclick="toggle(this)">
@@ -3793,7 +3823,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.159'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.160'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-05-28'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

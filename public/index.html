@@ -267,6 +267,89 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- v2.1.163 — 2026.6.5 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔒</span>
+    <div class="card-title">
+      <h3>requiredMinimumVersion / requiredMaximumVersion — 팀 버전 강제 고정<span class="new-dot"></span></h3>
+      <p>허용 범위 밖 버전이면 Claude Code 자체가 실행을 거부함. 팀 전체 버전 통일할 때 딱.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="tag tag-red">자주쓰임</span><span class="date">2026.6.5 · v2.1.163</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떤 기능이야?</h4>
+    <p>관리형 설정(managed settings)에 <code>requiredMinimumVersion</code>과 <code>requiredMaximumVersion</code>을 지정해두면, 해당 범위를 벗어난 버전의 Claude Code는 아예 시작을 안 함. 잘못된 버전 쓰다가 팀이 꼬이는 상황을 원천 차단할 수 있어.</p>
+    <h4>언제 쓰냐?</h4>
+    <ul>
+      <li>팀 전체에 특정 버전 이상만 쓰도록 강제하고 싶을 때</li>
+      <li>아직 검증 안 된 최신 버전 쓰는 걸 막고 싶을 때</li>
+      <li>엔터프라이즈 환경에서 승인된 버전만 허용할 때</li>
+    </ul>
+    <h4>설정 예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># managed_settings.json (또는 정책 배포 파일)</span>
+{
+  <span class="c-g">"requiredMinimumVersion"</span>: <span class="c-b">"2.1.100"</span>,
+  <span class="c-g">"requiredMaximumVersion"</span>: <span class="c-b">"2.1.163"</span>
+}</pre>
+    <p>범위 밖 버전으로 실행하면 Claude Code가 시작을 거부하고 승인된 버전으로 안내하는 메시지를 띄워줌.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.163" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- v2.1.163 — 2026.6.5 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔌</span>
+    <div class="card-title">
+      <h3>/plugin list — 설치된 플러그인 한눈에 보기<span class="new-dot"></span></h3>
+      <p>활성화/비활성화 필터로 플러그인 상태 빠르게 확인할 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">명령어</span><span class="date">2026.6.5 · v2.1.163</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떤 기능이야?</h4>
+    <p>현재 설치된 플러그인 목록을 쭉 보여주는 명령어야. <code>--enabled</code> / <code>--disabled</code> 플래그로 상태별로 필터링도 됨.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 전체 플러그인 목록 보기</span>
+<span class="c-p">/plugin list</span>
+
+<span class="c-d"># 활성화된 것만 보기</span>
+<span class="c-p">/plugin list</span> <span class="c-o">--enabled</span>
+
+<span class="c-d"># 비활성화된 것만 보기</span>
+<span class="c-p">/plugin list</span> <span class="c-o">--disabled</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.163" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- v2.1.163 — 2026.6.5 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📋</span>
+    <div class="card-title">
+      <h3>/btw에 "c to copy" 단축키 추가 — 마크다운 그대로 복사<span class="new-dot"></span></h3>
+      <p>/btw 답변을 c 누르면 raw 마크다운으로 클립보드에 복사됨. 붙여넣기 해도 서식 그대로.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">명령어</span><span class="tag tag-green">실용적</span><span class="date">2026.6.5 · v2.1.163</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떻게 쓰는 거야?</h4>
+    <p><code>/btw</code>로 질문하고 답변이 뜨면 <kbd>c</kbd> 키를 누르면 됨. raw 마크다운 형태로 클립보드에 들어가서, Notion·GitHub·Obsidian 같은 곳에 붙여넣을 때 서식이 깨지지 않아.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 작업 중에 딴 질문 던지기</span>
+<span class="c-p">/btw</span> <span class="c-g">이 함수 시간복잡도가 뭐야?</span>
+
+<span class="c-d"># 답변 나오면 c 눌러서 raw 마크다운 복사</span>
+<span class="c-d"># → 노션, 깃헙, 옵시디언에 그대로 붙여넣기 가능</span></pre>
+    <p><code>/btw</code>는 메인 컨텍스트를 오염시키지 않고 잠깐 딴 질문 할 수 있는 기능이야. 거기에 복사 단축키까지 붙어서 훨씬 쓸만해짐.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.163" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- v2.1.160 — 2026.6.2 -->
 <div class="card" data-cat="core">
   <div class="card-header" onclick="toggle(this)">
@@ -3823,7 +3906,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.162'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.165'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-05-28'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

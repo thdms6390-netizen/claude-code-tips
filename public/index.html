@@ -267,6 +267,79 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- fallbackModel + deny glob — 2026.6.6 -->
+<div class="card featured" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔀</span>
+    <div class="card-title">
+      <h3>fallbackModel — 모델 다운돼도 자동으로 이어받기<span class="new-dot"></span></h3>
+      <p>주 모델이 과부하거나 응답 없을 때 최대 3개 대체 모델을 순서대로 시도함. 이제 인터랙티브 세션에서도 <code>--fallback-model</code> 플래그 동작해.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="date">2026.6.6 · v2.1.166</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 좋냐면</h4>
+    <p>Opus가 과부하 걸렸을 때 그냥 에러 뜨고 끝나던 게 이제 없어짐. 대체 모델 목록을 미리 지정해두면 Claude가 알아서 다음 모델로 넘어가서 작업 계속함. 장시간 자동화 돌릴 때 특히 유용해.</p>
+    <h4>settings.json 설정</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># ~/.claude/settings.json</span>
+{
+  <span class="c-p">"fallbackModel"</span>: [
+    <span class="c-g">"claude-sonnet-4-5"</span>,
+    <span class="c-g">"claude-haiku-4-5"</span>,
+    <span class="c-g">"claude-sonnet-3-7"</span>
+  ]
+}</pre>
+    <h4>CLI에서 바로 쓰기</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 인터랙티브 세션에서도 이제 됨</span>
+<span class="c-p">claude</span> <span class="c-o">--fallback-model</span> <span class="c-g">claude-sonnet-4-5</span>
+
+<span class="c-d"># 비대화형 자동화에서도 동일하게</span>
+<span class="c-p">claude</span> <span class="c-o">-p</span> <span class="c-g">"빌드 오류 고쳐줘"</span> <span class="c-o">--fallback-model</span> <span class="c-g">claude-sonnet-4-5</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.166" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- deny 규칙 glob 패턴 — 2026.6.6 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🛡️</span>
+    <div class="card-title">
+      <h3>deny 규칙에 glob 패턴 지원 — <code>"*"</code> 하나로 전체 차단<span class="new-dot"></span></h3>
+      <p>deny 규칙의 툴 이름 자리에 glob 패턴 쓸 수 있게 됨. <code>"*"</code> 넣으면 모든 툴 차단. 잘못된 툴 이름은 시작할 때 경고도 띄워줌.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="date">2026.6.6 · v2.1.166</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>주요 변경 사항</h4>
+    <ul>
+      <li><code>"*"</code> → 모든 툴 전체 차단 (읽기 전용 모드 같은 효과)</li>
+      <li>allow 규칙에는 MCP 툴이 아닌 glob 사용 시 거부 (실수 방지)</li>
+      <li>존재하지 않는 툴 이름을 deny에 넣으면 시작 시 경고 출력</li>
+    </ul>
+    <h4>settings.json 예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 모든 툴 차단 (리뷰·분석만 할 때)</span>
+{
+  <span class="c-p">"permissions"</span>: {
+    <span class="c-p">"deny"</span>: [
+      { <span class="c-g">"tool"</span>: <span class="c-b">"*"</span> }
+    ]
+  }
+}
+
+<span class="c-d"># Bash 관련 툴만 전체 차단</span>
+{
+  <span class="c-p">"permissions"</span>: {
+    <span class="c-p">"deny"</span>: [
+      { <span class="c-g">"tool"</span>: <span class="c-b">"Bash*"</span> }
+    ]
+  }
+}</pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.166" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- v2.1.163 — 2026.6.5 -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -3906,7 +3979,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.165'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.167'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-05-28'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

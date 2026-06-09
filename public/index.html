@@ -267,6 +267,105 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- --safe-mode flag — 2026. 6. 9. -->
+<div class="card featured" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🛡️</span>
+    <div class="card-title">
+      <h3>--safe-mode — 커스텀 없이 깨끗하게 시작하기<span class="new-dot"></span></h3>
+      <p>문제가 생겼을 때 CLAUDE.md, 플러그인, 훅, MCP 전부 끄고 순수한 상태로 실행할 수 있음. 트러블슈팅할 때 진짜 유용해.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">CLI</span><span class="tag tag-red">자주쓰임</span><span class="date">2026.6.9 · v2.1.169</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 필요해?</h4>
+    <p>플러그인이나 훅 때문에 이상하게 동작할 때, 어디서 문제가 생긴 건지 파악하기 어렵잖아. <code>--safe-mode</code>로 실행하면 CLAUDE.md, 플러그인, 스킬, 훅, MCP 서버를 전부 비활성화한 채로 시작돼. 환경 변수로도 쓸 수 있어서 CI나 컨테이너에서도 편하게 쓸 수 있음.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># CLI 플래그로 실행</span>
+<span class="c-p">claude</span> <span class="c-o">--safe-mode</span>
+
+<span class="c-d"># 환경 변수로도 가능</span>
+<span class="c-b">CLAUDE_CODE_SAFE_MODE</span>=<span class="c-g">true</span> <span class="c-p">claude</span>
+
+<span class="c-d"># 특정 파일 작업할 때만 안전 모드로</span>
+<span class="c-b">CLAUDE_CODE_SAFE_MODE</span>=<span class="c-g">true</span> <span class="c-p">claude</span> <span class="c-g">"이 파일 뭐가 문제야?"</span></pre>
+    <h4>비활성화되는 것들</h4>
+    <ul>
+      <li>CLAUDE.md (프로젝트 설정 파일)</li>
+      <li>플러그인 & 스킬 & 번들 슬래시 명령어</li>
+      <li>훅 (PreToolUse, PostToolUse 등)</li>
+      <li>MCP 서버 전체</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.169" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- /cd command — 2026. 6. 9. -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📁</span>
+    <div class="card-title">
+      <h3>/cd — 세션 끊지 않고 작업 디렉토리 이동<span class="new-dot"></span></h3>
+      <p>세션 중간에 작업 폴더를 바꿔도 프롬프트 캐시가 깨지지 않아. 기존 컨텍스트 그대로 유지하면서 다른 디렉토리로 이동 가능.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">명령어</span><span class="tag tag-green">실용적</span><span class="date">2026.6.9 · v2.1.169</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>기존에 뭐가 문제였냐면</h4>
+    <p>작업 중에 다른 디렉토리로 이동하려면 세션을 새로 시작하거나 <code>cd</code> 명령을 Bash 툴로 실행했는데, 그러면 프롬프트 캐시가 날아가거나 컨텍스트가 엉켜버렸어. <code>/cd</code>는 세션 상태를 유지하면서 깔끔하게 이동함.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 절대 경로로 이동</span>
+<span class="c-p">/cd</span> <span class="c-g">/home/user/other-project</span>
+
+<span class="c-d"># 상대 경로도 됨</span>
+<span class="c-p">/cd</span> <span class="c-g">../backend</span>
+
+<span class="c-d"># 홈 디렉토리로</span>
+<span class="c-p">/cd</span> <span class="c-g">~</span></pre>
+    <h4>언제 쓰면 좋냐</h4>
+    <ul>
+      <li>모노레포에서 프론트엔드 → 백엔드 이동할 때</li>
+      <li>같은 세션에서 여러 패키지를 넘나들며 작업할 때</li>
+      <li>캐시 날리기 싫은데 폴더는 바꿔야 할 때</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.169" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- disableBundledSkills — 2026. 6. 9. -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔇</span>
+    <div class="card-title">
+      <h3>disableBundledSkills — 기본 스킬 전부 숨기기<span class="new-dot"></span></h3>
+      <p>Claude Code에 내장된 스킬, 워크플로우, 슬래시 명령어를 모델한테 안 보이게 할 수 있음. 팀 전용 환경 구성할 때 딱임.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">설정</span><span class="tag tag-orange">자동화</span><span class="date">2026.6.9 · v2.1.169</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 필요해?</h4>
+    <p>팀에서 Claude Code를 커스텀 환경으로 운영할 때, 기본 제공되는 스킬이나 슬래시 명령어가 노출되면 혼란스럽거나 의도치 않은 동작이 생길 수 있어. 이 설정을 켜면 번들 스킬과 내장 명령어를 모델이 아예 못 보게 숨길 수 있음.</p>
+    <h4>설정 방법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># settings.json에 추가</span>
+{
+  <span class="c-g">"disableBundledSkills"</span>: <span class="c-b">true</span>
+}
+
+<span class="c-d"># 환경 변수로도 가능</span>
+<span class="c-b">CLAUDE_CODE_DISABLE_BUNDLED_SKILLS</span>=<span class="c-g">true</span> <span class="c-p">claude</span></pre>
+    <h4>숨겨지는 것들</h4>
+    <ul>
+      <li>Claude Code 기본 번들 스킬 전체</li>
+      <li>내장 워크플로우</li>
+      <li>빌트인 슬래시 명령어 (팀 커스텀 건 유지됨)</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.169" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- fallbackModel + deny glob — 2026.6.6 -->
 <div class="card featured" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -3979,7 +4078,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.168'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.169'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-05-28'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

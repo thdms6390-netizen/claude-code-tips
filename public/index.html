@@ -4110,21 +4110,7 @@ function setBanner(state, msg) {
   }
 }
 
-function formatLastUpdate(iso) {
-  if (!iso) return '';
-  const d = new Date(iso);
-  const now = new Date();
-  const diffMin = Math.floor((now - d) / 60000);
-  let label;
-  if (diffMin < 1) label = '방금 전';
-  else if (diffMin < 60) label = `${diffMin}분 전`;
-  else if (diffMin < 1440) label = `${Math.floor(diffMin / 60)}시간 전`;
-  else label = `${Math.floor(diffMin / 1440)}일 전`;
-  return ` <span style="color:var(--dim);font-weight:400">(마지막 업데이트: ${label})</span>`;
-}
-
 function checkStatus() {
-  const lastUpdateText = formatLastUpdate(LAST_UPDATE);
   fetch('/api/workflow-status')
     .then(r => r.json())
     .then(data => {
@@ -4132,15 +4118,15 @@ function checkStatus() {
         setBanner('running');
         setTimeout(checkStatus, 10000);
       } else if (data.latestVersion && data.latestVersion === KNOWN_VERSION) {
-        setBanner('latest', `<strong style="color:var(--purple)">${KNOWN_VERSION}</strong> 반영 중 · 3시간마다 자동 업데이트${lastUpdateText}`);
+        setBanner('latest', `<strong style="color:var(--purple)">${KNOWN_VERSION}</strong> 반영 중 · 3시간마다 자동 업데이트`);
       } else if (data.latestVersion) {
         setBanner('outdated', `새 버전 <strong style="color:var(--pink)">${data.latestVersion}</strong> 출시 · 버튼을 눌러 업데이트하세요`);
       } else {
-        setBanner('latest', `<strong style="color:var(--purple)">${KNOWN_VERSION}</strong> 반영 중 · 3시간마다 자동 업데이트${lastUpdateText}`);
+        setBanner('latest', `<strong style="color:var(--purple)">${KNOWN_VERSION}</strong> 반영 중 · 3시간마다 자동 업데이트`);
       }
     })
     .catch(() => {
-      setBanner('latest', `<strong style="color:var(--purple)">${KNOWN_VERSION}</strong> 반영 중 · 3시간마다 자동 업데이트${lastUpdateText}`);
+      setBanner('latest', `<strong style="color:var(--purple)">${KNOWN_VERSION}</strong> 반영 중 · 3시간마다 자동 업데이트`);
     });
 }
 

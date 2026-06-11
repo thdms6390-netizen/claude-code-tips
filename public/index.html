@@ -267,6 +267,33 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- /plugin 마켓플레이스 검색바 — 2026.6.11 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔍</span>
+    <div class="card-title">
+      <h3>/plugin 마켓플레이스 검색바 — 플러그인 이름으로 바로 찾기<span class="new-dot"></span></h3>
+      <p>플러그인 목록이 많아져도 이제 검색창에 이름 치면 바로 필터링됨. 스크롤 지옥 끝.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">플러그인</span><span class="date">2026.6.11 · v2.1.172</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이런 상황에 유용함</h4>
+    <ul>
+      <li>마켓플레이스에 플러그인이 쌓일수록 원하는 거 찾기가 점점 힘들었음</li>
+      <li>이제 <code>/plugin</code> 열고 검색창에 키워드 입력하면 실시간으로 필터링</li>
+      <li>플러그인 이름, 설명 등 텍스트 기준으로 매칭됨</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 마켓플레이스 열고</span>
+<span class="c-p">/plugin</span>
+<span class="c-d"># 검색창에 찾고 싶은 플러그인 이름 입력</span>
+<span class="c-g">git</span>  <span class="c-d"># → "git" 관련 플러그인만 필터링</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.172" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- --safe-mode flag — 2026. 6. 9. -->
 <div class="card featured" data-cat="cmd">
   <div class="card-header" onclick="toggle(this)">
@@ -4078,7 +4105,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.170'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.173'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-05-28'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

@@ -267,6 +267,39 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- enforceAvailableModels — 2026.6.12 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔒</span>
+    <div class="card-title">
+      <h3>enforceAvailableModels — 팀 모델 허용목록을 기본값까지 강제 적용<span class="new-dot"></span></h3>
+      <p>allowlist에 없는 모델이 기본값이 되는 걸 막고, 유저·프로젝트 설정으로도 우회 못 하게 잠근다.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="tag tag-red">자주쓰임</span><span class="date">2026.6.12 · v2.1.175</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 필요해?</h4>
+    <p>기존에 <code>availableModels</code>로 허용 모델 목록을 지정해도, 기본값(Default)이 목록 바깥 모델로 빠져나갈 수 있었음. 또 유저나 프로젝트 설정에서 목록을 몰래 넓히는 것도 가능했고. <code>enforceAvailableModels</code>를 켜면 이 두 구멍을 다 막아줌.</p>
+    <ul>
+      <li>기본값이 허용 안 된 모델로 해석되면 → 첫 번째 허용 모델로 자동 폴백</li>
+      <li>유저·프로젝트 설정으로 <code>availableModels</code> 목록 확장 불가</li>
+      <li>조직 관리자가 managed setting으로 완전히 통제 가능</li>
+    </ul>
+    <h4>설정 예시 (managed settings)</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 조직 managed 설정 파일에 추가</span>
+<span class="c-g">{
+  "availableModels": [
+    "claude-sonnet-4-5",
+    "claude-haiku-3-5"
+  ],
+  "enforceAvailableModels":</span> <span class="c-b">true</span>
+<span class="c-g">}</span></pre>
+    <p>위처럼 설정하면 기본값이 자동으로 <code>claude-sonnet-4-5</code>로 고정되고, 팀원이 다른 모델로 바꾸거나 목록을 늘릴 수 없음.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.175" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- /plugin 마켓플레이스 검색바 — 2026.6.11 -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -4105,7 +4138,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.173'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.175'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-05-28'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

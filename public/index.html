@@ -267,6 +267,43 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- footerLinksRegexes — 2026.6.13 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔗</span>
+    <div class="card-title">
+      <h3>footerLinksRegexes — 정규식으로 푸터 배지 링크 직접 만들기<span class="new-dot"></span></h3>
+      <p>파일 경로나 이슈 번호 같은 패턴을 정규식으로 잡아서, 푸터에 클릭 가능한 배지 링크로 자동 표시해주는 설정. 팀 전체에 managed settings로 배포도 가능.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">설정</span><span class="tag tag-green">실용적</span><span class="date">2026.6.13 · v2.1.176</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 뭐냐면</h4>
+    <p>Claude Code 푸터 행에 뜨는 배지 링크를 정규식 패턴으로 커스텀할 수 있는 설정이야. 예를 들어 Jira 이슈 번호(<code>PROJ-1234</code>)나 GitHub PR 번호 같은 게 대화에 등장하면 자동으로 클릭 가능한 링크 배지로 만들어줌. <code>prUrlTemplate</code>이 PR 배지 하나만 찍어줬다면, 이건 정규식으로 원하는 패턴을 여러 개 등록할 수 있어.</p>
+    <h4>설정 방법</h4>
+    <p><code>.claude/settings.json</code> (유저 또는 managed settings)에 추가:</p>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># .claude/settings.json 또는 managed settings</span>
+{
+  <span class="c-p">"footerLinksRegexes"</span>: [
+    {
+      <span class="c-g">"regex"</span>: <span class="c-g">"PROJ-\\d+"</span>,
+      <span class="c-g">"url"</span>: <span class="c-g">"https://jira.example.com/browse/$0"</span>,
+      <span class="c-g">"label"</span>: <span class="c-g">"Jira"</span>
+    },
+    {
+      <span class="c-g">"regex"</span>: <span class="c-g">"#(\\d+)"</span>,
+      <span class="c-g">"url"</span>: <span class="c-g">"https://github.com/my-org/my-repo/issues/$1"</span>,
+      <span class="c-g">"label"</span>: <span class="c-g">"GitHub"</span>
+    }
+  ]
+}</pre>
+    <h4>팀 배포 팁</h4>
+    <p>managed settings에 넣으면 팀원 전체에 일괄 적용돼. Jira, Linear, Notion 등 팀에서 쓰는 트래커 링크를 한 번만 설정해두면 모든 세션에서 자동으로 배지가 뜨는 거.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.176" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- enforceAvailableModels — 2026.6.12 -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -4138,7 +4175,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.175'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.177'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-05-28'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

@@ -267,6 +267,53 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- Tool(param:value) 권한 룰 + 워크플로우 키워드 — 2026. 6. 16. -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🎯</span>
+    <div class="card-title">
+      <h3>Tool(param:value) 권한 룰 — 파라미터 값으로 세밀하게 차단하기<span class="new-dot"></span></h3>
+      <p>툴 이름뿐만 아니라 입력 파라미터 값까지 보고 권한을 제어할 수 있게 됨. 예를 들어 Opus 서브에이전트만 골라서 막는 것도 가능.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="tag tag-red">자주쓰임</span><span class="date">2026. 6. 16. · v2.1.178</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 필요하냐면</h4>
+    <p>기존엔 <code>Agent</code> 툴 자체를 통째로 허용/차단하는 것만 가능했어. 이제는 <code>Tool(param:value)</code> 문법으로 특정 파라미터 값을 가진 호출만 골라서 차단할 수 있음. 와일드카드 <code>*</code>도 지원해서 패턴 매칭도 가능.</p>
+    <h4>대표 사용 예시</h4>
+    <ul>
+      <li>비싼 Opus 서브에이전트만 차단하고 Sonnet은 허용</li>
+      <li>특정 모델·특정 파라미터 조합만 deny 처리</li>
+      <li>팀 설정에서 에이전트 모델 사용을 정책으로 제한</li>
+    </ul>
+    <h4>설정 예시 (settings.json)</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># Opus 모델 서브에이전트는 무조건 차단</span>
+{
+  <span class="c-g">"permissions"</span>: {
+    <span class="c-g">"deny"</span>: [<span class="c-g">"Agent(model:opus)"</span>]
+  }
+}
+
+<span class="c-d"># 와일드카드로 claude-opus-* 전부 차단</span>
+{
+  <span class="c-g">"permissions"</span>: {
+    <span class="c-g">"deny"</span>: [<span class="c-g">"Agent(model:claude-opus-*)"</span>]
+  }
+}</pre>
+    <h4>워크플로우 키워드도 바뀜</h4>
+    <p>워크플로우 트리거 키워드가 이제 보라색 shimmer 하이라이트로 표시되고, 발동 조건도 더 엄격해짐. 예전엔 "workflow"라는 단어만 있어도 트리거됐는데, 이제는 <code>"run a workflow"</code>나 <code>"workflow:"</code>처럼 명시적인 표현에서만 반응해. 의도치 않은 트리거 방지 효과.</p>
+    <h4>워크플로우 트리거 예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># ✅ 트리거됨</span>
+<span class="c-g">run a workflow</span>
+<span class="c-g">workflow: 빌드 → 테스트 → 배포</span>
+
+<span class="c-d"># ❌ 더 이상 트리거 안 됨</span>
+<span class="c-g">"이 workflow에 대해 설명해줘"</span> <span class="c-d"># 단순 언급은 무시</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.178" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- footerLinksRegexes — 2026.6.13 -->
 <div class="card" data-cat="dev">
   <div class="card-header" onclick="toggle(this)">
@@ -4175,7 +4222,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.177'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.178'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-05-28'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

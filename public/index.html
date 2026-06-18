@@ -267,6 +267,71 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- /config key=value — 날짜 -->
+<div class="card featured" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⚙️</span>
+    <div class="card-title">
+      <h3>/config key=value — 프롬프트에서 바로 설정 변경<span class="new-dot"></span></h3>
+      <p>설정 파일 열 필요 없이, 대화 중에 `/config` 한 줄로 세팅 바꾸는 거. 인터랙티브·자동화·리모트 컨트롤 모두 됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-red">자주쓰임</span><span class="date">2026.6.18 · v2.1.181</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 좋냐면</h4>
+    <p>지금까지는 설정 바꾸려면 파일 직접 열거나 CLI 플래그를 써야 했는데, 이제 대화 중에 슬래시 명령어 한 줄로 즉시 적용할 수 있음. 인터랙티브 모드는 물론이고 <code>-p</code> 비대화형 모드, Remote Control 세션에서도 동작함.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># thinking 끄기</span>
+<span class="c-p">/config</span> <span class="c-g">thinking=false</span>
+
+<span class="c-d"># effort 수준 바꾸기</span>
+<span class="c-p">/config</span> <span class="c-g">effort=high</span>
+
+<span class="c-d"># 어떤 설정 키든 다 됨</span>
+<span class="c-p">/config</span> <span class="c-o">key</span>=<span class="c-g">value</span></pre>
+    <h4>지원 컨텍스트</h4>
+    <ul>
+      <li>✅ 인터랙티브 모드 (일반 대화 중)</li>
+      <li>✅ <code>-p</code> 플래그 비대화형 자동화</li>
+      <li>✅ Remote Control 원격 세션</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.181" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- CLAUDE_CLIENT_PRESENCE_FILE — 날짜 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📵</span>
+    <div class="card-title">
+      <h3>CLAUDE_CLIENT_PRESENCE_FILE — 자리에 있을 때 푸시 알림 자동 차단<span class="new-dot"></span></h3>
+      <p>마커 파일 하나만 만들어두면, 컴퓨터 앞에 있는 동안은 모바일 푸시 알림을 안 보내는 거.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="date">2026.6.18 · v2.1.181</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떻게 동작하냐면</h4>
+    <p>환경변수 <code>CLAUDE_CLIENT_PRESENCE_FILE</code>에 특정 파일 경로를 지정해두면, 그 파일이 존재하는 동안은 "자리에 있음"으로 간주해서 모바일 푸시 알림을 억제함. 파일 지우면 다시 알림 받는 식.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 마커 파일 경로 지정 (예: .env 또는 셸 설정)</span>
+<span class="c-b">export</span> <span class="c-g">CLAUDE_CLIENT_PRESENCE_FILE</span>=<span class="c-o">/tmp/claude-presence</span>
+
+<span class="c-d"># 자리에 앉으면 파일 생성 → 알림 차단</span>
+<span class="c-b">touch</span> <span class="c-o">/tmp/claude-presence</span>
+
+<span class="c-d"># 자리 비우면 파일 삭제 → 알림 다시 활성화</span>
+<span class="c-b">rm</span> <span class="c-o">/tmp/claude-presence</span></pre>
+    <h4>활용 팁</h4>
+    <ul>
+      <li>로그인/로그아웃 스크립트에 touch/rm 걸어두면 완전 자동화 가능</li>
+      <li>화면보호기 활성화 훅이랑 조합하면 자리 비움 감지도 됨</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.181" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- Tool(param:value) 권한 룰 + 워크플로우 키워드 — 2026. 6. 16. -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -4222,7 +4287,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.179'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.181'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-05-28'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

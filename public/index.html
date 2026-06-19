@@ -267,6 +267,95 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- attribution.sessionUrl — 2026. 6. 19. -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔗</span>
+    <div class="card-title">
+      <h3>attribution.sessionUrl — 커밋/PR에서 claude.ai 링크 숨기기<span class="new-dot"></span></h3>
+      <p>웹·Remote Control 세션에서 커밋이나 PR에 자동으로 붙는 claude.ai 세션 링크를 끌 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">설정</span><span class="date">2026. 6. 19. · v2.1.183</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 필요해?</h4>
+    <p>Claude Code가 커밋 메시지나 PR 설명에 자동으로 claude.ai 세션 URL을 달아주는데, 회사 레포나 오픈소스 프로젝트에서는 이게 노출되면 곤란할 수 있음. <code>attribution.sessionUrl</code>을 꺼두면 그 링크가 아예 안 붙음.</p>
+    <h4>설정 방법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># /config로 바로 끄기</span>
+<span class="c-p">/config</span> <span class="c-g">attribution.sessionUrl=false</span>
+
+<span class="c-d"># 또는 settings.json에 직접 추가</span>
+<span class="c-b">"attribution"</span>: {
+  <span class="c-b">"sessionUrl"</span>: <span class="c-o">false</span>
+}</pre>
+    <h4>적용 범위</h4>
+    <p>웹 세션과 Remote Control 세션에서 생성되는 커밋·PR 모두 적용됨. 로컬 터미널 세션은 원래 링크가 안 붙으니 관계없음.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.183" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- /config --help + 토글 개선 — 2026. 6. 19. -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⚙️</span>
+    <div class="card-title">
+      <h3>/config --help + 토글 UX 개선 — 설정 명령어 더 편해짐<span class="new-dot"></span></h3>
+      <p><code>/config --help</code>로 쓸 수 있는 단축 키 목록을 바로 확인하고, Enter·Space로 설정 변경, Esc로 저장하고 닫기까지.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-red">자주쓰임</span><span class="date">2026. 6. 19. · v2.1.183</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라졌어?</h4>
+    <ul>
+      <li><code>/config --help</code> 입력하면 <code>/config key=value</code>에서 쓸 수 있는 단축 키 전체 목록을 바로 출력해줌 — 외울 필요 없음</li>
+      <li>토글 설정 선택 시 <strong>Enter</strong>랑 <strong>Space</strong> 둘 다 값이 바뀜 (기존엔 하나만 됐음)</li>
+      <li><strong>Esc</strong> 누르면 이제 되돌리는 게 아니라 저장하고 닫힘 — 헷갈리던 동작이 직관적으로 바뀐 거</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 쓸 수 있는 단축 키 전부 보기</span>
+<span class="c-p">/config</span> <span class="c-o">--help</span>
+
+<span class="c-d"># 단축 키로 설정 바꾸기 예시</span>
+<span class="c-p">/config</span> <span class="c-g">theme=dark</span>
+<span class="c-p">/config</span> <span class="c-g">verbose=true</span></pre>
+    <h4>팁</h4>
+    <p>어떤 키가 있는지 몰라서 매번 문서 찾아보던 거, 이제 <code>/config --help</code> 한 번이면 끝남.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.183" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- 모델 deprecated 경고 — 2026. 6. 19. -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⚠️</span>
+    <div class="card-title">
+      <h3>모델 deprecated 경고 — 지금 무슨 모델 쓰는지 바로 알 수 있음<span class="new-dot"></span></h3>
+      <p>요청한 모델이 deprecated됐거나 자동으로 더 새 모델로 바뀌면 경고를 띄워줌. 에이전트 frontmatter에 적어둔 모델도 포함.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">모델</span><span class="date">2026. 6. 19. · v2.1.183</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이런 상황에 경고가 뜸</h4>
+    <ul>
+      <li>설정이나 명령어에서 지정한 모델이 deprecated된 경우</li>
+      <li>deprecated 모델이 자동으로 더 최신 모델로 교체되는 경우</li>
+      <li>에이전트 <code>.md</code> frontmatter에 적어둔 모델이 더 이상 유효하지 않은 경우</li>
+    </ul>
+    <h4>어디서 보여?</h4>
+    <p>print 모드(<code>-p</code>) 실행 시 <strong>stderr</strong>로 출력됨. 자동화 파이프라인에서 CI 로그 확인할 때 바로 잡을 수 있음.</p>
+    <h4>에이전트 frontmatter 예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># agent.md 앞부분 frontmatter</span>
+<span class="c-g">---</span>
+<span class="c-b">model</span>: <span class="c-o">claude-opus-4-7</span>  <span class="c-d"># deprecated면 경고 뜸</span>
+<span class="c-g">---</span></pre>
+    <p>이제 언제 모델이 바뀌었는지 모르고 지나치는 일 없음.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.183" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- /config key=value — 날짜 -->
 <div class="card featured" data-cat="cmd">
   <div class="card-header" onclick="toggle(this)">
@@ -4287,7 +4376,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.181'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.183'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-05-28'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

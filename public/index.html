@@ -267,6 +267,89 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- claude mcp login/logout — 2026. 6. 23. -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔐</span>
+    <div class="card-title">
+      <h3>claude mcp login/logout — SSH에서도 MCP 서버 인증<span class="new-dot"></span></h3>
+      <p>터미널에서 MCP 서버 로그인/로그아웃을 CLI 명령어로 바로 처리. 브라우저 없이 SSH·컨테이너에서도 됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-blue">MCP</span><span class="tag tag-green">실용적</span><span class="date">2026. 6. 23. · v2.1.186</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 좋냐면</h4>
+    <p>기존엔 MCP 서버 인증하려면 <code>/mcp</code> 메뉴 들어가서 손으로 해야 했는데, 이제 CLI 한 줄로 끝남. 특히 <code>--no-browser</code> 옵션 쓰면 SSH 환경에서 stdin으로 인증 코드 입력하는 것도 가능해서 헤드리스 서버에서도 쓸 수 있음.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># MCP 서버 로그인 (브라우저 열림)</span>
+<span class="c-p">claude mcp login</span> <span class="c-g">my-server</span>
+
+<span class="c-d"># SSH/컨테이너 환경에서 브라우저 없이 인증</span>
+<span class="c-p">claude mcp login</span> <span class="c-g">my-server</span> <span class="c-o">--no-browser</span>
+
+<span class="c-d"># 로그아웃</span>
+<span class="c-p">claude mcp logout</span> <span class="c-g">my-server</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.186" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- 백그라운드 서브에이전트 권한 프롬프트 개선 — 2026. 6. 23. -->
+<div class="card featured" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🤖</span>
+    <div class="card-title">
+      <h3>서브에이전트 권한 요청 — 자동 거절 대신 메인 세션에 물어보기<span class="new-dot"></span></h3>
+      <p>백그라운드 서브에이전트가 권한 필요할 때 그냥 묵사발 내던 게, 이제 메인 화면에 팝업으로 올라옴. 어떤 에이전트가 뭘 요청하는지 보면서 허용/거절 선택 가능.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="tag tag-red">자주쓰임</span><span class="date">2026. 6. 23. · v2.1.186</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>기존 vs 변경</h4>
+    <ul>
+      <li>기존: 백그라운드 서브에이전트가 권한 요청 → 그냥 자동 거절 → 에이전트 멈춤</li>
+      <li>변경: 메인 세션 화면에 팝업 올라옴 → 어떤 에이전트가 뭘 요청하는지 표시 → 직접 허용/거절 선택</li>
+    </ul>
+    <h4>Esc 키 동작</h4>
+    <p>팝업 뜬 상태에서 <code>Esc</code> 누르면 해당 툴 요청만 거절되고, 다른 에이전트 세션에는 영향 없음. 전체 세션 날리지 않아도 돼서 훨씬 안전함.</p>
+    <h4>이런 상황에 특히 유용함</h4>
+    <ul>
+      <li>Agent Teams로 여러 에이전트 돌릴 때</li>
+      <li>Auto Mode 없이 수동으로 권한 관리하고 싶을 때</li>
+      <li>어떤 에이전트가 어떤 파일에 접근하려는지 추적하고 싶을 때</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.186" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- /review PR 업그레이드 — 2026. 6. 23. -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔍</span>
+    <div class="card-title">
+      <h3>/review — 이제 멀티 에이전트 리뷰 엔진으로 돌아감<span class="new-dot"></span></h3>
+      <p><code>/review &lt;pr&gt;</code>가 내부적으로 <code>/code-review medium</code>과 같은 엔진을 쓰게 바뀜. 간단한 명령어로 더 깊은 리뷰 결과를 받을 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">명령어</span><span class="tag tag-red">자주쓰임</span><span class="date">2026. 6. 23. · v2.1.186</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>변경 내용</h4>
+    <p>이전엔 <code>/review &lt;pr&gt;</code>이 단순 리뷰 엔진을 썼는데, 이제 <code>/code-review medium</code>과 동일한 멀티 에이전트 리뷰 엔진으로 업그레이드됨. 따로 <code>/code-review</code> 명령어 쓸 필요 없이 <code>/review</code> 하나로 충분한 수준의 리뷰를 받을 수 있게 됨.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># PR 번호로 리뷰 요청</span>
+<span class="c-p">/review</span> <span class="c-g">1234</span>
+
+<span class="c-d"># PR URL로도 가능</span>
+<span class="c-p">/review</span> <span class="c-g">https://github.com/owner/repo/pull/1234</span>
+
+<span class="c-d"># 동일한 엔진으로 직접 호출하는 방법 (기존)</span>
+<span class="c-p">/code-review</span> <span class="c-o">medium</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.186" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- attribution.sessionUrl — 2026. 6. 19. -->
 <div class="card" data-cat="dev">
   <div class="card-header" onclick="toggle(this)">
@@ -4376,7 +4459,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.185'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.186'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-05-28'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

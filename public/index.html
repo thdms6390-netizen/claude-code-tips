@@ -267,6 +267,60 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- sandbox.credentials — 샌드박스 자격증명 보호 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔒</span>
+    <div class="card-title">
+      <h3>sandbox.credentials — 샌드박스에서 비밀 파일 차단하기<span class="new-dot"></span></h3>
+      <p>샌드박스 명령이 자격증명 파일이나 시크릿 환경변수를 못 읽게 막는 설정. 실수로 API 키 유출되는 거 방지할 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="tag tag-green">보안</span><span class="date">2026.06.24 · v2.1.187</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 필요해?</h4>
+    <p>Auto Mode나 서브에이전트로 샌드박스 명령을 실행할 때, <code>~/.aws/credentials</code>, <code>.env</code> 같은 민감한 파일이나 환경변수를 실수로 읽는 걸 막아줌. 팀 환경에서 org 설정으로 강제 적용할 수도 있음.</p>
+    <h4>설정 방법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># settings.json에 추가</span>
+{
+  <span class="c-p">"sandbox"</span>: {
+    <span class="c-g">"credentials"</span>: <span class="c-b">false</span>
+  }
+}</pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.187" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- 조직 모델 제한 + 마우스 클릭 지원 -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🖱️</span>
+    <div class="card-title">
+      <h3>풀스크린 마우스 클릭 + 조직 모델 제한 — 선택 UI 더 쓰기 편해짐<span class="new-dot"></span></h3>
+      <p>권한 프롬프트, /model, /config 등 선택 메뉴에서 이제 마우스로 클릭할 수 있음. 조직에서 허용된 모델 외 선택 시 안내 메시지도 표시됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">UI</span><span class="tag tag-red">자주쓰임</span><span class="date">2026.06.24 · v2.1.187</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>마우스 클릭 지원</h4>
+    <p>풀스크린 모드에서 <code>/model</code>, <code>/config</code>, 권한 팝업 등 선택 메뉴에 마우스 클릭이 됨. 키보드 방향키 없이 클릭으로 바로 선택 가능.</p>
+    <h4>조직 모델 제한 적용 범위</h4>
+    <p>org에서 모델 제한을 걸어두면 모델 피커, <code>--model</code> 플래그, <code>/model</code> 명령어, <code>ANTHROPIC_MODEL</code> 환경변수 전부에 일괄 적용됨. 제한된 모델 선택 시 <em>"restricted by your organization's settings"</em> 안내가 뜸.</p>
+    <h4>조직 모델 제한 설정 예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># org settings.json에서 허용 모델 고정</span>
+{
+  <span class="c-p">"enforceAvailableModels"</span>: <span class="c-b">true</span>,
+  <span class="c-g">"availableModels"</span>: [
+    <span class="c-g">"claude-opus-4-8"</span>,
+    <span class="c-g">"claude-sonnet-4-6"</span>
+  ]
+}</pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.187" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- claude mcp login/logout — 2026. 6. 23. -->
 <div class="card" data-cat="dev">
   <div class="card-header" onclick="toggle(this)">
@@ -4459,7 +4513,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.186'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.187'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-05-28'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

@@ -267,6 +267,37 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- /rewind clear 복구 — 2026.6.25 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⏪</span>
+    <div class="card-title">
+      <h3>/rewind — /clear 이전으로 되돌리기<span class="new-dot"></span></h3>
+      <p>/clear로 날려버린 대화도 이제 /rewind로 되살릴 수 있음. 실수로 클리어해도 당황하지 마.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">명령어</span><span class="tag tag-green">실용적</span><span class="date">2026.6.25 · v2.1.191</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 뭔데?</h4>
+    <p>/clear를 눌러서 대화 히스토리를 날린 상황에서도, 이제 /rewind를 쓰면 /clear 이전 시점으로 되돌아갈 수 있어. 기존에는 /rewind가 일반 메시지 단위로만 되돌아갔는데, 이제 /clear라는 "컨텍스트 초기화" 이벤트까지 되감기 포인트로 인식하는 거야.</p>
+    <h4>언제 쓰냐면</h4>
+    <ul>
+      <li>실수로 /clear 눌렀을 때 — 대화 맥락 다시 살리기</li>
+      <li>/clear 후 새 방향으로 갔다가 역시 예전 흐름이 나을 것 같을 때</li>
+      <li>긴 작업 중간에 잠깐 클리어하고 딴 거 물어봤다가 원래 작업으로 복귀할 때</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># /clear로 날린 직후 되돌리고 싶으면</span>
+<span class="c-p">/rewind</span>
+
+<span class="c-d"># 여러 번 되감기도 가능 — /clear 이전 포인트까지 계속 되돌아감</span>
+<span class="c-p">/rewind</span>
+<span class="c-p">/rewind</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.191" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- sandbox.credentials — 샌드박스 자격증명 보호 -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -4513,7 +4544,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.187'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.191'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-05-28'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

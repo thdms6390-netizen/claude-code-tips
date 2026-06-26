@@ -267,6 +267,119 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- v2.1.193 — 2026.6.26 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔍</span>
+    <div class="card-title">
+      <h3>autoMode.classifyAllShell — 모든 셸 명령을 Auto 분류기에 태우기<span class="new-dot"></span></h3>
+      <p>기존엔 위험해 보이는 패턴만 Auto 분류기로 걸렀는데, 이 설정 켜면 Bash/PowerShell 명령 전부를 분류기에 돌릴 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="tag tag-purple">Auto Mode</span><span class="date">2026.6.26 · v2.1.193</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 필요해?</h4>
+    <p>Auto Mode에서 Claude가 셸 명령을 실행할 때, 기존엔 "임의 코드 실행처럼 보이는 것"만 분류기를 거쳤어. 근데 그 기준이 애매해서 위험한 명령이 슬쩍 통과하거나, 반대로 너무 조심스럽게 막히는 경우가 있었음. <code>classifyAllShell</code>을 켜면 <strong>모든</strong> Bash/PowerShell 명령이 분류기를 거치기 때문에 일관된 기준으로 허용/거절 판단이 가능해짐. 보안을 더 타이트하게 관리하고 싶은 팀에 유용함.</p>
+    <h4>설정 방법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># /config 명령어로 바로 설정</span>
+<span class="c-p">/config</span> <span class="c-g">autoMode.classifyAllShell=true</span>
+
+<span class="c-d"># 또는 settings.json에 직접 추가</span>
+<span class="c-b">{</span>
+  <span class="c-g">"autoMode"</span><span class="c-b">: {</span>
+    <span class="c-g">"classifyAllShell"</span><span class="c-b">:</span> <span class="c-o">true</span>
+  <span class="c-b">}</span>
+<span class="c-b">}</span></pre>
+    <h4>거절 이유도 이제 어디서나 확인 가능</h4>
+    <p>Auto Mode에서 명령이 거절됐을 때, 이제 거절 이유가 <strong>트랜스크립트</strong>, <strong>거절 토스트 알림</strong>, <strong>/permissions 최근 거절 목록</strong> 세 곳에 모두 기록됨. 뭐 때문에 막혔는지 바로 파악할 수 있어서 디버깅이 훨씬 편해짐.</p>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 최근 Auto Mode 거절 내역 확인</span>
+<span class="c-p">/permissions</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.193" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- v2.1.193 — 2026.6.26 -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📡</span>
+    <div class="card-title">
+      <h3>OpenTelemetry 응답 로깅 — Claude 답변까지 OTEL로 수집하기<span class="new-dot"></span></h3>
+      <p>Claude 모델의 응답 텍스트를 OpenTelemetry 로그 이벤트로 남길 수 있게 됨. 기업 관측가능성 파이프라인에 응답까지 태우고 싶다면 주목.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">관측가능성</span><span class="tag tag-blue">Enterprise</span><span class="date">2026.6.26 · v2.1.193</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떻게 동작해?</h4>
+    <p>이제 <code>claude_code.assistant_response</code>라는 새 OTEL 로그 이벤트가 추가됨. 기본적으로 응답 내용은 <strong>redact(마스킹)</strong>되어 있어서 그냥 쓰면 안 남음.</p>
+    <ul>
+      <li>응답 내용을 로그에 남기려면 → <code>OTEL_LOG_ASSISTANT_RESPONSES=1</code></li>
+      <li>이 변수를 설정 안 하면 → <code>OTEL_LOG_USER_PROMPTS</code> 설정을 따라감 (이미 프롬프트 로깅 켜놨으면 자동으로 응답도 수집됨 ⚠️)</li>
+      <li>프롬프트만 남기고 응답은 빼고 싶으면 → <code>OTEL_LOG_ASSISTANT_RESPONSES=0</code> 명시 필요</li>
+    </ul>
+    <h4>업그레이드 시 주의</h4>
+    <p>⚠️ 기존에 <code>OTEL_LOG_USER_PROMPTS=1</code>로 프롬프트 로깅을 켜뒀던 팀은 이번 업그레이드 후 <strong>자동으로 응답도 수집되기 시작함</strong>. 프롬프트만 원하면 반드시 <code>OTEL_LOG_ASSISTANT_RESPONSES=0</code>을 추가해야 해.</p>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 응답 로깅 명시적으로 켜기</span>
+<span class="c-g">OTEL_LOG_ASSISTANT_RESPONSES</span>=<span class="c-o">1</span> claude
+
+<span class="c-d"># 프롬프트 로깅 켜져 있어도 응답은 빼고 싶을 때</span>
+<span class="c-g">OTEL_LOG_USER_PROMPTS</span>=<span class="c-o">1</span> <span class="c-g">OTEL_LOG_ASSISTANT_RESPONSES</span>=<span class="c-o">0</span> claude</pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.193" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- v2.1.193 — 2026.6.26 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⚡</span>
+    <div class="card-title">
+      <h3>Bash 모드 파일 경로 자동완성 — <code>!</code> 치고 탭 누르면 끝<span class="new-dot"></span></h3>
+      <p>Claude Code의 Bash 모드(<code>!</code>)에서 이제 파일 경로 자동완성이 됨. 긴 경로 직접 타이핑하던 시대는 끝.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-red">자주쓰임</span><span class="tag tag-green">실용적</span><span class="date">2026.6.26 · v2.1.193</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이렇게 쓰면 돼</h4>
+    <p>Claude Code 프롬프트에서 <code>!</code>를 입력해 Bash 모드로 진입한 뒤, 경로를 입력하다가 <kbd>Tab</kbd>을 누르면 실시간으로 파일/디렉토리 경로가 자동완성됨. 일반 터미널에서 탭 완성하는 것과 똑같은 느낌으로 쓸 수 있어.</p>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button"><span class="c-d"># Bash 모드 진입 후 파일 경로 자동완성 예시</span>
+<span class="c-p">!</span><span class="c-g">cat src/comp</span><span class="c-d">  ← 여기서 Tab 누르면</span>
+<span class="c-p">!</span><span class="c-g">cat src/components/Button.tsx</span><span class="c-d">  ← 이렇게 완성됨</span>
+
+<span class="c-d"># 디렉토리 탐색도 편해짐</span>
+<span class="c-p">!</span><span class="c-g">ls app/api/</span><span class="c-d">  ← Tab으로 하위 경로 탐색</span></pre>
+    <h4>MCP 서버 인증 알림도 추가</h4>
+    <p>Claude Code 시작할 때 인증이 필요한 MCP 서버가 있으면 시작 화면에 안내 메시지가 뜨고 <code>/mcp</code>로 바로 안내해줌. 연결 안 된 채로 한참 작업하다가 뒤늦게 발견하는 상황을 방지할 수 있음.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.193" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- v2.1.193 — 2026.6.26 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🧹</span>
+    <div class="card-title">
+      <h3>백그라운드 셸 메모리 자동 정리 — 유휴 프로세스가 알아서 죽음<span class="new-dot"></span></h3>
+      <p>백그라운드에서 놀고 있는 셸 프로세스가 메모리 압박 받으면 Claude Code가 알아서 정리함. 오래 돌려도 메모리 걱정 덜해짐.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="tag tag-green">실용적</span><span class="date">2026.6.26 · v2.1.193</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떤 상황에서 유용해?</h4>
+    <p>멀티 에이전트나 백그라운드 세션을 여러 개 돌리다 보면 유휴 상태의 셸 프로세스들이 메모리를 조금씩 잡아먹는 문제가 있었음. 이제 시스템 메모리 압박이 생기면 Claude Code가 <strong>놀고 있는 백그라운드 셸 프로세스를 자동으로 종료</strong>해서 전체 메모리를 확보해줌.</p>
+    <h4>자동 정리가 싫으면?</h4>
+    <p>이 동작이 불필요하거나 방해가 된다면 환경변수로 비활성화할 수 있어.</p>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 백그라운드 셸 자동 정리 비활성화</span>
+<span class="c-g">CLAUDE_CODE_DISABLE_BG_SHELL_PRESSURE_REAP</span>=<span class="c-o">1</span> claude
+
+<span class="c-d"># 또는 shell profile에 추가</span>
+<span class="c-b">export</span> <span class="c-g">CLAUDE_CODE_DISABLE_BG_SHELL_PRESSURE_REAP</span>=<span class="c-o">1</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.193" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- /rewind clear 복구 — 2026.6.25 -->
 <div class="card" data-cat="cmd">
   <div class="card-header" onclick="toggle(this)">
@@ -4544,7 +4657,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.191'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.193'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-05-28'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

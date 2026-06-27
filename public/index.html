@@ -267,6 +267,37 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- CLAUDE_CODE_DISABLE_MOUSE_CLICKS — 2026. 6. 27. -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🖱️</span>
+    <div class="card-title">
+      <h3>CLAUDE_CODE_DISABLE_MOUSE_CLICKS — 마우스 클릭만 끄고 스크롤은 살리기<span class="new-dot"></span></h3>
+      <p>풀스크린 모드에서 클릭·드래그·호버는 막고 휠 스크롤만 남겨두는 환경변수. 터미널 텍스트 선택이 자꾸 깨질 때 딱임.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">터미널</span><span class="date">2026. 6. 27. · v2.1.195</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 필요해?</h4>
+    <p>풀스크린 모드에서 마우스 이벤트를 Claude Code가 가로채면, 터미널 에뮬레이터의 텍스트 드래그 선택이 안 되는 경우가 있어. 그렇다고 마우스를 전부 꺼버리면 스크롤도 같이 날아감. 이 환경변수는 <strong>클릭/드래그/호버만 비활성화</strong>하고 휠 스크롤은 그대로 유지해 줘.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 세션 시작 전에 설정</span>
+<span class="c-b">export</span> <span class="c-g">CLAUDE_CODE_DISABLE_MOUSE_CLICKS</span>=<span class="c-o">1</span>
+<span class="c-p">claude</span>
+
+<span class="c-d"># 또는 한 줄로 바로 실행</span>
+<span class="c-g">CLAUDE_CODE_DISABLE_MOUSE_CLICKS</span>=<span class="c-o">1</span> <span class="c-p">claude</span></pre>
+    <h4>어떤 상황에서 쓰면 좋아?</h4>
+    <ul>
+      <li>터미널에서 코드 블록을 마우스로 드래그 복사하고 싶을 때</li>
+      <li>tmux / screen 안에서 풀스크린 모드로 쓸 때 클릭이 튀는 경우</li>
+      <li>스크롤은 쓰되 UI 클릭 이벤트 충돌을 없애고 싶을 때</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.195" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- v2.1.193 — 2026.6.26 -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -4657,7 +4688,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.193'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.195'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-05-28'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

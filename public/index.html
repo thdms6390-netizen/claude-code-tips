@@ -267,6 +267,61 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- Organization Default Models — 2026.06.30 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🏢</span>
+    <div class="card-title">
+      <h3>조직 기본 모델 — 어드민이 팀 모델 한 번에 지정<span class="new-dot"></span></h3>
+      <p>조직 콘솔에서 기본 모델을 설정하면, 팀원들이 따로 고르지 않아도 자동으로 그 모델을 씀. `/model` 피커에 "Org default" 또는 "Role default"로 표시돼서 뭘 쓰는지 바로 알 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">팀/조직</span><span class="tag tag-red">자주쓰임</span><span class="date">2026.06.30 · v2.1.196</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 좋냐면</h4>
+    <p>팀 단위로 "우리는 Sonnet 쓴다"고 고정하고 싶을 때, 어드민이 조직 콘솔에서 한 번만 설정하면 끝. 팀원들이 개별로 모델 선택 안 했으면 자동으로 조직 기본값이 적용됨. 역할별로 다른 모델을 지정하는 것도 가능.</p>
+    <h4>팀원 화면에서 보이는 방식</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># /model 피커 열면 이렇게 표시됨</span>
+<span class="c-p">/model</span>
+
+<span class="c-d">► Org default  (어드민이 설정한 모델)</span>
+<span class="c-d">► Role default (역할별로 다르게 지정된 경우)</span>
+<span class="c-g">  claude-sonnet-4-5  ← 실제 적용 모델</span></pre>
+    <h4>어드민 설정 위치</h4>
+    <p>조직 콘솔(console.anthropic.com) → Organization Settings → Default Model에서 설정. 팀원이 본인 모델을 따로 고른 경우엔 그게 우선 적용됨.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.196" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- 세션 기본 이름 + 파일 첨부 클릭 — 2026.06.30 -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📎</span>
+    <div class="card-title">
+      <h3>세션 자동 이름 + 파일 첨부 Cmd-클릭 — 세션 관리 UX 업그레이드<span class="new-dot"></span></h3>
+      <p>세션 시작하면 알아서 읽기 좋은 이름이 붙고, 채팅에 첨부된 파일은 Cmd/Ctrl-클릭으로 Finder나 탐색기에서 바로 열 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">UX</span><span class="tag tag-green">실용적</span><span class="date">2026.06.30 · v2.1.196</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>세션 자동 이름</h4>
+    <p>예전엔 세션 이름이 무미건조한 ID나 타임스탬프였는데, 이제 시작할 때부터 내용을 반영한 읽기 좋은 이름이 자동으로 붙음. 여러 세션 관리할 때 "이게 뭐 하던 세션이었더라?" 헷갈리는 일이 줄어듦.</p>
+    <h4>파일 첨부 클릭으로 열기</h4>
+    <p>채팅창에 올라온 파일 첨부를 <strong>Cmd(Mac) 또는 Ctrl(Windows/Linux)-클릭</strong>하면 해당 파일이 Finder 또는 파일 탐색기에서 바로 강조 표시됨. 어느 경로인지 찾으러 터미널 뒤질 필요 없음.</p>
+    <h4>에이전트 뷰 전환 개선</h4>
+    <p>포그라운드 세션에서 에이전트 뷰 열 때 기존엔 <code>←</code>를 두 번 눌러야 했는데, 이제 한 번만 누르면 됨. 백그라운드 세션과 동일한 동작으로 통일.</p>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 파일 첨부 열기</span>
+<span class="c-g">Cmd + 클릭</span>  <span class="c-d">← Mac</span>
+<span class="c-g">Ctrl + 클릭</span> <span class="c-d">← Windows / Linux</span>
+
+<span class="c-d"># 에이전트 뷰 전환 (포그라운드 세션)</span>
+<span class="c-g">←</span> <span class="c-d">← 한 번만 누르면 됨 (기존엔 두 번)</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.196" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- CLAUDE_CODE_DISABLE_MOUSE_CLICKS — 2026. 6. 27. -->
 <div class="card" data-cat="core">
   <div class="card-header" onclick="toggle(this)">
@@ -4688,7 +4743,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.195'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.196'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-05-28'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

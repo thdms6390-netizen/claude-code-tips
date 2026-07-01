@@ -267,6 +267,36 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<div class="card featured" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🏷️</span>
+    <div class="card-title">
+      <h3>Claude Tag — Slack에서 @Claude 태그하면 팀원처럼 일해<span class="new-dot"></span></h3>
+      <p>Slack 채널에 Claude를 팀원으로 초대하고, @Claude 멘션 하나로 작업을 위임하는 새로운 협업 방식.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">에이전트</span><span class="tag tag-orange">자동화</span><span class="date">2026-06-23 · 별도 제품 발표</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>Claude Tag가 뭐야?</h4>
+    <ul>
+      <li>Slack 채널에 Claude를 멤버로 추가하고, 접근할 툴·데이터·코드베이스를 연결해서 쓰는 방식이야.</li>
+      <li>채널 안 누구나 <code><span class="c-b">@Claude</span></code> 태그로 작업을 맡길 수 있어. Claude가 단계별로 쪼개서 실행하고 스레드에 결과를 올려줘.</li>
+      <li><strong>멀티플레이어</strong> — 채널당 Claude 하나가 모든 멤버와 대화해. 이전 사람이 맡긴 작업을 다음 사람이 이어받을 수 있어.</li>
+      <li><strong>기억 유지</strong> — 채널 히스토리를 쌓아가며 컨텍스트를 기억해. 매번 처음부터 설명 안 해도 돼.</li>
+      <li><strong>자율 행동(Ambient)</strong> — 활성화하면 Claude가 알아서 관련 정보를 팀에 공유하고, 스레드 후속 조치도 해줘.</li>
+      <li>Anthropic 내부에선 이미 제품팀 코드의 65%를 Claude Tag로 만들고 있고, 버그 원인 추적·서포트 티켓·제품 지표 분석 등에도 쓰고 있다고 해.</li>
+      <li>지금은 <strong>Claude Enterprise / Team 고객 대상 베타</strong>로 Slack에서 시작, 이후 다른 플랫폼으로 확대 예정.</li>
+    </ul>
+    <h4>Claude Code와 뭐가 달라?</h4>
+    <ul>
+      <li>Claude Code가 1:1 대화형이라면, Claude Tag는 팀 전체와 함께 쓰는 <strong>멀티유저 에이전트</strong>야.</li>
+      <li>채널 맥락을 지속적으로 학습하기 때문에 팀의 도메인 지식을 점점 더 잘 이해하게 돼.</li>
+    </ul>
+    <p><a href="https://www.anthropic.com/news/introducing-claude-tag" target="_blank">공식 블로그 →</a></p>
+  </div>
+</div>
+
 <!-- Organization Default Models — 2026.06.30 -->
 <div class="card" data-cat="dev">
   <div class="card-header" onclick="toggle(this)">
@@ -4743,8 +4773,8 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.196'; // 현재 페이지에 반영된 버전
-const KNOWN_BLOG_DATE = '2026-05-28'; // 블로그 글 반영 기준일
+const KNOWN_VERSION = 'v2.1.197'; // 현재 페이지에 반영된 버전
+const KNOWN_BLOG_DATE = '2026-06-23'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 
 

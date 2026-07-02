@@ -267,6 +267,84 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- v2.1.198 — 2026.7.2 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔔</span>
+    <div class="card-title">
+      <h3>백그라운드 에이전트 알림 — 입력 필요하거나 끝나면 훅 발동<span class="new-dot"></span></h3>
+      <p>claude agents 뷰에서 백그라운드 세션이 입력을 기다리거나 완료되면 Notification 훅이 자동으로 발동됨. 폰 알림이나 외부 연동과 연결하면 진짜 편해짐.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="tag tag-red">자주쓰임</span><span class="date">2026.7.2 · v2.1.198</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떻게 동작하냐면</h4>
+    <ul>
+      <li><code>agent_needs_input</code> — 백그라운드 세션이 승인이나 입력을 기다릴 때 발동</li>
+      <li><code>agent_completed</code> — 백그라운드 세션이 작업을 끝냈을 때 발동</li>
+      <li>기존 Notification 훅 인프라를 그대로 쓰기 때문에 이미 훅 설정해 둔 사람은 바로 동작함</li>
+    </ul>
+    <h4>settings.json에 훅 등록하는 방법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># ~/.claude/settings.json</span>
+{
+  <span class="c-p">"hooks"</span>: {
+    <span class="c-p">"Notification"</span>: [
+      {
+        <span class="c-g">"matcher"</span>: <span class="c-g">"agent_needs_input"</span>,
+        <span class="c-g">"command"</span>: <span class="c-o">"notify-send '클로드가 입력을 기다려요'"</span>
+      },
+      {
+        <span class="c-g">"matcher"</span>: <span class="c-g">"agent_completed"</span>,
+        <span class="c-g">"command"</span>: <span class="c-o">"notify-send '백그라운드 작업 완료!'"</span>
+      }
+    ]
+  }
+}</pre>
+    <h4>실제 활용 예시</h4>
+    <ul>
+      <li>백그라운드에서 테스트 돌리고, 끝나면 슬랙 DM으로 결과 받기</li>
+      <li>긴 작업 켜두고 자리 비웠다가 폰 알림 받으면 돌아오기</li>
+      <li><code>/goal</code>이나 <code>claude agents</code>로 여러 세션 돌릴 때 특히 유용함</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.198" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- v2.1.198 — 2026.7.2 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📊</span>
+    <div class="card-title">
+      <h3>/dataviz — 차트·대시보드 디자인 + 팔레트 검증기까지<span class="new-dot"></span></h3>
+      <p>데이터 시각화 스킬이 새로 추가됨. 차트나 대시보드 설계 가이드를 받을 수 있고, 색상 팔레트가 실제로 잘 어울리는지 직접 실행해서 확인하는 검증기도 포함돼 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">명령어</span><span class="tag tag-green">실용적</span><span class="date">2026.7.2 · v2.1.198</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이런 거 할 수 있음</h4>
+    <ul>
+      <li>차트 종류 추천 — 데이터 성격에 맞는 시각화 방식 안내 (막대, 라인, 히트맵 등)</li>
+      <li>대시보드 레이아웃 설계 — 어떤 지표를 어디에 배치할지 가이드</li>
+      <li>색상 팔레트 검증기 — 선택한 색 조합이 접근성 기준(명도 대비 등)을 만족하는지 바로 실행해서 확인</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 슬래시 스킬로 바로 호출</span>
+<span class="c-p">/dataviz</span>
+
+<span class="c-d"># 이런 식으로 요청하면 됨</span>
+<span class="c-p">/dataviz</span> <span class="c-g">월별 매출 데이터를 시각화하고 싶어. 색상 팔레트도 같이 검증해줘</span></pre>
+    <h4>팔레트 검증기가 확인해주는 것</h4>
+    <ul>
+      <li>WCAG 명도 대비 기준 통과 여부</li>
+      <li>색맹 사용자도 구분 가능한지</li>
+      <li>다크/라이트 모드 양쪽에서 잘 보이는지</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.198" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <div class="card featured" data-cat="core">
   <div class="card-header" onclick="toggle(this)">
     <span class="card-icon">🚀</span>
@@ -4832,7 +4910,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.197'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.198'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-06-30'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

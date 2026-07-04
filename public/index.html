@@ -267,6 +267,39 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- AskUserQuestion 자동계속 비활성화 + Manual 기본 권한 모드 — 2026.07.04 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🛡️</span>
+    <div class="card-title">
+      <h3>기본 권한 모드 → Manual + 다이얼로그 자동계속 제거<span class="new-dot"></span></h3>
+      <p>이제 Claude가 멋대로 이어서 진행하지 않음. 물어보면 진짜로 기다림.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="tag tag-red">자주쓰임</span><span class="date">2026.07.04 · v2.1.200</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 바뀐 거야?</h4>
+    <ul>
+      <li><strong>AskUserQuestion 다이얼로그</strong>가 더 이상 자동으로 이어서 실행되지 않음 — 이전엔 타임아웃 지나면 그냥 계속 진행했는데, 이제 진짜로 멈추고 기다림</li>
+      <li>기존 <code>default</code> 권한 모드가 공식적으로 <strong>Manual</strong>로 이름 변경 — CLI, <code>--help</code>, VS Code, JetBrains 전반에 적용</li>
+      <li>자동으로 진행시키고 싶으면 <code>/config</code>에서 idle timeout을 직접 켜야 함</li>
+    </ul>
+    <h4>왜 좋은 거야?</h4>
+    <p>백그라운드에서 Claude가 질문 던지고 아무도 답 안 했는데 혼자 판단해서 계속 진행하는 상황이 방지됨. 특히 자동화 파이프라인이나 서버리스 환경에서 의도치 않은 실행 사고를 막을 수 있음.</p>
+    <h4>권한 모드 설정법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># CLI 플래그로 지정 (manual이 이제 공식 이름)</span>
+<span class="c-p">claude</span> <span class="c-o">--permission-mode</span> <span class="c-g">manual</span>
+
+<span class="c-d"># 설정 파일에서 지정</span>
+<span class="c-g">"defaultMode": "manual"</span>
+
+<span class="c-d"># idle timeout 켜기 (다이얼로그 자동 계속 원할 때만)</span>
+<span class="c-p">/config</span> <span class="c-g">askUserQuestion.idleTimeout=30</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.200" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- v2.1.198 — 2026.7.2 -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -4910,7 +4943,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.199'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.201'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-06-30'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

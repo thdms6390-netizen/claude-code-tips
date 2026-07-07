@@ -267,6 +267,39 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- Dynamic Workflow Size + /code-review — 2026. 7. 7. -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔀</span>
+    <div class="card-title">
+      <h3>Dynamic Workflow Size + /code-review 분리<span class="new-dot"></span></h3>
+      <p>워크플로 에이전트 규모를 직접 조절하고, 코드 리뷰도 빠른 버전과 멀티에이전트 버전으로 나뉨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="tag tag-red">자주쓰임</span><span class="date">2026. 7. 7. · v2.1.202</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>워크플로 에이전트 수 조절</h4>
+    <p><code>/config</code>에 <strong>Dynamic workflow size</strong> 설정이 추가됨. 워크플로가 내부적으로 몇 개의 에이전트를 생성할지 <code>small / medium / large</code> 세 단계로 조절할 수 있어. 하드 캡이 아니라 "이 정도 규모로 해줘" 하는 권고 수준이라서 실제로는 작업 복잡도에 따라 유연하게 적용됨.</p>
+    <h4>/review vs /code-review 분리</h4>
+    <p>이전에 <code>/review</code>가 멀티 에이전트로 바뀐 적 있었는데, 이번에 다시 <strong>빠른 단일 패스 리뷰</strong>로 되돌아왔어. 무거운 멀티 에이전트 리뷰가 필요하면 새 명령어를 써야 함.</p>
+    <ul>
+      <li><code>/review &lt;pr&gt;</code> — 빠른 단일 패스 리뷰 (가볍게 쓸 때)</li>
+      <li><code>/code-review &lt;level&gt; &lt;pr#&gt;</code> — 에포트 레벨 지정 멀티 에이전트 리뷰 (깊게 팔 때)</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 워크플로 에이전트 규모 설정 (small / medium / large)</span>
+<span class="c-p">/config</span> <span class="c-g">Dynamic workflow size</span> <span class="c-o">medium</span>
+
+<span class="c-d"># 빠른 PR 리뷰 (단일 패스)</span>
+<span class="c-p">/review</span> <span class="c-g">123</span>
+
+<span class="c-d"># 멀티 에이전트 리뷰 (에포트 레벨 선택 가능)</span>
+<span class="c-p">/code-review</span> <span class="c-o">high</span> <span class="c-g">123</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.202" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- AskUserQuestion 자동계속 비활성화 + Manual 기본 권한 모드 — 2026.07.04 -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -4943,7 +4976,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.201'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.202'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-06-30'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

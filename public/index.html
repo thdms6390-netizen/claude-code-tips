@@ -267,6 +267,66 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- Login 만료 경고 + Manual 배지 — 2026. 7. 8. -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⚠️</span>
+    <div class="card-title">
+      <h3>로그인 만료 경고 + Manual 모드 배지 — 세션 끊기기 전에 미리 알려줌<span class="new-dot"></span></h3>
+      <p>백그라운드 세션 돌리다가 로그인 만료로 터지는 거 이제 막을 수 있음. 푸터에 ⏸ 배지도 생겨서 Manual 모드인지 한눈에 확인 가능.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">UX</span><span class="tag tag-red">자주쓰임</span><span class="date">2026. 7. 8. · v2.1.203</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라졌냐</h4>
+    <ul>
+      <li>로그인 만료 임박하면 미리 경고 — 백그라운드 세션이 갑자기 인증 오류로 죽는 상황을 예방</li>
+      <li>Manual 권한 모드일 때 푸터에 회색 <strong>⏸</strong> 배지가 항상 보임 — 지금 무슨 모드인지 까먹을 일 없음</li>
+      <li><code>claude agents</code> 빈 화면도 개선 — 세션 없어도 <em>Needs input / Working / Completed</em> 섹션이 항상 표시되고 설명까지 보여줌</li>
+      <li>Diff·워크플로우 상세 뷰에서 왼쪽 화살표가 닫기 동작을 안 함 — 이제 <kbd>Esc</kbd>로만 닫힘 (실수 방지)</li>
+    </ul>
+    <h4>백그라운드 세션 끊김 방지 팁</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 만료 경고 뜨면 바로 재인증</span>
+<span class="c-p">claude</span> <span class="c-g">auth login</span>
+
+<span class="c-d"># Manual 모드 확인은 푸터 ⏸ 배지로 — 별도 명령어 불필요</span>
+<span class="c-d"># Esc 키로 Diff·워크플로우 뷰 닫기</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.203" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- MCP roots/list 작업 디렉토리 동기화 — 2026. 7. 8. -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🗂️</span>
+    <div class="card-title">
+      <h3>MCP roots/list 작업 디렉토리 자동 동기화 — /cd 해도 MCP 서버가 바로 앎<span class="new-dot"></span></h3>
+      <p>세션의 추가 작업 디렉토리가 MCP <code>roots/list</code>에 자동으로 포함되고, 변경되면 <code>notifications/roots/list_changed</code>가 바로 발송됨. /cd로 폴더 이동해도 MCP 서버가 실시간으로 따라옴.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-blue">MCP</span><span class="tag tag-purple">개발 도구</span><span class="date">2026. 7. 8. · v2.1.203</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>왜 필요한 거야?</h4>
+    <ul>
+      <li>이전엔 <code>/cd</code>로 작업 디렉토리를 바꿔도 MCP 서버가 원래 경로만 알고 있었음</li>
+      <li>이제 세션에 추가된 모든 작업 디렉토리가 <code>roots/list</code>에 포함 — MCP 서버가 파일 시스템 컨텍스트를 정확하게 파악</li>
+      <li>디렉토리 세트 변경 시 <code>notifications/roots/list_changed</code> 알림이 자동 발송 — 서버가 폴링할 필요 없음</li>
+    </ul>
+    <h4>MCP 서버 개발자라면</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># roots/list_changed 알림 구독해두면</span>
+<span class="c-d"># 사용자가 /cd 할 때마다 자동으로 경로 업데이트 받음</span>
+
+<span class="c-d"># 알림 이벤트명</span>
+<span class="c-g">notifications/roots/list_changed</span>
+
+<span class="c-d"># 현재 세션 루트 조회</span>
+<span class="c-g">roots/list</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.203" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- Dynamic Workflow Size + /code-review — 2026. 7. 7. -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -4976,7 +5036,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.202'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.204'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-06-30'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

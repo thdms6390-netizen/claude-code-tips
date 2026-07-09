@@ -267,6 +267,32 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- auto mode transcript protection — 2026.7.9 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔒</span>
+    <div class="card-title">
+      <h3>트랜스크립트 파일 보호 규칙 — Auto Mode에서 세션 기록 손대기 차단<span class="new-dot"></span></h3>
+      <p>Auto Mode에서 Claude가 자기 세션 트랜스크립트 파일을 직접 수정·삭제하려는 시도를 자동으로 막아줌. 감사 로그 무결성 걱정 끝.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="date">2026.7.9 · v2.1.205</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 필요해?</h4>
+    <p>Auto Mode로 Claude가 자율적으로 파일을 막 건드릴 수 있는 환경에서, 세션 트랜스크립트(대화 기록 파일)까지 덮어쓰거나 지워버리는 일이 생길 수 있었음. 이번 업데이트로 해당 파일에 대한 쓰기/삭제 시도는 Auto Mode 규칙 레벨에서 자동으로 차단돼.</p>
+    <h4>어떤 상황에서 특히 중요해?</h4>
+    <ul>
+      <li>CI/CD 파이프라인에서 Auto Mode로 장시간 에이전트 실행할 때</li>
+      <li>팀 감사(audit) 목적으로 트랜스크립트를 보존해야 할 때</li>
+      <li>백그라운드 에이전트가 파일 정리 작업을 광범위하게 할 때</li>
+    </ul>
+    <h4>별도 설정 필요?</h4>
+    <p>없음. Auto Mode를 쓰고 있으면 자동 적용돼. 기존 <code>autoMode.hard_deny</code> 규칙 체계 안에 내장된 형태라 따로 건드릴 필요 없어.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.205" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- Login 만료 경고 + Manual 배지 — 2026. 7. 8. -->
 <div class="card" data-cat="core">
   <div class="card-header" onclick="toggle(this)">
@@ -5036,7 +5062,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.204'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.205'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-06-30'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

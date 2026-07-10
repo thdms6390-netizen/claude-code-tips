@@ -267,6 +267,37 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- /cd 경로 자동완성 + /doctor CLAUDE.md 트리밍 — 2026.07.10 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🩺</span>
+    <div class="card-title">
+      <h3>/doctor CLAUDE.md 다이어트 + /cd 경로 자동완성<span class="new-dot"></span></h3>
+      <p>CLAUDE.md에 굳이 안 써도 되는 내용 알아서 찾아주고, /cd 입력할 때 탭 자동완성도 됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">명령어</span><span class="tag tag-green">실용적</span><span class="date">2026.07.10 · v2.1.206</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>/doctor — CLAUDE.md 군살 빼기</h4>
+    <p>코드베이스를 보면 이미 알 수 있는 내용이 CLAUDE.md에 들어 있으면, <code>/doctor</code>가 "이거 굳이 명시 안 해도 돼요" 하고 트리밍을 제안해줌. 컨텍스트 낭비 줄이고 CLAUDE.md 깔끔하게 유지하는 데 딱임.</p>
+    <h4>/cd — 경로 자동완성 추가</h4>
+    <p>기존에 <code>/add-dir</code>에서만 되던 디렉토리 경로 자동완성이 <code>/cd</code>에도 붙었음. 이제 경로 타이핑하다 탭 누르면 알아서 채워줌.</p>
+    <h4>에이전트 뷰 Ctrl+X 개선</h4>
+    <p>완료된 세션을 <code>Ctrl+X</code>로 누르면 목록에서 영구 삭제됨. 더 이상 같은 세션이 두 번 렌더링되거나, 삭제한 백그라운드 잡이 다시 살아나는 일 없음.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># CLAUDE.md 최적화 제안 받기</span>
+<span class="c-p">/doctor</span>
+
+<span class="c-d"># 경로 자동완성으로 디렉토리 이동</span>
+<span class="c-p">/cd</span> <span class="c-g">src/</span>  <span class="c-d"># 탭 누르면 하위 경로 목록 뜸</span>
+
+<span class="c-d"># 에이전트 뷰에서 완료 세션 영구 삭제</span>
+<span class="c-d"># 완료된 세션 선택 후 Ctrl+X</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.206" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- auto mode transcript protection — 2026.7.9 -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -4731,6 +4762,33 @@ Settings → General → <span class="c-g">Computer Use 토글 ON</span>
   <p>Claude Code 관련 공식 발표, 인수, 파트너십 소식 모음</p>
 </div>
 
+<div class="card">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">❓</span>
+    <div class="card-title">
+      <h3>어려운 질문들 — AI에 대한 공개 질문에 정면으로 답하기<span class="new-dot"></span></h3>
+      <p>Anthropic이 AI의 혜택·위험·사회적 영향에 대한 대중의 질문에 투명하게 답하는 새 이니셔티브를 시작했어.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">공익</span><span class="date">2026-07-09 · 별도 제품 발표</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>주요 내용</h4>
+    <ul>
+      <li>Anthropic이 AI에 대한 대중의 희망과 우려를 파악하기 위한 <strong>Hard Questions</strong> 이니셔티브 공식 발표</li>
+      <li>미국인 52,000명 대상 <strong>Anthropic Public Record</strong> 공개 설문 진행 — AI에 대한 최대 희망·우려 취합</li>
+      <li>159개국 70개 언어의 Claude 사용자 81,000명을 <strong>Anthropic Interviewer</strong>로 설문</li>
+      <li>수십 차례 대면 포커스그룹·세션 진행, AI 관련 전통·직군과의 대화도 포함</li>
+      <li>일자리 감소, 창작물 가치 저하, 인간 자율성, 잘못된 손에 들어간 AI 역량 등 주요 우려를 정면으로 다룸</li>
+      <li>Anthropic은 공익법인(PBC)으로서 AI 안전장치 투자·정렬 연구·비영리 펠로우십 프로그램 등을 통해 공익 실현 현황을 투명하게 공개할 예정</li>
+      <li>Claude Code와 직접적인 관련은 없지만, Anthropic의 방향성과 신뢰를 보여주는 중요한 공개 발표</li>
+    </ul>
+    <p><a href="https://www.anthropic.com/news/hard-questions" target="_blank">공식 블로그 →</a></p>
+  </div>
+</div>
+
+
+
 <div class="card" data-cat="">
   <div class="card-header" onclick="toggle(this)">
     <span class="card-icon">📰</span>
@@ -5062,8 +5120,8 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.205'; // 현재 페이지에 반영된 버전
-const KNOWN_BLOG_DATE = '2026-06-30'; // 블로그 글 반영 기준일
+const KNOWN_VERSION = 'v2.1.206'; // 현재 페이지에 반영된 버전
+const KNOWN_BLOG_DATE = '2026-07-09'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 
 

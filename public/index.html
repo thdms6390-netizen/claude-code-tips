@@ -267,6 +267,49 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- /effort default high → Opus 4.8 + autoMode 정책 변경 — v2.1.207 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">☁️</span>
+    <div class="card-title">
+      <h3>Bedrock·Vertex 기본 모델 → Opus 4.8 + autoMode 위치 변경<span class="new-dot"></span></h3>
+      <p>클라우드 플랫폼 기본값이 Opus 4.8로 올라갔고, auto mode 설정은 이제 로컬 설정 파일에서만 읽어.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="tag tag-orange">정책 변경</span><span class="date">2026.07.11 · v2.1.207</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>무엇이 바뀌었나</h4>
+    <ul>
+      <li><strong>Bedrock / Vertex / Claude Platform on AWS</strong> 모두 기본 모델이 <code>Claude Opus 4.8</code>로 상향됨. 별도 설정 없이도 가장 강력한 모델로 시작해.</li>
+      <li><strong>autoMode 설정 위치 변경</strong> — 기존엔 저장소 안의 <code>.claude/settings.local.json</code>에서도 읽혔는데, 이제는 <strong>사용자 홈의 <code>~/.claude/settings.json</code>에서만</strong> 읽어. 레포에 올라가는 설정 파일로는 auto mode를 켜고 끌 수 없어.</li>
+    </ul>
+    <h4>왜 중요해?</h4>
+    <ul>
+      <li>팀 레포의 <code>.claude/settings.local.json</code>에 <code>autoMode</code>를 적어뒀다면 <strong>지금 바로 이전해야 해.</strong> 안 그러면 설정이 묵살됨.</li>
+      <li>보안 측면에서도 좋아 — auto mode처럼 권한에 민감한 설정이 레포 파일에 섞이는 걸 막아줌.</li>
+    </ul>
+    <h4>마이그레이션 방법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 기존 위치 (더 이상 autoMode 여기서 안 읽힘)</span>
+<span class="c-g">.claude/settings.local.json</span>
+
+<span class="c-d"># 새 위치 — 여기에 autoMode 설정해야 해</span>
+<span class="c-g">~/.claude/settings.json</span>
+
+<span class="c-d"># ~/.claude/settings.json 예시</span>
+<span class="c-b">{</span>
+  <span class="c-p">"autoMode"</span><span class="c-b">:</span> <span class="c-g">true</span>
+<span class="c-b">}</span></pre>
+    <h4>기본 모델 확인</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 현재 사용 중인 모델 확인</span>
+<span class="c-p">/model</span>
+
+<span class="c-d"># Bedrock 환경에서 Opus 4.8 명시적으로 지정하려면</span>
+<span class="c-o">ANTHROPIC_MODEL</span>=<span class="c-g">claude-opus-4-8-20251101</span> claude</pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.207" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- /cd 경로 자동완성 + /doctor CLAUDE.md 트리밍 — 2026.07.10 -->
 <div class="card" data-cat="cmd">
   <div class="card-header" onclick="toggle(this)">
@@ -5120,7 +5163,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.206'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.207'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-09'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

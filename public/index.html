@@ -267,6 +267,71 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- screen reader mode + vimInsertModeRemaps — 2026.7.14 -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">♿</span>
+    <div class="card-title">
+      <h3>스크린 리더 모드 + Vim Insert 리맵 — 접근성 & 입력 편의 강화<span class="new-dot"></span></h3>
+      <p>시각 보조 도구 사용자를 위한 순수 텍스트 렌더링 모드 추가. Vim 모드에서 jj → Esc 같은 커스텀 시퀀스도 이제 가능.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">접근성</span><span class="tag tag-green">실용적</span><span class="date">2026.7.14 · v2.1.208</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>스크린 리더 모드란?</h4>
+    <p>TUI 렌더링 대신 일반 텍스트만 출력하는 모드. 스크린 리더(VoiceOver, NVDA 등)가 Claude Code 출력을 제대로 읽을 수 있게 됨. 세 가지 방법으로 켤 수 있어.</p>
+    <h4>스크린 리더 모드 켜는 법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 방법 1: 플래그로 실행</span>
+<span class="c-p">claude</span> <span class="c-o">--ax-screen-reader</span>
+
+<span class="c-d"># 방법 2: 환경변수로 항상 켜두기</span>
+<span class="c-g">CLAUDE_AX_SCREEN_READER</span>=<span class="c-b">1</span> <span class="c-p">claude</span>
+
+<span class="c-d"># 방법 3: settings.json에 추가</span>
+<span class="c-b">{</span>
+  <span class="c-g">"axScreenReader"</span>: <span class="c-b">true</span>
+<span class="c-b">}</span></pre>
+    <h4>Vim Insert 모드 리맵이란?</h4>
+    <p>Vim 모드 사용 중 인서트 모드에서 두 키 시퀀스를 원하는 키로 매핑할 수 있는 기능. 예를 들어 <code>jj</code>를 Escape로 설정하면 ESC 키 안 눌러도 됨.</p>
+    <h4>vimInsertModeRemaps 설정법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># settings.json에 추가</span>
+<span class="c-b">{</span>
+  <span class="c-g">"vimInsertModeRemaps"</span>: <span class="c-b">{</span>
+    <span class="c-g">"jj"</span>: <span class="c-o">"Escape"</span>,
+    <span class="c-g">"jk"</span>: <span class="c-o">"Escape"</span>
+  <span class="c-b">}</span>
+<span class="c-b">}</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.208" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- CLAUDE_CODE_PROCESS_WRAPPER — 2026.7.14 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🏢</span>
+    <div class="card-title">
+      <h3>CLAUDE_CODE_PROCESS_WRAPPER — 기업 런처로 모든 Claude 프로세스 감싸기<span class="new-dot"></span></h3>
+      <p>에이전트 뷰·백그라운드 서비스까지 포함해 Claude Code가 자기 자신을 재실행할 때 항상 지정한 래퍼 실행파일을 거치게 하는 기업용 설정.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">기업/보안</span><span class="tag tag-orange">자동화</span><span class="date">2026.7.14 · v2.1.208</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>왜 필요해?</h4>
+    <p>기업 환경에서는 모든 프로세스를 보안 래퍼나 감사 로거, 정책 집행기를 통해 실행해야 하는 경우가 있어. 기존에는 Claude Code가 서브에이전트나 백그라운드 서비스를 직접 실행해서 이 정책을 우회하는 문제가 있었음. 이제 이 환경변수를 설정하면 모든 Claude 자기 재실행이 해당 래퍼를 통하게 돼.</p>
+    <h4>설정법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 환경변수로 래퍼 경로 지정</span>
+<span class="c-g">CLAUDE_CODE_PROCESS_WRAPPER</span>=<span class="c-o">/usr/local/bin/corp-launcher</span> <span class="c-p">claude</span>
+
+<span class="c-d"># 또는 .bashrc / .zshrc에 영구 등록</span>
+<span class="c-b">export</span> <span class="c-g">CLAUDE_CODE_PROCESS_WRAPPER</span>=<span class="c-o">"/opt/security/wrapper"</span></pre>
+    <h4>적용 범위</h4>
+    <p>에이전트 뷰, 백그라운드 서비스, 서브에이전트 등 Claude Code가 자신을 다시 띄우는 모든 경우에 적용됨. 개인 개발자보다는 IT 정책이 엄격한 기업·공공 환경에서 유용한 기능.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.208" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- /effort default high → Opus 4.8 + autoMode 정책 변경 — v2.1.207 -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -5163,7 +5228,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.207'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.209'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-09'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

@@ -267,6 +267,35 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- 툴 권한 규칙 경고 + 경과 시간 카운터 — v2.1.210 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⚠️</span>
+    <div class="card-title">
+      <h3>권한 규칙 deprecated 경고 + 경과 시간 카운터<span class="new-dot"></span></h3>
+      <p>Write/NotebookEdit/Glob에 path 권한 쓰면 시작할 때 경고 띄워줌. 그리고 툴 요약 줄에 실시간 타이머 추가돼서 오래 걸리는 작업이 멈춘 건지 돌아가는 건지 바로 구분됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="tag tag-red">자주쓰임</span><span class="date">2026.07.15 · v2.1.210</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>권한 규칙 변경 사항</h4>
+    <p>기존에 <code>Write(path)</code>, <code>NotebookEdit(path)</code>, <code>Glob(path)</code>로 설정해둔 권한 룰이 있으면 Claude Code 시작할 때 경고가 뜸. 앞으로는 아래처럼 바꿔야 해.</p>
+    <pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># ❌ deprecated — 이렇게 쓰면 경고 뜸</span>
+<span class="c-g">Write(src/components/Button.tsx)</span>
+<span class="c-g">NotebookEdit(notebooks/analysis.ipynb)</span>
+<span class="c-g">Glob(src/**/*.ts)</span>
+
+<span class="c-d"># ✅ 이렇게 바꿔야 함</span>
+<span class="c-g">Edit(src/components/Button.tsx)</span>
+<span class="c-g">Read(notebooks/analysis.ipynb)</span>
+<span class="c-g">Read(src/**/*.ts)</span></pre>
+    <h4>경과 시간 카운터</h4>
+    <p>툴 실행 중에 접힌 요약 줄에 경과 시간이 실시간으로 올라감. 빌드나 테스트처럼 오래 걸리는 작업이 진짜 돌아가고 있는 건지, 아니면 실제로 막힌 건지 이제 눈으로 바로 확인할 수 있음.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.210" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- screen reader mode + vimInsertModeRemaps — 2026.7.14 -->
 <div class="card" data-cat="core">
   <div class="card-header" onclick="toggle(this)">
@@ -5228,7 +5257,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.209'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.210'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-09'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

@@ -267,6 +267,68 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- --forward-subagent-text — 2026.7.16 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔀</span>
+    <div class="card-title">
+      <h3>--forward-subagent-text — 서브에이전트 출력도 스트림에 포함<span class="new-dot"></span></h3>
+      <p>stream-json 모드에서 서브에이전트의 텍스트·thinking까지 같이 받을 수 있게 됨. 파이프라인에서 서브에이전트 흐름 추적할 때 유용.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="date">2026.7.16 · v2.1.211</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 필요해?</h4>
+    <p>기존 <code>--output-format stream-json</code>은 메인 에이전트 출력만 스트림에 포함됐음. 서브에이전트가 뭔가 생각하거나 말해도 그냥 묻혀버렸는데, 이제 플래그 하나로 다 볼 수 있음.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># CLI 플래그로 활성화</span>
+<span class="c-p">claude</span> <span class="c-o">--output-format stream-json</span> <span class="c-o">--forward-subagent-text</span> <span class="c-g">"작업 설명"</span>
+
+<span class="c-d"># 환경변수로 항상 켜두기</span>
+<span class="c-b">export</span> <span class="c-g">CLAUDE_CODE_FORWARD_SUBAGENT_TEXT=1</span>
+<span class="c-p">claude</span> <span class="c-o">--output-format stream-json</span> <span class="c-g">"작업 설명"</span></pre>
+    <h4>언제 쓰면 좋아?</h4>
+    <ul>
+      <li>CI 파이프라인에서 멀티 에이전트 흐름 전체를 로깅하고 싶을 때</li>
+      <li>서브에이전트가 무슨 thinking을 하는지 디버깅할 때</li>
+      <li>외부 모니터링 도구에 에이전트 전체 출력을 넘길 때</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.211" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- always allow 권한 워크트리 영속 — 2026.7.16 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔒</span>
+    <div class="card-title">
+      <h3>always allow 규칙 — 워크트리 넘어 세션마다 유지<span class="new-dot"></span></h3>
+      <p>워크트리에서 허용한 권한이 리포 루트에 저장돼서, 다른 워크트리·다음 세션에서도 또 물어보지 않음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="tag tag-green">실용적</span><span class="date">2026.7.16 · v2.1.211</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>기존엔 어땠어?</h4>
+    <p>워크트리 A에서 "항상 허용"을 눌러도 워크트리 B로 가면 또 승인 팝업이 떴음. 워크트리마다 권한이 따로 관리됐기 때문.</p>
+    <h4>이제 어떻게 바뀌어?</h4>
+    <p>허용 규칙이 리포 루트의 설정 파일에 저장됨. 워크트리가 몇 개든, 세션이 새로 시작되든 한 번 허용하면 끝.</p>
+    <ul>
+      <li>워크트리 기반 병렬 작업 시 반복 승인 클릭 없어짐</li>
+      <li>팀 전체가 같은 리포 쓰면 동일 규칙 공유 가능</li>
+      <li>기존에 쌓인 허용 규칙은 자동으로 루트 기준으로 마이그레이션</li>
+    </ul>
+    <h4>저장 위치 확인</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 리포 루트의 .claude 설정 파일에 저장됨</span>
+<span class="c-p">cat</span> <span class="c-g">.claude/settings.json</span>
+
+<span class="c-d"># allowedTools 항목에 규칙이 쌓임</span>
+<span class="c-d"># → worktree 어디서 승인해도 여기 기록됨</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.211" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- 툴 권한 규칙 경고 + 경과 시간 카운터 — v2.1.210 -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -5257,7 +5319,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.210'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.211'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-09'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

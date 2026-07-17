@@ -267,6 +267,117 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- claude auto-mode reset — 2026.7.17 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔄</span>
+    <div class="card-title">
+      <h3>claude auto-mode reset — 자동 모드 설정 초기화<span class="new-dot"></span></h3>
+      <p>Auto Mode 설정이 꼬였을 때 기본값으로 한 번에 되돌리는 명령어. 확인 프롬프트도 있어서 실수 방지됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">명령어</span><span class="date">2026.7.17 · v2.1.212</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 필요해?</h4>
+    <p>Auto Mode 커스텀 규칙을 이것저것 손댔다가 뭔가 이상해졌을 때, 하나씩 되돌리는 게 귀찮잖아. 이 명령어 하나면 전부 기본값으로 리셋됨. 확인 프롬프트가 뜨니까 실수로 날릴 걱정도 없고, <code>--yes</code> 붙이면 스크립트에서도 쓸 수 있음.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 기본 — 확인 프롬프트 뜸</span>
+<span class="c-p">claude auto-mode reset</span>
+
+<span class="c-d"># 확인 없이 바로 리셋 (스크립트·CI용)</span>
+<span class="c-p">claude auto-mode reset</span> <span class="c-o">--yes</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.212" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- WebSearch + 서브에이전트 세션 한도 — 2026.7.17 -->
+<div class="card featured" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🛑</span>
+    <div class="card-title">
+      <h3>웹검색·서브에이전트 세션 한도 — 무한 루프 자동 차단<span class="new-dot"></span></h3>
+      <p>Claude가 검색이나 서브에이전트 소환을 끝도 없이 반복하는 걸 세션 단위로 막아줌. 비용·시간 낭비 방지에 직결되는 기능.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="tag tag-red">자주쓰임</span><span class="date">2026.7.17 · v2.1.212</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>왜 중요해?</h4>
+    <p>복잡한 작업을 맡기면 Claude가 WebSearch 툴이나 서브에이전트를 수십~수백 번 호출하는 경우가 생김. 그냥 두면 토큰이랑 시간이 폭발함. 이제 세션당 최대 횟수를 제한해서 자동으로 멈춰줌.</p>
+    <ul>
+      <li>WebSearch: 기본 200회 / 세션. <code>/clear</code>로 리셋.</li>
+      <li>서브에이전트 소환: 기본 200회 / 세션. <code>/clear</code>로 리셋.</li>
+      <li>환경변수로 직접 조절 가능.</li>
+    </ul>
+    <h4>한도 조절하기</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 웹검색 최대 횟수 변경 (기본 200)</span>
+<span class="c-b">CLAUDE_CODE_MAX_WEB_SEARCHES_PER_SESSION</span>=<span class="c-g">50</span> <span class="c-p">claude</span>
+
+<span class="c-d"># 서브에이전트 소환 최대 횟수 변경 (기본 200)</span>
+<span class="c-b">CLAUDE_CODE_MAX_SUBAGENTS_PER_SESSION</span>=<span class="c-g">30</span> <span class="c-p">claude</span>
+
+<span class="c-d"># .env에 고정하면 매번 안 써도 됨</span>
+<span class="c-b">CLAUDE_CODE_MAX_WEB_SEARCHES_PER_SESSION</span>=<span class="c-g">100</span>
+<span class="c-b">CLAUDE_CODE_MAX_SUBAGENTS_PER_SESSION</span>=<span class="c-g">50</span></pre>
+    <h4>한도 초기화</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># /clear 하면 두 한도 모두 리셋됨</span>
+<span class="c-p">/clear</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.212" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- /fork 세션 제목 자동 지정 + bare /btw 개선 — 2026.7.17 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🍴</span>
+    <div class="card-title">
+      <h3>/fork 제목 자동 지정 + /btw 패널 재열기 개선<span class="new-dot"></span></h3>
+      <p>/fork 할 때 세션 이름이 없으면 프롬프트 내용으로 이름 붙여줌. /btw 그냥 입력하면 이전 답변 패널 다시 볼 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">명령어</span><span class="date">2026.7.17 · v2.1.212</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>/fork 개선</h4>
+    <p>세션에 제목이 없는 상태에서 <code>/fork</code>를 하면, 이제 포크된 세션 이름이 현재 프롬프트 내용을 따서 자동으로 붙음. 에이전트 뷰에서 "제목 없음" 항목이 수두룩하게 쌓이는 문제가 해결됨.</p>
+    <h4>/btw 패널 재열기</h4>
+    <p>작업 중에 <code>/btw</code>에서 딴 질문 했던 거 다시 보고 싶을 때, 이제 그냥 <code>/btw</code>만 입력하면 가장 최근 교환의 사이드 패널이 다시 열림. 이전 답변 찾으러 스크롤 안 해도 됨.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 세션 제목 없어도 알아서 이름 붙여서 포크</span>
+<span class="c-p">/fork</span>
+
+<span class="c-d"># /btw 단독 입력 → 마지막 /btw 답변 패널 다시 열기</span>
+<span class="c-p">/btw</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.212" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- 에이전트 뷰 "Needs input" 상태 세분화 — 2026.7.17 -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔔</span>
+    <div class="card-title">
+      <h3>에이전트 뷰 "Needs input" 상태 세분화<span class="new-dot"></span></h3>
+      <p>백그라운드 에이전트가 단순히 "Working" 중인지, 아니면 내 입력을 기다리고 있는지 이제 구분해서 보여줌.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">핵심 기능</span><span class="date">2026.7.17 · v2.1.212</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라졌어?</h4>
+    <p>에이전트 뷰(<code>claude agents</code>)나 <code>--json</code> 출력에서, 샌드박스 승인·MCP 입력·관리 설정 프롬프트 때문에 멈춰 있는 세션이 이제 <strong>"Working"</strong>이 아니라 <strong>"Needs input"</strong>으로 표시됨. 어떤 세션이 진짜 내 액션을 기다리는지 한눈에 파악 가능.</p>
+    <h4>확인 방법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 에이전트 뷰 열기</span>
+<span class="c-p">claude agents</span>
+
+<span class="c-d"># JSON 출력으로 상태 확인 (자동화·스크립트용)</span>
+<span class="c-p">claude agents</span> <span class="c-o">--json</span></pre>
+    <p>출력 예시: <code>"status": "needs_input"</code> — 이 세션은 내가 직접 응답해야 진행됨.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.212" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- --forward-subagent-text — 2026.7.16 -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -5319,7 +5430,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.211'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.212'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-09'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

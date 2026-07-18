@@ -267,6 +267,114 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- EndConversation Tool — 2026. 7. 18. -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🚫</span>
+    <div class="card-title">
+      <h3>EndConversation 툴 — Claude가 대화를 직접 끊을 수 있음<span class="new-dot"></span></h3>
+      <p>심한 욕설·jailbreak 시도가 감지되면 Claude가 세션을 스스로 종료할 수 있게 됐음. claude.ai에서 2025년부터 쓰던 기능이 Claude Code에도 추가된 것.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">안전</span><span class="date">2026.07.18 · v2.1.214</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 생겼냐면</h4>
+    <p>에이전트가 자율적으로 길게 작업하다 보면 중간에 악의적인 프롬프트 인젝션이나 심각한 욕설이 들어올 수 있음. 기존엔 그냥 당하거나 사람이 직접 끊어야 했는데, 이제 Claude 스스로 "이 대화 안 함"이라고 선언하고 세션을 종료할 수 있음.</p>
+    <h4>어떤 상황에서 발동하나</h4>
+    <ul>
+      <li>반복적이거나 심각한 욕설·인신공격</li>
+      <li>명백한 jailbreak 시도 (안전 정책 우회 유도)</li>
+      <li>악성 프롬프트 인젝션이 감지된 경우</li>
+    </ul>
+    <h4>참고</h4>
+    <p>Anthropic 공식 연구 블로그에 관련 내용이 올라와 있음 → <a href="https://www.anthropic.com/research/end-subset-conversations" target="_blank">anthropic.com/research/end-subset-conversations</a></p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.214" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- Progress Heartbeat — 2026. 7. 18. -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">💓</span>
+    <div class="card-title">
+      <h3>장시간 툴 콜 진행 상황 알림 — 묵묵히 돌아가도 살아있다는 신호<span class="new-dot"></span></h3>
+      <p>오래 걸리는 툴 실행 중에 아무런 출력이 없으면 "죽었나?" 싶었는데, 이제 주기적으로 heartbeat 메시지를 띄워줌.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">UX</span><span class="date">2026.07.18 · v2.1.214</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떤 상황에서 유용하냐면</h4>
+    <ul>
+      <li>빌드·테스트·대규모 파일 처리처럼 수 분씩 걸리는 작업</li>
+      <li>백그라운드 에이전트가 조용히 뭔가 하고 있을 때</li>
+      <li>네트워크 요청이 느린 MCP 툴 호출 중</li>
+    </ul>
+    <h4>효과</h4>
+    <p>터미널이 멈춰 보여도 실제로는 작업 중이라는 걸 주기적으로 확인할 수 있음. Ctrl+C 눌러서 멀쩡한 작업을 날리는 사고를 줄여줌.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.214" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- Docker 권한 프롬프트 — 2026. 7. 18. -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🐳</span>
+    <div class="card-title">
+      <h3>docker 데몬 리다이렉트 플래그 — 이제 권한 확인하고 실행<span class="new-dot"></span></h3>
+      <p><code>--url</code>, <code>--connection</code>, <code>--identity</code> 같은 데몬 연결 플래그를 쓰는 docker 명령어가 이제 자동 실행 대신 권한 프롬프트를 띄움. Podman의 remote 모드도 동일하게 적용.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">보안</span><span class="date">2026.07.18 · v2.1.214</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>왜 중요하냐면</h4>
+    <p>원격 Docker 데몬에 연결하는 플래그들은 단순 로컬 컨테이너 작업과 달리 외부 인프라에 접근할 수 있음. 기존엔 이 플래그들이 붙어 있어도 그냥 실행됐는데, 이제는 반드시 사람이 한 번 확인해야 함.</p>
+    <h4>해당 플래그들</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 아래 플래그가 포함된 docker/podman 명령은 권한 프롬프트 발동</span>
+docker <span class="c-o">--url</span> tcp://remote-host:2376 ps
+docker <span class="c-o">--connection</span> my-context run ...
+docker <span class="c-o">--identity</span> ~/.ssh/id_rsa ...
+<span class="c-d"># Podman remote 모드도 동일</span>
+podman <span class="c-o">--remote</span> ...</pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.214" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- SessionStart fork source — 2026. 7. 18. -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔱</span>
+    <div class="card-title">
+      <h3>SessionStart 훅 — fork로 시작한 세션은 source가 "fork"로 구분됨<span class="new-dot"></span></h3>
+      <p>기존엔 <code>/fork</code>로 만든 세션도 SessionStart 훅에서 <code>"resume"</code>으로 잡혔음. 이제 <code>"fork"</code>로 정확히 구분되니까 훅 조건 분기가 훨씬 깔끔해짐.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">훅</span><span class="date">2026.07.18 · v2.1.214</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>훅에서 이렇게 활용하면 됨</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># SessionStart 훅 페이로드 예시</span>
+{
+  <span class="c-g">"event"</span>: <span class="c-g">"SessionStart"</span>,
+  <span class="c-g">"source"</span>: <span class="c-g">"fork"</span>  <span class="c-d">// 이전엔 "resume"으로 표시됐음</span>
+}
+
+<span class="c-d"># bash 훅에서 분기 예시</span>
+<span class="c-p">if</span> [ <span class="c-g">"$SOURCE"</span> = <span class="c-g">"fork"</span> ]; <span class="c-p">then</span>
+  echo <span class="c-g">"포크된 세션 시작 — 별도 로깅"</span>
+<span class="c-p">fi</span></pre>
+    <h4>source 값 정리</h4>
+    <ul>
+      <li><code>"new"</code> — 새 세션</li>
+      <li><code>"resume"</code> — 기존 세션 이어받기</li>
+      <li><code>"fork"</code> — <code>/fork</code>로 분기된 세션 (이번에 추가)</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.214" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- claude auto-mode reset — 2026.7.17 -->
 <div class="card" data-cat="cmd">
   <div class="card-header" onclick="toggle(this)">
@@ -5430,7 +5538,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.212'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.214'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-09'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

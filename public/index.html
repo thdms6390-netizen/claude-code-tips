@@ -267,6 +267,44 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- sandbox.filesystem.disabled — 2026.7.21 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🗂️</span>
+    <div class="card-title">
+      <h3>sandbox.filesystem.disabled — 파일시스템 격리는 끄고 네트워크는 막기<span class="new-dot"></span></h3>
+      <p>샌드박스에서 파일시스템 격리만 선택적으로 비활성화할 수 있게 됐어. 네트워크 제어는 그대로 유지하면서.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="date">2026.7.21 · v2.1.216</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 필요해?</h4>
+    <p>기존 샌드박스는 파일시스템 격리 + 네트워크 차단이 묶음이었어. 근데 실제로는 "로컬 파일은 Claude가 자유롭게 써도 되는데, 외부 네트워크는 막고 싶다"는 경우가 꽤 많거든. 이제 그게 가능해진 거야.</p>
+    <h4>어떤 상황에 쓰면 좋아?</h4>
+    <ul>
+      <li>로컬 프로젝트 파일을 자유롭게 읽고 써야 하는데 외부 API 호출은 막고 싶을 때</li>
+      <li>CI 환경에서 파일 접근 제한 없이 빌드하면서 네트워크 이그레스만 통제하고 싶을 때</li>
+      <li>샌드박스 파일시스템 격리가 도구 충돌을 일으킬 때</li>
+    </ul>
+    <h4>설정 방법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># .claude/settings.json 또는 settings.local.json</span>
+{
+  <span class="c-p">"sandbox"</span>: {
+    <span class="c-p">"filesystem"</span>: {
+      <span class="c-g">"disabled"</span>: <span class="c-b">true</span>
+    }
+  }
+}</pre>
+    <h4>정리</h4>
+    <ul>
+      <li><code>sandbox.filesystem.disabled: true</code> → 파일시스템 격리 OFF, 네트워크 제어 유지</li>
+      <li><code>sandbox.filesystem.disabled: false</code> (기본값) → 기존처럼 파일시스템도 격리</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.216" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- EndConversation Tool — 2026. 7. 18. -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -5538,7 +5576,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.215'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.216'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-09'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

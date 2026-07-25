@@ -267,6 +267,178 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<div class="card featured" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🧠</span>
+    <div class="card-title">
+      <h3>Claude Opus 5 출시 — 프론티어급 지능을 절반 가격에<span class="new-dot"></span></h3>
+      <p>Fable 5에 근접한 성능을 Opus 4.8 대비 동일 비용으로, Frontier-Bench·ARC-AGI 3·OSWorld 2.0 등 주요 벤치마크에서 전부 1위.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">모델 출시</span><span class="date">2026-07-24 · 별도 제품 발표</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라졌냐면</h4>
+    <ul>
+      <li>Frontier-Bench v0.1에서 모든 모델 제치고 1위, Opus 4.8 성능 두 배 이상 — 비용은 더 낮음</li>
+      <li>CursorBench 3.2 max 에포트 기준 Fable 5와 0.5% 차이, 비용은 절반</li>
+      <li>ARC-AGI 3 점수가 2위 모델의 3배 — 새로운 문제 해결력에서 압도적</li>
+      <li>Zapier AutomationBench 통과율 차순위 모델의 약 1.5배, 최저 에포트에서도 다른 모델 최고점보다 높음</li>
+      <li>OSWorld 2.0 (Computer Use) — Fable 5 최고점을 비용 1/3 수준에서 달성</li>
+      <li>생명과학 평가 전 항목 Opus 4.8 대비 향상, 유기화학 +10.2pp, 단백질 기능 예측 +7.7pp</li>
+      <li>시각 출력 품질 대폭 개선 — 차트·다이어그램·이미지 생성 결과물 눈에 띄게 좋아짐</li>
+      <li>Claude Max의 새 기본 모델, Claude Pro의 최상위 모델로 설정됨</li>
+      <li>에포트 설정(low~max)으로 속도/비용/성능 직접 조절 가능</li>
+    </ul>
+    <p><a href="https://www.anthropic.com/news/claude-opus-5" target="_blank">공식 블로그 →</a></p>
+  </div>
+</div>
+
+<!-- Claude Opus 5 출시 — 2026. 7. 25. -->
+<div class="card featured" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🚀</span>
+    <div class="card-title">
+      <h3>Claude Opus 5 출시 — 1M 컨텍스트 + Fast Mode<span class="new-dot"></span></h3>
+      <p>새로운 기본 Opus 모델. 100만 토큰 컨텍스트에 Fast Mode까지 지원. 입력 $10/Mtok, 출력 $50/Mtok.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">모델</span><span class="tag tag-red">자주쓰임</span><span class="date">2026.07.25 · v2.1.219</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라졌나</h4>
+    <ul>
+      <li><strong>모델 ID:</strong> <code>claude-opus-5</code> — 이제 Opus 계열 기본값</li>
+      <li><strong>1M 컨텍스트:</strong> 대규모 코드베이스, 긴 문서도 한 번에 처리 가능</li>
+      <li><strong>Fast Mode 지원:</strong> 속도 우선할 때 Opus 5에서도 Fast Mode 쓸 수 있음</li>
+      <li><strong>가격:</strong> 입력 $10/Mtok · 출력 $50/Mtok</li>
+    </ul>
+    <h4>모델 전환하기</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># /model 피커에서 선택하거나 직접 지정</span>
+<span class="c-p">/model</span> <span class="c-g">claude-opus-5</span>
+
+<span class="c-d"># CLI 플래그로 바로 쓰기</span>
+<span class="c-p">claude</span> <span class="c-o">--model</span> <span class="c-g">claude-opus-5</span> <span class="c-g">"코드 리뷰해줘"</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.219" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- sandbox.network.strictAllowlist — 2026. 7. 25. -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔒</span>
+    <div class="card-title">
+      <h3>sandbox.network.strictAllowlist — 허용 목록 밖 호스트는 무조건 차단<span class="new-dot"></span></h3>
+      <p>샌드박스 명령 실행 중 허용 목록에 없는 네트워크 요청은 묻지도 따지지도 않고 거절. 승인 팝업 없이 조용히 차단.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">보안</span><span class="tag tag-orange">자동화</span><span class="date">2026.07.25 · v2.1.219</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>왜 필요한가</h4>
+    <p>기존에는 허용 목록에 없는 호스트에 접근할 때 권한 팝업이 뜨거나 그냥 허용되는 경우가 있었음. <code>strictAllowlist</code>를 켜면 허용 목록에 명시된 호스트 외에는 프롬프트 없이 자동 차단 — 완전한 네트워크 화이트리스트 모드.</p>
+    <h4>설정 방법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># settings.json에 추가</span>
+<span class="c-b">{</span>
+  <span class="c-g">"sandbox"</span><span class="c-d">: {</span>
+    <span class="c-g">"network"</span><span class="c-d">: {</span>
+      <span class="c-g">"strictAllowlist"</span><span class="c-d">:</span> <span class="c-o">true</span><span class="c-d">,</span>
+      <span class="c-g">"allowedHosts"</span><span class="c-d">: [</span><span class="c-g">"api.github.com"</span><span class="c-d">,</span> <span class="c-g">"registry.npmjs.org"</span><span class="c-d">]</span>
+    <span class="c-d">}</span>
+  <span class="c-d">}</span>
+<span class="c-b">}</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.219" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- DirectoryAdded 훅 — 2026. 7. 25. -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📂</span>
+    <div class="card-title">
+      <h3>DirectoryAdded 훅 — 새 작업 디렉토리 등록될 때 자동 발동<span class="new-dot"></span></h3>
+      <p>/add-dir 하거나 SDK로 새 repo root 등록하면 바로 훅이 발동. 디렉토리 추가 시점에 맞춤 동작을 넣을 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">훅</span><span class="tag tag-orange">자동화</span><span class="date">2026.07.25 · v2.1.219</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>언제 발동하나</h4>
+    <ul>
+      <li>세션 도중 <code>/add-dir</code> 명령으로 새 작업 디렉토리를 추가할 때</li>
+      <li>SDK에서 <code>register_repo_root</code> 컨트롤 요청으로 새 root를 등록할 때</li>
+    </ul>
+    <h4>활용 예시</h4>
+    <p>새 디렉토리가 등록되면 해당 폴더의 <code>CLAUDE.md</code>를 자동으로 요약하거나, 보안 감사 스크립트를 돌리거나, Slack 알림을 보내는 식으로 연결할 수 있음.</p>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button"><span class="c-d"># settings.json 훅 등록 예시</span>
+<span class="c-b">{</span>
+  <span class="c-g">"hooks"</span><span class="c-d">: {</span>
+    <span class="c-g">"DirectoryAdded"</span><span class="c-d">: [</span>
+      <span class="c-b">{</span>
+        <span class="c-g">"command"</span><span class="c-d">:</span> <span class="c-g">"echo \"새 디렉토리 등록: $CLAUDE_ADDED_DIR\""</span>
+      <span class="c-b">}</span>
+    <span class="c-d">]</span>
+  <span class="c-d">}</span>
+<span class="c-b">}</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.219" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- Dynamic Workflow 기본 크기 + /config 연동 — 2026. 7. 25. -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⚙️</span>
+    <div class="card-title">
+      <h3>Dynamic Workflow 기본값 → medium + workflowSizeGuideline 설정 키 추가<span class="new-dot"></span></h3>
+      <p>이제 워크플로우 크기 기본값이 medium(에이전트 15개 미만 권장)으로 바뀜. 어느 설정 파일에서든 guideline을 직접 지정할 수 있게 됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">에이전트</span><span class="tag tag-orange">자동화</span><span class="date">2026.07.25 · v2.1.219</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>달라진 점</h4>
+    <ul>
+      <li>Dynamic Workflow 기본 크기가 <strong>medium</strong>으로 변경 — 에이전트 15개 미만 권장</li>
+      <li>실행 중인 워크플로우 상태 줄에 현재 크기 기준이 표시되고 <code>/config</code> 링크도 함께 나옴</li>
+      <li><code>workflowSizeGuideline</code> 키를 설정 파일에 넣으면 <code>/config</code> 메뉴에서 해당 행이 숨겨짐 (설정 파일이 우선)</li>
+    </ul>
+    <h4>설정 파일로 고정하기</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># settings.json — 크기 직접 지정</span>
+<span class="c-b">{</span>
+  <span class="c-g">"workflowSizeGuideline"</span><span class="c-d">:</span> <span class="c-g">"large"</span>
+  <span class="c-d">// "small" | "medium" | "large" | "unrestricted"</span>
+<span class="c-b">}</span>
+
+<span class="c-d"># /config에서 인터랙티브하게 변경도 가능</span>
+<span class="c-p">/config</span> <span class="c-g">Dynamic workflow size</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.219" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- MCP 시작 오류 목록 headless init 이벤트 — 2026. 7. 25. -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔌</span>
+    <div class="card-title">
+      <h3>MCP 설정 오류 목록 — 헤드리스 init 이벤트 + 터미널 시작 경고<span class="new-dot"></span></h3>
+      <p>--mcp-config에서 유효성 검사에 실패해 스킵된 항목이 stream-json init 이벤트의 mcp_server_errors 필드로 나옴. 터미널에서는 시작할 때 경고 문구로 표시.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">MCP</span><span class="tag tag-blue">개발도구</span><span class="date">2026.07.25 · v2.1.219</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>왜 좋은가</h4>
+    <p>기존에는 MCP 서버가 설정 오류로 조용히 스킵돼도 뭐가 빠진 건지 알기 어려웠음. 이제 헤드리스 자동화 파이프라인에서는 <code>mcp_server_errors</code> 필드로 파싱해서 빠진 서버를 바로 탐지할 수 있고, 터미널에서는 시작 시 경고 메시지로 즉시 확인 가능.</p>
+    <h4>stream-json init 이벤트 예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button"><span class="c-d">// init 이벤트 내 mcp_server_errors 필드</span>
+<span class="c-b">{</span>
+  <span class="c-g">"type"</span><span class="c-d">:</span> <span class="c-g">"init"</span><span class="c-d">,</span>
+  <span class="c-g">"mcp_server_errors"</span><span class="c-d">: [</span>
+    <span class="c-b">{</span>
+      <span class="c-g">"name"</span><span class="c-d">:</span> <span class="c-g">"my-server"</span><span class="c-d">,</span>
+      <span class="c-g">"reason"</span><span class="c-d">:</span> <span class="c-g">"config validation failed"</span>
+    <span class="c-
+
 <!-- /deep-research 수동 전용 전환 — 2026.7.23 -->
 <div class="card" data-cat="cmd">
   <div class="card-header" onclick="toggle(this)">
@@ -5431,6 +5603,29 @@ Settings → General → <span class="c-g">Computer Use 토글 ON</span>
   <p>Claude Code 관련 공식 발표, 인수, 파트너십 소식 모음</p>
 </div>
 
+<div class="card" data-cat="news">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🙋</span>
+    <div class="card-title">
+      <h3>어려운 질문들 — AI에 대한 공개 질문에 정면으로 답하기<span class="new-dot"></span></h3>
+      <p>Anthropic이 AI에 관한 가장 어려운 질문들을 공개 모집하고, 답변 과정을 투명하게 공개하겠다고 선언.</p>
+      <div class="card-tags"><span class="tag tag-orange">공개 이니셔티브</span><span class="date">2026-07-24</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떤 내용이냐면</h4>
+    <ul>
+      <li>AI 안전성, 의식, 정렬 등 사람들이 가장 궁금해하는 질문을 공개 모집</li>
+      <li>Anthropic이 단순 홍보성 답변이 아니라 "work를 보여주는" 방식으로 정직하게 대답하겠다는 약속</li>
+      <li>Claude Opus 5 출시 발표와 함께 공개된 이니셔티브</li>
+    </ul>
+    <p><a href="https://www.anthropic.com/news/claude-opus-5" target="_blank">공식 블로그 →</a></p>
+  </div>
+</div>
+
+
+
 <div class="card">
   <div class="card-header" onclick="toggle(this)">
     <span class="card-icon">❓</span>
@@ -5789,8 +5984,8 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.218'; // 현재 페이지에 반영된 버전
-const KNOWN_BLOG_DATE = '2026-07-09'; // 블로그 글 반영 기준일
+const KNOWN_VERSION = 'v2.1.220'; // 현재 페이지에 반영된 버전
+const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 
 

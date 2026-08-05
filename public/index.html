@@ -267,6 +267,40 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- Remote Control 보안 강화 — 2026.8.5 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔒</span>
+    <div class="card-title">
+      <h3>Remote Control 자동 시작 제한 — 리포 설정으로는 켤 수 없음<span class="new-dot"></span></h3>
+      <p>이제 Remote Control은 리포 로컬 설정으로 켤 수 없어. 사용자 스코프에서 직접 활성화해야 해.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">보안</span><span class="date">2026.8.5 · v2.1.222</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 바뀐 거야?</h4>
+    <p>기존에는 <code>.claude/settings.json</code>이나 <code>.claude/settings.local.json</code>에 Remote Control 설정을 넣으면 자동으로 켜졌어. 이제 그 방식은 막혔어.</p>
+    <ul>
+      <li>리포 로컬 설정(<code>.claude/settings.json</code>)으로는 <strong>켜기 불가</strong></li>
+      <li>끄는 건 여전히 리포 설정에서 가능</li>
+      <li>켜려면 반드시 사용자 스코프에서 <code>/config</code>로 직접 설정해야 해</li>
+    </ul>
+    <h4>왜 바뀐 거야?</h4>
+    <p>리포 설정은 팀 전체가 공유하고 외부에 노출될 수 있어. Remote Control을 리포 설정으로 켜는 건 의도치 않은 원격 접근을 허용할 수 있는 보안 위험이었거든. 이제 Remote Control은 명시적으로 본인이 직접 켜야만 작동해.</p>
+    <h4>Remote Control 켜는 법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 사용자 스코프에서 직접 활성화</span>
+<span class="c-p">/config</span> <span class="c-g">remoteControl.enabled</span> <span class="c-o">true</span>
+
+<span class="c-d"># 리포 로컬 설정으로 끄는 건 여전히 가능</span>
+<span class="c-d"># .claude/settings.json</span>
+<span class="c-b">{</span>
+  <span class="c-g">"remoteControl"</span>: <span class="c-b">{ "enabled"</span>: <span class="c-o">false</span> <span class="c-b">}</span>
+<span class="c-b">}</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.222" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- mode: "mask" — 2026.8.4. -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -6139,7 +6173,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.221'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.222'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

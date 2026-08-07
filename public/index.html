@@ -267,6 +267,139 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- self-hosted runner — 2026. 8. 7. -->
+<div class="card featured" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🖥️</span>
+    <div class="card-title">
+      <h3>self-hosted runner — 내 서버에서 Claude 세션 직접 돌리기<span class="new-dot"></span></h3>
+      <p>팀·엔터프라이즈 플랜에서 내 머신이나 컨테이너를 Claude Code 실행 환경으로 등록할 수 있음. 웹·모바일·데스크톱 세션 모두 여기서 돌아감.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="tag tag-orange">Enterprise</span><span class="date">2026. 8. 7. · v2.1.224</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 좋음?</h4>
+    <ul>
+      <li>Anthropic 클라우드 서버 대신 <strong>내 인프라</strong>에서 세션 실행 — 데이터가 밖으로 안 나감</li>
+      <li>사내 네트워크 안에 있는 DB, 내부 API에 Claude가 직접 접근 가능</li>
+      <li>컨테이너 이미지로 환경 고정하면 팀 전체가 동일한 환경에서 작업</li>
+      <li>Team 플랜 이상부터 사용 가능</li>
+    </ul>
+    <h4>등록 방법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 내 머신을 runner로 등록</span>
+<span class="c-p">claude self-hosted-runner</span>
+
+<span class="c-d"># 컨테이너에서 등록할 때도 동일한 명령어</span>
+<span class="c-p">claude self-hosted-runner</span> <span class="c-o">--name</span> <span class="c-g">my-container-runner</span></pre>
+    <h4>어떻게 작동함?</h4>
+    <p>명령 실행 후 안내에 따라 인증하면 이 머신이 Claude Code의 실행 백엔드로 등록됨. 이후 웹·모바일·데스크톱 어디서 세션을 열어도 이 runner에서 실행돼.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.224" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- archive plugin source — 2026. 8. 7. -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📦</span>
+    <div class="card-title">
+      <h3>archive 플러그인 소스 — zip URL로 플러그인 설치하기<span class="new-dot"></span></h3>
+      <p>git도 npm도 없이 HTTPS zip 파일만 있으면 플러그인 설치 가능. SHA-256 핀닝으로 무결성 검증까지.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-blue">플러그인</span><span class="date">2026. 8. 7. · v2.1.224</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라짐?</h4>
+    <ul>
+      <li>기존엔 git 저장소나 npm 패키지만 플러그인 소스로 쓸 수 있었음</li>
+      <li>이제 HTTPS로 배포된 <strong>zip 파일</strong>도 소스로 사용 가능</li>
+      <li>SHA-256 해시 핀닝 옵션으로 설치할 zip이 변조되지 않았는지 검증</li>
+      <li>내부망에서만 접근 가능한 zip 서버로도 배포 가능 → 기업 환경에 딱</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># zip URL로 플러그인 설치</span>
+<span class="c-p">/plugin install</span> <span class="c-g">archive:https://example.com/my-plugin.zip</span>
+
+<span class="c-d"># SHA-256 핀닝으로 무결성 검증하면서 설치</span>
+<span class="c-p">/plugin install</span> <span class="c-g">archive:https://example.com/my-plugin.zip</span> <span class="c-o">--sha256</span> <span class="c-g">abc123...</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.224" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- crossSessionInbound + SendMessage — 2026. 8. 7. -->
+<div class="card featured" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔗</span>
+    <div class="card-title">
+      <h3>크로스 세션 메시지 — Claude 세션끼리 서로 말 걸기<span class="new-dot"></span></h3>
+      <p>Claude Code 세션이 다른 머신의 세션에게 직접 메시지를 보낼 수 있음. ListAgents로 다른 세션 탐색, SendMessage로 전송. macOS·Linux 지원.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">에이전트</span><span class="tag tag-red">자주쓰임</span><span class="date">2026. 8. 7. · v2.1.224</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떤 상황에서 쓰임?</h4>
+    <ul>
+      <li>백그라운드 에이전트가 작업 완료 후 <strong>다른 세션에게 결과 전달</strong></li>
+      <li>여러 머신에 띄워진 Claude 세션들이 서로 <strong>협업</strong>하는 구조 구축 가능</li>
+      <li>권한 우회(bypassed permissions)로 실행 중인 세션에 외부 메시지가 오면 <strong>승인 대기</strong> 처리 — 보안 유지</li>
+      <li>일반 세션으로 보낸 메시지는 <strong>자동 전달</strong>, dialogExpiry로 만료 시간 설정 가능</li>
+    </ul>
+    <h4>관련 설정</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># settings.json — 크로스 세션 메시지 수신 설정</span>
+{
+  <span class="c-g">"crossSessionInbound"</span>: <span class="c-b">true</span>,
+  <span class="c-g">"dialogExpiry"</span>: <span class="c-b">300</span>  <span class="c-d">// 승인 대기 만료 시간(초)</span>
+}
+
+<span class="c-d"># Claude 세션 내에서 다른 에이전트 목록 조회</span>
+<span class="c-d"># → ListAgents 툴로 현재 활성 세션 탐색</span>
+<span class="c-d"># → SendMessage 툴로 특정 세션에 메시지 전송</span></pre>
+    <h4>지원 환경</h4>
+    <p>macOS, Linux에서 사용 가능. 같은 머신뿐 아니라 <strong>다른 머신</strong>에 있는 세션에도 메시지 전송 가능.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.224" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- sandbox credential masking 고급 옵션 — 2026. 8. 7. -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔐</span>
+    <div class="card-title">
+      <h3>샌드박스 크리덴셜 마스킹 고급 옵션 — JWT·AWS SigV4까지 숨기기<span class="new-dot"></span></h3>
+      <p>기존 credential masking이 한 단계 업그레이드. JSON 구조 분해, JWT 클레임 단위 마스킹, AWS SigV4 재서명까지 지원.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">보안</span><span class="tag tag-blue">샌드박스</span><span class="date">2026. 8. 7. · v2.1.224</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>새로 추가된 옵션들</h4>
+    <ul>
+      <li><code>extract</code> + <code>onExtractNoMatch</code> — 구조화된 환경변수에서 특정 값만 추출해 마스킹</li>
+      <li><code>decode: "jwt"</code> + <code>maskClaims</code> — JWT 토큰을 디코딩해서 특정 클레임(sub, email 등)만 선택적으로 숨기기</li>
+      <li><code>awsPairs</code> + <code>sigv4</code> — AWS 키 페어를 인식하고 SigV4 서명을 재서명 처리</li>
+    </ul>
+    <h4>주의 사항</h4>
+    <ul>
+      <li><code>network.tlsTerminate</code>가 활성화된 상태에서만 동작</li>
+      <li>user, managed, 또는 <code>--settings</code>로 지정한 설정 파일에서만 적용 가능 (프로젝트 설정에서는 안 됨)</li>
+    </ul>
+    <h4>설정 예시 (JWT 마스킹)</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># settings.json</span>
+{
+  <span class="c-g">"sandbox"</span>: {
+    <span class="c-g">"credentials"</span>: [{
+      <span class="c-g">"envVar"</span>: <span class="c-g">"MY_JWT_TOKEN"</span>,
+      <span class="c-g">"decode"</span>: <span class="c-g">"jwt"</span>,
+      <span class="c-g">"maskClaims"</span>: [<span class="c-g">"sub"</span>, <span class="c-g">"email"</span>]
+    }]
+  }
+}</pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.224" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- /teleport 힌트 — 클라우드 세션을 로컬로 이어받기 -->
 <div class="card" data-cat="cmd">
   <div class="card-header" onclick="toggle(this)">
@@ -6303,7 +6436,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.223'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.224'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

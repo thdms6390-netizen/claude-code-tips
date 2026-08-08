@@ -267,6 +267,40 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- gateway spend-limit 경고 + agents 신뢰 프롬프트 — 2026.08.08 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">💳</span>
+    <div class="card-title">
+      <h3>게이트웨이 지출 한도 경고 + agents 신뢰 프롬프트<span class="new-dot"></span></h3>
+      <p>한도 초과 시 이유·리셋 시간·운영자 메시지까지 표시, agents 뷰도 신뢰 확인 추가.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="tag tag-green">실용적</span><span class="date">2026.08.08 · v2.1.225</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라졌어?</h4>
+    <ul>
+      <li>게이트웨이 지출 한도에 걸리면 이제 <strong>어떤 한도인지, 언제 리셋되는지, 운영자 안내 메시지</strong>까지 스트림에 바로 표시됨</li>
+      <li>기존엔 그냥 조용히 막혔는데, 이제 "왜 막혔는지"를 바로 알 수 있음</li>
+      <li><code>claude agents</code> 뷰에서도 신뢰되지 않은 디렉토리에 접근할 때 <strong>워크스페이스 신뢰 확인 프롬프트</strong>가 뜸 — <code>claude</code> 명령어와 동일한 보안 기준 적용</li>
+    </ul>
+    <h4>게이트웨이 지출 한도 경고 예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 한도 초과 시 이런 식으로 메시지가 뜸</span>
+<span class="c-g">Spend limit reached: $500/month (resets 2026-09-01)</span>
+<span class="c-g">Operator message: 월 한도를 초과했습니다. 플랜 업그레이드 문의: admin@example.com</span>
+
+<span class="c-d"># 게이트웨이 서버도 v2.1.225 이상이어야 동작함</span></pre>
+    <h4>agents 신뢰 프롬프트</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 신뢰되지 않은 디렉토리에서 agents 뷰 열면</span>
+<span class="c-p">claude agents</span>
+
+<span class="c-g">⚠ /path/to/untrusted-dir is not a trusted workspace.</span>
+<span class="c-g">Do you trust the files in this directory? (y/n)</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.225" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- self-hosted runner — 2026. 8. 7. -->
 <div class="card featured" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -6436,7 +6470,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.224'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.226'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

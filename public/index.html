@@ -267,6 +267,37 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- Write 툴 덮어쓰기 규칙 완화 — 2026.08.12 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">✏️</span>
+    <div class="card-title">
+      <h3>Write 툴 덮어쓰기 규칙 완화 — 읽지 않은 파일도 바로 덮어쓰기<span class="new-dot"></span></h3>
+      <p>최신 모델은 이제 이번 세션에서 Read 안 한 파일도 Write로 덮어쓸 수 있음. Edit 툴이랑 같은 규칙으로 통일된 거야.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">개발 도구</span><span class="tag tag-green">실용적</span><span class="date">2026.08.12 · v2.1.228</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라진 거야?</h4>
+    <p>예전엔 Write 툴로 파일을 덮어쓰려면 그 세션에서 먼저 Read로 읽어야 했어. 새 모델(claude-opus-5 등)은 이 제약이 사라졌고, Edit 툴처럼 읽지 않은 파일도 바로 덮어쓸 수 있음. 구형 모델은 기존 동작 그대로 유지돼.</p>
+    <h4>모델별 동작 비교</h4>
+    <ul>
+      <li><strong>최신 모델</strong> — Read 없이도 Write로 기존 파일 덮어쓰기 가능 (Edit 툴과 동일)</li>
+      <li><strong>구형 모델</strong> — 기존대로 해당 세션에서 먼저 Read한 파일만 덮어쓰기 가능</li>
+    </ul>
+    <h4>실제 체감</h4>
+    <p>긴 파일을 굳이 Read로 먼저 불러올 필요 없이 Write로 바로 새 내용으로 교체할 수 있어서 컨텍스트 낭비가 줄고 작업 흐름이 훨씬 빨라짐. 특히 자동화 스크립트나 대량 파일 처리할 때 차이가 크게 느껴져.</p>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 예전엔 이렇게 Read 먼저 해야 했음</span>
+<span class="c-g">Read("config.json")</span>
+<span class="c-g">Write("config.json", newContent)</span>
+
+<span class="c-d"># 이제 최신 모델은 바로 가능</span>
+<span class="c-g">Write("config.json", newContent)</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.228" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- gateway spend-limit 경고 + agents 신뢰 프롬프트 — 2026.08.08 -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -6470,7 +6501,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.227'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.228'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

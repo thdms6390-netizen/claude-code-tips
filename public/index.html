@@ -267,6 +267,92 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- plugin marketplace command sources — 2026.8.13 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔌</span>
+    <div class="card-title">
+      <h3>플러그인 command 소스 — IDE가 플러그인 경로를 실시간으로 알려준다<span class="new-dot"></span></h3>
+      <p>로컬 명령어(예: IDE 프로세스)가 플러그인 디렉토리를 출력하면, 세션마다 다시 해석해서 재시작 없이 바로 적용할 수 있음. <code>mode: "link"</code>로 설정하면 해당 경로를 직접 연결.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">플러그인</span><span class="tag tag-green">실용적</span><span class="date">2026.8.13 · v2.1.229</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 좋냐면</h4>
+    <p>지금까지 플러그인 소스는 URL이나 로컬 경로를 직접 지정해야 했는데, 이제 IDE 같은 외부 프로세스가 "내 플러그인 여기 있어요"를 동적으로 알려줄 수 있음. 세션 시작할 때마다 경로를 다시 물어보니까 환경마다 다른 경로를 쓰는 팀에도 딱 맞음.</p>
+    <h4>설정 예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># .claude/settings.json — command 소스 방식</span>
+{
+  <span class="c-p">"plugins"</span>: {
+    <span class="c-g">"sources"</span>: [
+      {
+        <span class="c-p">"type"</span>: <span class="c-g">"command"</span>,
+        <span class="c-p">"command"</span>: <span class="c-g">"my-ide --print-plugin-dir"</span>,
+        <span class="c-o">"mode"</span>: <span class="c-g">"link"</span>
+      }
+    ]
+  }
+}</pre>
+    <ul>
+      <li><code>command</code>: 플러그인 경로를 stdout으로 출력하는 명령어</li>
+      <li><code>mode: "link"</code>: 복사 없이 해당 경로를 그대로 사용</li>
+      <li>세션 시작마다 재해석 → 재시작 불필요</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.229" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- SSE keepalive pings — 2026.8.13 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🏓</span>
+    <div class="card-title">
+      <h3>게이트웨이 SSE keepalive — 길게 생각하는 중에도 연결 안 끊김<span class="new-dot"></span></h3>
+      <p>Vertex·Bedrock 같은 업스트림에서 Claude가 오래 생각할 때 idle-timeout으로 연결이 끊기던 문제가 해결됨. 스트리밍 중 keepalive 핑을 주기적으로 보내줌.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-blue">Vertex / Bedrock</span><span class="tag tag-green">안정성</span><span class="date">2026.8.13 · v2.1.229</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>무슨 문제였냐면</h4>
+    <p>Extended Thinking처럼 Claude가 오래 생각하는 모드에서, Vertex나 Bedrock의 idle-timeout 정책 때문에 중간에 SSE 연결이 끊기는 일이 있었음. 특히 자동화·에이전트 워크플로에서 뼈아팠던 문제.</p>
+    <h4>이제는</h4>
+    <ul>
+      <li>게이트웨이가 스트리밍 응답 중에 keepalive 핑을 주기적으로 전송</li>
+      <li>Vertex AI, Amazon Bedrock 양쪽 모두 적용</li>
+      <li>별도 설정 없이 자동으로 동작 — 그냥 쓰면 됨</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.229" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- /commit-push-pr 위험 플래그 차단 — 2026.8.13 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🚧</span>
+    <div class="card-title">
+      <h3>/commit-push-pr 위험 플래그 자동 승인 차단 — --force, --amend는 이제 직접 허용해야 함<span class="new-dot"></span></h3>
+      <p><code>--force</code>, <code>--amend</code>, <code>--no-verify</code> 같은 위험한 git/gh 플래그가 포함된 명령은 더 이상 자동 승인되지 않음. 실수로 히스토리 날리는 사고를 막아줌.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">Git</span><span class="tag tag-red">안전</span><span class="date">2026.8.13 · v2.1.229</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>바뀐 것</h4>
+    <p><code>/commit-push-pr</code>를 쓸 때 아래 플래그가 포함된 git/gh 명령은 자동 승인 대상에서 제외됨. 권한 확인 프롬프트가 뜨니까 눈으로 한 번 더 확인하게 됨.</p>
+    <ul>
+      <li><code>--force</code> / <code>-f</code></li>
+      <li><code>--amend</code></li>
+      <li><code>--no-verify</code></li>
+      <li>기타 "위험하다"고 분류된 플래그들</li>
+    </ul>
+    <h4>왜 이게 중요하냐면</h4>
+    <p>에이전트가 자동으로 <code>git push --force</code>를 날리면 팀 공유 브랜치가 망가질 수 있음. 이제 그런 명령은 반드시 사람이 직접 승인해야 실행됨.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.229" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- Write 툴 덮어쓰기 규칙 완화 — 2026.08.12 -->
 <div class="card" data-cat="dev">
   <div class="card-header" onclick="toggle(this)">
@@ -6501,7 +6587,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.228'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.231'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

@@ -267,6 +267,96 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- Cross-session inbound config — 2026.8.14 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔀</span>
+    <div class="card-title">
+      <h3>크로스 세션 수신 설정 — 다른 세션 메시지 수락·보류·거절 제어<span class="new-dot"></span></h3>
+      <p>/config에서 다른 내 세션이 보내는 메시지를 어떻게 처리할지 바로 설정할 수 있음. 대화 만료 시간도 함께 관리 가능.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="date">2026.8.14 · v2.1.232</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 바뀐 거야?</h4>
+    <p><code>/config</code> 화면에 두 가지 항목이 새로 생겼어:</p>
+    <ul>
+      <li><strong>Dialog expiry</strong> — 열려있는 다이얼로그가 자동으로 만료되는 시간 설정</li>
+      <li><strong>Messages from your other sessions</strong> — 크로스 세션 인바운드 메시지를 수락(accept) / 보류(hold) / 거절(refuse) 중 하나로 지정</li>
+    </ul>
+    <h4>어떻게 쓰는 거야?</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># /config 열고 해당 항목 찾기</span>
+<span class="c-p">/config</span>
+
+<span class="c-d"># 또는 직접 키=값으로 설정</span>
+<span class="c-p">/config</span> <span class="c-g">crossSessionInbound</span><span class="c-o">=accept</span>
+<span class="c-p">/config</span> <span class="c-g">crossSessionInbound</span><span class="c-o">=hold</span>
+<span class="c-p">/config</span> <span class="c-g">crossSessionInbound</span><span class="c-o">=refuse</span></pre>
+    <h4>실전 팁</h4>
+    <ul>
+      <li><strong>accept</strong>: 다른 세션 메시지 바로 처리 — 멀티 에이전트 협업할 때 유용</li>
+      <li><strong>hold</strong>: 일단 쌓아두고 나중에 처리 — 지금 집중 중일 때</li>
+      <li><strong>refuse</strong>: 이 세션엔 외부 메시지 아예 차단 — 격리 작업할 때</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.232" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- GitLab secret redaction — 2026.8.14 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔐</span>
+    <div class="card-title">
+      <h3>GitLab 토큰 자동 마스킹 — 샌드박스에서 글랩 시크릿 완전 차단<span class="new-dot"></span></h3>
+      <p>GitLab의 각종 토큰 패밀리를 샌드박스 크리덴셜 보호 대상에 추가. <code>gh</code>에 이미 적용됐던 보호가 <code>glab</code> CLI 설정 스토어에도 똑같이 적용됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">개발 도구</span><span class="tag tag-red">보안</span><span class="date">2026.8.14 · v2.1.232</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이제 자동으로 숨겨지는 토큰들</h4>
+    <ul>
+      <li><strong>부분 리댁션</strong>: <code>glrt-</code>, <code>gloas-</code>, <code>glptt-</code>, <code>glagent-</code>, <code>glimt-</code>, <code>glsoat-</code>, <code>glcbt-</code>, <code>glft-</code>, <code>glffct-</code></li>
+      <li><strong>완전 리댁션</strong>: 라우터블 토큰인 <code>glpat-</code>, <code>gldt-</code> — 값 자체가 통째로 가려짐</li>
+    </ul>
+    <h4>glab CLI도 이제 보호돼</h4>
+    <p>GitHub의 <code>gh</code> CLI와 동일한 방식으로, <code>glab</code> CLI 설정 파일 경로 및 크리덴셜 스토어가 샌드박스 보호 대상에 포함됨. GitLab 토큰이 샌드박스 내부 툴로 유출될 걱정 없음.</p>
+    <h4>별도 설정 필요해?</h4>
+    <p>아니, 자동으로 적용돼. GitLab을 쓰는 프로젝트라면 업데이트만 해도 바로 보호받음.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.232" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- GitLab plugin marketplace support — 2026.8.14 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🦊</span>
+    <div class="card-title">
+      <h3>플러그인 마켓플레이스 GitLab 지원 — gitlab.com URL로 바로 설치<span class="new-dot"></span></h3>
+      <p>GitHub처럼 GitLab 리포 URL만 넣으면 플러그인 클론 완료. 중첩 서브그룹 경로도 지원하고, 인증 실패 시 어느 git 호스트가 문제인지 정확히 알려줌.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">개발 도구</span><span class="tag tag-green">실용적</span><span class="date">2026.8.14 · v2.1.232</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이제 GitLab도 된다</h4>
+    <p>플러그인 마켓플레이스에서 <code>github.com</code> URL 쓰듯 <code>gitlab.com</code> URL을 그대로 넣으면 됨. 서브그룹이 여러 단계로 중첩된 경로(<code>gitlab.com/org/sub/repo</code>)도 정상 클론.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># GitLab 리포에서 플러그인 직접 설치</span>
+<span class="c-p">/plugin</span> <span class="c-g">install gitlab.com/myorg/my-plugin</span>
+
+<span class="c-d"># 서브그룹 중첩 경로도 OK</span>
+<span class="c-p">/plugin</span> <span class="c-g">install gitlab.com/myorg/subgroup/my-plugin</span>
+
+<span class="c-d"># URL 플래그로도 가능</span>
+<span class="c-b">claude</span> <span class="c-o">--plugin-url</span> <span class="c-g">gitlab.com/myorg/my-plugin</span></pre>
+    <h4>인증 실패하면?</h4>
+    <p>클론 인증 실패 시 에러 메시지에 실제로 문제가 된 git 호스트 이름이 명시됨. <code>github.com</code>인지 <code>gitlab.com</code>인지 바로 알 수 있어서 토큰 확인이 훨씬 빠름.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.232" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- plugin marketplace command sources — 2026.8.13 -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -6587,7 +6677,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.231'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.232'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

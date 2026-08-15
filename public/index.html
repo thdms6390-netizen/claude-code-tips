@@ -267,6 +267,64 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- GitLab MR --worktree 지원 — 2026.08.15 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔀</span>
+    <div class="card-title">
+      <h3>--worktree GitLab MR 지원 — MR 번호로 워크트리 바로 열기<span class="new-dot"></span></h3>
+      <p>--worktree 플래그와 claude agents 뷰에서 GitLab Merge Request URL을 쓸 수 있게 됐어. MR은 !N 형식으로 표시됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">개발 도구</span><span class="tag tag-blue">GitLab</span><span class="date">2026.08.15 · v2.1.233</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라졌냐면</h4>
+    <ul>
+      <li>기존엔 GitHub PR URL만 됐는데, 이제 GitLab MR URL도 --worktree에 그대로 넣을 수 있음</li>
+      <li>claude agents 뷰에서 GitLab MR은 <code>!123</code> 형식으로 표시돼서 PR(<code>#123</code>)과 구분됨</li>
+      <li>GitLab 리포에서 GitHub 앱 설치 안내 팁이 더 이상 안 뜨고, 엔터프라이즈 마켓플레이스 팁으로 대체됨</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># GitLab MR URL로 워크트리 생성</span>
+<span class="c-p">claude</span> <span class="c-g">--worktree https://gitlab.com/my-org/my-repo/-/merge_requests/42</span>
+
+<span class="c-d"># agents 뷰에서 MR은 !N 형식으로 보임</span>
+<span class="c-p">claude agents</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.233" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- CLAUDE_CODE_TOOL_MEMORY_LIMIT — 2026.08.15 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🧱</span>
+    <div class="card-title">
+      <h3>CLAUDE_CODE_TOOL_MEMORY_LIMIT — 빌드 폭주해도 세션 안 죽음<span class="new-dot"></span></h3>
+      <p>Linux에서 Bash 툴 명령어에 메모리 cgroup 제한을 걸 수 있어. 빌드가 메모리를 다 먹어도 Claude 세션은 멀쩡하게 살아남음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="tag tag-orange">안정성</span><span class="date">2026.08.15 · v2.1.233</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 필요하냐면</h4>
+    <ul>
+      <li>무거운 빌드나 테스트 명령이 메모리를 무한정 잡아먹으면 세션 전체가 멈추는 문제가 있었음</li>
+      <li>Linux의 cgroup 메모리 제한을 Bash 툴 단위로 걸어서, 도구 하나가 폭주해도 세션 자체는 보호됨</li>
+      <li>옵트인 방식이라 기존 동작에는 영향 없음</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># Bash 툴 명령어당 메모리 상한을 2GB로 설정 (Linux 전용)</span>
+<span class="c-b">export</span> <span class="c-g">CLAUDE_CODE_TOOL_MEMORY_LIMIT=2G</span>
+
+<span class="c-d"># 512MB로 더 타이트하게</span>
+<span class="c-b">export</span> <span class="c-g">CLAUDE_CODE_TOOL_MEMORY_LIMIT=512M</span>
+
+<span class="c-p">claude</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.233" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- Cross-session inbound config — 2026.8.14 -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -6677,7 +6735,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.232'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.233'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

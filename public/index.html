@@ -267,6 +267,66 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- GitLab MR 배지 — 2026.8.18 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🦊</span>
+    <div class="card-title">
+      <h3>GitLab MR 배지 — 푸터에서 MR 상태 바로 확인<span class="new-dot"></span></h3>
+      <p>GitLab 리모트 + glab CLI 인증 상태면 푸터와 상태바에 MR !N 배지가 자동으로 뜸. 드래프트·대기·머지 상태까지 색으로 구분.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">GitLab</span><span class="tag tag-green">실용적</span><span class="date">2026.8.18 · v2.1.234</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이런 상황에 유용함</h4>
+    <ul>
+      <li>GitLab 리포에서 작업 중에 현재 브랜치의 MR 번호를 화면 이탈 없이 바로 볼 수 있음</li>
+      <li>드래프트(회색) → 리뷰 대기(주황) → 머지 가능(초록) 상태를 색으로 즉시 파악</li>
+      <li><code>glab</code> CLI가 인증돼 있어야 배지가 표시됨</li>
+    </ul>
+    <h4>사전 조건</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># glab CLI 설치 + 로그인</span>
+<span class="c-p">glab</span> <span class="c-g">auth login</span>
+
+<span class="c-d"># GitLab 리모트가 설정된 리포에서 Claude Code 실행하면</span>
+<span class="c-d"># 푸터에 MR !42 같은 배지가 자동으로 표시됨</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.234" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- selection:clear 키바인딩 — 2026.8.18 -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⌨️</span>
+    <div class="card-title">
+      <h3>selection:clear 키바인딩 — 텍스트 선택 해제를 단축키로<span class="new-dot"></span></h3>
+      <p>앱 내 텍스트 선택 상태를 원하는 키에 바인딩해서 지울 수 있음. 에이전트 뷰에서도 동작.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">키바인딩</span><span class="date">2026.8.18 · v2.1.234</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>설정 방법</h4>
+    <p>설정 파일에서 원하는 키에 <code>selection:clear</code> 액션을 할당하면 됨. Esc는 이제 풀스크린 모드에서 마우스 선택을 지우지 않으므로, 별도 키가 필요한 경우 직접 바인딩하면 됨.</p>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># settings.json 예시</span>
+<span class="c-g">{
+  "keybindings": [
+    {
+      "key": "ctrl+shift+x",
+      "action": "selection:clear"
+    }
+  ]
+}</span></pre>
+    <h4>함께 바뀐 것</h4>
+    <ul>
+      <li>풀스크린 모드에서 Esc를 눌러도 마우스로 선택한 텍스트가 사라지지 않음</li>
+      <li>Esc는 기존처럼 작업 중단·다이얼로그 닫기 역할 유지</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.234" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- GitLab MR --worktree 지원 — 2026.08.15 -->
 <div class="card" data-cat="dev">
   <div class="card-header" onclick="toggle(this)">
@@ -6735,7 +6795,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.233'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.234'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

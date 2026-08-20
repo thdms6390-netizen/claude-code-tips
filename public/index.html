@@ -267,6 +267,58 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- Concise 출력 스타일 — 2026.8.20 -->
+<div class="card featured" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">✂️</span>
+    <div class="card-title">
+      <h3>Concise 출력 스타일 — 결론부터, 군더더기 없이<span class="new-dot"></span></h3>
+      <p>Claude가 결과만 바로 말하고 서론·나레이션 다 생략하는 새 출력 모드. 작업 품질은 그대로인데 텍스트 양이 확 줄어.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">출력</span><span class="tag tag-red">자주쓰임</span><span class="date">2026.8.20 · v2.1.237</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 뭔데?</h4>
+    <p>기존엔 Claude가 "네, 요청하신 대로 해드리겠습니다~"같은 서론을 달고 시작했는데, Concise 모드를 켜면 그냥 결과물만 딱 나옴. 작업 깊이는 줄어드는 게 아니고, 출력 텍스트만 간결해지는 거야.</p>
+    <h4>언제 쓰면 좋아?</h4>
+    <ul>
+      <li>코드 생성·수정 요청처럼 결과물만 필요할 때</li>
+      <li>긴 설명이 오히려 방해가 되는 빠른 작업</li>
+      <li>컨텍스트 윈도우 아껴야 하는 긴 세션</li>
+    </ul>
+    <h4>켜는 법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-p">/config</span>
+<span class="c-d"># Output style → Concise 선택</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.237" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- ANTHROPIC_DEFAULT_MODEL + notify_when_idle — 2026.8.20 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔔</span>
+    <div class="card-title">
+      <h3>ANTHROPIC_DEFAULT_MODEL + notify_when_idle — 세션 시작 모델 지정 & 유휴 알림<span class="new-dot"></span></h3>
+      <p>새 세션마다 원하는 모델로 자동 시작하고, 다른 Claude 세션이 한가해지면 딱 한 번 알림 받기.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="date">2026.8.20 · v2.1.236</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>ANTHROPIC_DEFAULT_MODEL</h4>
+    <p>새 세션을 열 때 기본으로 쓸 모델을 환경변수로 지정할 수 있어. <code>/model</code>로 직접 바꾸면 그게 우선 적용되고 재시작 후에도 유지됨. 기존 <code>ANTHROPIC_MODEL</code>이랑 다르게, 세션 중에 바꿔도 변경이 영구적으로 덮어쓰이지 않아.</p>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># .bashrc / .zshrc에 추가</span>
+<span class="c-b">export</span> <span class="c-g">ANTHROPIC_DEFAULT_MODEL</span>=<span class="c-o">claude-opus-4-5</span></pre>
+    <h4>notify_when_idle (크로스 세션)</h4>
+    <p>다른 Claude Code 세션한테 "다음에 한가해지면 나한테 알려줘" 하고 요청하는 기능이야. 폴링 없이 딱 한 번만 발동하는 옵트인 방식. macOS랑 Linux에서 지원.</p>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># SendMessage에 notify_when_idle 옵션 추가</span>
+<span class="c-d"># 상대 세션이 idle 상태가 되면 한 번만 알림 전송</span>
+<span class="c-g">notify_when_idle</span>: <span class="c-o">true</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.236" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- spellcheck 설정 — 2026.8.19 -->
 <div class="card" data-cat="core">
   <div class="card-header" onclick="toggle(this)">
@@ -6830,7 +6882,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.235'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.237'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

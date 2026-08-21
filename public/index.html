@@ -267,6 +267,120 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- keybindingFlavor — 2026.8.21 -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⌨️</span>
+    <div class="card-title">
+      <h3>keybindingFlavor — Bash 스타일 단축키 모드<span class="new-dot"></span></h3>
+      <p>Ctrl+W를 Bash처럼 앞 단어 단위로 지우고 싶다면 readline 모드로 바꾸면 됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">입력</span><span class="date">2026.8.21 · v2.1.238</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라지냐</h4>
+    <p>기본값(<code>classic</code>)에서 Ctrl+W는 한 글자씩 지우는 방식인데, <code>readline</code>으로 바꾸면 Bash·터미널처럼 공백 기준으로 단어 전체를 한 번에 지울 수 있음. 터미널 쓰던 사람한테는 훨씬 자연스러움.</p>
+    <h4>설정 방법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># /config 명령어로 바로 설정</span>
+<span class="c-p">/config</span> <span class="c-g">keybindingFlavor</span>=<span class="c-o">readline</span>
+
+<span class="c-d"># 기본값으로 되돌리기</span>
+<span class="c-p">/config</span> <span class="c-g">keybindingFlavor</span>=<span class="c-o">classic</span></pre>
+    <h4>옵션 비교</h4>
+    <ul>
+      <li><code>classic</code> (기본) — 기존 Claude Code 방식, 변화 없음</li>
+      <li><code>readline</code> — Ctrl+W가 공백 이전 단어 전체 삭제 (Bash·zsh 동일)</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.238" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- self-hosted-runner 개선 — 2026.8.21 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🛡️</span>
+    <div class="card-title">
+      <h3>self-hosted-runner 종료 유예 + 프록시 인증 — 운영 환경 안정성 강화<span class="new-dot"></span></h3>
+      <p>SIGTERM 받아도 세션 바로 안 죽이고, 에그레스 프록시 인증도 이제 지원함.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="tag tag-orange">서버</span><span class="date">2026.8.21 · v2.1.238</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>추가된 두 가지 기능</h4>
+    <ul>
+      <li><strong>종료 유예 (<code>--defer-shutdown-max-min</code>)</strong> — SIGTERM 신호가 와도 현재 붙어있는 세션은 계속 서빙하고, 지정한 시간(분) 이후 남은 세션을 park 처리한 뒤 정상 종료함. 배포·재시작 때 세션 끊김 없음</li>
+      <li><strong>프록시 인증 (<code>--proxy-authorization-command</code> / <code>--proxy-authorization-file</code>)</strong> — 매 연결마다 신선한 <code>Proxy-Authorization</code> 헤더가 필요한 에그레스 프록시 환경에서도 이제 쓸 수 있음</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># SIGTERM 후 최대 10분간 기존 세션 유지</span>
+<span class="c-p">claude self-hosted-runner</span> <span class="c-o">--defer-shutdown-max-min</span> <span class="c-g">10</span>
+
+<span class="c-d"># 프록시 인증 커맨드로 토큰 실시간 발급</span>
+<span class="c-p">claude self-hosted-runner</span> <span class="c-o">--proxy-authorization-command</span> <span class="c-g">"my-auth-script.sh"</span>
+
+<span class="c-d"># 프록시 인증 파일로 지정</span>
+<span class="c-p">claude self-hosted-runner</span> <span class="c-o">--proxy-authorization-file</span> <span class="c-g">/etc/proxy-auth.txt</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.238" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- Ctrl+L Cmd+K 개선 — 2026.8.21 -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🖥️</span>
+    <div class="card-title">
+      <h3>Ctrl+L / Cmd+K 동작 변경 — 화면 다시 그리기 전용으로 단순화<span class="new-dot"></span></h3>
+      <p>두 번 눌러서 /clear 되던 단축키가 사라지고, 이제는 그냥 화면 리페인트만 함.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">UI</span><span class="date">2026.8.21 · v2.1.238</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 바뀌었냐</h4>
+    <ul>
+      <li>풀스크린에서 Ctrl+L / Cmd+K를 누르면 이제 항상 화면 리페인트(다시 그리기)만 함</li>
+      <li>기존에 있던 "두 번 누르면 /clear" 단축키가 완전히 제거됨 — 실수로 대화 날아가는 사고 예방</li>
+      <li>1행짜리 nvim 터미널에서 자동으로 /clear 루프 돌던 버그도 같이 수정됨</li>
+    </ul>
+    <h4>대화 지우려면?</h4>
+    <p>기존처럼 <code>/clear</code>를 직접 입력하면 됨. 단축키로 실수하는 일은 이제 없음.</p>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 대화 내역 직접 지우기</span>
+<span class="c-p">/clear</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.238" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- claude mcp list 비활성 서버 표시 — 2026.8.21 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔌</span>
+    <div class="card-title">
+      <h3>claude mcp list — 비활성 서버 헬스체크 없이 바로 표시<span class="new-dot"></span></h3>
+      <p>disabled 서버 상태 확인할 때 실제로 접속 시도 안 하고 ⊘ Disabled로 바로 보여줌.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-blue">MCP</span><span class="date">2026.8.21 · v2.1.238</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>왜 좋냐</h4>
+    <p>기존엔 <code>claude mcp list</code> / <code>claude mcp get</code> 실행하면 비활성화된 서버도 헬스체크를 위해 실제로 연결 시도를 했음. 서버가 꺼져 있으면 타임아웃 기다려야 해서 느렸는데, 이제 비활성 서버는 즉시 <code>⊘ Disabled</code>로 표시하고 넘어감.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># MCP 서버 목록 확인 (비활성 서버 즉시 표시)</span>
+<span class="c-p">claude mcp list</span>
+
+<span class="c-d"># 특정 서버 상세 확인</span>
+<span class="c-p">claude mcp get</span> <span class="c-g">server-name</span></pre>
+    <h4>표시 예시</h4>
+    <ul>
+      <li>✅ 활성 서버 — 기존처럼 연결 상태 표시</li>
+      <li><code>⊘ Disabled</code> — 비활성화된 서버, 헬스체크 없이 즉시 표시</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.238" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- Concise 출력 스타일 — 2026.8.20 -->
 <div class="card featured" data-cat="core">
   <div class="card-header" onclick="toggle(this)">
@@ -6882,7 +6996,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.237'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.238'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

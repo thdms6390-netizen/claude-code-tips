@@ -267,6 +267,57 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- /claude-api upgrade — 2026. 8. 22. -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⬆️</span>
+    <div class="card-title">
+      <h3>/claude-api upgrade — Python SDK 0.x → 1.x 자동 마이그레이션<span class="new-dot"></span></h3>
+      <p>구버전 anthropic Python 패키지 쓰는 프로젝트를 한 방에 1.x로 올려줌. timeout 문법 같은 breaking change도 같이 고쳐줌.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">명령어</span><span class="tag tag-green">실용적</span><span class="date">2026. 8. 22. · v2.1.239</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떻게 쓰는 거야?</h4>
+    <p>Python 프로젝트 루트에서 아래 명령어 치면 돼. Claude가 코드 전체를 분석하고 1.x 호환 문법으로 바꿔줌.</p>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-p">/claude-api upgrade</span>
+</pre>
+    <h4>주요 변경 사항</h4>
+    <ul>
+      <li><code>httpx.Timeout</code> → <code>anthropic.Timeout</code> 으로 자동 교체</li>
+      <li>0.x에서 deprecated된 파라미터·메서드 전부 정리</li>
+      <li>1.x 기준 최신 Python 레퍼런스 반영</li>
+    </ul>
+    <h4>왜 필요해?</h4>
+    <p>anthropic Python SDK 1.x는 0.x랑 인터페이스가 꽤 달라서 그냥 pip upgrade만 하면 런타임 에러 남. 이 명령어 하나로 코드베이스 전체를 안전하게 올릴 수 있음.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.239" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- 풀스크린 렌더러 — Bedrock/Vertex/Foundry 확대 적용 — 2026. 8. 22. -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🖥️</span>
+    <div class="card-title">
+      <h3>풀스크린 첫 실행 제안 — Bedrock·Vertex·Foundry도 이제 된다<span class="new-dot"></span></h3>
+      <p>기존엔 claude.ai 직접 연결 환경에서만 뜨던 풀스크린 렌더러 안내가, 기업용 클라우드 설정에서도 신규 설치 시 자동으로 나옴.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">UI</span><span class="date">2026. 8. 22. · v2.1.239</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라진 거야?</h4>
+    <p>Bedrock, Vertex AI, Foundry 같은 서드파티·엔터프라이즈 게이트웨이로 Claude Code를 쓸 때도, 처음 설치하면 풀스크린 UI로 전환할지 한 번 물어봄. 기존엔 이 안내 자체가 스킵됐었음.</p>
+    <ul>
+      <li>신규 설치 시 자동으로 풀스크린 전환 제안 다이얼로그 표시</li>
+      <li>Bedrock · Vertex · Foundry 환경 전부 적용</li>
+      <li>원하면 거절하고 기본 터미널 모드로 계속 쓸 수 있음</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.239" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- keybindingFlavor — 2026.8.21 -->
 <div class="card" data-cat="core">
   <div class="card-header" onclick="toggle(this)">
@@ -6996,7 +7047,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.238'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.239'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

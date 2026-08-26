@@ -267,6 +267,59 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- /permissions Auto 탭 + Bash 와일드카드 경고 — 2025. 8. 26. -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🛡️</span>
+    <div class="card-title">
+      <h3>/permissions Auto 탭 — Auto 모드 규칙 GUI로 보고 편집<span class="new-dot"></span></h3>
+      <p>자동 모드 분류기 규칙을 /permissions 안에서 바로 확인하고 수정할 수 있게 됨. 그리고 와일드카드 Bash 허용 규칙의 위험한 패턴도 시작 시 경고해줌.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="tag tag-red">자주쓰임</span><span class="date">2025. 8. 26. · v2.1.246</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>/permissions에 Auto 탭 추가</h4>
+    <p>기존에 <code>/permissions</code>는 허용·차단 규칙만 보여줬는데, 이제 <strong>Auto 탭</strong>이 생겨서 Auto 모드 분류기 규칙도 한눈에 볼 수 있고 그 자리에서 바로 편집까지 가능함. 터미널 밖으로 안 나가도 됨.</p>
+    <h4>Bash 와일드카드 경고</h4>
+    <p>아래처럼 서브커맨드 앞에 와일드카드가 붙은 Bash 허용 규칙은 의도치 않은 옵션도 같이 허용해버리는 문제가 있음. 이제 Claude Code 시작할 때 이런 규칙이 있으면 바로 경고를 띄워줌.</p>
+    <h4>위험한 패턴 예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># ❌ 위험 — * 자리에 --force 같은 옵션도 매칭됨</span>
+<span class="c-p">Bash</span>(<span class="c-g">git * main</span>)
+
+<span class="c-d"># ✅ 안전 — 명확하게 서브커맨드 지정</span>
+<span class="c-p">Bash</span>(<span class="c-g">git push origin main</span>)
+<span class="c-p">Bash</span>(<span class="c-g">git pull origin main</span>)</pre>
+    <h4>Auto 탭 열기</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 권한 설정 화면 열고 Auto 탭으로 이동</span>
+<span class="c-p">/permissions</span>
+<span class="c-d"># → "Auto" 탭 선택하면 분류기 규칙 목록 확인 + 편집 가능</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.246" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- 턴 완료 시간 표시 — 2025. 8. 26. -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⏱️</span>
+    <div class="card-title">
+      <h3>턴 완료 시각 표시 — 언제 끝났는지 이제 정확히 알 수 있음<span class="new-dot"></span></h3>
+      <p>작업이 끝났을 때 소요 시간뿐 아니라 완료된 시각까지 같이 보여줌. 긴 작업 돌려놓고 자리 비웠다가 언제 끝났는지 바로 확인 가능.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">핵심기능</span><span class="date">2025. 8. 26. · v2.1.246</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이렇게 나옴</h4>
+    <p>턴이 끝나면 하단에 소요 시간과 함께 완료 시각이 같이 표시됨. 백그라운드에서 뭔가 오래 돌리고 나중에 결과 확인할 때 특히 유용함.</p>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 턴 완료 시 표시 예시</span>
+<span class="c-g">✻ Sautéed for 23s · done 6:05 PM</span>
+
+<span class="c-d"># 소요 시간 + 완료 시각(로컬 기준) 함께 표시</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.246" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- /claude-api upgrade — 2026. 8. 22. -->
 <div class="card" data-cat="cmd">
   <div class="card-header" onclick="toggle(this)">
@@ -7047,7 +7100,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.245'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.246'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

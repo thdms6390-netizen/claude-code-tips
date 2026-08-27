@@ -267,6 +267,164 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- --restricted flag — 2026.8.28 -->
+<div class="card featured" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔒</span>
+    <div class="card-title">
+      <h3>--restricted 모드 — 위험 툴 전부 차단하고 안전하게 실행<span class="new-dot"></span></h3>
+      <p>명령어 실행, 코드 실행, WebFetch 등 위험한 내장 툴을 제거하고 작업 디렉토리 안에서만 파일 접근 허용. 신뢰할 수 없는 환경에서 Claude를 돌릴 때 딱.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-red">보안</span><span class="tag tag-purple">핵심 기능</span><span class="date">2026.8.28 · v2.1.248</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 뭔데?</h4>
+    <p>Claude Code를 제한 모드로 실행하는 거야. 아래 것들이 자동으로 막힘:</p>
+    <ul>
+      <li>Bash 같은 명령어 실행 툴</li>
+      <li>코드 직접 실행 툴</li>
+      <li>WebFetch (웹 요청)</li>
+      <li><code>bypassPermissions</code> 요청 무시</li>
+      <li>유저·프로젝트·로컬 설정 파일 무시</li>
+    </ul>
+    <p>파일 툴은 작업 디렉토리 안에서만 동작하고, <code>--tools</code>로 명시한 것만 예외로 허용할 수 있어.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 플래그로 제한 모드 실행</span>
+<span class="c-p">claude</span> <span class="c-o">--restricted</span>
+
+<span class="c-d"># 환경변수로 제한 모드 실행</span>
+<span class="c-b">CLAUDE_CODE_RESTRICTED</span>=<span class="c-g">1</span> <span class="c-p">claude</span>
+
+<span class="c-d"># WebFetch만 예외로 허용하고 싶으면</span>
+<span class="c-p">claude</span> <span class="c-o">--restricted</span> <span class="c-o">--tools</span> <span class="c-g">WebFetch</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.248" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- SendFeedback 툴 — 2026.8.27 -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📩</span>
+    <div class="card-title">
+      <h3>SendFeedback 툴 — 문제 생기면 Claude가 피드백 리포트 자동 초안 작성<span class="new-dot"></span></h3>
+      <p>세션에서 뭔가 잘못됐을 때 Claude가 알아서 피드백 리포트 초안을 만들어줘. /feedback에서 검토하고 전송하면 됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">핵심 기능</span><span class="date">2026.8.27 · v2.1.247</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 뭔데?</h4>
+    <p>세션 도중 뭔가 이상하거나 문제가 생겼을 때, Claude가 직접 피드백 리포트 초안을 작성해줘. 너는 <code>/feedback</code>에서 내용 확인하고 전송만 하면 돼. 끄고 싶으면 <code>feedbackDrafts</code> 설정을 <code>false</code>로 바꾸면 됨.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 피드백 확인 및 전송</span>
+<span class="c-p">/feedback</span>
+
+<span class="c-d"># 기능 끄기 (settings.json)</span>
+<span class="c-g">"feedbackDrafts"</span>: <span class="c-b">false</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.247" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- /claude-api cost-optimize — 2026.8.27 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">💸</span>
+    <div class="card-title">
+      <h3>/claude-api cost-optimize — API 비용 분석하고 절감 방법 찾아주기<span class="new-dot"></span></h3>
+      <p>기존 프로젝트의 Claude API 지출을 프로파일링하고 캐싱, 토큰 최적화, 배치, 에포트 조정, 모델 선택 등 비용 절감 방법을 단계별로 안내해줌.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-green">실용적</span><span class="tag tag-purple">명령어</span><span class="date">2026.8.27 · v2.1.247</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 뭔데?</h4>
+    <p>Claude API를 쓰는 프로젝트의 비용을 분석해주는 대화형 도우미야. 아래 항목들을 하나씩 짚어가면서 실제로 얼마나 줄일 수 있는지 측정해줌:</p>
+    <ul>
+      <li>프롬프트 캐싱 활용 여부</li>
+      <li>불필요한 토큰 줄이기</li>
+      <li>배치 API 전환 가능 여부</li>
+      <li>에포트 수준 최적화</li>
+      <li>더 저렴한 모델로 전환 가능 여부</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 현재 프로젝트 비용 분석 시작</span>
+<span class="c-p">/claude-api</span> <span class="c-g">cost-optimize</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.247" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- /usage-credits — 2026.8.28 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🪙</span>
+    <div class="card-title">
+      <h3>/usage-credits — 엔터프라이즈 사용자가 어드민에게 한도 증가 요청하기<span class="new-dot"></span></h3>
+      <p>AWS Marketplace, 셀프서브 Enterprise, Enterprise 트라이얼 조직 멤버가 어드민에게 사용 한도 증가를 직접 요청할 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">명령어</span><span class="tag tag-blue">Enterprise</span><span class="date">2026.8.28 · v2.1.248</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 뭔데?</h4>
+    <p>엔터프라이즈 환경에서 사용 한도에 걸렸을 때 어드민에게 직접 한도 증가 요청을 보낼 수 있는 명령어야. 지원 대상:</p>
+    <ul>
+      <li>AWS Marketplace를 통해 청구되는 Enterprise 조직</li>
+      <li>셀프서브 Enterprise</li>
+      <li>Enterprise 트라이얼</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 어드민에게 사용 한도 증가 요청</span>
+<span class="c-p">/usage-credits</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.248" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- 크로스 세션 메시지 Bedrock/Vertex/Foundry 확장 — 2026.8.28 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔗</span>
+    <div class="card-title">
+      <h3>크로스 세션 메시지 Bedrock·Vertex·Foundry 지원 확대<span class="new-dot"></span></h3>
+      <p>이제 Bedrock, Vertex, Foundry에서도 같은 머신 위의 세션끼리 SendMessage / ListAgents로 서로 메시지 보낼 수 있음. 텔레메트리 비활성화 환경도 지원.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="tag tag-blue">Bedrock/Vertex</span><span class="date">2026.8.28 · v2.1.248</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 뭔데?</h4>
+    <p>기존에는 Claude.ai 환경에서만 됐던 크로스 세션 메시지 기능이 이제 클라우드 프로바이더 환경으로 확장됐어. 같은 머신에서 돌아가는 여러 Claude 세션이 서로 대화할 수 있음.</p>
+    <ul>
+      <li>Bedrock / Vertex / Foundry 지원 추가</li>
+      <li>텔레메트리 꺼놔도 동작</li>
+      <li>서브에이전트가 다른 세션에 보낸 메시지 결과는 부모 세션 대화에 전달됨</li>
+      <li>Linux user namespaces 환경에서는 정식 시스템 디렉토리에 한해 루트 동등 신뢰 적용</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.248" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- experimental.cacheTtl — 2026.8.28 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⏱️</span>
+    <div class="card-title">
+      <h3>experimental.cacheTtl — 에이전트별 프롬프트 캐시 TTL 설정<span class="new-dot"></span></h3>
+      <p>에이전트 프론트매터에 cacheTtl을 지정하면 서브에이전트 TTL 설정이 없을 때 이 값을 기본으로 사용함. 5분 또는 1시간 중 선택.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">개발 도구</span><span class="tag tag-orange">자동화</span><span class="date">2026.8.28 · v2.1.248</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 뭔데?</h4>
+    <p>에이전트 파일 상단 프론트매터에 <code>experimental.cacheTtl</code>을 넣으면 해당 에이전트의 프롬프트 캐시 유효 시간을 직접 지정할 수 있어. 서브에이전트 레벨 TTL이 없을 때 폴백으로 사용됨.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 에이전트 프론트매터 예시</span>
+---
+<span class="c-g">name</span>: my-agent
+<span class="c-g">experimental</span>:
+  <span class="c-g">cacheTtl</span>: <span
+
 <!-- /permissions Auto 탭 + Bash 와일드카드 경고 — 2025. 8. 26. -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -7100,7 +7258,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.246'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.248'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

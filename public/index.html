@@ -267,6 +267,174 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- PreModelSwitch / PostModelSwitch Hook — 2026.08.29 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔀</span>
+    <div class="card-title">
+      <h3>PreModelSwitch / PostModelSwitch 훅 — 모델 전환을 가로채기<span class="new-dot"></span></h3>
+      <p>모델이 바뀌기 직전·직후에 훅을 걸어서 차단하거나, 확인 받거나, 주석을 달 수 있음. SessionStart 훅도 세션 staleness와 re-cache 비용 추정치를 받음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="date">2026.08.29 · v2.1.251</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>언제 쓰면 좋나</h4>
+    <ul>
+      <li>특정 모델로 전환하는 걸 팀 정책으로 차단하고 싶을 때</li>
+      <li>모델 전환 시 로그를 남기거나 사용자에게 확인을 받고 싶을 때</li>
+      <li><code>SessionStart</code> 훅에서 resume 시 re-cache 비용을 사전에 판단하고 싶을 때</li>
+    </ul>
+    <h4>설정 예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># .claude/settings.json</span>
+{
+  <span class="c-g">"hooks"</span>: {
+    <span class="c-g">"PreModelSwitch"</span>: [
+      {
+        <span class="c-g">"command"</span>: <span class="c-g">"echo '모델 전환 요청: $CLAUDE_MODEL_TO' && exit 1"</span>
+      }
+    ],
+    <span class="c-g">"PostModelSwitch"</span>: [
+      {
+        <span class="c-g">"command"</span>: <span class="c-g">"logger '모델 변경 완료: $CLAUDE_MODEL_FROM → $CLAUDE_MODEL_TO'"</span>
+      }
+    ]
+  }
+}</pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.251" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- /effort 모델별 기본값 저장 — 2026.08.29 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⚡</span>
+    <div class="card-title">
+      <h3>/effort 모델별 독립 저장 — 모델 바꿔도 설정 안 날아감<span class="new-dot"></span></h3>
+      <p>이제 /effort로 설정한 에포트 기본값이 모델마다 따로 저장됨. Opus 쓸 때는 xhigh, Sonnet 쓸 때는 medium — 전환해도 각자 기억함.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">명령어</span><span class="date">2026.08.29 · v2.1.251</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 좋냐</h4>
+    <p>예전엔 모델 전환하면 에포트 설정이 초기화됐음. 이제 모델마다 "이 모델은 이 에포트로" 기억해두면 그 다음부터 자동 적용됨.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># Opus 5 쓸 때 에포트 기본값 설정</span>
+<span class="c-p">/effort</span> <span class="c-g">xhigh</span>
+
+<span class="c-d"># Sonnet으로 전환 후 별도 설정</span>
+<span class="c-p">/effort</span> <span class="c-g">medium</span>
+
+<span class="c-d"># 다시 Opus로 돌아오면 xhigh가 자동으로 복원됨</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.251" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- /cost 프롬프트 캐시 상세 — 2026.08.29 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">💰</span>
+    <div class="card-title">
+      <h3>/cost 프롬프트 캐시 분석 — 히트율·미스·re-cache까지<span class="new-dot"></span></h3>
+      <p>이제 /cost에서 세션 단위 프롬프트 캐시 현황을 볼 수 있음. 히트율, 미스 횟수, 재캐시된 토큰, warm/cold 상태까지 한눈에.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">명령어</span><span class="tag tag-green">실용적</span><span class="date">2026.08.29 · v2.1.251</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>표시되는 정보</h4>
+    <ul>
+      <li><strong>히트율</strong> — 캐시가 얼마나 잘 재사용됐는지</li>
+      <li><strong>미스 횟수</strong> — 새로 처리해야 했던 횟수</li>
+      <li><strong>재캐시 토큰</strong> — cold hit으로 다시 올라간 토큰 수</li>
+      <li><strong>warm / cold</strong> — 캐시가 살아있는지 식었는지 상태</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-p">/cost</span>
+
+<span class="c-d"># 상태줄 스크립트에서 캐시 데이터 가져오기 (prompt_cache 객체)</span>
+<span class="c-p">$CLAUDE_STATUS</span> <span class="c-g">| jq '.prompt_cache'</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.251" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- /usage 지출 한도 바 — 2026.08.29 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📊</span>
+    <div class="card-title">
+      <h3>/usage 지출 한도 바 — 게이트웨이 spend limit 시각화<span class="new-dot"></span></h3>
+      <p>Claude apps 게이트웨이 사용자라면 이제 /usage에서 지출 한도 대비 현재 소비량을 바 형태로 바로 볼 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">명령어</span><span class="date">2026.08.29 · v2.1.251</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 필요하냐</h4>
+    <p>게이트웨이에 spend limit이 걸려 있으면 예상치 못하게 막히는 일이 있었음. 이제 /usage로 현재 소비량과 한도를 시각적으로 확인하고, 상태줄 스크립트에서도 <code>rate_limits.spend_limit</code> 필드로 꺼내쓸 수 있음.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-p">/usage</span>
+
+<span class="c-d"># 상태줄 스크립트에서 spend limit 확인</span>
+<span class="c-p">$CLAUDE_STATUS</span> <span class="c-g">| jq '.rate_limits.spend_limit'</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.251" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- Remote Control 포어그라운드 서브에이전트 스트리밍 — 2026.08.29 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📡</span>
+    <div class="card-title">
+      <h3>Remote Control 포어그라운드 서브에이전트 라이브 스트리밍<span class="new-dot"></span></h3>
+      <p>Remote Control 클라이언트에서 포어그라운드 서브에이전트의 툴 콜과 결과를 실시간으로 볼 수 있음. 백그라운드 서브에이전트는 여전히 상태만 표시.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-blue">Remote Control</span><span class="date">2026.08.29 · v2.1.251</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>달라진 점</h4>
+    <ul>
+      <li>포어그라운드로 실행 중인 서브에이전트가 어떤 툴을 호출하고 뭘 반환하는지 Remote Control 화면에서 실시간으로 흐름이 보임</li>
+      <li>백그라운드 서브에이전트(기본값)는 기존처럼 상태 표시만</li>
+      <li>원격에서 디버깅하거나 팀원과 함께 작업 흐름 공유할 때 유용함</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.251" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- Opus 5 엔터프라이즈 기본 모델 — 2026.08.29 -->
+<div class="card featured" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🏆</span>
+    <div class="card-title">
+      <h3>시트제 엔터프라이즈 기본 모델 → Opus 5 — 프리미엄 플랜과 동일하게<span class="new-dot"></span></h3>
+      <p>시트 기반 엔터프라이즈 구독자도 이제 기본 모델이 Opus 5로 바뀜. 따로 설정 안 해도 가장 강력한 모델을 그냥 씀.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-red">자주쓰임</span><span class="tag tag-purple">핵심</span><span class="date">2026.08.29 · v2.1.251</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라졌나</h4>
+    <p>기존 시트제 엔터프라이즈 플랜은 기본 모델이 다른 플랜보다 낮았음. 이제 프리미엄 플랜과 동일하게 Opus 5가 기본값이 됨. 조직 어드민이 별도로 지정하지 않았다면 자동 적용.</p>
+    <h4>현재 모델 확인</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 현재 세션 모델 확인</span>
+<span class="c-p">/status</span>
+
+<span class="c-d"># 명시적으로 모델 선택하려면</span>
+<span class="c-p">/model</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.251" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- 서버 관리 보안 설정 승인 요구 — 2026.08.29 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🛡️</span>
+    <div class="card-title">
+      <h3>서버 관
+
 <!-- --restricted flag — 2026.8.28 -->
 <div class="card featured" data-cat="core">
   <div class="card-header" onclick="toggle(this)">
@@ -7258,7 +7426,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.248'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.251'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

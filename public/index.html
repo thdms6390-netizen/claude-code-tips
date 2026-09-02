@@ -267,6 +267,163 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- Claude Fable 5.1 출시 — 2026. 9. 2. -->
+<div class="card featured" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⚡</span>
+    <div class="card-title">
+      <h3>Claude Fable 5.1 출시 — 새 기본 Fable 모델<span class="new-dot"></span></h3>
+      <p>1M 컨텍스트에 캐시 읽기 비용이 $0.25/Mtok. 지금까지 Fable 모델 중 가장 실속 있는 구성.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">모델</span><span class="tag tag-red">자주쓰임</span><span class="date">2026. 9. 2. · v2.1.257</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라졌나</h4>
+    <ul>
+      <li><strong>모델 ID:</strong> <code>claude-fable-5-1</code> — 이제 Fable 라인의 기본 모델</li>
+      <li><strong>컨텍스트:</strong> 1M 토큰</li>
+      <li><strong>가격:</strong> 입력 $10 / 출력 $50 per Mtok, 캐시 읽기 $0.25/Mtok</li>
+      <li>게이트웨이가 아직 5.1을 지원 안 하면 <code>fable</code> / <code>best</code>는 일단 Fable 5로 유지됨. <code>/model</code>에서 직접 5.1 골라서 쓰면 됨</li>
+    </ul>
+    <h4>모델 선택하기</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># /model 피커에서 선택</span>
+<span class="c-p">/model</span> <span class="c-g">claude-fable-5-1</span>
+
+<span class="c-d"># 또는 CLI에서 직접 지정</span>
+<span class="c-p">claude</span> <span class="c-o">--model</span> <span class="c-g">claude-fable-5-1</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.257" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- timeFormat / timeZone 설정 — 2026. 9. 2. -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🕐</span>
+    <div class="card-title">
+      <h3>timeFormat · timeZone 설정 — 시간 표시 내 맘대로<span class="new-dot"></span></h3>
+      <p>턴 완료 시각이랑 트랜스크립트 타임스탬프를 12시간제, 24시간제, UTC, 또는 strftime 패턴으로 자유롭게 바꿀 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">UI</span><span class="date">2026. 9. 2. · v2.1.257</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>지원 포맷</h4>
+    <ul>
+      <li><code>12h</code> — 오전/오후 표시</li>
+      <li><code>24h</code> — 24시간제</li>
+      <li><code>24h-utc</code> — UTC 기준 24시간제</li>
+      <li>strftime 패턴 직접 입력 가능 (예: <code>%Y-%m-%d %H:%M</code>)</li>
+    </ul>
+    <h4>설정 예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># /config로 바로 설정</span>
+<span class="c-p">/config</span> <span class="c-g">timeFormat=24h</span>
+<span class="c-p">/config</span> <span class="c-g">timeZone=Asia/Seoul</span>
+
+<span class="c-d"># strftime 패턴으로 커스텀</span>
+<span class="c-p">/config</span> <span class="c-g">timeFormat=%H:%M:%S</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.257" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- Containment Escape 자동 차단 — 2026. 9. 2. -->
+<div class="card featured" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🛡️</span>
+    <div class="card-title">
+      <h3>Auto Mode 컨테인먼트 이스케이프 차단 — 클라우드 크리덴셜 탈취 자동 거절<span class="new-dot"></span></h3>
+      <p>클라우드 메타데이터 크리덴셜 가져오기, 이그레스 우회, 크로스 테넌트 접근 시도를 Auto 모드에서 더 이상 자동 승인 안 함. 환경에서 명시적으로 허용해야 통과.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">보안</span><span class="tag tag-red">자주쓰임</span><span class="date">2026. 9. 2. · v2.1.257</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>차단 대상</h4>
+    <ul>
+      <li>클라우드 메타데이터 엔드포인트 크리덴셜 요청 (AWS IMDSv2, GCP metadata 등)</li>
+      <li>이그레스 우회 시도 (프록시·터널을 통한 외부 접근)</li>
+      <li>크로스 테넌트 리소스 접근</li>
+    </ul>
+    <h4>허용이 필요하면</h4>
+    <p>환경 수준에서 해당 동작이 의도된 것임을 명시해줘야 통과됨. 실수로 자동 승인되는 걸 원천 차단하는 구조.</p>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 허용이 필요한 경우 managed settings 또는</span>
+<span class="c-d"># 환경 변수로 명시적으로 허용 표시</span>
+<span class="c-d"># → 그냥 Auto 모드면 이제 자동으로 차단됨</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.257" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- CLAUDE_CODE_SUBAGENT_MODEL_FORCE — 2026. 9. 2. -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🤖</span>
+    <div class="card-title">
+      <h3>CLAUDE_CODE_SUBAGENT_MODEL_FORCE — 서브에이전트 모델 강제 통일<span class="new-dot"></span></h3>
+      <p>서브에이전트마다 다른 모델 쓰는 거 통일하고 싶을 때. 이 환경변수 하나로 모든 서브에이전트에 같은 모델 강제 적용.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">에이전트</span><span class="tag tag-orange">자동화</span><span class="date">2026. 9. 2. · v2.1.257</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떻게 동작하나</h4>
+    <ul>
+      <li><code>CLAUDE_CODE_SUBAGENT_MODEL</code>이 설정돼 있으면 그 모델로 강제 통일</li>
+      <li>없으면 메인 세션 모델을 모든 서브에이전트에 적용</li>
+      <li>개별 spawn 시 지정한 모델이나 에이전트 정의의 모델 오버라이드를 전부 무시함</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 모든 서브에이전트를 Fable 5.1로 강제</span>
+<span class="c-b">CLAUDE_CODE_SUBAGENT_MODEL</span>=<span class="c-g">claude-fable-5-1</span> \
+<span class="c-b">CLAUDE_CODE_SUBAGENT_MODEL_FORCE</span>=<span class="c-g">1</span> \
+<span class="c-p">claude</span>
+
+<span class="c-d"># 메인 모델 그대로 서브에이전트에도 적용</span>
+<span class="c-b">CLAUDE_CODE_SUBAGENT_MODEL_FORCE</span>=<span class="c-g">1</span> <span class="c-p">claude</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.257" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- /effort 세션 한정 변경 — 2026. 9. 2. -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🎚️</span>
+    <div class="card-title">
+      <h3>/effort s 옵션 — 현재 세션만 에포트 바꾸기<span class="new-dot"></span></h3>
+      <p>/model이랑 똑같이 이번 세션에만 적용되는 에포트 변경. 영구 설정 건드리지 않고 지금 이 작업만 레벨 올리고 싶을 때.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">에포트</span><span class="tag tag-green">실용적</span><span class="date">2026. 9. 2. · v2.1.257</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 현재 세션에만 xhigh 적용 (영구 설정 안 바뀜)</span>
+<span class="c-p">/effort</span> <span class="c-o">s</span> <span class="c-g">xhigh</span>
+
+<span class="c-d"># 세션 한정 high로</span>
+<span class="c-p">/effort</span> <span class="c-o">s</span> <span class="c-g">high</span>
+
+<span class="c-d"># 영구 변경은 기존처럼 그냥</span>
+<span class="c-p">/effort</span> <span class="c-g">high</span></pre>
+    <h4>팁</h4>
+    <p>복잡한 리팩터링이나 일회성 깊은 분석할 때 xhigh로 올렸다가 세션 끝나면 자동으로 원래 설정으로 돌아오는 거라 편함.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.257" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- 작업 디렉토리 밖 파일 읽기 차단 — 2026. 9. 2. -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📁</span>
+    <div class="card-title">
+      <h3>작업 디렉토리 밖 파일 읽기 — Auto 모드 첫 접근 시 확인<span class="new-dot"></span></h3>
+      <p>Auto 모드에서 작업 디렉토리 밖 파일을 처음 읽으려 할 때 한 번 물어봄. 아예 막고 싶으면 설정으로 차단 가능.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">보안</span><span class="tag tag-orange">자동화</span><span class="date">2026. 9. 2. · v2.1.257</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떻게
+
 <!-- PreModelSwitch / PostModelSwitch Hook — 2026.08.29 -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -7426,7 +7583,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.252'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.258'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

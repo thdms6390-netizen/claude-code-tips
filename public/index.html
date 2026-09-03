@@ -267,6 +267,125 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- managedMcpServers — 2026.9.3 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🏢</span>
+    <div class="card-title">
+      <h3>managedMcpServers — 조직이 MCP 서버를 전원에게 배포<span class="new-dot"></span></h3>
+      <p>어드민이 HTTP/SSE MCP 서버를 설정하면 팀 전체에 자동 적용. 개인이 따로 설정 안 해도 됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">MCP</span><span class="tag tag-orange">자동화</span><span class="date">2026.9.3 · v2.1.259</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 뭔데?</h4>
+    <p>조직 관리 설정(<code>managedMcpServers</code>)에 HTTP/SSE MCP 서버를 등록하면 팀원 전체에게 자동으로 배포돼. <code>.mcp.json</code>과 같은 형식으로 쓰면 됨. 단, 로컬 명령어(<code>command</code>)를 실행하는 항목은 무시되고 원격 서버만 적용돼.</p>
+    <h4>allowedMcpServers 변경 사항 주의</h4>
+    <p>기존에 <code>allowedMcpServers</code>로 관리 서버를 필터링하던 경우, 업그레이드 후 <code>managed-mcp.json</code> 서버가 자동으로 로드될 수 있어. 막으려면 <code>deniedMcpServers</code>를 써야 해.</p>
+    <h4>조직 설정 예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 조직 관리 설정 파일 (managed settings)</span>
+{
+  <span class="c-p">"managedMcpServers"</span>: {
+    <span class="c-g">"company-tools"</span>: {
+      <span class="c-p">"url"</span>: <span class="c-g">"https://mcp.internal.company.com/sse"</span>,
+      <span class="c-p">"type"</span>: <span class="c-g">"sse"</span>
+    }
+  }
+}
+
+<span class="c-d"># 특정 서버 차단하고 싶으면</span>
+{
+  <span class="c-p">"deniedMcpServers"</span>: [<span class="c-g">"company-tools"</span>]
+}</pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.259" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- --permission-prompts none — 2026.9.3 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🤫</span>
+    <div class="card-title">
+      <h3><code>--permission-prompts none</code> — 무인 실행 시 권한 요청 전부 자동 거절<span class="new-dot"></span></h3>
+      <p>헤드리스 환경에서 권한 팝업이 뜰 상황이면 묻지도 따지지도 않고 자동 거절. CI/자동화에 딱.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="tag tag-red">자주쓰임</span><span class="date">2026.9.3 · v2.1.259</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 뭔데?</h4>
+    <p>무인(headless) 환경에서 Claude를 돌릴 때, 권한 확인이 필요한 동작이 생기면 그냥 자동으로 거절해버리는 옵션이야. 기존 Auto 모드 규칙은 그대로 적용되면서 "물어볼 수 없는 상황"에서만 추가로 거절하는 방식이라 안전해.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># CI 파이프라인이나 자동화 스크립트에서</span>
+<span class="c-p">claude</span> <span class="c-o">--permission-prompts none</span> <span class="c-g">"테스트 전체 돌려줘"</span>
+
+<span class="c-d"># Auto 모드랑 같이 쓰기</span>
+<span class="c-p">claude</span> <span class="c-o">--auto --permission-prompts none</span> <span class="c-g">"PR 리뷰해줘"</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.259" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- GitLab MR 명령어 인식 확장 — 2026.9.3 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🦊</span>
+    <div class="card-title">
+      <h3>glab MR 명령어 인식 확장 — MR 상태가 툴 요약에 바로 보임<span class="new-dot"></span></h3>
+      <p><code>glab mr create/merge/close/reopen/note/update</code>를 실행하면 MR 번호가 툴 요약에 표시되고 푸터 MR 배지도 자동 갱신.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-blue">GitLab</span><span class="tag tag-purple">개발 도구</span><span class="date">2026.9.3 · v2.1.259</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 뭔데?</h4>
+    <p>이제 Claude가 <code>glab mr</code> 명령어를 실행하면 결과를 자동으로 파싱해서 툴 콜 요약에 <code>MR !N</code> 형식으로 보여줘. 그리고 화면 하단 MR 배지도 자동으로 최신 상태로 갱신돼. GitLab 워크플로우를 Claude랑 같이 쓰는 사람한테 편함.</p>
+    <h4>인식되는 명령어</h4>
+    <ul>
+      <li><code>glab mr create</code> — MR 생성</li>
+      <li><code>glab mr merge</code> — MR 병합</li>
+      <li><code>glab mr close</code> — MR 닫기</li>
+      <li><code>glab mr reopen</code> — MR 다시 열기</li>
+      <li><code>glab mr note</code> — 코멘트 달기</li>
+      <li><code>glab mr update</code> — MR 수정</li>
+    </ul>
+    <h4>사용 예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># Claude한테 시키면 알아서 인식함</span>
+<span class="c-g">"feature 브랜치로 MR 만들어줘"</span>
+
+<span class="c-d"># 직접 실행해도 툴 요약에 MR !42 이런 식으로 표시됨</span>
+<span class="c-p">glab mr create</span> <span class="c-o">--title</span> <span class="c-g">"feat: 새 기능 추가"</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.259" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- claude plugin validate --json — 2026.9.3 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔍</span>
+    <div class="card-title">
+      <h3><code>claude plugin validate --json</code> — 플러그인 검증 결과 JSON으로 출력<span class="new-dot"></span></h3>
+      <p>검증 리포트를 JSON으로 받아서 CI 파이프라인이나 스크립트에서 바로 파싱할 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">플러그인</span><span class="tag tag-orange">자동화</span><span class="date">2026.9.3 · v2.1.259</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 뭔데?</h4>
+    <p>플러그인 배포 전에 <code>claude plugin validate</code>로 유효성 검사를 할 수 있었는데, 이제 <code>--json</code> 플래그를 붙이면 결과가 JSON 형식으로 나와. CI에서 플러그인 검증 자동화할 때 출력값을 그대로 파싱해서 쓸 수 있어.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 기본 검증</span>
+<span class="c-p">claude plugin validate</span>
+
+<span class="c-d"># JSON 형식으로 출력 (CI/스크립트용)</span>
+<span class="c-p">claude plugin validate</span> <span class="c-o">--json</span>
+
+<span class="c-d"># jq로 바로 파싱하는 예시</span>
+<span class="c-p">claude plugin validate</span> <span class="c-o">--json</span> | <span class="c-g">jq '.errors'</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.259" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- Claude Fable 5.1 출시 — 2026. 9. 2. -->
 <div class="card featured" data-cat="core">
   <div class="card-header" onclick="toggle(this)">
@@ -7583,7 +7702,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.258'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.259'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

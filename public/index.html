@@ -267,6 +267,165 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- /diff 패널 — 2025 -->
+<div class="card featured" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📊</span>
+    <div class="card-title">
+      <h3>/diff 패널 — 풀스크린에서 변경사항 실시간으로 보기<span class="new-dot"></span></h3>
+      <p>Claude가 파일 수정하는 동안 오른쪽에 diff 패널이 같이 열림. 커밋 안 된 변경사항을 대화 옆에서 바로 확인할 수 있어.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">풀스크린</span><span class="tag tag-red">자주쓰임</span><span class="date">2026.9.4 · v2.1.260</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 좋냐면</h4>
+    <p>지금까지는 Claude가 파일 수정하는 동안 무슨 변경이 일어나는지 보려면 따로 git diff 명령어를 쳐야 했어. 이제 풀스크린 모드에서 대화창 옆에 diff 패널이 자동으로 붙어서, 커밋 안 된 변경사항을 실시간으로 확인할 수 있음.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 풀스크린 모드에서 diff 패널 열기/닫기</span>
+<span class="c-p">/diff</span>
+
+<span class="c-d"># 풀스크린 진입 후 /diff로 패널 토글</span>
+<span class="c-p">/tui</span>
+<span class="c-p">/diff</span></pre>
+    <h4>참고</h4>
+    <p>풀스크린 모드(<code>/tui</code>)에서만 동작해. 패널을 닫고 싶으면 다시 <code>/diff</code> 입력하면 토글됨.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.260" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- 프롬프트 캐시 미스 원인 표시 — 2025 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔍</span>
+    <div class="card-title">
+      <h3>/cost 캐시 미스 원인 분석 — 왜 캐시가 안 됐는지 알려줌<span class="new-dot"></span></h3>
+      <p>프롬프트 캐시 미스가 났을 때 "툴 정의가 바뀌었음", "TTL 초과" 같은 구체적인 원인을 바로 보여줘.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">비용관리</span><span class="tag tag-green">실용적</span><span class="date">2026.9.4 · v2.1.260</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 좋냐면</h4>
+    <p>캐시 미스가 났을 때 그냥 "미스"라고만 알려주던 거에서 업그레이드됨. 이제 원인까지 같이 표시돼:</p>
+    <ul>
+      <li>툴 정의가 바뀐 경우</li>
+      <li>시스템 프롬프트가 변경된 경우</li>
+      <li>TTL 초과로 유휴 상태가 된 경우</li>
+    </ul>
+    <p><code>/cost</code> 명령어와 상태 표시줄의 <code>prompt_cache</code> 필드 양쪽에서 다 확인할 수 있어.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 비용 상세 + 캐시 미스 원인 확인</span>
+<span class="c-p">/cost</span>
+
+<span class="c-d"># 예시 출력</span>
+<span class="c-g">prompt_cache: miss (tool definitions changed)</span>
+<span class="c-g">prompt_cache: miss (idle past TTL)</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.260" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- /advisor 텍스트 형식 지원 — 2025 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🤝</span>
+    <div class="card-title">
+      <h3>/advisor 텍스트 명령 지원 — 데스크탑·헤드리스·Remote Control에서도 작동<span class="new-dot"></span></h3>
+      <p>이제 /advisor를 텍스트 명령으로 쓸 수 있어서 데스크탑 앱, Remote Control, Agent SDK 세션에서도 어드바이저 모델 설정이 가능해졌어.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">모델관리</span><span class="date">2026.9.4 · v2.1.260</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 어드바이저 모드 켜기 (기본 모델)</span>
+<span class="c-p">/advisor</span>
+
+<span class="c-d"># 특정 모델로 어드바이저 설정</span>
+<span class="c-p">/advisor</span> <span class="c-g">claude-opus-4-5</span>
+
+<span class="c-d"># 어드바이저 모드 끄기</span>
+<span class="c-p">/advisor off</span></pre>
+    <h4>어디서 쓸 수 있냐면</h4>
+    <ul>
+      <li>Claude Code Desktop 앱</li>
+      <li>Remote Control 세션</li>
+      <li>헤드리스(<code>-p</code>) / Agent SDK 세션</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.260" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- 권한 규칙 오타 경고 — 2025 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⚠️</span>
+    <div class="card-title">
+      <h3>잘못된 권한 규칙 자동 감지 — 조용히 무시하는 대신 에러로 알려줌<span class="new-dot"></span></h3>
+      <p>닫는 괄호 뒤에 텍스트가 붙은 권한 규칙(예: <code>Bash(ls) x</code>)은 아무것도 매칭 안 됐는데, 이제 그냥 넘어가지 않고 잘못된 설정으로 리포트해줘.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">권한관리</span><span class="tag tag-green">실용적</span><span class="date">2026.9.4 · v2.1.260</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 중요하냐면</h4>
+    <p>이런 형태의 규칙은 실제로는 아무것도 차단하거나 허용하지 않으면서 설정이 된 것처럼 보이는 문제가 있었어. 이제는 잘못된 규칙을 명시적으로 에러로 보여줘서 실수를 바로 잡을 수 있음.</p>
+    <h4>예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 이런 형식은 이제 invalid settings로 리포트됨</span>
+<span class="c-o">Bash(ls) x</span>   <span class="c-d"># ❌ 닫는 괄호 뒤에 텍스트 붙이면 안 됨</span>
+
+<span class="c-d"># 올바른 형식</span>
+<span class="c-g">Bash(ls)</span>      <span class="c-d"># ✅ 이렇게 써야 함</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.260" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- 관리형 CLAUDE.md 보안 승인 생략 — 2025 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🏢</span>
+    <div class="card-title">
+      <h3>관리형 CLAUDE.md 보안 승인 생략 — 조직 배포 설정은 이제 팝업 안 뜸<span class="new-dot"></span></h3>
+      <p>서버에서 관리하는 CLAUDE.md(<code>claudeMd</code>)는 보안 승인 다이얼로그가 더 이상 안 뜸. hooks·sandbox·unsafe env는 여전히 확인함.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">엔터프라이즈</span><span class="tag tag-orange">자동화</span><span class="date">2026.9.4 · v2.1.260</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 좋냐면</h4>
+    <p>조직 어드민이 <code>managedMcpServers</code> 같은 걸로 CLAUDE.md를 배포할 때, 팀원들마다 보안 승인 팝업이 뜨는 게 불편했어. 이제 서버 관리형 CLAUDE.md는 신뢰할 수 있는 것으로 보고 팝업을 건너뜀.</p>
+    <h4>여전히 승인 필요한 것들</h4>
+    <ul>
+      <li>Hooks 설정</li>
+      <li>shell-command 설정</li>
+      <li>sandbox 설정</li>
+      <li>unsafe <code>env</code> 설정</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.260" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- self-hosted runner --kill-session-after-min 개선 — 2025 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⏱️</span>
+    <div class="card-title">
+      <h3>self-hosted runner 대기 세션 처리 개선 — 입력 기다리는 세션은 죽이지 않음<span class="new-dot"></span></h3>
+      <p><code>--kill-session-after-min</code> 이 이제 사용자 입력을 기다리며 일시 정지된 세션은 실패 처리하지 않고 그냥 풀어줘(release). 무고한 세션이 죽는 일이 없어짐.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">self-hosted</span><span class="tag tag-orange">자동화</span><span class="date">2026.9.4 · v2.1.260</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>기존 동작 vs 변경 후</h4>
+    <ul>
+      <li>기존: 타임아웃 시 입력 대기 중인 세션도 kill + 실패 리포트</li>
+      <li>변경: 입력 대기(paused/resumable) 상태인 세션은 release만 하고 실패로 기록 안 함</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># self-hosted runner에서 세션 최대 실행 시간 설정</span>
+<span class="c-g">claude
+
 <!-- managedMcpServers — 2026.9.3 -->
 <div class="card" data-cat="dev">
   <div class="card-header" onclick="toggle(this)">
@@ -7702,7 +7861,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.259'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.260'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

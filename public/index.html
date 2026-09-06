@@ -267,6 +267,144 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- /skill-doctor — 2026. 9. 5. -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🩺</span>
+    <div class="card-title">
+      <h3>/skill-doctor — 안 쓰는 스킬 찾아내고 컨텍스트 다이어트<span class="new-dot"></span></h3>
+      <p>로드된 스킬 중에 실제로 사용 안 되는 것들을 목록으로 보여주고, 각각이 컨텍스트를 얼마나 잡아먹는지 알려줌. 불필요한 스킬 정리해서 컨텍스트 아끼자.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">명령어</span><span class="tag tag-green">실용적</span><span class="date">2026. 9. 5. · v2.1.261</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이런 상황에 유용함</h4>
+    <ul>
+      <li>스킬을 많이 설치했는데 컨텍스트가 부족하다는 느낌이 들 때</li>
+      <li>어떤 스킬이 실제로 호출되고 있는지 파악이 안 될 때</li>
+      <li>안 쓰는 스킬을 <code>disableBundledSkills</code>나 플러그인 설정으로 제거하기 전에 뭘 지울지 확인할 때</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 현재 세션에 로드된 스킬 진단</span>
+<span class="c-p">/skill-doctor</span>
+
+<span class="c-d"># 결과 예시: 사용 안 된 스킬 목록 + 컨텍스트 토큰 소모량 표시</span>
+<span class="c-d"># → 낭비 확인 후 /plugin list로 비활성화 대상 추려내기</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.261" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- bashOutputMaxChars · taskOutputMaxChars — 2026. 9. 5. -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📤</span>
+    <div class="card-title">
+      <h3>bashOutputMaxChars · taskOutputMaxChars — 명령어 출력 인라인 한도 직접 조절<span class="new-dot"></span></h3>
+      <p>셸 명령이나 백그라운드 작업 결과가 너무 길어서 파일로 저장되어버리는 게 답답했다면? 이제 최대 128K까지 직접 올릴 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">설정</span><span class="tag tag-green">실용적</span><span class="date">2026. 9. 5. · v2.1.261</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>왜 필요한 거야?</h4>
+    <p>기본 설정에서는 명령어 출력이 일정 크기를 넘으면 자동으로 파일에 저장되고 Claude는 요약만 받음. 로그가 길거나 빌드 출력 전체를 Claude한테 바로 먹이고 싶을 때 답답했는데, 이 두 값을 올리면 인라인으로 쭉 받을 수 있음.</p>
+    <h4>설정 방법 (settings.json)</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d">// ~/.claude/settings.json</span>
+{
+  <span class="c-g">"bashOutputMaxChars"</span>: <span class="c-b">65536</span>,
+  <span class="c-g">"taskOutputMaxChars"</span>: <span class="c-b">131072</span>
+}
+
+<span class="c-d">// bashOutputMaxChars: 셸 명령(Bash 툴) 출력 한도</span>
+<span class="c-d">// taskOutputMaxChars: 백그라운드 작업 출력 한도</span>
+<span class="c-d">// 둘 다 최대 128K(131072)까지 설정 가능</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.261" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- --append-subagent-system-prompt-file — 2026. 9. 5. -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📄</span>
+    <div class="card-title">
+      <h3>--append-subagent-system-prompt-file — 파일로 서브에이전트 시스템 프롬프트 주입<span class="new-dot"></span></h3>
+      <p>커맨드라인에 넣기엔 너무 긴 서브에이전트 시스템 프롬프트, 이제 파일로 넘기면 됨. CI 자동화나 복잡한 에이전트 설정에 딱 맞음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="tag tag-purple">CLI</span><span class="date">2026. 9. 5. · v2.1.261</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이런 상황에 써봐</h4>
+    <ul>
+      <li>서브에이전트에게 줄 롤/규칙/컨텍스트가 수백 줄 이상일 때</li>
+      <li>CI 파이프라인에서 프롬프트를 파일로 관리하고 싶을 때</li>
+      <li><code>--append-subagent-system-prompt</code>로는 셸 인자 길이 제한에 걸릴 때</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 프롬프트 파일 준비</span>
+<span class="c-g">echo</span> <span class="c-g">"You are a specialized security reviewer. Always check for..."</span> > agent-prompt.txt
+
+<span class="c-d"># 서브에이전트 실행 시 파일로 시스템 프롬프트 추가</span>
+<span class="c-p">claude</span> <span class="c-o">--append-subagent-system-prompt-file</span> <span class="c-g">agent-prompt.txt</span> <span class="c-g">"코드 리뷰 시작해줘"</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.261" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- 조직 정책 로드 실패 원인 표시 — 2026. 9. 5. -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🏢</span>
+    <div class="card-title">
+      <h3>/status · doctor 조직 정책 오류 원인 표시 — 왜 로드 못 했는지 이제 알 수 있음<span class="new-dot"></span></h3>
+      <p>관리형 설정이 안 불러와질 때 그냥 조용히 실패하던 게, 이제 /status와 claude doctor에서 구체적인 원인을 알려줌. 프록시 문제인지 조직 미설정인지 바로 파악 가능.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">엔터프라이즈</span><span class="tag tag-green">실용적</span><span class="date">2026. 9. 5. · v2.1.261</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라진 거야?</h4>
+    <ul>
+      <li><strong>기존:</strong> 조직 정책 로드 실패해도 원인 안 보여줌 → 막막함</li>
+      <li><strong>변경:</strong> <code>/status</code>와 <code>claude doctor</code>에 "Organization policy" 항목 추가, 실패 이유를 구체적으로 표시</li>
+      <li>예: 프록시가 해당 엔드포인트를 통과시키지 않는 경우 → 프록시 설정 문제로 명시</li>
+      <li>게이트웨이 403 오류 시: "Claude Code가 이 조직에서 활성화되지 않았을 수 있음"으로 안내 (재로그인 유도 대신)</li>
+    </ul>
+    <h4>확인 방법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 조직 정책 로드 상태 확인</span>
+<span class="c-p">/status</span>
+
+<span class="c-d"># 또는 전체 환경 진단</span>
+<span class="c-p">claude doctor</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.261" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- /context 로컬 토큰 추정 — 2026. 9. 5. -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📊</span>
+    <div class="card-title">
+      <h3>/context 오프라인 토큰 추정 — API 안 될 때도 컨텍스트 사용량 바로 확인<span class="new-dot"></span></h3>
+      <p>토큰 카운팅 API가 불가할 때 추가 소형 모델 요청 날리는 대신, 이제 로컬에서 직접 추정해서 보여줌. 더 빠르고 API 낭비도 없음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">명령어</span><span class="tag tag-green">실용적</span><span class="date">2026. 9. 5. · v2.1.261</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 좋아진 거야?</h4>
+    <ul>
+      <li>네트워크 불안정하거나 API 한도 소진된 상황에서도 <code>/context</code> 잘 작동함</li>
+      <li>기존엔 토큰 수 확인하려고 소형 모델 API 요청을 추가로 날렸는데, 이제 그 비용 없음</li>
+      <li>로컬 추정이라 약간의 오차는 있을 수 있지만 실용적인 수준</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 현재 컨텍스트 사용량 확인 (API 없어도 됨)</span>
+<span class="c-p">/context</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.261" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- /diff 패널 — 2025 -->
 <div class="card featured" data-cat="core">
   <div class="card-header" onclick="toggle(this)">
@@ -7861,7 +7999,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.260'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.263'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

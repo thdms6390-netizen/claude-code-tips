@@ -267,6 +267,57 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- --plugin-dir 폴더 단위 로딩 — 2026.9.9 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📁</span>
+    <div class="card-title">
+      <h3><code>--plugin-dir</code> 폴더째로 플러그인 로딩<span class="new-dot"></span></h3>
+      <p>폴더 하나만 가리키면 안에 있는 플러그인 전부 자동 로드. 실행 중에 추가·제거해도 바로 반영됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">플러그인</span><span class="date">2026.9.9 · v2.1.265</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 좋냐면</h4>
+    <p>기존엔 플러그인마다 URL을 따로 줘야 했는데, 이제 로컬 폴더 하나를 <code>--plugin-dir</code>로 지정하면 그 안의 <strong>모든 서브폴더(manifest 있는 것)</strong>를 자동으로 불러옴. 팀 단위로 플러그인 묶음을 관리할 때 훨씬 편함.</p>
+    <h4>핫 리로드 지원</h4>
+    <p>Claude 실행 중에 폴더 안에 플러그인을 추가하거나 지워도 <strong>재시작 없이</strong> 바로 반영됨. 플러그인 개발할 때 특히 유용.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 플러그인 폴더 전체를 한 번에 로드</span>
+<span class="c-p">claude</span> <span class="c-o">--plugin-dir</span> <span class="c-g">~/my-plugins/</span>
+
+<span class="c-d"># 폴더 구조 예시</span>
+<span class="c-g">~/my-plugins/
+  ├── code-helper/
+  │     └── plugin.json   ← 자동 로드됨
+  ├── deploy-tool/
+  │     └── plugin.json   ← 자동 로드됨
+  └── wip-plugin/         ← manifest 없으면 무시됨</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.265" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- 툴 결과 1GB 캡 + 잘림 알림 — 2026.9.9 -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">💾</span>
+    <div class="card-title">
+      <h3>툴 결과 1GB 상한 + 잘림 알림</h3>
+      <p>디스크에 저장되는 툴 결과에 1GB 상한이 생겼고, 잘렸을 때 대화에서 바로 알려줌.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">안정성</span><span class="date">2026.9.9 · v2.1.265</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>무슨 변화냐면</h4>
+    <p>거대한 빌드 로그나 DB 덤프처럼 툴이 뱉는 결과물이 디스크에 저장될 때 <strong>1GB 상한</strong>이 걸림. 한도를 넘어서 잘렸을 경우엔 대화 인라인 미리보기에서 <em>"이 파일은 잘렸어요"</em> 라고 표시해줘서 조용히 유실되는 걸 방지함.</p>
+    <h4>왜 필요하냐면</h4>
+    <p>대형 파일 작업 중 디스크가 꽉 차거나 세션이 뻗는 상황을 예방함. 특히 CI 환경이나 장시간 에이전트 작업에서 안정성이 올라감.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.265" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- /skill-doctor — 2026. 9. 5. -->
 <div class="card" data-cat="cmd">
   <div class="card-header" onclick="toggle(this)">
@@ -7999,7 +8050,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.263'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.266'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

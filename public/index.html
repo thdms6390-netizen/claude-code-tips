@@ -267,6 +267,151 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- gateway pricing sync — 2026-09-11 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">💰</span>
+    <div class="card-title">
+      <h3>게이트웨이 요금 동기화 — <code>/cost</code>랑 실제 청구액이 이제 일치<span class="new-dot"></span></h3>
+      <p>gateway.yaml에 pricing: 설정하면 Claude Code 클라이언트가 managed 설정을 통해 동일 요금을 받아서 /cost와 텔레메트리 수치가 spend meter랑 딱 맞아떨어짐.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">게이트웨이</span><span class="date">2026-09-11 · v2.1.268</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 필요해?</h4>
+    <p>기업 게이트웨이를 쓸 때 <code>/cost</code>에 표시되는 금액이랑 실제 청구 금액이 달라서 혼란스러웠는데, 이제 <code>pricing:</code> 키 하나로 완전히 맞출 수 있어.</p>
+    <h4>설정 방법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># gateway.yaml</span>
+<span class="c-g">pricing</span>:
+  <span class="c-g">input_tokens_per_million</span>: <span class="c-b">15.00</span>
+  <span class="c-g">output_tokens_per_million</span>: <span class="c-b">75.00</span></pre>
+    <h4>확인 방법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 세션 중 비용 확인</span>
+<span class="c-p">/cost</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.268" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- gateway CIDR warning — 2026-09-11 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🛡️</span>
+    <div class="card-title">
+      <h3>게이트웨이 공개 IP 접근 경고 + <code>gatewayInternalNetworks</code> — 외부 접근 모르고 열어두는 거 방지<span class="new-dot"></span></h3>
+      <p><code>allow_cidrs</code>가 비어 있으면 시작 시 경고가 뜨고, 공개 주소에서 첫 요청이 들어오면 한 번 더 알려줌. 조직 자체 IP 블록에서 /login 허용하는 <code>gatewayInternalNetworks</code> 설정도 추가됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">게이트웨이</span><span class="tag tag-red">보안</span><span class="date">2026-09-11 · v2.1.268</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떤 경고가 뜨는 거야?</h4>
+    <ul>
+      <li>게이트웨이 시작할 때 <code>access_control.allow_cidrs</code>가 비어 있으면 경고 표시</li>
+      <li>공개 IP에서 첫 번째 요청이 들어오면 일회성 경고로 알려줌</li>
+      <li>모르는 사이에 인터넷에 게이트웨이가 열려있는 상황을 조기에 발견할 수 있음</li>
+    </ul>
+    <h4>조직 자체 IP 블록 허용하기</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># managed settings (조직 관리자 설정)</span>
+<span class="c-g">gatewayInternalNetworks</span>:
+  - <span class="c-b">"203.0.113.0/24"</span>   <span class="c-d"># 조직 공개 IPv4 블록</span>
+  - <span class="c-b">"198.51.100.0/24"</span></pre>
+    <p>이 설정이 있으면 해당 IP 범위에서는 <code>/login</code>이 허용되고, 외부 요청은 여전히 차단됨.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.268" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- self-hosted-runner --remove-session-state — 2026-09-11 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🧹</span>
+    <div class="card-title">
+      <h3><code>--remove-session-state</code> — 세션 끝나면 임시 디렉토리 자동 삭제<span class="new-dot"></span></h3>
+      <p>self-hosted runner에서 세션이 종료될 때 <code>_sessions/</code> 하위 디렉토리를 자동으로 지워줌. 디스크 쌓이는 거 방지할 수 있어.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">self-hosted</span><span class="tag tag-orange">자동화</span><span class="date">2026-09-11 · v2.1.268</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>언제 쓰면 좋아?</h4>
+    <p>CI/CD나 운영 서버에서 self-hosted runner를 장기 운영할 때, 세션 데이터가 계속 쌓여서 디스크가 꽉 차는 문제가 있었어. 이 플래그 하나로 세션 종료 시 자동으로 정리됨.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 세션 종료 시 임시 디렉토리 자동 삭제</span>
+<span class="c-p">claude self-hosted-runner</span> <span class="c-o">--remove-session-state</span>
+
+<span class="c-d"># 삭제 대상: <base-dir>/_sessions/<session-id>/</span></pre>
+    <p>기본값은 off라서 기존 동작에는 영향 없어. 명시적으로 켜야 작동함.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.268" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- Bedrock/Vertex/Foundry tool list byte-stable — 2026-09-11 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔧</span>
+    <div class="card-title">
+      <h3>Bedrock·Vertex·Foundry 툴 목록 안정화 — 캐시 히트율 올라간다<span class="new-dot"></span></h3>
+      <p>대화 중 툴 목록이 바뀌어 캐시가 깨지던 문제 해결. 늦게 연결되는 MCP 툴은 deferred로 처리해서 툴 목록 바이트가 안정적으로 유지됨. 퍼스트파티 세션이랑 동일한 방식으로 맞춰짐.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">Bedrock/Vertex</span><span class="tag tag-green">성능</span><span class="date">2026-09-11 · v2.1.268</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라졌어?</h4>
+    <ul>
+      <li>기존: 대화 도중 MCP 툴이 늦게 연결되면 툴 목록이 바뀌면서 프롬프트 캐시가 무효화됨</li>
+      <li>변경: 늦게 연결되는 툴은 deferred 처리, 툴 목록 바이트가 대화 내내 안정적으로 유지됨</li>
+      <li>결과: 캐시 히트율 상승 → API 비용 절감</li>
+    </ul>
+    <h4>시스템 프롬프트도 변경됨</h4>
+    <p>Bedrock, Vertex, Foundry 세션의 시스템 프롬프트가 이제 환경·모델·설정 정보를 첨부(attachment) 형식으로 전달함. 퍼스트파티 세션이랑 완전히 동일한 방식이야.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.268" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- Todo tools Claude version restriction — 2026-09-11 -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📋</span>
+    <div class="card-title">
+      <h3>Todo 툴 지원 모델 제한 + 강제 활성화 옵션 — 구형 모델에서 Todo 쓰려면 이제 수동으로<span class="new-dot"></span></h3>
+      <p>TaskCreate/Get/Update/List, TodoWrite가 Claude 3.x, Opus 4.0~4.7, Sonnet 4.0~4.6, Haiku 4.5에서만 기본 제공됨. 다른 모델에서 쓰려면 환경변수 켜야 해.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">모델</span><span class="date">2026-09-11 · v2.1.268</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>기본 지원 모델</h4>
+    <ul>
+      <li>Claude 3.x 전체</li>
+      <li>Opus 4.0 ~ 4.7</li>
+      <li>Sonnet 4.0 ~ 4.6</li>
+      <li>Haiku 4.5</li>
+    </ul>
+    <h4>다른 모델(예: Opus 5, Fable 5 등)에서 Todo 강제 활성화</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 환경변수로 강제 활성화</span>
+<span class="c-g">CLAUDE_CODE_ENABLE_TODO_TOOLS</span>=<span class="c-b">1</span> <span class="c-p">claude</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.268" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- Artifact tool local file security — 2026-09-11 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔒</span>
+    <div class="card-title">
+      <h3>Artifact 툴 로컬 파일 보안 강화 — 세션 폴더 밖 파일은 무조건 거절<span class="new-dot"></span></h3>
+      <p>승인 생략(skip all approvals) 로컬 Cowork 세션에서 Artifact 툴이 세션 폴더 밖 파일이나 심볼릭 링크를 확인 없이 읽던 문제 수정. 이제 거절하고 알려줌.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-red">보안</span><span class="tag tag-purple">Artifact</span><span class="date">2026-09-11 · v2.1.268</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라졌어?</h4>
+    <ul>
+      <li>기존: skip-all-approvals 세션에서 Artifact 툴이 세션 폴더 외부 파일도 조용히 읽어버림</li>
+      <li>변경: 세션 폴더 밖 파일 or 심볼릭 링크 접근 시 명시적으로 거절</li
+
 <!-- maxEffortLevel — 2026. 9. 10. -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -8110,7 +8255,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.267'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.268'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

@@ -267,6 +267,165 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- v2.1.271 — 2026.09.15 -->
+
+<!-- Fast Mode in Remote Sessions -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⚡</span>
+    <div class="card-title">
+      <h3>Remote 세션에서도 Fast Mode — 클라우드·셀프호스트 모두<span class="new-dot"></span></h3>
+      <p>호스트의 Fast Mode 설정이나 세션 안에서 <code>/fast</code> 입력하면 Remote 세션에서도 빠른 응답 모드로 전환. 조직 허용 범위 내에서만 작동.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">Remote</span><span class="tag tag-red">자주쓰임</span><span class="date">2026.09.15 · v2.1.271</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 좋냐면</h4>
+    <p>Remote Control이나 self-hosted runner 세션에서는 Fast Mode가 안 됐는데, 이제 된다. 호스트 설정을 그대로 따라가거나, 세션 안에서 직접 켤 수 있음.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 세션 안에서 바로 켜기</span>
+<span class="c-p">/fast</span>
+
+<span class="c-d"># 또는 호스트 설정이 fast mode면 자동 적용</span>
+<span class="c-d"># 조직 정책으로 막혀 있으면 무시됨</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.271" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- /config 패널 마우스 지원 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🖱️</span>
+    <div class="card-title">
+      <h3>/config 패널 마우스 지원 — 클릭으로 설정 바꾸기<span class="new-dot"></span></h3>
+      <p>풀스크린 모드에서 <code>/config</code> 열면 이제 마우스 휠로 목록 스크롤하고, 값을 클릭해서 바로 변경할 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">UX</span><span class="tag tag-green">실용적</span><span class="date">2026.09.15 · v2.1.271</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라졌냐면</h4>
+    <ul>
+      <li>마우스 휠 → 설정 목록 스크롤</li>
+      <li>값 클릭 → 바로 변경</li>
+      <li>포인터 위치 행 하이라이트 → 뭘 고르는지 한눈에</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 풀스크린 모드에서</span>
+<span class="c-p">/config</span>
+<span class="c-d"># 열고 나서 마우스로 클릭·스크롤하면 됨</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.271" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- per-command allowed_domains -->
+<div class="card featured" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🌐</span>
+    <div class="card-title">
+      <h3>명령어별 allowed_domains — 샌드박스에서 딱 필요한 호스트만 열기<span class="new-dot"></span></h3>
+      <p>Auto 모드 + 샌드박싱 환경에서 Bash·PowerShell·Monitor 명령어마다 필요한 도메인만 골라서 허용. 해당 명령어가 끝나면 그 도메인도 닫힘. 다른 호스트는 무조건 거절.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">보안</span><span class="tag tag-orange">자동화</span><span class="date">2026.09.15 · v2.1.271</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 중요하냐면</h4>
+    <p>기존에는 샌드박스에서 네트워크를 전체 허용하거나 전체 차단하는 방식이었는데, 이제 명령어 단위로 필요한 도메인만 일시적으로 열 수 있음. 보안은 유지하면서 유연성 확보.</p>
+    <h4>동작 방식</h4>
+    <ul>
+      <li>명령어 실행 전 필요한 호스트 목록을 같이 리뷰</li>
+      <li>승인되면 그 명령어 실행 동안만 해당 도메인 오픈</li>
+      <li>명령어 종료 후 자동으로 다시 차단</li>
+      <li>목록 외 호스트 접근 시도 → 즉시 거절</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.271" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- omitClaudeMd 에이전트 옵션 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🚫</span>
+    <div class="card-title">
+      <h3>omitClaudeMd — 서브에이전트가 CLAUDE.md 무시하고 실행<span class="new-dot"></span></h3>
+      <p>에이전트 프론트매터나 <code>--agents</code> JSON에 <code>omitClaudeMd: true</code> 설정하면, 그 서브에이전트는 사용자·프로젝트·로컬 CLAUDE.md 없이 깨끗하게 실행됨. 관리형 정책 파일은 여전히 로드.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">에이전트</span><span class="tag tag-orange">자동화</span><span class="date">2026.09.15 · v2.1.271</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>언제 쓰냐면</h4>
+    <p>커스텀 플러그인 서브에이전트나 특수 목적 에이전트를 만들 때, 프로젝트의 CLAUDE.md가 에이전트 동작에 영향 주는 게 싫을 때. 에이전트 자체 시스템 프롬프트만으로 순수하게 돌리고 싶을 때.</p>
+    <h4>설정 예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 에이전트 프론트매터에 추가</span>
+<span class="c-g">---
+name: my-agent
+omitClaudeMd: true
+---</span>
+
+<span class="c-d"># --agents JSON으로 넘길 때</span>
+<span class="c-p">claude</span> <span class="c-o">--agents</span> <span class="c-g">'{"omitClaudeMd": true, ...}'</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.271" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- Monitor 데드라인 강제 적용 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⏱️</span>
+    <div class="card-title">
+      <h3>Monitor 워치 타임아웃 강제화 — 무한 감시는 이제 없음<span class="new-dot"></span></h3>
+      <p>Monitor 워치에 이제 무조건 타임아웃이 붙음. 일반 세션은 최대 30분, <code>-p</code> 단일 프롬프트 실행은 최대 10분. 기존 <code>persistent</code> 무제한 옵션 폐지.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">Monitor</span><span class="tag tag-orange">자동화</span><span class="date">2026.09.15 · v2.1.271</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>왜 바뀐 거냐면</h4>
+    <p>무제한 <code>persistent</code> 감시가 리소스를 잡아먹는 경우가 있었음. 이제 타임아웃이 지나면 Claude에게 "다시 감시 시작해"라고 알림 → 필요하면 재-arm해서 계속 쓸 수 있음.</p>
+    <h4>타임아웃 기준</h4>
+    <ul>
+      <li>일반 세션: <strong>최대 30분</strong></li>
+      <li><code>claude -p</code> 단일 프롬프트 실행: <strong>최대 10분</strong></li>
+      <li>타임아웃 후 → Claude에 재-arm 알림 전송</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.271" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- Auto Mode 인라인 셸 명령 규칙 변경 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔄</span>
+    <div class="card-title">
+      <h3>Auto Mode 인라인 <code>!</code> 명령 — 분류기 대신 기본 권한 규칙 적용<span class="new-dot"></span></h3>
+      <p>스킬·슬래시 명령 안에 있는 인라인 <code>!</code> 셸 명령은 이제 Auto 분류기가 아닌 기본 모드 권한 규칙을 따름. 기존 규칙으로 결정 못 하면 리뷰 대상 툴 콜로 처리.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">Auto Mode</span><span class="tag tag-orange">자동화</span><span class="date">2026.09.15 · v2.1.271</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라졌냐면</h4>
+    <ul>
+      <li>스킬 안 <code>! some-command</code> → 분류기가 아니라 기본 권한 규칙으로 판단</li>
+      <li>규칙으로 결정 안 되면 → 리뷰 대상 툴 콜로 올라옴</li>
+      <li>기존에 분류기가 조용히 허용하던 것들이 이제 명시적 승인 요청이 올 수 있음</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.271" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- Dynamic Workflow 기본값 변경 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📉</span>
+    <div class="card-title">
+      <h3>Pro 플랜 Dynamic Workflow 기본값 → small — 에이전트 수 기준도 낮아짐<span class="new-dot"></span></h3>
+      <p>Pro 플랜에서 Dynamic Workflow 기본 사이즈가 <code>small</code>로 변경. medium 사이즈 기준선도 15개 → 10개 에이전트로 하향.</p>
+      <div class="card-tags"><span class="tag tag-pink">변경</span><span class="tag tag-purple">Workflow</span><span class="tag tag-orange">자동화</span><span
+
 <!-- claude plugin eval — 2026.9.12 -->
 <div class="card" data-cat="dev">
   <div class="card-header" onclick="toggle(this)">
@@ -8410,7 +8569,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.270'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.272'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

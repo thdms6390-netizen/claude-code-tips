@@ -267,6 +267,87 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- v2.1.273 — 2026. 9. 16. -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📡</span>
+    <div class="card-title">
+      <h3>게이트웨이 힌트 헤더 — LLM 게이트웨이에 컨텍스트 정보 넘기기<span class="new-dot"></span></h3>
+      <p>요청 클래스, 에이전트 타입, 툴 소요 시간, 컴팩션 여부 등을 게이트웨이에 자동으로 전달. 옵트인으로 활성화.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">개발 도구</span><span class="date">2026. 9. 16. · v2.1.273</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떤 헤더가 추가됐어?</h4>
+    <ul>
+      <li><code>x-claude-code-request-class</code> — 요청 종류 분류</li>
+      <li><code>x-claude-code-agent-type</code> — 에이전트 타입</li>
+      <li><code>x-claude-code-prev-tool-durations</code> — 이전 툴 소요 시간</li>
+      <li><code>x-claude-code-compaction</code> — 컴팩션 설정 여부</li>
+      <li><code>x-claude-code-context-compacted</code> — 실제로 컴팩션됐는지 여부</li>
+    </ul>
+    <h4>왜 유용해?</h4>
+    <p>자체 LLM 게이트웨이를 운영하는 팀에서 Claude Code 요청을 세밀하게 라우팅하거나 모니터링할 때 쓸 수 있어. 기존엔 요청만 들어오고 컨텍스트를 알 방법이 없었는데, 이제 게이트웨이 쪽에서 Claude 내부 상태를 파악할 수 있음.</p>
+    <h4>활성화 방법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 환경변수로 옵트인</span>
+<span class="c-b">CLAUDE_CODE_GATEWAY_HINT_HEADERS</span>=<span class="c-g">1</span> claude</pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.273" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- v2.1.273 — 2026. 9. 16. -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔌</span>
+    <div class="card-title">
+      <h3>MCP 연결 끊김 알림 — 재연결 포기하면 바로 알려줌<span class="new-dot"></span></h3>
+      <p>세션 도중 MCP 서버가 꺼지고 자동 재연결도 실패하면, 이제 조용히 넘어가지 않고 알림 + /mcp 안내를 띄워줌.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">MCP</span><span class="tag tag-red">자주쓰임</span><span class="date">2026. 9. 16. · v2.1.273</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이전엔 어땠어?</h4>
+    <p>MCP 서버가 중간에 죽어도 Claude Code가 별다른 표시 없이 계속 진행하다가, 툴 호출할 때 갑자기 오류가 나는 경우가 있었어. 왜 실패했는지 파악이 어려웠음.</p>
+    <h4>이제는?</h4>
+    <p>서버 연결이 끊기고 재연결 시도도 모두 실패하면 스트림에 알림이 뜨고, <code>/mcp</code>로 서버 상태를 확인하라고 안내해줘. 문제 파악이 훨씬 빠름.</p>
+    <h4>연결 상태 확인</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># MCP 서버 상태 확인</span>
+<span class="c-p">/mcp</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.273" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- v2.1.273 — 2026. 9. 16. -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🌿</span>
+    <div class="card-title">
+      <h3>Remote Control 세션 포크 — 앱에서 시작한 세션을 로컬 백그라운드로 분기<span class="new-dot"></span></h3>
+      <p>Claude 앱이나 <code>--remote-control</code>로 시작한 세션을 포크하면, 복사본이 내 컴퓨터에서 백그라운드 세션으로 돌아감.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="tag tag-orange">Remote Control</span><span class="date">2026. 9. 16. · v2.1.273</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떤 상황에 쓰면 좋아?</h4>
+    <p>Claude 앱에서 대화하다가 "이거 좀 길게 돌려야겠는데?" 싶을 때, 포크해서 로컬 백그라운드 세션으로 넘겨버릴 수 있어. 앱 창 닫아도 로컬에서 계속 실행됨.</p>
+    <h4>사용법</h4>
+    <ul>
+      <li><code>claude --remote-control</code> 또는 <code>/remote-control</code>로 시작한 세션에서 포크 선택</li>
+      <li>포크된 세션은 로컬 컴퓨터의 백그라운드 세션으로 전환</li>
+      <li><code>claude agents</code>에서 실행 중인 세션 목록 확인 가능</li>
+    </ul>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># Remote Control 세션 시작</span>
+<span class="c-p">claude</span> <span class="c-o">--remote-control</span>
+
+<span class="c-d"># 실행 중인 에이전트 목록 확인</span>
+<span class="c-p">claude agents</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.273" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- v2.1.271 — 2026.09.15 -->
 
 <!-- Fast Mode in Remote Sessions -->
@@ -8569,7 +8650,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.272'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.273'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

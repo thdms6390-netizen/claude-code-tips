@@ -267,6 +267,132 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- v2.1.275 — 2026. 9. 18. -->
+
+<!-- 큐 메시지 즉시 전송 -->
+<div class="card featured" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⚡</span>
+    <div class="card-title">
+      <h3>큐 메시지 즉시 전송 — Ctrl+Enter로 지금 바로 보내기<span class="new-dot"></span></h3>
+      <p>응답 기다리는 중에 쌓인 메시지, 단축키 하나로 한꺼번에 보낼 수 있음. 보낸 메시지는 회색으로 표시돼서 모델이 받았는지도 바로 확인 가능.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-red">자주쓰임</span><span class="date">2026. 9. 18. · v2.1.275</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이런 거야</h4>
+    <p>Claude가 응답하는 중에도 메시지를 계속 입력해서 큐에 쌓아둘 수 있는데, 기존엔 그냥 차례 기다려야 했음. 이제 <strong>Ctrl+Enter</strong> (또는 <strong>Ctrl+X Ctrl+S</strong>) 누르면 현재 턴을 끊고 쌓인 메시지를 전부 한꺼번에 전송함.</p>
+    <h4>상태 표시</h4>
+    <ul>
+      <li>전송됐거나 큐에 있는 메시지는 <strong>회색</strong>으로 표시</li>
+      <li>모델이 수신하면 정상 색상으로 돌아옴</li>
+      <li>긴 작업 중간에 방향 수정하고 싶을 때 특히 유용함</li>
+    </ul>
+    <h4>단축키</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 현재 턴 중단 + 큐 메시지 전부 전송</span>
+<span class="c-b">Ctrl+Enter</span>
+<span class="c-d"># 또는 이것도 동일하게 작동</span>
+<span class="c-b">Ctrl+X Ctrl+S</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.275" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- claude.ai 스킬·플러그인 터미널 자동 동기화 -->
+<div class="card featured" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔄</span>
+    <div class="card-title">
+      <h3>claude.ai 스킬·플러그인 터미널 자동 동기화 — 웹에서 켠 거 그대로 쓰기<span class="new-dot"></span></h3>
+      <p>claude.ai 계정으로 로그인한 터미널 세션에서 웹에서 활성화한 스킬·플러그인이 자동으로 동기화됨. 따로 설정 안 해도 됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="date">2026. 9. 18. · v2.1.275</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이런 거야</h4>
+    <p>claude.ai 계정으로 터미널에 로그인하면, 웹에서 켜둔 스킬·플러그인 설정이 자동으로 터미널 세션에도 반영됨. 환경 따라 설정 두 번 할 필요 없어짐.</p>
+    <h4>동기화 끄고 싶으면</h4>
+    <p>스킬이랑 플러그인 각각 독립적으로 끌 수 있음. 터미널에서만 다른 구성을 유지하고 싶을 때 사용.</p>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># CLAUDE.md 또는 settings.json에 추가</span>
+<span class="c-d"># 스킬 동기화 끄기</span>
+<span class="c-g">syncClaudeAiSkills</span>: <span class="c-o">false</span>
+
+<span class="c-d"># 플러그인 동기화 끄기</span>
+<span class="c-g">syncClaudeAiPlugins</span>: <span class="c-o">false</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.275" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- npm 플러그인 보안 강화 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔒</span>
+    <div class="card-title">
+      <h3>npm 플러그인 설치 보안 강화 — install 스크립트 실행 차단<span class="new-dot"></span></h3>
+      <p>npm 소스 플러그인을 <code>npm pack --ignore-scripts</code>로 가져오고 무결성 검증까지 함. 악성 install 스크립트가 몰래 실행되는 걸 막을 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">보안</span><span class="date">2026. 9. 18. · v2.1.275</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>왜 중요해?</h4>
+    <p>npm 패키지는 <code>postinstall</code> 같은 install 스크립트에 임의 코드를 넣을 수 있음. 기존엔 플러그인 설치 시 이 스크립트가 그냥 실행됐는데, 이제는 <strong>완전히 차단</strong>됨.</p>
+    <h4>변경된 방식</h4>
+    <ul>
+      <li><code>npm pack --ignore-scripts</code>로 패키지 내용만 가져옴</li>
+      <li>다운로드 후 <strong>무결성 검증</strong>까지 자동으로 수행</li>
+      <li>별도 설정 없이 자동 적용 — 기존에 설치한 플러그인도 다음 업데이트 시 적용</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.275" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- otelHeadersHelper 실패 경고 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📡</span>
+    <div class="card-title">
+      <h3>otelHeadersHelper 실패 시 시작 경고 — 텔레메트리 조용히 사라지는 거 방지<span class="new-dot"></span></h3>
+      <p>설정한 <code>otelHeadersHelper</code>가 실패하면 세션 시작 시 바로 경고를 띄워줌. 텔레메트리가 몰래 수집 안 되고 있는 상황을 이제 바로 알 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-blue">개발 도구</span><span class="date">2026. 9. 18. · v2.1.275</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이런 거야</h4>
+    <p>OpenTelemetry 헤더를 동적으로 주입하는 <code>otelHeadersHelper</code>를 설정해뒀는데 실패하면, 기존엔 그냥 조용히 텔레메트리 수집이 안 됐음. 이제 세션 시작 시 <strong>경고 메시지</strong>가 뜨니까 바로 확인하고 고칠 수 있음.</p>
+    <h4>관련 설정</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># settings.json — otelHeadersHelper 설정 예시</span>
+{
+  <span class="c-g">"otelHeadersHelper"</span>: <span class="c-o">"./scripts/otel-headers.sh"</span>
+}
+<span class="c-d"># 이 스크립트가 실패하면 시작 시 경고 표시</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.275" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- 게이트웨이 로그인 계정 확인 -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔑</span>
+    <div class="card-title">
+      <h3>게이트웨이 로그인 계정 확인 — 저장 전에 내가 맞는지 확인하기<span class="new-dot"></span></h3>
+      <p>Claude 앱 게이트웨이 로그인 시 어떤 계정으로 인증되는지 표시해줌. 확인 후 저장하고, <code>/status</code>에서도 확인 가능.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">보안</span><span class="date">2026. 9. 18. · v2.1.275</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이런 거야</h4>
+    <p>게이트웨이가 계정 이름을 알려주면 로그인 전에 <strong>내 계정이 맞는지 확인하는 단계</strong>가 생김. 확인 후에야 크리덴셜이 저장되고, <code>/status</code>에서도 현재 로그인된 계정 이름을 볼 수 있음.</p>
+    <h4>확인 방법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 로그인된 게이트웨이 계정 확인</span>
+<span class="c-p">/status</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.275" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- v2.1.274 — 2026.09.17 -->
 <div class="card" data-cat="core">
   <div class="card-header" onclick="toggle(this)">
@@ -8772,7 +8898,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.274'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.276'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

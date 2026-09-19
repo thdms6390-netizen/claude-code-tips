@@ -267,6 +267,93 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- Auto mode server-side classifier — 2026.09.19 -->
+<div class="card featured" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⚡</span>
+    <div class="card-title">
+      <h3>Auto Mode 서버사이드 분류기 기본 전환 — 분류기 비용이 사라진다<span class="new-dot"></span></h3>
+      <p>Claude API·엔터프라이즈·Bedrock·Vertex·Foundry·게이트웨이 모두 서버사이드 분류기가 기본값으로 바뀜. 분류기 오버헤드 요금 없이 Auto Mode 쓸 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="tag tag-red">자주쓰임</span><span class="date">2026.09.19 · v2.1.278</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라졌냐</h4>
+    <ul>
+      <li>Auto Mode 분류기가 이제 서버에서 돌아감 → 클라이언트 쪽 분류기 오버헤드 요금 없음</li>
+      <li>Bedrock·Vertex·Foundry·게이트웨이 사용자도 동일하게 적용</li>
+      <li>청구 가능한 폴백(fallback)이 발생하면 경고를 띄워줌 — 조용히 과금되는 거 방지</li>
+      <li><code>CLAUDE_CODE_AUTO_MODE_SERVER=0</code> 으로 옵트아웃 가능 (Bedrock·Vertex·Foundry·게이트웨이만)</li>
+    </ul>
+    <h4>/status에서 확인하기</h4>
+    <p>이번 업데이트로 <code>/status</code> 화면에 <strong>Auto mode server</strong> 행이 추가됨. 현재 세션의 분류기가 서버에서 돌고 있는지 클라이언트에서 돌고 있는지 바로 확인 가능.</p>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-p">/status</span>
+<span class="c-d"># Auto mode server 행에서 현재 분류기 위치 확인</span>
+
+<span class="c-d"># Bedrock/Vertex/Foundry/게이트웨이에서 서버사이드 분류기 끄고 싶으면</span>
+<span class="c-g">CLAUDE_CODE_AUTO_MODE_SERVER</span>=<span class="c-o">0</span> claude</pre>
+    <h4>요금 관련 자세한 내용</h4>
+    <p>분류기 청구 방식 변경에 대한 공식 문서: <a href="https://code.claude.com/docs/en/auto-mode-classifier-billing" target="_blank">Auto Mode Classifier Billing →</a></p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.278" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- AGENTS.md 지원 — 2026.09.19 -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📄</span>
+    <div class="card-title">
+      <h3>AGENTS.md 지원 — CLAUDE.md 없으면 AGENTS.md 자동으로 읽음<span class="new-dot"></span></h3>
+      <p>다른 AI 에이전트 도구들이랑 프로젝트 지시 파일을 공유할 수 있게 됨. CLAUDE.md가 없는 프로젝트면 AGENTS.md를 대신 읽어줌.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">핵심기능</span><span class="tag tag-green">실용적</span><span class="date">2026.09.19 · v2.1.277</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떻게 동작하냐</h4>
+    <ul>
+      <li>프로젝트 루트에 <code>CLAUDE.md</code>가 없으면 <code>AGENTS.md</code>를 자동으로 프로젝트 지시로 읽음</li>
+      <li>Cursor, Copilot, Devin 같은 다른 AI 도구와 같은 지시 파일을 공유할 수 있음</li>
+      <li><code>/config</code>의 "Project instructions" 항목에서 어떤 파일을 쓸지 바꿀 수 있음</li>
+      <li>⚠️ Bedrock·Vertex·Foundry는 아직 미지원</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># CLAUDE.md가 없는 프로젝트에서 AGENTS.md 만들면 자동으로 읽힘</span>
+<span class="c-g">echo</span> <span class="c-o">"# 프로젝트 지시\n항상 TypeScript로 작성할 것"</span> > AGENTS.md
+
+<span class="c-d"># /config에서 현재 어떤 파일을 쓰는지 확인·변경 가능</span>
+<span class="c-p">/config</span>
+<span class="c-d"># → "Project instructions" 항목에서 파일 경로 확인</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.277" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- 서브에이전트 결과 헤더 격리 — 2026.09.19 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🛡️</span>
+    <div class="card-title">
+      <h3>서브에이전트 결과 격리 강화 — 악성 텍스트가 지시로 둔갑하는 거 차단<span class="new-dot"></span></h3>
+      <p>서브에이전트 결과물이 메인 에이전트에 전달될 때 명확한 헤더로 구분됨. 서브에이전트 결과 속 텍스트가 세션 지시로 오해받는 프롬프트 인젝션 위험을 막아줌.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="tag tag-red">보안</span><span class="date">2026.09.19 · v2.1.277</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>왜 중요하냐</h4>
+    <ul>
+      <li>서브에이전트가 외부 데이터(웹 크롤링, 파일 읽기 등)를 처리할 때 악의적인 텍스트가 포함될 수 있음</li>
+      <li>기존엔 그 텍스트가 메인 에이전트의 지시처럼 해석될 위험이 있었음 (프롬프트 인젝션)</li>
+      <li>이제 서브에이전트 결과는 "서브에이전트 출력"임을 명시하는 헤더 아래 들여쓰기로 전달됨</li>
+      <li>Workflow 스크립트의 <code>agent()</code> 프롬프트도 스크립트가 작성한 텍스트로 명확히 프레이밍 — 안전 분류기가 유저 입력으로 오해 안 함</li>
+    </ul>
+    <h4>실제 차이</h4>
+    <p>멀티 에이전트로 외부 콘텐츠를 처리하는 워크플로우를 쓰고 있다면 이 변경으로 더 안전하게 실행됨. 별도로 설정할 게 없고 자동 적용.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.277" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- v2.1.275 — 2026. 9. 18. -->
 
 <!-- 큐 메시지 즉시 전송 -->
@@ -8898,7 +8985,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.276'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.278'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

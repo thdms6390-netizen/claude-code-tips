@@ -267,6 +267,99 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- Claude Opus 5.5 출시 — v2.1.280 -->
+<div class="card featured" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🧠</span>
+    <div class="card-title">
+      <h3>Claude Opus 5.5 출시 — 새 기본 Opus 모델<span class="new-dot"></span></h3>
+      <p>1M 컨텍스트에 캐시 읽기 $0.20/Mtok. Pro·Team 스탠다드 플랜도 이제 기본 모델이 Opus야.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">모델</span><span class="tag tag-red">자주쓰임</span><span class="date">2026.09.23 · v2.1.280</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라졌냐</h4>
+    <ul>
+      <li>모델 ID: <code>claude-opus-5-5</code></li>
+      <li>컨텍스트 윈도우: <strong>1M 토큰</strong></li>
+      <li>가격: 입력 $4 / 출력 $20 (per Mtok), 캐시 읽기 <strong>$0.20/Mtok</strong> — 캐시 효율 훨씬 좋아짐</li>
+      <li>Pro·Team Standard 플랜 기본 모델이 Sonnet → Opus로 격상. Max·Team Premium·Enterprise랑 이제 같아짐</li>
+    </ul>
+    <h4>모델 직접 지정하고 싶으면</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># CLI에서 바로 지정</span>
+<span class="c-p">claude</span> <span class="c-o">--model</span> <span class="c-g">claude-opus-5-5</span>
+
+<span class="c-d"># 세션 중에 모델 변경</span>
+<span class="c-p">/model</span> <span class="c-g">claude-opus-5-5</span></pre>
+    <h4>에포트 레벨 초기화 동작 변경</h4>
+    <p>Opus 5.5처럼 새로 출시된 모델은 이전에 저장된 에포트 레벨을 물려받지 않아. 해당 모델을 처음 쓸 때 기본값으로 시작하고, 네가 직접 <code>/effort</code>로 설정해줘야 해. Opus 4.7·4.8·Fable 5도 <code>-p</code>, Agent SDK, 프로젝트·관리형 설정에서 강제로 적용되던 기본 에포트가 더 이상 고정되지 않아.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.280" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- CLAUDE_CODE_MAX_MCP_DESCRIPTION_LENGTH — v2.1.280 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📏</span>
+    <div class="card-title">
+      <h3>CLAUDE_CODE_MAX_MCP_DESCRIPTION_LENGTH — MCP 툴 설명 길이 상한 조절<span class="new-dot"></span></h3>
+      <p>기본 2,048자 캡을 늘리거나 줄여서 MCP 툴 설명이 컨텍스트 먹는 양 직접 제어하는 거.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-blue">MCP</span><span class="date">2026.09.23 · v2.1.280</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>언제 쓰냐</h4>
+    <ul>
+      <li>MCP 서버 툴 설명이 길어서 컨텍스트가 빨리 차는 경우 → 줄여서 절약</li>
+      <li>반대로 설명이 짤려서 Claude가 툴을 잘못 쓰는 경우 → 늘려서 풀어주기</li>
+      <li>세션 전체 MCP 서버·툴 설명 + 서버 instructions에 모두 적용돼</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 설명 길이 상한을 4096자로 늘리기</span>
+<span class="c-b">CLAUDE_CODE_MAX_MCP_DESCRIPTION_LENGTH</span>=<span class="c-g">4096</span> <span class="c-p">claude</span>
+
+<span class="c-d"># 기본값 (2048자)</span>
+<span class="c-b">CLAUDE_CODE_MAX_MCP_DESCRIPTION_LENGTH</span>=<span class="c-g">2048</span> <span class="c-p">claude</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.280" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- PermissionRequest 훅 agent 타입 제거 — v2.1.280 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔒</span>
+    <div class="card-title">
+      <h3>PermissionRequest 훅 agent 타입 제거 — 권한 훅 동작 명확화<span class="new-dot"></span></h3>
+      <p>agent 타입 훅은 권한 요청을 허용·거절할 수 없어서 에러로 안내해줌. command·http 훅을 써야 해.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="tag tag-purple">Hooks</span><span class="date">2026.09.23 · v2.1.280</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 바뀌었냐</h4>
+    <ul>
+      <li>기존: <code>PermissionRequest</code> 훅에 <code>agent</code> 타입을 달아도 조용히 무시됐음</li>
+      <li>변경: 이제 에러 메시지로 명확하게 알려줌 — "agent 훅은 여기서 허용/거절 불가, command나 http 훅 써"</li>
+      <li>권한 요청을 실제로 제어하려면 반드시 <strong>command 훅</strong> 또는 <strong>http 훅</strong>을 써야 해</li>
+    </ul>
+    <h4>올바른 PermissionRequest 훅 설정 예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># .claude/settings.json</span>
+{
+  <span class="c-g">"hooks"</span>: {
+    <span class="c-g">"PermissionRequest"</span>: [
+      {
+        <span class="c-g">"type"</span>: <span class="c-g">"command"</span>,  <span class="c-d">// ✅ command 또는 http만 가능</span>
+        <span class="c-g">"command"</span>: <span class="c-g">"my-permission-check.sh"</span>
+      }
+    ]
+  }
+}</pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.280" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- Auto mode server-side classifier — 2026.09.19 -->
 <div class="card featured" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -8985,7 +9078,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.278'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.280'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

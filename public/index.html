@@ -267,6 +267,178 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- Claude apps gateway desktop policy 확장 — 2026.9.24 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🏢</span>
+    <div class="card-title">
+      <h3>게이트웨이 Desktop 정책 확장 — 새 보안 옵션 추가<span class="new-dot"></span></h3>
+      <p>Claude Desktop 키에서 작업 디렉토리 외부 읽기 차단, 권한 우회 모드 비활성화 옵션이 desktop 정책 블록에 추가됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">게이트웨이</span><span class="date">2026.9.24 · v2.1.281</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>추가된 정책 옵션</h4>
+    <ul>
+      <li><code>blockReadsOutsideWorkingDirectories</code> — 작업 디렉토리 밖 파일 읽기 차단</li>
+      <li><code>disableBypassPermissionsMode</code> — 권한 우회 모드 자체를 비활성화</li>
+      <li>조직 어드민이 Claude Desktop 키에 대해 게이트웨이 수준에서 강제 적용 가능</li>
+    </ul>
+    <h4>설정 예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># Claude apps gateway 정책 블록 예시</span>
+<span class="c-g">desktop</span>:
+  <span class="c-g">blockReadsOutsideWorkingDirectories</span>: <span class="c-b">true</span>
+  <span class="c-g">disableBypassPermissionsMode</span>: <span class="c-b">true</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.281" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- assume_role on Bedrock upstreams — 2026.9.24 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔑</span>
+    <div class="card-title">
+      <h3>게이트웨이 Bedrock assume_role — IAM 역할로 요청 위임<span class="new-dot"></span></h3>
+      <p>게이트웨이가 STS로 IAM 역할을 assume해서 Bedrock을 호출하는 거. 다른 AWS 계정도 되고, 개발자별 세션도 가능.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">게이트웨이</span><span class="tag tag-orange">자동화</span><span class="date">2026.9.24 · v2.1.281</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 좋냐면</h4>
+    <ul>
+      <li>게이트웨이가 직접 크리덴셜 들고 있는 대신 STS로 역할을 위임받아서 Bedrock 호출</li>
+      <li>다른 AWS 계정에 있는 Bedrock도 접근 가능</li>
+      <li>개발자마다 별도 세션으로 격리할 수 있음 (감사·비용 추적에 유리)</li>
+    </ul>
+    <h4>설정 예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># Bedrock upstream에 assume_role 설정</span>
+<span class="c-g">bedrock_upstream</span>:
+  <span class="c-g">assume_role</span>: <span class="c-b">arn:aws:iam::123456789012:role/ClaudeGatewayRole</span>
+  <span class="c-g">per_developer_session</span>: <span class="c-b">true</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.281" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- Bedrock guardrail on gateway — 2026.9.24 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🛡️</span>
+    <div class="card-title">
+      <h3>게이트웨이 Bedrock guardrail — 모든 요청에 가드레일 적용<span class="new-dot"></span></h3>
+      <p>Amazon Bedrock 가드레일을 게이트웨이 upstream에 설정하면 해당 upstream을 통하는 모든 요청에 자동 적용됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">게이트웨이</span><span class="tag tag-red">보안</span><span class="date">2026.9.24 · v2.1.281</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>동작 방식</h4>
+    <ul>
+      <li><code>guardrail: {id, version}</code>을 Bedrock upstream에 설정</li>
+      <li>해당 upstream으로 들어오는 모든 Claude 요청에 Bedrock 가드레일이 적용됨</li>
+      <li>모든 Bedrock upstream에 설정하거나 전부 안 하거나 — 둘 중 하나여야 함 (혼용 불가)</li>
+    </ul>
+    <h4>설정 예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># Bedrock upstream에 guardrail 적용</span>
+<span class="c-g">bedrock_upstream</span>:
+  <span class="c-g">guardrail</span>:
+    <span class="c-g">id</span>: <span class="c-b">my-guardrail-id</span>
+    <span class="c-g">version</span>: <span class="c-b">1</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.281" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- attribution false 설정 — 2026.9.24 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔕</span>
+    <div class="card-title">
+      <h3>"attribution": false — 커밋·PR 출처 표시 전부 숨기기<span class="new-dot"></span></h3>
+      <p>settings.json에 한 줄이면 Claude가 만든 커밋·PR에 붙는 attribution 링크가 전부 사라짐.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">설정</span><span class="date">2026.9.24 · v2.1.281</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>사용법</h4>
+    <ul>
+      <li><code>settings.json</code>에 <code>"attribution": false</code> 추가하면 됨</li>
+      <li>구버전 CLI는 이 설정이 담긴 파일을 스킵하니까, 팀 공유 파일이라면 객체 형태로 유지할 것</li>
+    </ul>
+    <h4>설정 예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># settings.json</span>
+{
+  <span class="c-g">"attribution"</span>: <span class="c-b">false</span>
+}</pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.281" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- MCP URL-mode elicitation — 2026.9.24 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🌐</span>
+    <div class="card-title">
+      <h3>MCP URL 모드 Elicitation — 브라우저 흐름으로 중간 질문 처리<span class="new-dot"></span></h3>
+      <p>2026-07-28 프로토콜 연결에서 MCP 서버가 브라우저 기반 흐름을 열도록 요청할 수 있음. 확인 불가 시 대화상자를 남기지 않고 깔끔하게 처리.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-blue">MCP</span><span class="date">2026.9.24 · v2.1.281</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>달라진 점</h4>
+    <ul>
+      <li>MCP 서버가 elicitation(중간 질문)을 요청할 때 브라우저 기반 플로우로 연결 가능</li>
+      <li>서버 측에서 완료 확인 방법이 없을 때 대기 다이얼로그가 화면에 남지 않음</li>
+      <li>2026-07-28 프로토콜 연결에서만 동작</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.281" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- claude plugin validate MCP 체크 — 2026.9.24 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔍</span>
+    <div class="card-title">
+      <h3>claude plugin validate MCP 서버 체크 — 문제 있는 설정 미리 잡기<span class="new-dot"></span></h3>
+      <p>플러그인 validate 실행 시 .mcp.json 항목도 같이 점검. 조용히 드롭되는 항목, 선언 안 된 환경변수 참조, 안전하지 않은 URL까지 다 걸러줌.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-blue">MCP</span><span class="tag tag-purple">플러그인</span><span class="date">2026.9.24 · v2.1.281</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이제 뭘 잡아주냐면</h4>
+    <ul>
+      <li>로드 시 조용히 드롭되는 <code>.mcp.json</code> 항목</li>
+      <li>선언되지 않은 <code>${user_config.*}</code> 참조</li>
+      <li>안전하지 않은 URL (http 등)</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 플러그인 + MCP 설정 한번에 점검</span>
+<span class="c-p">claude plugin validate</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.281" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- /insights auto mode 추천 — 2026.9.24 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">💡</span>
+    <div class="card-title">
+      <h3>/insights Auto Mode 추천 — 권한 팝업 몇 개나 줄일 수 있는지 알려줌<span class="new-dot"></span></h3>
+      <p>/insights 실행하면 최근 세션 분석해서 Auto Mode 켰을 때 얼마나 많은 권한 팝업을 자동 처리했을지 추정해줌.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">명령어</span><span class="tag tag-green">실용적</span><span class="date">2026.9.24 · v2.1.281</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이런 분들께 유용</h4>
+    <ul>
+      <li>권한 팝업이 너무 많아서 Auto Mode 전환을 고민 중인 분</li>
+      <li>실제 데이터 기반으로 전환 효과를 미리 확인하고 싶은 분
+
 <!-- Claude Opus 5.5 출시 — v2.1.280 -->
 <div class="card featured" data-cat="core">
   <div class="card-header" onclick="toggle(this)">
@@ -9078,7 +9250,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.280'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.281'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

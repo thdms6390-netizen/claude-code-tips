@@ -267,6 +267,141 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- v2.1.282 — 2026-09-25 -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📏</span>
+    <div class="card-title">
+      <h3>maxProseWidth — 넓은 터미널에서 글 너비 제한<span class="new-dot"></span></h3>
+      <p>코드·표는 꽉 채우고, 본문 텍스트만 지정한 너비로 잘라서 읽기 편하게.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">UI</span><span class="date">2026-09-25 · v2.1.282</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 필요해?</h4>
+    <p>와이드 터미널(예: 4K 모니터, tmux 창 최대화)에서 Claude 답변이 한 줄에 꽉 늘어지면 읽기 힘들었잖아. <code>maxProseWidth</code>를 설정하면 본문은 그 너비 안에서 자동 줄 바꿈하고, 코드 블록·표는 기존처럼 전체 너비를 그대로 써.</p>
+    <h4>설정 방법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># settings.json에 추가</span>
+{
+  <span class="c-g">"maxProseWidth"</span>: <span class="c-b">100</span>
+}</pre>
+    <h4>동작 방식</h4>
+    <ul>
+      <li>본문(prose): <code>maxProseWidth</code> 값 기준으로 줄 바꿈</li>
+      <li>코드 블록 / 표: 영향 없음, 터미널 전체 너비 그대로 사용</li>
+      <li>설정 안 하면 기존 동작 유지</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.282" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- v2.1.282 — 2026-09-25 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📡</span>
+    <div class="card-title">
+      <h3>프로젝트 설정 텔레메트리 무시 알림 — 조용히 꺼지는 거 이제 알 수 있음<span class="new-dot"></span></h3>
+      <p>settings 파일에 있는 텔레메트리 변수가 무시되거나 꺼져 있으면 시작 시 경고 + <code>/status</code>·<code>doctor</code>에서 바로 확인.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">개발 도구</span><span class="date">2026-09-25 · v2.1.282</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>무슨 상황이야?</h4>
+    <p>프로젝트나 로컬 settings 파일에 <code>CLAUDE_CODE_ENABLE_TELEMETRY</code>, <code>OTEL_LOG_*</code> 같은 OpenTelemetry 관련 변수를 넣어도, 이제는 그 값이 <strong>무시되거나 텔레메트리를 끄는 방향</strong>이면 Claude Code가 조용히 씹지 않고 명확하게 알려줘.</p>
+    <h4>어디서 확인해?</h4>
+    <ul>
+      <li>시작 시 콘솔에 notice 출력</li>
+      <li><code>/status</code> 명령어 결과에 목록 표시</li>
+      <li><code>claude doctor</code> 실행 시 진단 항목에 포함</li>
+    </ul>
+    <h4>왜 이렇게 바뀐 거야?</h4>
+    <p>보안 정책 상 텔레메트리 내보내기 설정, 엔드포인트 지정, 콘텐츠 캡처 같은 옵션은 프로젝트 레벨 settings에서는 적용 안 되도록 바뀌었어. 그동안은 그냥 조용히 무시됐는데, 이제는 왜 안 되는지 바로 알 수 있음.</p>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 상태 확인</span>
+<span class="c-p">/status</span>
+
+<span class="c-d"># 또는 doctor로 진단</span>
+<span class="c-p">claude doctor</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.282" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- v2.1.282 — 2026-09-25 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🌐</span>
+    <div class="card-title">
+      <h3>allowClaudeInChromeWithManagedMcp — Chrome 통합과 MCP 동시에 쓰기<span class="new-dot"></span></h3>
+      <p>관리형 MCP 설정이 독점 모드여도 <code>claude --chrome</code>을 허용하는 관리자 설정 추가.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="tag tag-blue">Chrome</span><span class="date">2026-09-25 · v2.1.282</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라진 거야?</h4>
+    <p>조직에서 <code>managed-mcp.json</code>을 독점(exclusive) 모드로 배포하면, 기존엔 <code>claude --chrome</code>이 차단됐어. 이제 관리자가 <code>allowClaudeInChromeWithManagedMcp: true</code>를 설정하면 둘을 동시에 쓸 수 있어.</p>
+    <p>그리고 Chrome이 차단됐을 때 에러 메시지에 이제 <strong>정확히 어떤 설정 때문에 막혔는지</strong> 이름이 나와서 디버깅이 쉬워짐.</p>
+    <h4>관리자 설정 예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># managed-settings.json</span>
+{
+  <span class="c-g">"allowClaudeInChromeWithManagedMcp"</span>: <span class="c-b">true</span>
+}</pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.282" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- v2.1.282 — 2026-09-25 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔐</span>
+    <div class="card-title">
+      <h3>관리형 설정 보안 강화 — 잘못된 정책이 있으면 하위 설정 전부 차단<span class="new-dot"></span></h3>
+      <p>Windows/WSL 환경에서 관리자 정책이 비정상이면 사용자 설정도 적용 안 되도록 강화.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="tag tag-red">보안</span><span class="date">2026-09-25 · v2.1.282</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떻게 바뀐 거야?</h4>
+    <p>Windows/WSL 환경에서 HKLM 레지스트리나 <code>managed-settings.json</code>에 관리자 정책이 <strong>존재하지만 유효하지 않거나 읽을 수 없는 상태</strong>면, 이제 사용자 레벨 설정(<code>HKCU</code>, WSL <code>/etc/claude-code</code>)도 같이 적용 안 돼.</p>
+    <h4>왜 이게 중요해?</h4>
+    <ul>
+      <li>정책이 깨진 틈을 타서 사용자가 제한을 우회하는 상황 방지</li>
+      <li>기업 환경에서 정책 일관성 보장</li>
+      <li>정책 파일이 손상됐을 때 조용히 넘어가지 않고 명확하게 차단</li>
+    </ul>
+    <p>엔터프라이즈·팀 환경에서 Claude Code 보안 정책 관리하는 분들은 꼭 확인해두기.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.282" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- v2.1.282 — 2026-09-25 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🏷️</span>
+    <div class="card-title">
+      <h3>anthropic-skills / claude-ai 네임스페이스 보안 강화 — 진짜 동기화 스킬만 허용<span class="new-dot"></span></h3>
+      <p>claude.ai에서 동기화된 스킬만 해당 네임스페이스 권한을 가져. 이름만 같다고 통과 안 됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="tag tag-red">보안</span><span class="date">2026-09-25 · v2.1.282</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라졌어?</h4>
+    <p>기존엔 <code>Skill(anthropic-skills:*)</code> 또는 <code>Skill(claude-ai:*)</code> 이름을 가진 어떤 플러그인이든 해당 allow 규칙의 적용을 받을 수 있었어. 이제는 <strong>실제로 claude.ai에서 동기화된 스킬만</strong> 해당 규칙을 적용받아.</p>
+    <h4>같이 바뀐 것들</h4>
+    <ul>
+      <li><code>anthropic-skills</code> 또는 <code>claude-ai</code> 네임스페이스 이름의 스킬 폴더·커맨드 파일·워크플로우는 이제 로드 자체를 안 함</li>
+      <li>같은 이름의 플러그인은 여전히 로드되지만, 동기화 스킬과 이름 충돌 시 동기화 스킬이 우선</li>
+      <li>MCP 서버를 <code>anthropic-skills</code> / <code>claude-ai</code>로 설정하면 스킬·프롬프트 목록이 나오지 않아 (툴은 그대로 작동). 목록 보려면 서버 이름 바꾸기</li>
+    </ul>
+    <h4>영향받는 경우</h4>
+    <p>직접 만든 플러그인이나 MCP 서버 이름이 <code>anthropic-skills</code> 또는 <code>claude-ai</code>면 다른 이름으로 바꿔야 해.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.282" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- Claude apps gateway desktop policy 확장 — 2026.9.24 -->
 <div class="card" data-cat="dev">
   <div class="card-header" onclick="toggle(this)">
@@ -9250,7 +9385,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.281'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.282'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

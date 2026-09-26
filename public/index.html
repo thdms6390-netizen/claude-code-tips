@@ -267,6 +267,147 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- x-claude-code-prompt-id 힌트 헤더 확장 — 2026.9.26 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔗</span>
+    <div class="card-title">
+      <h3>게이트웨이 프롬프트 ID 헤더 — 요청 묶음을 게이트웨이가 구분할 수 있음<span class="new-dot"></span></h3>
+      <p>하나의 유저 프롬프트가 만든 요청들을 LLM 게이트웨이가 그룹으로 묶을 수 있게 <code>x-claude-code-prompt-id</code> 헤더를 추가. 옵트인으로 켜야 함.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">게이트웨이</span><span class="date">2026.9.26 · v2.1.283</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 필요해?</h4>
+    <p>Claude Code는 하나의 프롬프트를 처리하면서 여러 API 요청을 날리는데, 게이트웨이 입장에서는 이게 서로 관련 있는 요청인지 알 방법이 없었음. 이제 <code>x-claude-code-prompt-id</code> 헤더를 통해 같은 프롬프트에서 나온 요청들을 게이트웨이가 묶어서 볼 수 있음.</p>
+    <h4>켜는 법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 환경변수로 옵트인</span>
+<span class="c-b">CLAUDE_CODE_GATEWAY_HINT_HEADERS</span>=<span class="c-g">1</span> claude
+
+<span class="c-d"># 또는 shell profile에 영구 설정</span>
+<span class="c-p">export</span> <span class="c-b">CLAUDE_CODE_GATEWAY_HINT_HEADERS</span>=<span class="c-g">1</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.283" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- availableModelsMatch + deniedModels — 2026.9.26 -->
+<div class="card featured" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔒</span>
+    <div class="card-title">
+      <h3>모델 허용목록 정밀 제어 — 버전 고정 + 특정 모델 차단까지<span class="new-dot"></span></h3>
+      <p><code>availableModelsMatch: "exact"</code>로 정확한 버전만 허용하고, <code>deniedModels</code>로 허용목록 안에서도 특정 모델을 추가 차단할 수 있음. 조직 보안·규정 준수에 딱.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">보안</span><span class="tag tag-orange">관리형 설정</span><span class="date">2026.9.26 · v2.1.283</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 추가됐어?</h4>
+    <ul>
+      <li><strong>availableModelsMatch: "exact"</strong> — <code>availableModels</code>에 명시한 정확한 버전만 허용. 새 릴리즈가 나와도 목록에 추가하기 전까지는 자동으로 막힘.</li>
+      <li><strong>deniedModels</strong> — <code>availableModels</code>가 허용한 모델 중에서도 특정 모델을 추가로 차단. 화이트리스트 안에서 블랙리스트 만들기.</li>
+    </ul>
+    <h4>관리형 설정 예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># managed policy JSON</span>
+{
+  <span class="c-g">"availableModels"</span>: [<span class="c-g">"claude-opus-5-20260101"</span>, <span class="c-g">"claude-fable-5-20260101"</span>],
+  <span class="c-g">"availableModelsMatch"</span>: <span class="c-g">"exact"</span>,  <span class="c-d">// 정확한 버전만 허용</span>
+  <span class="c-g">"deniedModels"</span>: [<span class="c-g">"claude-fable-5-20260101"</span>]  <span class="c-d">// 그 중 Fable은 차단</span>
+}</pre>
+    <h4>언제 쓰면 좋아?</h4>
+    <p>모델이 업데이트될 때마다 자동으로 최신 버전이 적용되는 걸 막고 싶을 때, 또는 규정상 특정 모델 사용이 금지된 팀에서 쓰면 딱임.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.283" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- OTEL tool.output 확장 — 2026.9.26 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📡</span>
+    <div class="card-title">
+      <h3>OTEL 툴 출력 수집 확장 — MCP·웹 검색 결과도 다 잡힌다<span class="new-dot"></span></h3>
+      <p>MCP 툴, WebFetch, WebSearch의 출력까지 <code>tool.output</code> OpenTelemetry 스팬 이벤트에 포함. <code>OTEL_LOG_TOOL_CONTENT=1</code>로 옵트인.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-blue">OpenTelemetry</span><span class="tag tag-purple">모니터링</span><span class="date">2026.9.26 · v2.1.283</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>기존과 뭐가 달라?</h4>
+    <p>기존에는 Claude 응답만 OTEL로 수집할 수 있었는데, 이제 MCP 툴 결과, 웹 페이지 가져오기 결과, 웹 검색 결과까지 전부 <code>tool.output</code> 스팬에 기록됨. 어디서 어떤 데이터를 가져왔는지 추적하기 훨씬 좋아짐.</p>
+    <h4>켜는 법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 툴 출력 내용 OTEL 수집 활성화</span>
+<span class="c-b">OTEL_LOG_TOOL_CONTENT</span>=<span class="c-g">1</span> claude
+
+<span class="c-d"># 기존 OTEL 설정과 같이 쓰기</span>
+<span class="c-b">OTEL_EXPORTER_OTLP_ENDPOINT</span>=<span class="c-g">http://localhost:4318</span> \
+<span class="c-b">OTEL_LOG_TOOL_CONTENT</span>=<span class="c-g">1</span> claude</pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.283" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- /doctor prompt-audit — 2026.9.26 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🩺</span>
+    <div class="card-title">
+      <h3>/doctor prompt-audit — CLAUDE.md·스킬·에이전트 프롬프트 구식 패턴 자동 점검<span class="new-dot"></span></h3>
+      <p>옛날 모델 기준으로 쓴 프롬프트 패턴을 자동으로 찾아서 알려줌. CLAUDE.md, 스킬, 에이전트, 커맨드 파일 전부 다 확인해줌.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-red">자주쓰임</span><span class="tag tag-purple">진단</span><span class="date">2026.9.26 · v2.1.283</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 유용해?</h4>
+    <p>모델이 업데이트되면서 예전에는 효과적이던 프롬프트 작성 방식이 구형이 되거나 역효과를 내는 경우가 있음. <code>/doctor prompt-audit</code>를 실행하면 내 설정 파일들에서 최신 모델에 맞지 않는 패턴을 찾아서 뭘 어떻게 바꾸면 좋은지 알려줌.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 프롬프트 패턴 감사 실행</span>
+<span class="c-p">/doctor</span> <span class="c-g">prompt-audit</span>
+
+<span class="c-d"># 별칭으로도 가능</span>
+<span class="c-p">/checkup</span> <span class="c-g">prompt-audit</span></pre>
+    <h4>점검 대상</h4>
+    <ul>
+      <li>CLAUDE.md 파일 (프로젝트·글로벌 전부)</li>
+      <li>스킬 파일</li>
+      <li>에이전트 정의 파일</li>
+      <li>커맨드 파일</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.283" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- 제3자 프로바이더 자동 Auto Mode — 2026.9.26 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⚡</span>
+    <div class="card-title">
+      <h3>서드파티 프로바이더 기본값 → Auto Mode — 설정 없으면 이제 자동으로<span class="new-dot"></span></h3>
+      <p>Bedrock·Vertex 같은 서드파티 프로바이더나 텔레메트리 꺼진 환경에서 권한 모드가 설정 안 됐으면 이제 자동으로 Auto Mode로 시작함. <code>permissions.defaultMode</code>로 여전히 덮어쓸 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="tag tag-blue">Bedrock/Vertex</span><span class="date">2026.9.26 · v2.1.283</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 바뀐 거야?</h4>
+    <p>기존에는 서드파티 프로바이더 환경에서 권한 모드를 명시하지 않으면 Manual Mode로 시작해서 매번 권한 팝업이 떴음. 이제는 모드 설정이 없으면 자동으로 Auto Mode로 시작하니까 훨씬 편해짐.</p>
+    <h4>직접 모드 고정하고 싶다면</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># settings.json 또는 관리형 설정에서 고정</span>
+{
+  <span class="c-g">"permissions"</span>: {
+    <span class="c-g">"defaultMode"</span>: <span class="c-g">"manual"</span>  <span class="c-d">// "auto" | "manual" | "plan"</span>
+  }
+}</pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.283" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- load_test_mode 게이트웨이 — 2026.9.26 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🧪</span>
+    <div class
+
 <!-- v2.1.282 — 2026-09-25 -->
 <div class="card" data-cat="core">
   <div class="card-header" onclick="toggle(this)">
@@ -9385,7 +9526,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.282'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.283'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

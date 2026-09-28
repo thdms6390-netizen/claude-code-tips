@@ -267,6 +267,178 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- Claude Sonnet 5.5 출시 — 2026. 9. 29. -->
+<div class="card featured" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">✨</span>
+    <div class="card-title">
+      <h3>Claude Sonnet 5.5 출시 — 새 기본 Sonnet 모델<span class="new-dot"></span></h3>
+      <p>1M 컨텍스트에 캐시 리드 $0.20/Mtok. Anthropic API 기본 Sonnet이 5.5로 교체됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">모델</span><span class="tag tag-red">자주쓰임</span><span class="date">2026. 9. 29. · v2.1.284</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 바뀌었냐면</h4>
+    <ul>
+      <li>모델명: <code>claude-sonnet-5-5</code></li>
+      <li>컨텍스트 윈도우: 1M 토큰</li>
+      <li>가격: 입력 $2 / 출력 $10 per Mtok, 캐시 리드 $0.20/Mtok</li>
+      <li>Anthropic API 사용 시 별도 설정 없이 자동으로 5.5로 시작됨</li>
+    </ul>
+    <h4>모델 명시해서 쓰기</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 환경변수로 고정</span>
+<span class="c-b">ANTHROPIC_DEFAULT_MODEL</span>=<span class="c-g">claude-sonnet-5-5</span> claude
+
+<span class="c-d"># 세션 시작할 때 지정</span>
+claude <span class="c-o">--model</span> <span class="c-g">claude-sonnet-5-5</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.284" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- Auto Mode 기본값 전면 확대 — 2026. 9. 29. -->
+<div class="card featured" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🤖</span>
+    <div class="card-title">
+      <h3>Auto Mode 기본값 전면 확대 — 이제 모든 플랜·프로바이더에서<span class="new-dot"></span></h3>
+      <p>권한 모드 설정 안 해도 인터랙티브 터미널과 VS Code가 자동으로 auto mode로 시작됨. 조직 설정으로 덮어쓰기 가능.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="tag tag-red">자주쓰임</span><span class="date">2026. 9. 29. · v2.1.284</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 바뀌었냐면</h4>
+    <ul>
+      <li>이전: 플랜·프로바이더마다 기본 권한 모드가 달랐음</li>
+      <li>이제: <code>permissions.defaultMode</code> 설정이 없으면 <strong>무조건 auto mode</strong>로 시작</li>
+      <li>Bedrock, Vertex, Foundry 포함 모든 프로바이더 적용</li>
+      <li>VS Code 세션도 동일하게 적용됨</li>
+    </ul>
+    <h4>원래대로 Manual로 고정하고 싶으면</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># CLAUDE.md 또는 settings.json에서</span>
+{
+  <span class="c-g">"permissions"</span>: {
+    <span class="c-g">"defaultMode"</span>: <span class="c-g">"manual"</span>
+  }
+}</pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.284" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- Ultracode 독립 토글 — 2026. 9. 29. -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⚡</span>
+    <div class="card-title">
+      <h3>Ultracode 독립 토글 — 에포트 레벨과 분리됨<span class="new-dot"></span></h3>
+      <p>이전엔 Ultracode가 xhigh 에포트를 강제했지만, 이제 어느 에포트 레벨에서든 독립적으로 켜고 끌 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">명령어</span><span class="date">2026. 9. 29. · v2.1.284</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 바뀌었냐면</h4>
+    <ul>
+      <li>Ultracode가 <code>/effort</code> 슬라이더에서 별도 토글로 분리됨</li>
+      <li>Tab 키로 on/off 전환, xhigh 에포트 강제 없음</li>
+      <li>에포트 레벨 바꿔도 Ultracode 설정 유지됨</li>
+      <li>키바인딩도 새로 추가: <code>toggleUltracode</code>, <code>increaseEffort</code>, <code>decreaseEffort</code></li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 슬래시 명령어로</span>
+<span class="c-p">/effort ultracode on</span>
+<span class="c-p">/effort ultracode off</span>
+
+<span class="c-d"># keybindings.json에서 키 바인딩 커스텀</span>
+{
+  <span class="c-g">"key"</span>: <span class="c-g">"ctrl+u"</span>,
+  <span class="c-g">"command"</span>: <span class="c-g">"toggleUltracode"</span>
+}</pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.284" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- /usage 게이트웨이 지출 달러 표시 — 2026. 9. 29. -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">💵</span>
+    <div class="card-title">
+      <h3>/usage 게이트웨이 지출 달러 금액 표시 — 얼마 썼는지 바로 보임<span class="new-dot"></span></h3>
+      <p>Claude apps 게이트웨이에서 <code>/usage</code>와 상태바에 "$271.40 / $500.00 spent this month" 식으로 실제 달러 금액이 뜸.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">명령어</span><span class="tag tag-green">실용적</span><span class="date">2026. 9. 29. · v2.1.284</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 추가됐냐면</h4>
+    <ul>
+      <li><code>/usage</code> 패널에 실제 달러 금액 표시 (게이트웨이 v2.1.284 이상 필요)</li>
+      <li>상태바에도 현재 사용액 / 한도 실시간 표시</li>
+      <li>API 응답에 <code>used_usd</code>, <code>limit_usd</code>, <code>period</code> 필드 추가</li>
+      <li>팀 지출 한도 관리할 때 숫자 바로 확인 가능</li>
+    </ul>
+    <h4>확인하는 법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 인터랙티브 터미널에서</span>
+<span class="c-p">/usage</span>
+
+<span class="c-d"># 상태바에서 실시간으로 보임</span>
+<span class="c-g">$271.40 / $500.00 spent this month</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.284" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- /mcp reconnect all — 2026. 9. 29. -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔌</span>
+    <div class="card-title">
+      <h3>/mcp reconnect all — 끊긴 MCP 서버 한 번에 재연결<span class="new-dot"></span></h3>
+      <p>실패하거나 인증이 필요한 MCP 서버를 하나씩 재연결할 필요 없이 한 방에 전부 재시도 가능.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-blue">MCP</span><span class="tag tag-green">실용적</span><span class="date">2026. 9. 29. · v2.1.284</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>언제 쓰냐면</h4>
+    <ul>
+      <li>여러 MCP 서버가 한꺼번에 연결 실패했을 때</li>
+      <li>인증 토큰 갱신하고 전부 다시 인증해야 할 때</li>
+      <li>네트워크 끊겼다 복구된 후 빠르게 재연결할 때</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 모든 실패한 MCP 서버 한 번에 재연결</span>
+<span class="c-p">/mcp reconnect all</span>
+
+<span class="c-d"># 특정 서버만 재연결</span>
+<span class="c-p">/mcp reconnect</span> <span class="c-g">서버이름</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.284" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- 작업 디렉토리 밖 읽기 "이번만 허용" — 2026. 9. 29. -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📂</span>
+    <div class="card-title">
+      <h3>"이번만 허용" 옵션 추가 — 작업 디렉토리 밖 파일 읽기 세분화<span class="new-dot"></span></h3>
+      <p>Auto mode에서 작업 디렉토리 밖 파일에 처음 접근할 때 "Yes, but ask again next time" 선택지가 생겼음. 그냥 허용하는 거랑 달리 다음번엔 또 물어봄.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="tag tag-green">실용적</span><span class="date">2026. 9. 29. · v2.1.284</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>선택지가 어떻게 되냐면</h4>
+    <ul>
+      <li><strong>Yes, allow always</strong> — 이 경로는 앞으로 계속 허용</li>
+      <li><strong>Yes, but ask again next time</strong> — 이번 한 번만 허용, 다음엔 또 물어봄 (신규)</li>
+      <li><strong>No</strong> — 거절</li>
+    </ul>
+    <h4>이럴 때 유용함</h4>
+    <ul>
+      <li>임시로 <code>~/secrets.env</code> 같은 파일 한 번만 읽게 해줄 때</li>
+      <li>매번 허용하긴 부담스럽지만 이번 작업엔 필요할 때</li>
+
 <!-- x-claude-code-prompt-id 힌트 헤더 확장 — 2026.9.26 -->
 <div class="card" data-cat="dev">
   <div class="card-header" onclick="toggle(this)">
@@ -9526,7 +9698,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.283'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.284'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

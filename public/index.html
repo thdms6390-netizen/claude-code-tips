@@ -267,6 +267,167 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- CLAUDE_CODE_DISABLE_WEB_FETCH — 2026.9.30 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🚫</span>
+    <div class="card-title">
+      <h3>CLAUDE_CODE_DISABLE_WEB_FETCH — WebFetch 툴 완전히 끄기<span class="new-dot"></span></h3>
+      <p>환경변수 하나로 WebFetch 툴을 비활성화할 수 있음. 네트워크 격리 환경이나 보안 정책이 엄격한 팀에서 유용.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">보안</span><span class="date">2026.9.30 · v2.1.285</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이런 상황에 쓰면 됨</h4>
+    <ul>
+      <li>인터넷 접근이 차단된 에어갭 환경에서 Claude 돌릴 때</li>
+      <li>조직 정책상 외부 URL 요청을 아예 막아야 할 때</li>
+      <li>WebFetch 없이 순수 파일·코드 작업만 시키고 싶을 때</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 세션 시작 전에 설정</span>
+<span class="c-b">export</span> <span class="c-g">CLAUDE_CODE_DISABLE_WEB_FETCH</span>=<span class="c-p">1</span>
+<span class="c-p">claude</span>
+
+<span class="c-d"># 또는 한 줄로</span>
+<span class="c-g">CLAUDE_CODE_DISABLE_WEB_FETCH</span>=<span class="c-p">1</span> <span class="c-p">claude</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.285" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- claude --desktop — 2026.9.30 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🖥️</span>
+    <div class="card-title">
+      <h3>claude --desktop — 터미널에서 데스크탑 앱 바로 열기<span class="new-dot"></span></h3>
+      <p>CLI에서 <code>--desktop</code> 플래그를 쓰면 현재 디렉토리 기준으로 Claude 데스크탑 앱이 열림. 세션 이어받기도 지원.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">CLI</span><span class="tag tag-green">실용적</span><span class="date">2026.9.30 · v2.1.285</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떻게 동작하냐면</h4>
+    <ul>
+      <li>그냥 <code>claude --desktop</code> 치면 현재 디렉토리로 데스크탑 앱이 열림</li>
+      <li><code>--continue</code>랑 같이 쓰면 마지막 세션 이어받기</li>
+      <li><code>--resume &lt;id&gt;</code>로 특정 세션 지목해서 앱에서 바로 열기</li>
+      <li>터미널에서 앱으로 컨텍스트 넘기는 게 한 줄로 끝남</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 현재 디렉토리로 데스크탑 앱 열기</span>
+<span class="c-p">claude</span> <span class="c-o">--desktop</span>
+
+<span class="c-d"># 마지막 세션 이어받기</span>
+<span class="c-p">claude</span> <span class="c-o">--desktop</span> <span class="c-o">--continue</span>
+
+<span class="c-d"># 특정 세션 ID로 열기</span>
+<span class="c-p">claude</span> <span class="c-o">--desktop</span> <span class="c-o">--resume</span> <span class="c-g">세션ID</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.285" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- claude plugin configure — 2026.9.30 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔧</span>
+    <div class="card-title">
+      <h3>claude plugin configure — 플러그인 옵션 보고 바로 설정하기<span class="new-dot"></span></h3>
+      <p>플러그인 설치 후 어떤 옵션이 있는지 확인하고, stdin으로 값을 바로 넣을 수 있음. 설치 시점에 MCP 서버 설정도 한 번에.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">플러그인</span><span class="tag tag-green">실용적</span><span class="date">2026.9.30 · v2.1.285</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라지냐면</h4>
+    <ul>
+      <li><code>claude plugin configure &lt;플러그인&gt;</code>으로 옵션 목록과 미설정 항목 바로 확인</li>
+      <li><code>--values-stdin</code>으로 stdin에서 값 읽어서 저장 — 스크립트 자동화에 딱</li>
+      <li>설치할 때 <code>--config server.key=value</code>로 MCP 서버 설정 같이 넣기 가능</li>
+      <li><code>/plugin → Configure</code> 들어갈 필요 없이 설치부터 설정까지 한 번에 끝남</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 플러그인 옵션 목록 보기</span>
+<span class="c-p">claude plugin configure</span> <span class="c-g">my-plugin</span>
+
+<span class="c-d"># stdin으로 값 저장</span>
+<span class="c-p">echo</span> <span class="c-g">'{"apiKey":"abc123"}'</span> | <span class="c-p">claude plugin configure</span> <span class="c-g">my-plugin</span> <span class="c-o">--values-stdin</span>
+
+<span class="c-d"># 설치 시점에 MCP 서버 설정 같이 넣기</span>
+<span class="c-p">claude plugin install</span> <span class="c-g">my-plugin.mcpb</span> <span class="c-o">--config</span> <span class="c-g">server.token=mytoken</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.285" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- allowedProviders — 2026.9.30 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔒</span>
+    <div class="card-title">
+      <h3>allowedProviders — 조직이 허용할 API 프로바이더 직접 지정<span class="new-dot"></span></h3>
+      <p>관리형 설정으로 팀 전체가 쓸 수 있는 API 프로바이더를 화이트리스트로 제한할 수 있음. Bedrock만, 또는 특정 게이트웨이만 허용하는 식.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">보안</span><span class="tag tag-orange">엔터프라이즈</span><span class="date">2026.9.30 · v2.1.285</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>허용 가능한 프로바이더 목록</h4>
+    <ul>
+      <li>Anthropic API (기본)</li>
+      <li>커스텀 엔드포인트 (자체 게이트웨이)</li>
+      <li>Bedrock / Vertex AI / Foundry</li>
+      <li>Mantle / Claude Platform on AWS / Cloud gateway</li>
+    </ul>
+    <h4>관리형 설정 예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># managed-settings.json</span>
+{
+  <span class="c-g">"allowedProviders"</span>: [
+    <span class="c-p">"bedrock"</span>,
+    <span class="c-p">"vertex"</span>
+  ]
+}</pre>
+    <p>이 설정이 있으면 팀원이 다른 프로바이더로 요청을 보내려 해도 차단됨. 데이터 레지던시가 중요한 조직에 딱.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.285" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- 백그라운드 Bash 타임아웃 — 2026.9.30 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⏱️</span>
+    <div class="card-title">
+      <h3>백그라운드 Bash·PowerShell 타임아웃 강제화 — 무한 실행은 이제 없음<span class="new-dot"></span></h3>
+      <p>백그라운드로 돌리는 셸 명령에 자동 시간 제한이 생겼음. 기본 30분, 최대 2시간. 종료되면 Claude가 바로 통보받음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="tag tag-orange">안정성</span><span class="date">2026.9.30 · v2.1.285</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떻게 동작하냐면</h4>
+    <ul>
+      <li><code>run_in_background</code>로 실행한 Bash·PowerShell 명령에 자동으로 시간 제한 적용</li>
+      <li>기본값 30분, 최대 2시간까지 <code>timeout</code> 파라미터로 설정 가능</li>
+      <li>시간 초과로 종료되면 Claude 세션에 즉시 알림 — 조용히 사라지지 않음</li>
+      <li>장시간 빌드·테스트 루프가 폭주해도 세션이 안 죽음</li>
+    </ul>
+    <h4>참고</h4>
+    <p>기존에 타임아웃 없이 돌리던 백그라운드 스크립트가 있다면 2시간 이내에 끝나도록 조정하거나, 여러 단계로 나눠서 실행하는 게 좋음.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.285" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- 1M 컨텍스트 커스텀 base URL — 2026.9.30 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📡</span>
+    <div class="card-title">
+      <h3>커스텀 게이트웨이에서도 1M 컨텍스트 — ANTHROPIC_BASE_URL 세션 업그레이드<span class="new-dot"></span></h3>
+      <p>자체 게이트웨이(<code>ANTHROPIC_BASE_URL</code>) 쓰는 세션도 이제 Opus 4.7+·Sonnet 5+·Fable의 1M 컨텍스트 창을 자동으로 활용함.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">게이트웨이</span><span class="tag tag-green">실용적</span><span class="date">2026.9.30 · v2.1.285</span></div>
+    </div>
+    <span class="card-arrow">›
+
 <!-- Claude Sonnet 5.5 출시 — 2026. 9. 29. -->
 <div class="card featured" data-cat="core">
   <div class="card-header" onclick="toggle(this)">
@@ -9698,7 +9859,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.284'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.285'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

@@ -267,6 +267,150 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- $.ui.selection() — 2026-10-03 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🖱️</span>
+    <div class="card-title">
+      <h3>$.ui.selection() — Mod에서 선택 텍스트 바로 잡기<span class="new-dot"></span></h3>
+      <p>풀스크린에서 마지막으로 선택한 텍스트와 해당 트랜스크립트 행을 Mod에서 바로 읽을 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">Mods</span><span class="date">2026-10-03 · v2.1.288</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 뭔데?</h4>
+    <p>풀스크린 TUI에서 텍스트를 드래그로 선택하면, Mod 코드에서 <code>$.ui.selection()</code>으로 그 값을 받아올 수 있어. 선택 범위가 트랜스크립트 한 행 안에 있으면 해당 행 객체도 같이 반환됨. 선택한 내용을 기반으로 동작하는 컨텍스트 인식 커맨드를 만들기 딱 좋아.</p>
+    <h4>사용법 (Mod 코드 예시)</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># Mod에서 현재 선택된 텍스트 가져오기</span>
+<span class="c-p">const</span> <span class="c-g">sel</span> = <span class="c-b">$.ui.selection()</span>
+<span class="c-d"># sel.text → 선택된 텍스트</span>
+<span class="c-d"># sel.row  → 해당 트랜스크립트 행 (한 행 안에 있을 때만)</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.288" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- Ctrl+C 후 Up 복구 — 2026-10-03 -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">↩️</span>
+    <div class="card-title">
+      <h3>Ctrl+C로 지운 프롬프트 — Up 키로 되살리기<span class="new-dot"></span></h3>
+      <p>실수로 Ctrl+C 눌러서 날아간 입력, 이제 Up 키 한 번으로 복구됨. 붙여넣은 텍스트·이미지도 그대로.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-red">자주쓰임</span><span class="date">2026-10-03 · v2.1.288</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이런 상황 알지?</h4>
+    <p>길게 입력하다가 Ctrl+C 눌러서 다 날려버린 경험, 이제 없어도 돼. 빈 프롬프트 상태에서 <kbd>↑</kbd>를 누르면 직전에 Ctrl+C로 지운 초안이 그대로 복원됨. 붙여넣기로 넣은 이미지나 긴 텍스트도 함께 돌아와.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 프롬프트 입력 중 실수로 Ctrl+C 눌렀을 때</span>
+<span class="c-d"># 빈 프롬프트에서 Up 키 누르면 초안 복구</span>
+<span class="c-p">^C</span>  <span class="c-d">→ 입력 날아감</span>
+<span class="c-p">↑</span>   <span class="c-d">→ 초안 복원 (이미지 포함)</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.288" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- /code-review --max-findings — 2026-10-03 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔍</span>
+    <div class="card-title">
+      <h3>/code-review --max-findings — 리뷰 결과 수 직접 조절<span class="new-dot"></span></h3>
+      <p>기본 한도보다 더 많이 또는 적게 받고 싶을 때 n이나 all로 딱 지정할 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">코드리뷰</span><span class="date">2026-10-03 · v2.1.288</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>왜 필요해?</h4>
+    <p>기존 <code>/code-review</code>는 결과 수가 고정돼 있었어. 이제 <code>--max-findings</code> 플래그로 몇 개까지 받을지 직접 정할 수 있어. 설정한 값은 다음에 <code>default</code>를 넘길 때까지 계속 유지됨.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 최대 20개만 받기</span>
+<span class="c-p">/code-review</span> <span class="c-o">--max-findings</span> <span class="c-g">20</span>
+
+<span class="c-d"># 전부 다 받기</span>
+<span class="c-p">/code-review</span> <span class="c-o">--max-findings</span> <span class="c-g">all</span>
+
+<span class="c-d"># 기본값으로 초기화</span>
+<span class="c-p">/code-review</span> <span class="c-o">--max-findings</span> <span class="c-g">default</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.288" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- agents 뷰 Ctrl+F 검색 + Alt+↑↓ 그룹 점프 — 2026-10-03 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔎</span>
+    <div class="card-title">
+      <h3>agents 뷰 Ctrl+F 검색 + Alt+↑↓ 그룹 점프<span class="new-dot"></span></h3>
+      <p>세션이 많아도 이름으로 바로 찾고, Alt+화살표로 그룹 간 빠르게 이동 가능.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-red">자주쓰임</span><span class="date">2026-10-03 · v2.1.288</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>agents 뷰 내비게이션 대폭 강화</h4>
+    <ul>
+      <li><strong>Ctrl+F</strong>: 세션 이름으로 검색, Enter 누르면 가장 잘 맞는 세션으로 바로 이동</li>
+      <li><strong>Alt+↑ / Alt+↓</strong>: 그룹(워크스페이스 단위 등) 사이를 한 번에 점프</li>
+      <li><strong>n: 필터</strong>: 기존 이름 필터도 동일하게 최적 매칭 우선으로 개선</li>
+      <li>Ctrl+F, Alt+화살표, 이름 바꾸기 단축키 모두 keybindings.json에서 리바인딩 가능</li>
+    </ul>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># agents 뷰에서</span>
+<span class="c-p">Ctrl+F</span>      <span class="c-d">→ 이름으로 세션 검색</span>
+<span class="c-p">Alt+↑/↓</span>    <span class="c-d">→ 그룹 간 이동</span>
+<span class="c-p">n:키워드</span>    <span class="c-d">→ 이름 필터 (Enter → 최적 매칭 열기)</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.288" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- 백그라운드 명령 타임아웃 범위 조정 — 2026-10-03 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⏱️</span>
+    <div class="card-title">
+      <h3>백그라운드 명령 타임아웃 — 이제 무인 세션에만 적용<span class="new-dot"></span></h3>
+      <p>터미널·데스크탑·VSCode 세션은 타임아웃 제한 없음. -p·Agent SDK·CI·클라우드만 강제 적용.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="date">2026-10-03 · v2.1.288</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 바뀐 거야?</h4>
+    <p>기존에는 백그라운드 Bash 명령에 타임아웃이 일괄 적용됐는데, 이제 구분이 생겼어.</p>
+    <ul>
+      <li><strong>타임아웃 적용</strong>: <code>-p</code> 플래그, Agent SDK, CI 환경, 클라우드 세션 (무인·자동화 환경)</li>
+      <li><strong>타임아웃 없음</strong>: 일반 터미널, 데스크탑 앱, VS Code — 사람이 보고 있으니까 괜찮아</li>
+    </ul>
+    <p>장시간 빌드나 테스트를 터미널에서 돌릴 때 타임아웃 때문에 끊기는 문제가 없어짐.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.288" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- MCP OAuth 범위 재인증 — 2026-10-03 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔐</span>
+    <div class="card-title">
+      <h3>MCP OAuth 범위 재인증 — 툴 호출 중 권한 부족하면 바로 알려줌<span class="new-dot"></span></h3>
+      <p>MCP 서버가 툴 실행 중에 추가 OAuth 권한을 요청하면 재인증 프롬프트가 뜸.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-blue">MCP</span><span class="date">2026-10-03 · v2.1.288</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 필요해?</h4>
+    <p>MCP 서버가 특정 툴을 실행하다가 처음 로그인 때보다 더 넓은 OAuth 범위가 필요할 수 있어. 기존에는 그냥 실패하거나 에러 메시지만 나왔는데, 이제는 세션 안에서 재인증 프롬프트가 바로 떠서 추가 권한을 허용하고 이어서 진행할 수 있어.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.288" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- /autocompact 모델별 저장 — 2026-10-03 -->
+<div class="card" data-cat="cmd">
+
 <!-- Claude Mods — 2026. 10. 2. -->
 <div class="card featured" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -9999,7 +10143,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.287'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.288'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

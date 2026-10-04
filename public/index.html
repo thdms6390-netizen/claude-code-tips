@@ -267,6 +267,44 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- agent.spawn teammate + agent.list idle/waiting — 2026.10.4 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🤝</span>
+    <div class="card-title">
+      <h3>agent.spawn 팀메이트 + agent.list 상태 확장 — 플러그인에서 에이전트 더 세밀하게 제어<span class="new-dot"></span></h3>
+      <p>플러그인 훅에서 팀메이트 에이전트를 직접 띄울 수 있고, 훅 이벤트 전반에서 에이전트 ID가 일관되게 유지됨. agent.list()에 idle·waiting 상태도 추가됐음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="tag tag-purple">Plugin</span><span class="date">2026.10.4 · v2.1.289</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라졌냐</h4>
+    <ul>
+      <li><strong>agent.spawn for teammates</strong> — 플러그인 훅 안에서 <code>$.agent.spawn()</code>으로 팀메이트 에이전트를 직접 생성할 수 있음. 훅 이벤트가 트리거될 때 사이드 에이전트를 바로 붙일 수 있는 거</li>
+      <li><strong>에이전트 ID 일관성</strong> — 여러 플러그인 훅 이벤트에 걸쳐 동일한 에이전트가 같은 ID로 추적됨. 이전엔 이벤트마다 ID가 달라져서 에이전트 추적이 힘들었음</li>
+      <li><strong>idle·waiting 상태 추가</strong> — <code>$.agent.list()</code>에서 이제 <code>idle</code>(유휴)과 <code>waiting</code>(입력 대기) 상태도 볼 수 있음. 에이전트가 뭘 하고 있는지 더 정확하게 파악 가능</li>
+    </ul>
+    <h4>사용 예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 플러그인 훅에서 팀메이트 에이전트 띄우기</span>
+<span class="c-g">const</span> teammate = <span class="c-b">await</span> $.agent.spawn({
+  <span class="c-p">type</span>: <span class="c-g">"teammate"</span>,
+  <span class="c-p">task</span>: <span class="c-g">"코드 리뷰해줘"</span>
+});
+
+<span class="c-d"># 전체 에이전트 상태 조회 (idle·waiting 포함)</span>
+<span class="c-g">const</span> agents = <span class="c-b">await</span> $.agent.list();
+<span class="c-d"># → [{ id: "abc", status: "idle" }, { id: "xyz", status: "waiting" }, ...]</span></pre>
+    <h4>이런 상황에 유용함</h4>
+    <ul>
+      <li>훅 이벤트마다 특정 팀메이트를 자동으로 호출하는 플러그인 만들 때</li>
+      <li>여러 에이전트를 동시에 돌리면서 상태 모니터링이 필요할 때</li>
+      <li>idle 에이전트에게만 새 작업을 할당하는 로직 구현할 때</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.289" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- $.ui.selection() — 2026-10-03 -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -10143,7 +10181,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.288'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.289'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

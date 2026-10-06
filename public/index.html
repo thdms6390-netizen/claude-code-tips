@@ -267,6 +267,152 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- claude attach / claude logs — 2026.10.6 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔗</span>
+    <div class="card-title">
+      <h3>claude attach · logs 이름으로 바로 찾기<span class="new-dot"></span></h3>
+      <p>세션 ID 외워두지 않아도 돼. 이름 일부만 써도 붙고 로그 볼 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">CLI</span><span class="tag tag-red">자주쓰임</span><span class="date">2026.10.6 · v2.1.290</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 좋냐면</h4>
+    <p>기존에는 세션에 붙거나 로그 볼 때 긴 세션 ID를 정확히 입력해야 했는데, 이제는 세션 이름 일부만 입력해도 알아서 찾아줌. <code>claude agents</code>에서 보이는 이름 그대로 써도 됨.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 세션 이름 일부로 attach</span>
+<span class="c-p">claude attach</span> <span class="c-g">my-refactor</span>
+
+<span class="c-d"># 세션 이름 일부로 로그 보기</span>
+<span class="c-p">claude logs</span> <span class="c-g">my-refactor</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.290" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- WebSearch 시간당 리필 — 2026.10.6 -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔄</span>
+    <div class="card-title">
+      <h3>웹검색 한도 시간당 리필 — 200회 소진해도 계속된다<span class="new-dot"></span></h3>
+      <p>기존엔 세션당 200회 검색 후 끝이었는데, 이제 시간당 100회씩 자동 충전됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">검색</span><span class="tag tag-green">실용적</span><span class="date">2026.10.6 · v2.1.290</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>바뀐 점</h4>
+    <p>이전에는 인터랙티브 세션에서 웹검색을 200번 쓰면 그냥 막혔음. 이제는 시간당 100회씩 자동으로 리필돼서 장시간 리서치 세션도 끊기지 않고 계속할 수 있음.</p>
+    <h4>리필 속도 조절하거나 끄기</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 시간당 리필 횟수 직접 설정 (기본값: 100)</span>
+<span class="c-b">CLAUDE_CODE_WEB_SEARCH_REFILLS_PER_HOUR</span>=<span class="c-g">50</span> claude
+
+<span class="c-d"># 리필 완전히 끄기 (기존 방식으로 복귀)</span>
+<span class="c-b">CLAUDE_CODE_WEB_SEARCH_REFILLS_PER_HOUR</span>=<span class="c-g">0</span> claude</pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.290" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- managed-agents-onboard — 2026.10.6 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🤖</span>
+    <div class="card-title">
+      <h3>/claude-api managed-agents-onboard — Managed Agents 패턴 한 줄로 세팅<span class="new-dot"></span></h3>
+      <p>URL이나 퀵스타트 이름 하나로 팀 에이전트 환경 전체를 구성할 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">에이전트</span><span class="tag tag-orange">자동화</span><span class="date">2026.10.6 · v2.1.290</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>두 가지 사용법</h4>
+    <ul>
+      <li><strong>URL 방식:</strong> Managed Agents 패턴 페이지 URL을 넘기면 <code>ant apply</code> 파일들을 자동으로 가져와 세팅해줌</li>
+      <li><strong>퀵스타트 이름 방식:</strong> Console에 있는 퀵스타트 템플릿 이름으로 <code>ant</code> CLI를 통해 바로 구성</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># URL로 Managed Agents 패턴 적용</span>
+<span class="c-p">/claude-api managed-agents-onboard</span> <span class="c-g">https://docs.example.com/agents/pattern</span>
+
+<span class="c-d"># Console 퀵스타트 템플릿 이름으로 바로 구성</span>
+<span class="c-p">/claude-api managed-agents-onboard</span> <span class="c-g">deep-researcher</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.290" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- tool.check agentId + ceiling — 2026.10.6 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🪝</span>
+    <div class="card-title">
+      <h3>플러그인 훅 권한 체크 고도화 — agentId · ceiling 추가<span class="new-dot"></span></h3>
+      <p>서브에이전트 권한 체크를 메인 세션과 구별하고, 조직이 요구하는 승인 수준까지 훅에서 읽을 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">훅</span><span class="tag tag-orange">자동화</span><span class="date">2026.10.6 · v2.1.290</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>추가된 필드</h4>
+    <ul>
+      <li><strong>agentId:</strong> <code>tool.check</code> 이벤트에서 어떤 에이전트가 권한을 요청했는지 구분할 수 있음. 서브에이전트 요청만 골라서 다른 정책을 적용하는 게 가능해짐</li>
+      <li><strong>ceiling:</strong> 조직이 해당 툴에 요구하는 최소 승인 레벨을 이름으로 알 수 있음. 훅이 조직 정책을 인식하고 그에 맞게 동작할 수 있게 됨</li>
+    </ul>
+    <h4>예시 (mod 훅 안에서)</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button"><span class="c-d">// tool.check 이벤트에서 사용 예시</span>
+<span class="c-p">tool</span>.<span class="c-g">check</span>((<span class="c-o">event</span>) => {
+  <span class="c-d">// 서브에이전트 요청만 구분</span>
+  <span class="c-b">if</span> (event.<span class="c-g">agentId</span>) { <span class="c-d">/* 서브에이전트 */</span> }
+  <span class="c-d">// 조직이 요구하는 승인 레벨 확인</span>
+  <span class="c-b">console</span>.log(event.<span class="c-g">ceiling</span>); <span class="c-d">// e.g. "admin"</span>
+});</pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.290" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- turn.step serverToolUses — 2026.10.6 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔬</span>
+    <div class="card-title">
+      <h3>Mod turn.step에 serverToolUses 추가 — API가 직접 부른 툴 콜 전부 잡힌다<span class="new-dot"></span></h3>
+      <p>어드바이저 API가 자체적으로 실행한 툴 콜 목록을 훅에서 바로 읽을 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">훅</span><span class="tag tag-orange">자동화</span><span class="date">2026.10.6 · v2.1.290</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라지냐면</h4>
+    <p>Mod의 <code>turn.step</code> 훅 결과에 <code>serverToolUses</code>가 추가됨. API(어드바이저)가 자체적으로 실행한 툴 콜 하나하나의 <code>id</code>, <code>name</code>, <code>input</code>, <code>start</code>, <code>end</code>를 전부 볼 수 있어서, 서버사이드에서 무슨 일이 일어났는지 훅 안에서 정확히 파악하고 제어할 수 있음.</p>
+    <h4>접근 방법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d">// turn.step 결과에서 serverToolUses 읽기</span>
+<span class="c-p">turn</span>.<span class="c-g">step</span>((<span class="c-o">result</span>) => {
+  <span class="c-b">for</span> (<span class="c-b">const</span> call <span class="c-b">of</span> result.<span class="c-g">serverToolUses</span>) {
+    <span class="c-b">console</span>.log(call.<span class="c-g">name</span>, call.<span class="c-g">input</span>);
+  }
+});</pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.290" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- pyright 권한 요청 + ps 명령어 승인 — 2026.10.6 -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔒</span>
+    <div class="card-title">
+      <h3>pyright · ps 명령어 이제 권한 확인 — 읽기 전용 아니었음<span class="new-dot"></span></h3>
+      <p>자동으로 실행되던 pyright와 ps가 이제 승인 요청을 먼저 띄움.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">보안</span><span class="tag tag-red">자주쓰임</span><span class="date">2026.10.6 · v2.1.290</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>바뀐 점</h4>
+    <ul>
+      <li><strong>pyright:</strong> 기존에는 읽기 전용 명령어로 분류돼 승인 없이 바로 실행됐는데, 이제는 Bash 툴이 권한 요청을 먼저 함. pyright가 프로젝트 파일을 광범위하게 읽고 환경에 접근하기 때문에 생긴 변경</li>
+      <li><strong>ps:</strong> 더 많은 형태의 <code>ps</code> 명령어가 승인 대상으로 올라옴.
+
 <!-- agent.spawn teammate + agent.list idle/waiting — 2026.10.4 -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -10181,7 +10327,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.289'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.291'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

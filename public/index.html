@@ -267,6 +267,156 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- onFailure: "block" for Hooks — 2026.10.9 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🚫</span>
+    <div class="card-title">
+      <h3>훅 실패 시 동작 차단 — <code>onFailure: "block"</code><span class="new-dot"></span></h3>
+      <p>명령어·HTTP 훅이 시작 못 하거나, 타임아웃 나거나, 예상치 못한 코드로 종료되면 해당 액션 자체를 막아버림. 조용히 통과시키는 대신 명시적으로 차단.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="tag tag-red">보안</span><span class="date">2026.10.9 · v2.1.295</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 중요한 거야?</h4>
+    <p>기존에는 훅이 실패해도 원래 액션은 그냥 실행됐음. 이제 <code>onFailure: "block"</code>을 설정하면 훅이 제대로 못 돌면 그 뒤 동작도 멈춤. 보안·감사 목적으로 훅을 쓰는 경우에 특히 중요함.</p>
+    <h4>설정 예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># .claude/settings.json</span>
+{
+  <span class="c-g">"hooks"</span>: {
+    <span class="c-g">"PreToolUse"</span>: [
+      {
+        <span class="c-g">"command"</span>: <span class="c-g">"./scripts/audit-check.sh"</span>,
+        <span class="c-g">"onFailure"</span>: <span class="c-b">"block"</span>
+      }
+    ]
+  }
+}</pre>
+    <h4>언제 block이 발동되는 거야?</h4>
+    <ul>
+      <li>훅 프로세스가 아예 시작 못 할 때</li>
+      <li>타임아웃 초과로 종료될 때</li>
+      <li>예상치 못한 종료 코드를 반환할 때</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.295" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- OSC 7501 터미널 상태 표시 — 2026.10.9 -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🖥️</span>
+    <div class="card-title">
+      <h3>터미널 상태 프로토콜 OSC 7501 — Claude가 뭐 하는지 터미널에서 바로 보임<span class="new-dot"></span></h3>
+      <p>Program Status Protocol(OSC 7501)을 지원하는 터미널이면 Claude Code가 지금 작업 중인지, 입력 기다리는지, 완료됐는지 터미널 레벨에서 바로 표시됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">UI</span><span class="date">2026.10.9 · v2.1.295</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떻게 동작해?</h4>
+    <p>OSC 7501을 지원하는 터미널(예: 일부 최신 터미널 에뮬레이터)에서 Claude Code를 쓰면, 터미널이 현재 상태를 자동으로 인식함:</p>
+    <ul>
+      <li><strong>working</strong> — Claude가 열심히 돌아가는 중</li>
+      <li><strong>waiting</strong> — 너의 입력을 기다리는 중</li>
+      <li><strong>done</strong> — 작업 완료</li>
+    </ul>
+    <h4>뭐가 좋아?</h4>
+    <p>터미널 탭 제목이나 상태바에 현재 상태가 표시되니까, 다른 창 보다가 언제 돌아올지 감이 생김. 별도 설정 없이 지원 터미널이면 자동 동작.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.295" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- $.ui.notify for Mods — 2026.10.9 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔔</span>
+    <div class="card-title">
+      <h3><code>$.ui.notify</code> — Mod에서 네이티브 알림 보내기<span class="new-dot"></span></h3>
+      <p>Mod(플러그인)에서 직접 시스템 푸시 알림을 띄울 수 있음. 어떤 채널에서 보낸 건지도 같이 표시됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="tag tag-blue">Mods</span><span class="date">2026.10.9 · v2.1.295</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떻게 써?</h4>
+    <p>Mod 코드 안에서 <code>$.ui.notify</code>를 호출하면 사용자의 알림 설정을 통해 네이티브 알림이 전송됨. 특정 이벤트 발생 시 자동으로 알림 보내는 Mod 만들 때 딱임.</p>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># Mod 코드 내에서</span>
+<span class="c-p">await</span> <span class="c-b">$.ui.notify</span>(<span class="c-g">"빌드 완료! 결과 확인해봐"</span>);
+</pre>
+    <h4>기존 <code>$.ui.selection()</code>이랑 뭐가 다른 거야?</h4>
+    <p><code>$.ui.selection()</code>은 현재 선택된 텍스트를 읽는 거고, <code>$.ui.notify</code>는 사용자한테 알림을 능동적으로 보내는 거. 역할이 완전히 다름.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.295" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- CLAUDE_CODE_RETRY_WATCHDOG_MAX_WAIT_MS — 2026.10.9 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⏱️</span>
+    <div class="card-title">
+      <h3><code>CLAUDE_CODE_RETRY_WATCHDOG_MAX_WAIT_MS</code> — 무인 재시도 최대 대기 시간 제한<span class="new-dot"></span></h3>
+      <p>429·529 에러 시 무인 재시도 모드(<code>CLAUDE_CODE_RETRY_WATCHDOG</code>)가 무한정 기다리는 걸 막을 수 있음. 최대 대기 시간 직접 지정.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="tag tag-orange">헤드리스</span><span class="date">2026.10.9 · v2.1.295</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>왜 필요해?</h4>
+    <p>CI/CD나 자동화 파이프라인에서 rate limit 에러가 나면 watchdog이 알아서 재시도를 해주는데, 이게 너무 오래 걸리면 파이프라인 전체가 멈출 수 있음. 이제 최대 대기 시간을 밀리초 단위로 제한할 수 있음.</p>
+    <h4>설정 방법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 최대 5분만 기다리고 포기</span>
+<span class="c-b">CLAUDE_CODE_RETRY_WATCHDOG_MAX_WAIT_MS</span>=<span class="c-g">300000</span> <span class="c-p">claude</span> <span class="c-o">-p</span> <span class="c-g">"작업 실행"</span>
+</pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.295" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- Gateway upstream models 목록 + timeouts.upstream_ttfb_ms — 2026.10.9 -->
+<div class="card featured" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🌐</span>
+    <div class="card-title">
+      <h3>게이트웨이 업스트림 모델 필터 + TTFB 타임아웃 — 클라우드 연결 세밀하게 제어<span class="new-dot"></span></h3>
+      <p>각 업스트림(Bedrock, Vertex, Foundry 등)마다 허용 모델 목록을 지정하거나, 스트림 시작까지 최대 대기 시간을 설정할 수 있음. 느린 업스트림 때문에 전체가 막히는 거 이제 없음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">개발 도구</span><span class="tag tag-blue">게이트웨이</span><span class="tag tag-red">자주쓰임</span><span class="date">2026.10.9 · v2.1.295</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>업스트림 모델 필터 (<code>models</code> 목록)</h4>
+    <p>게이트웨이 설정에서 각 업스트림에 <code>models</code> 목록을 추가하면, 그 목록에 있는 모델만 해당 업스트림으로 보냄. 페일오버 시에도 동일하게 적용. <code>*</code> 와일드카드도 지원.</p>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 게이트웨이 설정 예시</span>
+{
+  <span class="c-g">"upstreams"</span>: [
+    {
+      <span class="c-g">"type"</span>: <span class="c-g">"bedrock"</span>,
+      <span class="c-g">"models"</span>: [<span class="c-g">"claude-opus-*"</span>, <span class="c-g">"claude-sonnet-5-5"</span>]
+    }
+  ]
+}
+</pre>
+    <h4>TTFB 타임아웃 (<code>timeouts.upstream_ttfb_ms</code>)</h4>
+    <p>스트림이 시작되기까지 최대 얼마나 기다릴지 밀리초 단위로 설정. 초과하면 페일오버하거나 502 반환.</p>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button>{
+  <span class="c-g">"timeouts"</span>: {
+    <span class="c-g">"upstream_ttfb_ms"</span>: <span class="c-b">10000</span>  <span class="c-d"># 10초 안에 응답 시작 안 하면 페일오버</span>
+  }
+}
+</pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.295" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- forceLoginMethod: "gateway" 사용자 설정 — 2026.10.9 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔑</span>
+    <div class="card-title">
+      <h3><code>forceLoginMethod: "gateway"</code> 사용자 설정 — 관리형 설정 없어도 게이트웨이 로그인 강제<span class="new-dot"></span></h3>
+      <p>조직 관리형 설정이 없는 개인 기
+
 <!-- Claude Haiku 5.5 출시 — v2.1.293 -->
 <div class="card featured" data-cat="core">
   <div class="card-header" onclick="toggle(this)">
@@ -10485,7 +10635,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.294'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.295'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

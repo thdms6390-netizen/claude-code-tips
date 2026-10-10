@@ -267,6 +267,124 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- v2.1.296 — 2026.10.10 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🤖</span>
+    <div class="card-title">
+      <h3>autoCompactWindow — 서브에이전트 독립 압축 창 설정<span class="new-dot"></span></h3>
+      <p>서브에이전트가 메인 세션보다 일찍 컨텍스트를 압축할 수 있음. 긴 작업에서 서브에이전트 컨텍스트 폭발 방지.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="date">2026.10.10 · v2.1.296</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 필요해?</h4>
+    <p>메인 세션은 여유가 있어도 서브에이전트는 금방 컨텍스트가 꽉 차는 경우가 있어. <code>autoCompactWindow</code>를 서브에이전트 프론트매터나 <code>--agents</code> 정의에 넣으면, 메인과 무관하게 서브에이전트가 일찍 압축을 시작해서 중간에 끊기는 걸 방지함.</p>
+    <h4>사용법 — 서브에이전트 프론트매터</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># CLAUDE.md 또는 스킬 프론트매터에 추가</span>
+<span class="c-g">---
+autoCompactWindow: 80000
+---</span>
+</pre>
+    <h4>사용법 — --agents 플래그 정의</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-p">claude agents</span> <span class="c-o">--agents</span> <span class="c-g">'[{"name":"worker","autoCompactWindow":80000}]'</span>
+</pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.296" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- v2.1.296 — 2026.10.10 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🧩</span>
+    <div class="card-title">
+      <h3>CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL — Workflow 에이전트 모델 따로 고정<span class="new-dot"></span></h3>
+      <p>Workflow 안 에이전트만 다른 모델로 돌리고, 나머지 서브에이전트는 기존 모델 유지.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="date">2026.10.10 · v2.1.296</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>기존 CLAUDE_CODE_SUBAGENT_MODEL_FORCE와 차이</h4>
+    <p><code>CLAUDE_CODE_SUBAGENT_MODEL_FORCE</code>는 모든 서브에이전트를 동일 모델로 강제하는 반면, <code>CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL</code>은 Workflow 에이전트에만 적용돼. 비용 최적화나 Workflow 전용 모델을 따로 지정하고 싶을 때 유용함.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># Workflow 에이전트만 Haiku로, 나머지 서브에이전트는 그대로</span>
+<span class="c-b">export</span> <span class="c-g">CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL</span>=<span class="c-o">claude-haiku-5-5</span>
+<span class="c-p">claude</span>
+</pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.296" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- v2.1.296 — 2026.10.10 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📄</span>
+    <div class="card-title">
+      <h3>Read 툴 allow_large 옵션 — 큰 파일도 통째로 읽기<span class="new-dot"></span></h3>
+      <p>보통은 크기 제한에 걸려 잘리던 텍스트 파일을, 컨텍스트가 충분하면 한 번에 전부 읽을 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-green">실용적</span><span class="date">2026.10.10 · v2.1.296</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>언제 쓰냐면</h4>
+    <p>로그 파일, 대용량 설정 파일, 긴 스키마 파일처럼 끝까지 다 봐야 의미 있는 파일이 있잖아. 기존엔 크기 제한 때문에 중간에 잘려서 일부만 읽혔는데, <code>allow_large: true</code>를 쓰면 컨텍스트 여유가 있을 때 파일 전체를 한 번에 가져와. Claude가 자동으로 판단해서 적용하기도 하고, 직접 요청할 수도 있음.</p>
+    <h4>프롬프트에서 요청하는 법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># Claude에게 직접 요청</span>
+<span class="c-g">app.log 파일 전체를 잘리지 않게 다 읽어줘</span>
+</pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.296" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- v2.1.296 — 2026.10.10 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🚦</span>
+    <div class="card-title">
+      <h3>백그라운드 전환 시 진행 중 턴 자동 중단 — 뒤에서 몰래 돌아가는 거 없앰<span class="new-dot"></span></h3>
+      <p>세션이 백그라운드로 넘어가는 순간, 이미 시작된 턴이나 <code>!</code> 명령은 완료 대신 즉시 중단됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="date">2026.10.10 · v2.1.296</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>기존 동작과 뭐가 달라졌냐</h4>
+    <p>이전엔 세션을 백그라운드로 전환해도 이미 돌아가던 턴이나 셸 명령이 보이지 않는 상태로 계속 실행됐어. 이제는 백그라운드로 넘어가는 순간 해당 작업을 멈춰버려서, 의도치 않은 작업이 뒤에서 몰래 완료되는 상황을 방지함.</p>
+    <h4>실제로 체감되는 상황</h4>
+    <ul>
+      <li>Remote Control로 세션을 다른 기기로 넘길 때</li>
+      <li><code>/fork</code>로 백그라운드 분기할 때</li>
+      <li><code>claude agents</code> 뷰에서 세션을 bg로 전환할 때</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.296" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- v2.1.296 — 2026.10.10 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🌐</span>
+    <div class="card-title">
+      <h3>MCP 툴 설명 기본 길이 상한 4,096자로 상향 — 더 풍부한 툴 설명 가능<span class="new-dot"></span></h3>
+      <p>MCP 툴 설명과 서버 인스트럭션의 기본 한도가 2,048 → 4,096자로 늘어남.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-blue">MCP</span><span class="date">2026.10.10 · v2.1.296</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>왜 좋냐면</h4>
+    <p>MCP 서버가 툴 사용법을 길게 설명하거나 서버 인스트럭션이 복잡한 경우, 기존 2,048자 한도에서는 설명이 잘려서 Claude가 툴을 제대로 못 쓰는 경우가 있었어. 이제 기본값이 4,096자로 올라가서 더 상세한 툴 설명을 그대로 전달할 수 있음. 환경변수 <code>CLAUDE_CODE_MAX_MCP_DESCRIPTION_LENGTH</code>로 여전히 수동 조절 가능.</p>
+    <h4>필요하면 더 늘리기</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 기본값보다 더 길게 허용하고 싶을 때</span>
+<span class="c-b">export</span> <span class="c-g">CLAUDE_CODE_MAX_MCP_DESCRIPTION_LENGTH</span>=<span class="c-o">8192</span>
+</pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.296" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- onFailure: "block" for Hooks — 2026.10.9 -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -10635,7 +10753,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.295'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.296'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

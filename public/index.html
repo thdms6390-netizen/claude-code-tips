@@ -267,6 +267,150 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- CLAUDE_CODE_DISABLE_FILE_MENTIONS — 2026.10.14 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📎</span>
+    <div class="card-title">
+      <h3>CLAUDE_CODE_DISABLE_FILE_MENTIONS — @파일 멘션, 내용 대신 경로만 넘기기<span class="new-dot"></span></h3>
+      <p>@파일 언급할 때 파일 내용을 통째로 컨텍스트에 박지 않고, Claude가 직접 파일 툴로 읽게 함. 컨텍스트 절약에 유리.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="date">2026.10.14 · v2.1.299</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 뭔데?</h4>
+    <p>원래는 <code>@src/index.ts</code> 멘션하면 해당 파일 내용이 프롬프트에 그대로 박혔는데, 이 환경변수를 켜면 Claude한테 경로만 알려주고 실제 읽기는 파일 툴로 처리해. 큰 파일 여러 개 멘션할 때 컨텍스트 폭발 방지에 좋음.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 환경변수 설정</span>
+<span class="c-b">CLAUDE_CODE_DISABLE_FILE_MENTIONS</span>=<span class="c-g">1</span> claude
+
+<span class="c-d"># 또는 .env / 셸 설정에 추가</span>
+<span class="c-p">export</span> <span class="c-b">CLAUDE_CODE_DISABLE_FILE_MENTIONS</span>=<span class="c-g">1</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.299" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- 유휴 자동 압축 — 2026.10.14 -->
+<div class="card featured" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🗜️</span>
+    <div class="card-title">
+      <h3>유휴 자동 압축 (Idle Compaction) — 자리 비운 사이에 컨텍스트가 알아서 정리됨<span class="new-dot"></span></h3>
+      <p>200K+ 토큰 대화를 54분쯤 방치하면, 1시간 캐시 만료 전에 자동으로 압축해줌. 돌아와서 보내는 첫 메시지가 훨씬 빠르고 저렴해짐.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-red">자주쓰임</span><span class="tag tag-purple">핵심기능</span><span class="date">2026.10.14 · v2.1.299</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>왜 필요해?</h4>
+    <p>긴 세션 도중 자리를 비우면 1시간짜리 프롬프트 캐시가 만료되고, 다음 메시지 때 200K+ 토큰을 전부 다시 처리해야 해서 느리고 비쌌음. 이제 만료 직전에 자동으로 압축하니까 그 비용이 확 줄어들어.</p>
+    <h4>기본 동작</h4>
+    <ul>
+      <li>200K 토큰 이상 + 54분 이상 유휴 상태 → 자동 압축 실행</li>
+      <li>v2.1.290 이상에서 사용 가능</li>
+    </ul>
+    <h4>커스텀 설정</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 최소 토큰 기준 변경 (기본 200K)</span>
+<span class="c-p">export</span> <span class="c-b">CLAUDE_CODE_IDLE_COMPACT_MIN_TOKENS</span>=<span class="c-g">100000</span>
+
+<span class="c-d"># 유휴 자동 압축 끄기 (settings.json)</span>
+<span class="c-p">"idleCompaction"</span>: <span class="c-o">false</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.299" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- MCP allow 규칙 정밀화 — 2026.10.14 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔒</span>
+    <div class="card-title">
+      <h3>MCP allow 규칙 정밀화 — 서버 이름 정확히 써야 적용됨<span class="new-dot"></span></h3>
+      <p><code>mcp__a</code> 규칙이 <code>a__b</code>나 <code>a_</code> 같은 다른 서버에 잘못 적용되던 버그 수정. 이제 해당 서버에만 딱 맞게 작동해.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-blue">MCP</span><span class="tag tag-purple">보안</span><span class="date">2026.10.14 · v2.1.299</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 바뀐 거야?</h4>
+    <p>예전에는 <code>mcp__a</code>로 allow 규칙 쓰면 <code>a__b</code>나 <code>a_</code>처럼 이름이 비슷한 다른 서버에도 규칙이 먹혔어. 이제는 서버 전체 이름이 정확히 일치해야만 적용되고, 와일드카드는 <code>mcp__&lt;서버이름&gt;__*</code> 형식으로 써야 해.</p>
+    <h4>올바른 규칙 작성법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># ❌ 이렇게 쓰면 의도치 않은 서버에도 적용될 수 있었음</span>
+<span class="c-o">mcp__myserver</span>
+
+<span class="c-d"># ✅ 이제 이 형식으로 명확하게 써야 함</span>
+<span class="c-p">mcp__myserver__*</span>
+
+<span class="c-d"># ✅ 이름에 __ 포함된 서버도 전체 이름으로</span>
+<span class="c-p">mcp__my__complex__server__*</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.299" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- /effort · /fast in agent view — 2026.10.14 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⚡</span>
+    <div class="card-title">
+      <h3>에이전트 뷰에서 /effort · /fast 바로 설정 — 새 세션 시작 기본값 조절<span class="new-dot"></span></h3>
+      <p>agents 뷰에서 /effort, /fast, /model 입력하면 이후 새로 시작되는 세션의 기본값이 즉시 바뀜. 피커도 바로 뜨니까 빠르게 전환 가능.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">명령어</span><span class="date">2026.10.14 · v2.1.299</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># agents 뷰에서 입력</span>
+<span class="c-p">/effort</span>          <span class="c-d"># 에포트 피커 열기</span>
+<span class="c-p">/effort</span> <span class="c-g">high</span>    <span class="c-d"># 바로 high로 설정</span>
+<span class="c-p">/fast</span>            <span class="c-d"># Fast Mode 토글 피커</span>
+<span class="c-p">/model</span>           <span class="c-d"># 모델 피커 열기</span></pre>
+    <p>새로 생성되는 백그라운드 세션에 이 설정이 적용돼. 이미 실행 중인 세션엔 영향 없음.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.299" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- UserPromptSubmit 훅 실행 순서 변경 — 2026.10.14 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔄</span>
+    <div class="card-title">
+      <h3>UserPromptSubmit 훅 — 스킬·슬래시 명령 확장 전에 먼저 실행<span class="new-dot"></span></h3>
+      <p>훅이 프롬프트를 차단하면 안에 포함된 셸 명령도 같이 막힘. 보안 훅이 진짜로 동작하게 된 거야.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="tag tag-purple">Hooks</span><span class="date">2026.10.14 · v2.1.299</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 바뀐 거야?</h4>
+    <p>이전에는 <code>UserPromptSubmit</code> 훅이 스킬/슬래시 명령이 확장된 이후에 실행됐어. 그래서 훅으로 프롬프트를 막아도 내부 셸 명령은 이미 확장된 상태라 완전히 차단이 안 됐음.</p>
+    <ul>
+      <li>이제 훅이 <strong>먼저</strong> 실행되고 → 그 다음에 스킬/명령 확장</li>
+      <li>훅이 프롬프트 차단 → 내부 셸 명령도 실행 안 됨</li>
+      <li>스킬의 자체 <code>UserPromptSubmit</code> 훅은 해당 스킬을 호출한 다음 프롬프트부터 적용</li>
+    </ul>
+    <h4>예시: 특정 키워드 차단 훅</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># settings.json hooks 예시</span>
+{
+  <span class="c-p">"hooks"</span>: {
+    <span class="c-p">"UserPromptSubmit"</span>: [{
+      <span class="c-p">"command"</span>: <span class="c-g">"my-security-check"</span>
+    }]
+  }
+}</pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.299" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- turn.start 훅 서브에이전트 지원 — 2026.10.14 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🤖</span>
+    <div class="card-title">
+      <h3>turn.start 훅 — 서브에이전트·팀메이트 턴도 이제 잡힌다<span class="new-dot"></span></h3>
+      <p>기존에는 메인 루프 턴만 감지했는데, 이제 서브에이전트와 팀메이트 턴도 <code>turn.start</code>에서 받을 수 있음. <code>e.agentId</code>로 누구 턴인지 구분해.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-
+
 <!-- v2.1.296 — 2026.10.10 -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -10753,7 +10897,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.296'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.299'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

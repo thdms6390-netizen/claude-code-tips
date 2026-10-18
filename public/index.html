@@ -267,6 +267,144 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- v2.1.302 — 2026-10-17 -->
+
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🤖</span>
+    <div class="card-title">
+      <h3>CLAUDE_CODE_AUTO_MODE_MODEL — 클라이언트 자동 모드 분류기 모델 지정<span class="new-dot"></span></h3>
+      <p>자동 모드에서 권한 분류에 쓰는 모델만 따로 고를 수 있음. 서버사이드 분류기엔 영향 없어.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="date">2026-10-17 · v2.1.302</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 뭔데?</h4>
+    <p>Auto Mode에서 "이 툴 호출이 위험한가?" 판단하는 분류기가 쓰는 모델을 환경변수로 따로 지정할 수 있어. 서버사이드 분류기 모델과는 완전히 별개야.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 분류기만 빠른 모델로 교체 (메인 모델은 그대로)</span>
+<span class="c-b">CLAUDE_CODE_AUTO_MODE_MODEL</span>=<span class="c-g">claude-haiku-5-5</span> <span class="c-p">claude</span>
+
+<span class="c-d"># .env에 박아두기</span>
+<span class="c-b">CLAUDE_CODE_AUTO_MODE_MODEL</span>=<span class="c-g">claude-haiku-5-5</span></pre>
+    <h4>언제 쓰면 좋냐</h4>
+    <ul>
+      <li>분류기 비용 아끼고 싶을 때 — 가벼운 Haiku로 교체</li>
+      <li>메인 작업 모델과 분류 모델을 완전히 분리하고 싶을 때</li>
+      <li>서버사이드 분류기로 전환 후에도 클라이언트 분류기만 남겨 쓸 때</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.302" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- v2.1.302 — 2026-10-17 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🗜️</span>
+    <div class="card-title">
+      <h3>/config에서 유휴 압축 ON/OFF — 설정 패널에서 바로 끄기<span class="new-dot"></span></h3>
+      <p>유휴 자동 압축 됐을 때 안내 메시지에 끄는 방법도 같이 떠. /config에 토글 행 추가.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">명령어</span><span class="tag tag-green">실용적</span><span class="date">2026-10-17 · v2.1.302</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 뭔데?</h4>
+    <p>자리 비운 사이에 컨텍스트가 자동으로 압축되는 "유휴 자동 압축(Idle Compaction)" 기능 — 이걸 <code>/config</code> 패널에서 GUI로 바로 끄거나 켤 수 있게 됐어. 압축된 다음 뜨는 알림에도 끄는 방법이 나와서 헤매지 않아도 됨.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 설정 패널 열고 Idle compaction 행에서 토글</span>
+<span class="c-p">/config</span>
+
+<span class="c-d"># 또는 직접 설정값으로 끄기</span>
+<span class="c-p">/config</span> <span class="c-g">idleCompaction=false</span></pre>
+    <h4>포인트</h4>
+    <ul>
+      <li>압축 완료 알림에 이제 "끄려면 이렇게 해"가 같이 나와서 직관적</li>
+      <li>유휴 압축이 싫은 사람은 이제 어디서 끄는지 찾아 헤맬 필요 없음</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.302" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- v2.1.302 — 2026-10-17 -->
+<div class="card featured" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🍴</span>
+    <div class="card-title">
+      <h3>Fork 서브에이전트 기본값 ON 전면 확대 — 모든 환경에서 이제 기본으로<span class="new-dot"></span></h3>
+      <p>터미널에서만 기본이었던 Fork 서브에이전트가 -p, Agent SDK, 데스크탑, VSCode까지 전부 켜짐. 서브에이전트 실행 방식도 백그라운드로 통일.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="tag tag-red">자주쓰임</span><span class="date">2026-10-17 · v2.1.302</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 바뀌었냐</h4>
+    <ul>
+      <li><strong>Fork 서브에이전트 기본값 ON</strong> — <code>claude -p</code>, Agent SDK, 데스크탑 앱, VS Code 전부 포함. 이전엔 터미널만 기본이었음</li>
+      <li><strong>메인 대화의 서브에이전트는 항상 백그라운드 실행</strong> — 데스크탑·VS Code에서도 터미널처럼 동작. Claude가 포어그라운드/백그라운드를 선택하던 게 사라짐</li>
+      <li><code>claude -p</code>·Agent SDK에서 서브에이전트가 다시 Agent를 부를 때는 포어그라운드 기본</li>
+    </ul>
+    <h4>끄고 싶으면</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># fork 서브에이전트 완전히 끄기</span>
+<span class="c-b">CLAUDE_CODE_FORK_SUBAGENT</span>=<span class="c-g">0</span> <span class="c-p">claude</span>
+
+<span class="c-d"># claude mcp serve는 fork 서브에이전트 제공 안 함 (변경 없음)</span></pre>
+    <h4>왜 중요하냐</h4>
+    <p>모든 환경에서 서브에이전트 동작 방식이 통일됨. 터미널이랑 데스크탑 앱이 다르게 돌아가서 생기는 혼란이 사라져. 멀티 에이전트 워크플로우 안정성 올라감.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.302" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- v2.1.302 — 2026-10-17 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⏱️</span>
+    <div class="card-title">
+      <h3>훅 동시 실행 상한 12개 — 같은 이벤트 훅이 쌓여도 순서대로<span class="new-dot"></span></h3>
+      <p>같은 훅 이벤트가 한꺼번에 12개 이상 뜨면 나머지는 대기열에서 기다림. 훅 폭발 방지.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="date">2026-10-17 · v2.1.302</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 뭔데?</h4>
+    <p>프롬프트 훅, 에이전트 훅 포함해서 같은 이벤트 타입의 훅은 동시에 최대 12개만 실행돼. 그 이상 쌓이면 앞 것들이 끝날 때까지 대기. 훅이 엄청나게 많은 환경에서 리소스 폭주를 막아주는 안전장치야.</p>
+    <h4>영향 받는 케이스</h4>
+    <ul>
+      <li>멀티 에이전트 환경에서 동일 훅 이벤트가 동시 다발로 터질 때</li>
+      <li>플러그인에서 훅을 많이 등록해서 쓸 때</li>
+      <li>대부분의 일반 사용에서는 체감 안 됨</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.302" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- v2.1.302 — 2026-10-17 -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔑</span>
+    <div class="card-title">
+      <h3>서드파티 프로바이더 기본 권한 모드 → default — 무권한 세션 동작 명확화<span class="new-dot"></span></h3>
+      <p>claude -p나 Agent SDK에서 권한 모드 안 지정하면 서드파티 프로바이더에선 이제 auto 아닌 default로 시작.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">핵심</span><span class="date">2026-10-17 · v2.1.302</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라졌냐</h4>
+    <p><code>claude -p</code>, Agent SDK 세션에서 권한 모드를 명시 안 했을 때, 서드파티 프로바이더·텔레메트리 OFF·새 설치 환경에서는 <code>default</code> 모드로 시작해. Auto Mode 쓰고 싶으면 명시적으로 지정해야 해.</p>
+    <h4>자동 모드 유지하려면</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 명시적으로 auto 지정</span>
+<span class="c-p">claude</span> <span class="c-o">-p</span> <span class="c-o">--permission-mode</span> <span class="c-g">auto</span> <span class="c-g">"작업 내용"</span>
+
+<span class="c-d"># Agent SDK도 동일하게 permission_mode 파라미터 넘기기</span></pre>
+    <h4>왜 이렇게 바꿨냐</h4>
+    <p>권한 모드 미설정 상태에서의 동작을 예측 가능하게 만들기 위함. 서드파티 프로바이더에서 의도치 않게 Auto Mode로 돌아가는 경우를 막아줘.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.302" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- CLAUDE_CODE_RETRY_WATCHDOG_MAX_USAGE_LIMIT_WAIT_MS — 2026.10.16 -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -11178,7 +11316,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.301'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.302'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

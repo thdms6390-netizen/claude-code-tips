@@ -267,6 +267,92 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- /claude-api api-version — 2026.10.22 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔖</span>
+    <div class="card-title">
+      <h3>/claude-api api-version — API 버전 최신화 한 번에<span class="new-dot"></span></h3>
+      <p>Claude API 코드를 새 버전 <code>2026-10-21</code>로 자동 마이그레이션해줌. 버전 명시 안 해서 생기는 deprecated 경고 이제 없애기.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">개발도구</span><span class="date">2026.10.22 · v2.1.307</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 뭐냐면</h4>
+    <p><code>/claude-api</code> 명령어 시리즈에 새 서브커맨드가 추가됐음. 기존 코드베이스에서 구형 API 버전 문자열을 찾아내고 최신 버전(<code>2026-10-21</code>)으로 바꿔주는 거야. 수동으로 grep 돌릴 필요 없이 Claude가 알아서 찾아서 고쳐줌.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># Claude API 버전 마이그레이션 실행</span>
+<span class="c-p">/claude-api</span> <span class="c-g">api-version</span>
+</pre>
+    <h4>관련 커맨드</h4>
+    <ul>
+      <li><code>/claude-api upgrade</code> — Python SDK 0.x → 1.x 마이그레이션</li>
+      <li><code>/claude-api prompt-audit</code> — 구형 모델 맞춤 프롬프트 점검</li>
+      <li><code>/claude-api cost-optimize</code> — API 비용 절감 분석</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.307" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- claude_code.safety_event OTEL — 2026.10.22 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🛡️</span>
+    <div class="card-title">
+      <h3>OTEL safety_event — 권한·안전 차단 전부 트레이스로 잡기<span class="new-dot"></span></h3>
+      <p>툴 호출마다 권한 규칙·Auto Mode·안전 체크·훅·샌드박스가 막거나 프롬프트하거나 돌려보낸 이벤트를 OpenTelemetry로 다 수집함. 왜 차단됐는지 이제 로그에서 바로 보임.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="tag tag-purple">OTEL</span><span class="date">2026.10.22 · v2.1.307</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 중요하냐면</h4>
+    <p>기존엔 툴 실행 결과는 OTEL로 잡혔는데, "왜 이 툴이 막혔는지"는 트레이스에 안 남았어. 이제 <code>claude_code.safety_event</code> 이벤트가 추가돼서 아래 상황이 전부 기록됨:</p>
+    <ul>
+      <li>권한 규칙(permission rule)이 툴을 차단한 경우</li>
+      <li>Auto Mode 분류기가 개입한 경우</li>
+      <li>안전 체크(safety check)가 발동한 경우</li>
+      <li>훅(hook)이 가로챈 경우</li>
+      <li>샌드박스가 요청을 막은 경우</li>
+    </ul>
+    <h4>활용 예시</h4>
+    <p>Grafana나 Jaeger 같은 OTEL 백엔드에서 <code>claude_code.safety_event</code>로 필터링하면 팀 전체에서 어떤 툴이 얼마나 차단되는지 집계할 수 있음. 보안 감사·정책 튜닝에 바로 쓸 수 있어.</p>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># OTEL 수집 설정 예시 (settings.json)</span>
+<span class="c-g">{
+  "env": {
+    "OTEL_EXPORTER_OTLP_ENDPOINT": "http://localhost:4318"
+  }
+}</span>
+</pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.307" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- WebSearch 차단 강화 — 2026.10.22 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🚫</span>
+    <div class="card-title">
+      <h3>웹검색 한도 소진 시 우회 차단 — 브라우저·Computer Use로도 못 돌아감<span class="new-dot"></span></h3>
+      <p>WebSearch 예산 다 쓰면 이제 Claude에게 "브라우저로 검색하거나 Computer Use로 검색 엔진 쓰지 말라"는 안내도 같이 전달됨. 우회로 원천 차단.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="tag tag-red">자주쓰임</span><span class="date">2026.10.22 · v2.1.307</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>기존에는</h4>
+    <p>WebSearch 시간당 한도가 소진되면 WebSearch 툴만 막혔음. 그런데 Claude가 "그럼 브라우저 열어서 검색하면 되지"라고 생각하고 Chrome 통합이나 Computer Use로 검색 엔진을 직접 쓰는 경우가 있었어.</p>
+    <h4>이제는</h4>
+    <p>한도 소진 알림에 "브라우저로도, Computer Use로도 검색 엔진 쿼리하지 마"라는 명시적 지시가 추가됨. 예산 정책이 실제로 의도대로 동작하게 됐음.</p>
+    <ul>
+      <li>비용 제어가 중요한 팀 환경에서 특히 유용함</li>
+      <li>별도 설정 필요 없이 자동으로 적용됨</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.307" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- sandbox.allowNestedUserNamespaces — 2026.10.21 -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -11560,7 +11646,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.306'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.308'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

@@ -267,6 +267,32 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- Monitor tool Bedrock·Vertex·Foundry 확대 — v2.1.310 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🖥️</span>
+    <div class="card-title">
+      <h3>Monitor 툴 전 환경 확대 — Bedrock·Vertex·Foundry에서도 쓴다<span class="new-dot"></span></h3>
+      <p>이전엔 일부 환경에서 안 됐던 Monitor 툴이 이제 Bedrock·Vertex·Foundry + 텔레메트리·비필수 트래픽 비활성 환경에서도 작동함. 포어그라운드 장시간 슬립도 이제 거기서 차단됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="date">2026. 10. 24. · v2.1.310</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라졌냐</h4>
+    <ul>
+      <li>Monitor 툴 + 플러그인 모니터가 <strong>Bedrock · Vertex · Foundry</strong>에서도 이제 정식 지원됨</li>
+      <li>텔레메트리 꺼놨거나 비필수 트래픽 막아놓은 환경에서도 동일하게 작동</li>
+      <li>포어그라운드 장시간 슬립(<code>sleep</code>)은 이 환경들에서도 이제 차단 — Monitor 타임아웃 강제화와 일관성 맞춤</li>
+    </ul>
+    <h4>Monitor 툴이 뭔데?</h4>
+    <p>백그라운드에서 돌아가는 스크립트·프로세스를 실시간으로 감시하는 툴. 플러그인 모니터와 함께 쓰면 스킬 실행 중 자동 감시도 됨. 이제 AWS·GCP 기반 엔터프라이즈 환경에서도 그대로 쓸 수 있음.</p>
+    <h4>MCP Elicitation 타임아웃 에러 메시지 개선</h4>
+    <p>비대화형 세션에서 MCP 툴 콜이 타임아웃됐는데 서버의 elicitation(중간 질문)에 답이 안 온 경우, 이제 Claude에게 <em>"답변이 오지 않았으니 이 콜 반복하지 마"</em>라고 명확히 알려줌. 전에는 애매한 에러였는데 이제 Claude가 헛돌지 않음.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.310" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- v2.1.309 — 2026.10.23 -->
 
 <!-- sed -i 동작 변경 -->
@@ -11753,7 +11779,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.309'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.310'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

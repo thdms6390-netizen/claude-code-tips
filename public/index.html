@@ -267,6 +267,143 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- self-hosted-runner idle hold — 2025. 10. 27. -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🏃</span>
+    <div class="card-title">
+      <h3>self-hosted-runner 유휴 세션 유지 — 프로세스 남아있으면 안 죽임<span class="new-dot"></span></h3>
+      <p>러너가 실행 중인 프로세스가 있다고 보고하는 동안 유휴 세션을 살려두는 옵션 추가.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="date">2025. 10. 27. · v2.1.311</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라졌냐</h4>
+    <p><code>self-hosted-runner</code>에 두 가지 플래그가 추가됐어. 호스트에서 아직 프로세스가 돌고 있다고 보고하면 유휴 세션을 바로 죽이지 않고 붙잡아둘 수 있음.</p>
+    <ul>
+      <li><strong>--hold-idle-file</strong> — 이 파일이 존재하는 동안 유휴 세션 유지</li>
+      <li><strong>--max-hold-min</strong> — 최대 몇 분까지 붙잡을지 상한 설정</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 파일 있는 동안 유휴 세션 유지, 최대 30분</span>
+<span class="c-p">claude</span> <span class="c-g">self-hosted-runner</span> <span class="c-o">--hold-idle-file</span> <span class="c-g">/tmp/runner.lock</span> <span class="c-o">--max-hold-min</span> <span class="c-g">30</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.311" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- ultrathink 동작 개선 — 2025. 10. 27. -->
+<div class="card featured" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🌈</span>
+    <div class="card-title">
+      <h3>ultrathink 개선 — 5.5·5.1 모델에서 xhigh 에포트로 자동 격상<span class="new-dot"></span></h3>
+      <p>Claude가 작업 중일 때 "ultrathink" 치면 지금 턴의 에포트가 즉시 xhigh로 올라감. 레인보우는 이제 실제로 효과 있는 곳에서만 나타남.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-red">자주쓰임</span><span class="tag tag-purple">핵심</span><span class="date">2025. 10. 27. · v2.1.311</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라졌냐</h4>
+    <ul>
+      <li>Opus 5.5, Sonnet 5.5, Haiku 5.5, Fable 5.1에서 <code>ultrathink</code>를 입력하면 해당 턴을 <strong>xhigh 에포트</strong>로 실행함</li>
+      <li>Claude가 작업 중일 때 타이핑해도 남은 턴에 즉시 적용됨</li>
+      <li>레인보우 이펙트는 이제 실제로 에포트를 올릴 수 있는 상황에서만 표시 — 따옴표 안에 있거나 파일 경로 일부면 안 뜸</li>
+      <li>Anthropic 공식 API 통해서만 작동 (서드파티 프로바이더 제외)</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># Claude가 작업 중일 때 입력하면 지금 턴이 xhigh로 올라감</span>
+<span class="c-g">ultrathink</span>
+
+<span class="c-d"># 아래처럼 따옴표 안이나 경로에 있으면 효과 없음 (레인보우도 안 뜸)</span>
+<span class="c-d"># "ultrathink about this"  ← 효과 없음</span>
+<span class="c-d"># /path/to/ultrathink.md  ← 효과 없음</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.311" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- JSON 출력 유니코드 이스케이프 — 2025. 10. 27. -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔤</span>
+    <div class="card-title">
+      <h3>JSON 출력 특수문자 이스케이프 — 파이프·파싱 안정성 강화<span class="new-dot"></span></h3>
+      <p><code>--output-format json</code>·<code>stream-json</code>에서 DEL, C1 제어문자, 유니코드 형식 문자를 <code>\uXXXX</code>로 이스케이프해서 출력. 파싱한 값은 그대로야.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">명령어</span><span class="tag tag-green">실용적</span><span class="date">2025. 10. 27. · v2.1.311</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>왜 좋냐</h4>
+    <p>기존에는 Claude 출력에 DEL(0x7F)이나 C1 제어문자가 섞이면 JSON 파서가 터지는 경우가 있었어. 이제 문자열 안의 위험한 문자를 전부 <code>\uXXXX</code> 형태로 바꿔서 내보냄. jq, Python json.loads() 같은 도구로 받아서 파싱하면 원래 값 그대로 나옴.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># JSON 출력으로 받아서 jq로 파싱 — 특수문자 섞여도 이제 안전</span>
+<span class="c-p">claude</span> <span class="c-o">--output-format</span> <span class="c-g">json</span> <span class="c-o">-p</span> <span class="c-g">"코드 분석해줘"</span> | <span class="c-g">jq '.result'</span>
+
+<span class="c-d"># 스트리밍 JSON도 동일하게 안전</span>
+<span class="c-p">claude</span> <span class="c-o">--output-format</span> <span class="c-g">stream-json</span> <span class="c-o">-p</span> <span class="c-g">"작업 실행"</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.311" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- 모델 이름 1m 접미사 정리 — 2025. 10. 27. -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🏷️</span>
+    <div class="card-title">
+      <h3>모델 이름 정리 — <code>[1m]</code> 접미사 없애기<span class="new-dot"></span></h3>
+      <p>효과 없는 모델엔 <code>[1m]</code> 라벨이 더 이상 안 붙음. 기존에 쓰던 이름은 그대로 동작해.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">핵심</span><span class="date">2025. 10. 27. · v2.1.311</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라졌냐</h4>
+    <ul>
+      <li>1M 컨텍스트 확장이 의미 없는 모델에서는 이름과 UI 라벨에서 <code>[1m]</code> 접미사가 사라짐</li>
+      <li>기존에 <code>claude-opus-5-5-1m</code> 같은 이름으로 설정해뒀다면 그대로 받아들여짐 — 호환성은 유지</li>
+      <li>혼란스러운 모델명이 정리돼서 <code>/model</code> 피커가 더 깔끔해짐</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.311" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- 권한 규칙 경고 1회로 제한 — 2025. 10. 27. -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔔</span>
+    <div class="card-title">
+      <h3>권한 규칙 경고 1회 표시 — 같은 경고 반복 안 뜸<span class="new-dot"></span></h3>
+      <p>설정 파일의 잘못된 권한 규칙 경고가 이제 유저당 한 번만 표시됨. 규칙이 바뀌면 다시 알려줌.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">개발 도구</span><span class="date">2025. 10. 27. · v2.1.311</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>왜 좋냐</h4>
+    <p>기존엔 설정 파일에 잘못된 권한 규칙이 있으면 시작할 때마다 경고가 떴어. 이제 같은 규칙에 대한 경고는 사용자당 딱 한 번만 보여줌. 규칙 내용이 바뀌면 그때 다시 알려주니까 중요한 변경은 놓치지 않음.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.311" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- DISABLE_COMPACT 보안 강화 — 2025. 10. 27. -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🗜️</span>
+    <div class="card-title">
+      <h3>DISABLE_COMPACT 단방향 적용 — 끄기만 가능, 되돌리기 불가<span class="new-dot"></span></h3>
+      <p>설정 파일이나 Mod의 <code>$.env.set</code>으로 <code>DISABLE_COMPACT</code>를 설정하면 이제 압축을 끄는 것만 가능. 다시 켜는 건 안 됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="date">2025. 10. 27. · v2.1.311</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라졌냐</h4>
+    <p>보안 강화 목적의 변경이야. 플러그인(Mod)이 <code>$.env.set</code>으로 <code>DISABLE_COMPACT</code>를 조작해서 압축을 강제로 다시 켜는 걸 막음. 관리형 설정에서 압축을 끈 경우 플러그인이 그걸 우회하지 못하게 됨.</p>
+    <ul>
+      <li>설정 파일에서 <code>DISABLE_COMPACT=true</code> → 압축 꺼짐 (정상 동작)</li>
+      <li>Mod에서 <code>DISABLE_COMPACT=false
+
 <!-- Monitor tool Bedrock·Vertex·Foundry 확대 — v2.1.310 -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -11779,7 +11916,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.310'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.311'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

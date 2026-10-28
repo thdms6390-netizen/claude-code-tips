@@ -267,6 +267,149 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- v2.1.312 새 기능들 -->
+
+<!-- oidc.user_id_claim — 2026.10.28 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔐</span>
+    <div class="card-title">
+      <h3>oidc.user_id_claim — Microsoft Entra ID 등 커스텀 클레임으로 사용자 식별<span class="new-dot"></span></h3>
+      <p>게이트웨이에서 <code>sub</code> 대신 <code>oid</code> 같은 다른 id_token 클레임으로 사용자를 구별할 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">게이트웨이</span><span class="tag tag-blue">인증</span><span class="date">2026.10.28 · v2.1.312</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 필요해?</h4>
+    <p>Microsoft Entra ID(구 Azure AD)는 OIDC <code>sub</code> 클레임이 앱마다 달라져서 사용자를 일관되게 식별하기 어려워. 대신 <code>oid</code> 클레임을 쓰면 동일한 사용자를 테넌트 전체에서 같은 ID로 추적할 수 있음.</p>
+    <h4>설정 방법</h4>
+    <pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># Claude apps gateway 설정 파일에서</span>
+<span class="c-g">oidc</span><span class="c-d">:</span>
+  <span class="c-g">user_id_claim</span><span class="c-d">:</span> <span class="c-p">oid</span>   <span class="c-d"># Entra ID는 oid 추천</span>
+  <span class="c-d"># 기본값은 sub</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.312" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- 풀스크린 클릭으로 큐 메시지 즉시 전송 — 2026.10.28 -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⚡</span>
+    <div class="card-title">
+      <h3>풀스크린 큐 메시지 클릭 즉시 전송 — 힌트 클릭하면 바로 보내짐<span class="new-dot"></span></h3>
+      <p>풀스크린에서 큐에 올라간 메시지 아래 "to send now" 힌트를 클릭하면 단축키 누른 것처럼 바로 전송됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">UI</span><span class="tag tag-green">편의</span><span class="date">2026.10.28 · v2.1.312</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떻게 쓰는 거야?</h4>
+    <ul>
+      <li>풀스크린 모드에서 메시지를 큐에 올려두면 하단에 "to send now" 힌트가 뜸</li>
+      <li>그 힌트를 마우스로 클릭하면 해당 키를 누른 것과 동일하게 즉시 전송</li>
+      <li>키보드 안 잡고 마우스로도 빠르게 보낼 수 있어서 편함</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.312" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- 커스텀 배포명 짧은 시스템 프롬프트 — 2026.10.28 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔧</span>
+    <div class="card-title">
+      <h3>커스텀 모델명에 짧은 시스템 프롬프트 자동 적용 — 불필요한 긴 프롬프트 절약<span class="new-dot"></span></h3>
+      <p>Bedrock·Vertex·Foundry·Mantle에서 Claude Code가 모르는 모델명(커스텀 배포명, 추론 프로파일 ARN 등)엔 짧은 시스템 프롬프트를 자동으로 씀.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">프로바이더</span><span class="tag tag-orange">최적화</span><span class="date">2026.10.28 · v2.1.312</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라진 거야?</h4>
+    <p>Bedrock 추론 프로파일 ARN이나 커스텀 게이트웨이 배포명처럼 Claude Code가 인식 못 하는 모델명을 쓸 때, 기존에는 Sonnet·Haiku를 뒤에서 쓰더라도 무조건 긴 시스템 프롬프트가 들어갔어. 이제는 짧은 버전으로 토큰을 아낄 수 있음.</p>
+    <h4>원래대로 하고 싶으면</h4>
+    <pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 짧은 프롬프트 끄고 풀 프롬프트 유지</span>
+<span class="c-b">CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT</span>=<span class="c-g">0</span> <span class="c-p">claude</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.312" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- 커스텀 모델명 플래그 후 자동 전환 — 2026.10.28 -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔄</span>
+    <div class="card-title">
+      <h3>커스텀 배포명도 플래그 후 모델 자동 전환 — 안전 장치 확대<span class="new-dot"></span></h3>
+      <p>거절 플래그가 붙은 메시지 이후 모델을 자동으로 바꾸는 기능이 Claude Code가 모르는 커스텀 모델명까지 커버하게 됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">안전</span><span class="tag tag-red">자주쓰임</span><span class="date">2026.10.28 · v2.1.312</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떤 상황에서 작동해?</h4>
+    <ul>
+      <li>Bedrock 추론 프로파일 ARN 같은 커스텀 배포명으로 세션 중 플래그 메시지가 발생했을 때</li>
+      <li>이제 표준 모델명과 동일하게 자동으로 다른 모델로 전환해줌</li>
+      <li>원치 않으면 아래 환경변수로 끌 수 있어</li>
+    </ul>
+    <h4>끄고 싶으면</h4>
+    <pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-b">CLAUDE_CODE_DISABLE_REFUSAL_FALLBACK</span>=<span class="c-g">1</span> <span class="c-p">claude</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.312" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- 훅 동시 실행 상한 24개로 상향 — 2026.10.28 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⚙️</span>
+    <div class="card-title">
+      <h3>훅 동시 실행 상한 24개로 상향 — 서브에이전트 포함 세션 전체 기준<span class="new-dot"></span></h3>
+      <p>세션당 최대 24개 훅이 동시에 돌아가고, 타임아웃 넘겨 오래 기다린 건 최대 12개까지 허용. 타임아웃 1초 미만은 1초로 취급.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">훅</span><span class="tag tag-orange">자동화</span><span class="date">2026.10.28 · v2.1.312</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라진 거야?</h4>
+    <ul>
+      <li>기존: 같은 이벤트 훅이 쌓이면 12개 상한</li>
+      <li>이제: 세션 전체(서브에이전트 포함) 기준으로 한 번에 최대 <strong>24개</strong>까지 병렬 실행</li>
+      <li>타임아웃을 초과해 대기 중인 훅은 별도로 최대 12개까지만 허용</li>
+      <li>타임아웃을 1초 미만으로 설정했으면 자동으로 1초로 올라감</li>
+    </ul>
+    <h4>복잡한 멀티에이전트 워크플로우에서 훅이 병목되던 문제가 개선됨</h4>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.312" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- autoCompactWindow 서브에이전트 하향 적용 — 2026.10.28 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🗜️</span>
+    <div class="card-title">
+      <h3>autoCompactWindow 서브에이전트 하향 적용 수정 — 이제 환경변수 창보다 낮게 설정 가능<span class="new-dot"></span></h3>
+      <p>서브에이전트별 <code>autoCompactWindow</code>가 <code>CLAUDE_CODE_AUTO_COMPACT_WINDOW</code> 환경변수 값보다 낮게 설정되면 이제 제대로 반영됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">FIX</span><span class="tag tag-purple">서브에이전트</span><span class="tag tag-orange">압축</span><span class="date">2026.10.28 · v2.1.312</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>기존 동작 vs 지금</h4>
+    <ul>
+      <li><strong>기존</strong>: 서브에이전트의 <code>autoCompactWindow</code>를 환경변수보다 낮게 설정해도 아무 효과가 없었음</li>
+      <li><strong>이제</strong>: 환경변수 값보다 낮게 설정하면 정상적으로 그 값으로 창이 줄어듦</li>
+      <li>단, 환경변수 값보다 <em>높게</em> 올리는 건 여전히 안 됨 (상향은 차단)</li>
+    </ul>
+    <h4>예시</h4>
+    <pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 환경변수로 전역 상한 설정</span>
+<span class="c-b">CLAUDE_CODE_AUTO_COMPACT_WINDOW</span>=<span class="c-g">80000</span>
+
+<span class="c-d"># 서브에이전트에서 더 낮게 설정 → 이제 작동함</span>
+<span class="c-g">autoCompactWindow</span>: <span class="c-p">40000</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.312" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+
 <!-- self-hosted-runner idle hold — 2025. 10. 27. -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -11916,7 +12059,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.311'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.312'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

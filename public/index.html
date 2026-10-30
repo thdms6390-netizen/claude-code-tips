@@ -267,6 +267,159 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- permissions.blockWritesOutsideWorkingDirectories — 2026.10.30 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🛡️</span>
+    <div class="card-title">
+      <h3>blockWritesOutsideWorkingDirectories — 작업 폴더 밖 쓰기 전면 차단<span class="new-dot"></span></h3>
+      <p>Write·Edit·NotebookEdit 툴이 작업 디렉토리 밖 경로는 모든 권한 모드에서 무조건 거절하는 정책 추가.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">보안</span><span class="tag tag-red">자주쓰임</span><span class="date">2026.10.30 · v2.1.314</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 필요해?</h4>
+    <p>Auto 모드든 bypass 모드든 상관없이, 프로젝트 폴더 바깥 파일을 Claude가 수정하는 걸 조직 차원에서 완전히 막을 수 있음. 실수로 시스템 파일이나 다른 프로젝트 파일 덮어쓰는 사고를 원천 차단.</p>
+    <h4>설정 방법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># claude.json 또는 조직 정책에 추가</span>
+{
+  <span class="c-g">"permissions"</span>: {
+    <span class="c-g">"blockWritesOutsideWorkingDirectories"</span>: <span class="c-b">true</span>
+  }
+}</pre>
+    <h4>적용 범위</h4>
+    <ul>
+      <li>Write 툴 — 새 파일 생성도 차단</li>
+      <li>Edit 툴 — 기존 파일 수정 차단</li>
+      <li>NotebookEdit 툴 — 노트북 셀 편집 차단</li>
+      <li>모든 권한 모드(auto, manual, bypass)에서 동일하게 적용</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.314" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- gateway groups 필터 — 2026.10.30 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">👥</span>
+    <div class="card-title">
+      <h3>게이트웨이 업스트림 groups 필터 — IdP 그룹별로 라우팅<span class="new-dot"></span></h3>
+      <p>Claude Apps 게이트웨이 업스트림에 groups 목록 추가. 해당 IdP 그룹 소속 개발자만 그 업스트림으로 연결되고, 페일오버 시에도 동일하게 적용.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">엔터프라이즈</span><span class="tag tag-orange">자동화</span><span class="date">2026.10.30 · v2.1.314</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떤 상황에 쓰나?</h4>
+    <p>팀마다 다른 AWS 계정, 다른 모델, 다른 가드레일을 써야 할 때 유용함. Entra ID나 Okta 그룹 단위로 업스트림을 분리할 수 있어서 조직 구조 그대로 정책 적용 가능.</p>
+    <h4>설정 예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 게이트웨이 업스트림 설정</span>
+{
+  <span class="c-g">"upstreams"</span>: [
+    {
+      <span class="c-g">"name"</span>: <span class="c-g">"ml-team-upstream"</span>,
+      <span class="c-g">"groups"</span>: [<span class="c-g">"ml-engineers"</span>, <span class="c-g">"data-scientists"</span>]
+    },
+    {
+      <span class="c-g">"name"</span>: <span class="c-g">"default-upstream"</span>
+      <span class="c-d">// groups 없으면 나머지 전원에게 적용</span>
+    }
+  ]
+}</pre>
+    <h4>페일오버도 그룹 규칙 유지</h4>
+    <p>기본 업스트림이 다운돼서 페일오버 발생해도, groups 필터는 그대로 적용돼서 엉뚱한 팀 설정으로 넘어가는 일 없음.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.314" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- guardrail_trace — 2026.10.30 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔍</span>
+    <div class="card-title">
+      <h3>guardrail_trace — Bedrock 가드레일 어떤 필터에 걸렸는지 추적<span class="new-dot"></span></h3>
+      <p>Amazon Bedrock 가드레일이 요청을 차단했을 때, 어떤 필터가 발동했는지 로그에 남겨줌. 매칭된 실제 텍스트는 포함 안 해서 개인정보 안전.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">Bedrock</span><span class="tag tag-blue">보안</span><span class="date">2026.10.30 · v2.1.314</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>왜 유용해?</h4>
+    <p>가드레일이 막긴 했는데 왜 막혔는지 디버깅하기 어려웠음. 이제 어떤 필터 카테고리(욕설·개인정보·주제 제한 등)가 발동했는지 trace 로그로 확인 가능. 실제 차단된 텍스트는 로그에 안 남아서 보안·컴플라이언스 요건 충족.</p>
+    <h4>설정 방법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># Bedrock 업스트림 설정에 추가</span>
+{
+  <span class="c-g">"bedrock"</span>: {
+    <span class="c-g">"guardrail_trace"</span>: <span class="c-b">true</span>
+  }
+}</pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.314" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- VS Code / Desktop 유휴 자동 압축 확대 — 2026.10.30 -->
+<div class="card featured" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🗜️</span>
+    <div class="card-title">
+      <h3>VS Code · Desktop 유휴 압축 확대 — 자리 비운 사이에 컨텍스트 정리<span class="new-dot"></span></h3>
+      <p>VS Code와 Claude Desktop의 Code 탭에서도 유휴 자동 압축이 된다. 200K 토큰 넘은 대화가 자리 비운 사이 자동으로 요약되고, 프롬프트 캐시 만료 후 다음 메시지 때 요약본 사용.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">컨텍스트</span><span class="tag tag-red">자주쓰임</span><span class="tag tag-green">실용적</span><span class="date">2026.10.30 · v2.1.314</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이제 어디서 되나?</h4>
+    <ul>
+      <li>✅ VS Code 확장 내 Claude Code</li>
+      <li>✅ Claude Desktop의 Code 탭</li>
+      <li>✅ 텔레메트리 끈 구독자도 적용</li>
+      <li>✅ Bedrock · Vertex · Foundry · LLM 게이트웨이 (1시간 프롬프트 캐시 켜져 있으면)</li>
+    </ul>
+    <h4>동작 방식</h4>
+    <p>자리 비운 동안 대화 컨텍스트가 200K 토큰을 넘으면 Claude가 알아서 요약을 만들어 둠. 다음에 메시지 보낼 때 프롬프트 캐시가 이미 만료됐으면 그 요약본으로 시작해서 컨텍스트 창 절약.</p>
+    <h4>설정 확인</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># /config에서 유휴 압축 켜기/끄기</span>
+<span class="c-p">/config</span>
+<span class="c-d"># → "Idle Compaction" 항목 토글</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.314" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- 관리형 설정 파일 편집 확인 프롬프트 — 2026.10.30 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔒</span>
+    <div class="card-title">
+      <h3>조직 관리형 설정 파일 편집 시 확인 — 내 설정 파일처럼 보호<span class="new-dot"></span></h3>
+      <p>조직 서버에서 관리되는 설정 파일의 로컬 사본을 Claude의 파일 툴이 편집하려 할 때, 이제 내 개인 설정 파일처럼 먼저 확인을 물어봄.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">보안</span><span class="tag tag-purple">엔터프라이즈</span><span class="date">2026.10.30 · v2.1.314</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>왜 바뀌었어?</h4>
+    <p>기존에는 조직이 배포한 managed settings 파일(예: 정책·권한 설정)의 로컬 사본을 Claude가 수정할 때 별도 확인 없이 편집할 수 있었음. 이제 개인 설정 파일과 동일하게 보호해서 의도치 않은 정책 파일 변조를 방지.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.314" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- /permissions 차단 이력 개선 — 2026.10.30 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🚫</span>
+    <div class="card-title">
+      <h3>/permissions 차단 이력 — 전체 내용 못 보면 승인도 못 함<span class="new-dot"></span></h3>
+      <p>Recently blocked 목록에서 전체 내용을 볼 수 없는 툴 콜(터미널이 너무 짧아서 잘린 경우 포함)은 이제 승인 자체를 거절함.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">보안</span><span class="tag tag-purple">권한</span><span class="date">2026.10.30 · v2.1.314</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 중요해?</h4>
+    <p>내용이 잘려서 뭔지도 모르는 상태에서 "허용" 버튼 누르는 건 위험함. 이제 전체 내용
+
 <!-- v2.1.312 새 기능들 -->
 
 <!-- oidc.user_id_claim — 2026.10.28 -->
@@ -12059,7 +12212,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.312'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.314'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

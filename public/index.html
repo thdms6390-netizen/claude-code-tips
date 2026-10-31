@@ -267,6 +267,177 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- CLAUDE_CODE_DISABLE_ULTRATHINK — 2026.10.31 -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔕</span>
+    <div class="card-title">
+      <h3>CLAUDE_CODE_DISABLE_ULTRATHINK — ultrathink 키워드 완전히 끄기<span class="new-dot"></span></h3>
+      <p>ultrathink 입력해도 xhigh 에포트로 올라가지 않게 차단. 팀 환경에서 에포트 수준 통제하고 싶을 때 유용함.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">에포트</span><span class="date">2026.10.31 · v2.1.316</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이런 상황에 쓰면 됨</h4>
+    <ul>
+      <li>조직 내 Claude 사용 비용 통제 필요할 때</li>
+      <li>ultrathink를 실수로 입력해도 무거운 추론 안 쓰게 막고 싶을 때</li>
+      <li><code>maxEffortLevel</code>과 함께 써서 에포트 상한 이중으로 잠그기</li>
+    </ul>
+    <h4>설정 방법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 환경변수로 설정</span>
+<span class="c-b">export</span> <span class="c-g">CLAUDE_CODE_DISABLE_ULTRATHINK</span>=<span class="c-g">true</span>
+
+<span class="c-d"># 조직 설정 파일에 넣기</span>
+<span class="c-d"># /etc/claude-code/settings.json 또는 managed settings</span>
+{
+  <span class="c-g">"env"</span>: {
+    <span class="c-g">"CLAUDE_CODE_DISABLE_ULTRATHINK"</span>: <span class="c-g">"true"</span>
+  }
+}</pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.316" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- pooled group budgets — 2026.10.31 -->
+<div class="card featured" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">💰</span>
+    <div class="card-title">
+      <h3>게이트웨이 그룹 풀 예산 — 팀 전체가 함께 쓰는 월별 한도<span class="new-dot"></span></h3>
+      <p>개인 한도 위에 그룹 공유 예산을 별도로 올릴 수 있음. 한 사람이 다 써도 팀 예산은 따로 관리됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">게이트웨이</span><span class="tag tag-orange">엔터프라이즈</span><span class="date">2026.10.31 · v2.1.316</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떻게 동작하는 거야?</h4>
+    <ul>
+      <li>기존: 사람마다 개인 spend limit만 존재</li>
+      <li>이제: 그룹(팀/부서)에 <strong>월별 공유 예산</strong>을 추가로 설정 가능</li>
+      <li>개인 한도 + 그룹 풀 한도 둘 다 넘지 않아야 사용 가능</li>
+      <li>부서별 예산 관리, 프로젝트별 비용 분리에 딱 맞음</li>
+    </ul>
+    <h4>설정 방법 (Admin API)</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># spend limits admin API로 그룹 풀 예산 설정</span>
+<span class="c-p">PATCH</span> <span class="c-g">/admin/groups/{group_id}/spend-limits</span>
+{
+  <span class="c-g">"pooled_budget"</span>: {
+    <span class="c-g">"monthly_limit_usd"</span>: <span class="c-b">500</span>,
+    <span class="c-g">"reset_day"</span>: <span class="c-b">1</span>
+  }
+}</pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.316" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- CLAUDE_CODE_SUBAGENT_EFFORT — 2026.10.31 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⚙️</span>
+    <div class="card-title">
+      <h3>CLAUDE_CODE_SUBAGENT_EFFORT — 서브에이전트 기본 에포트 독립 설정<span class="new-dot"></span></h3>
+      <p>서브에이전트가 세션 에포트를 그대로 물려받지 않고, 따로 지정한 수준으로 실행되게 할 수 있음. 무거운 작업은 메인만, 서브는 가볍게.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">서브에이전트</span><span class="tag tag-orange">자동화</span><span class="date">2026.10.31 · v2.1.316</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>기존 동작과 뭐가 달라?</h4>
+    <ul>
+      <li>기존: 서브에이전트는 메인 세션 에포트(예: xhigh)를 그대로 상속</li>
+      <li>이제: <code>CLAUDE_CODE_SUBAGENT_EFFORT</code>로 서브에이전트 전용 기본값 설정 가능</li>
+      <li>Agent 툴 <code>effort</code> 파라미터가 명시된 경우엔 그게 우선</li>
+      <li>비용 절감 + 속도 최적화를 동시에 잡을 수 있음</li>
+    </ul>
+    <h4>설정 방법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 메인은 high, 서브에이전트는 low로 고정</span>
+<span class="c-b">export</span> <span class="c-g">CLAUDE_CODE_SUBAGENT_EFFORT</span>=<span class="c-g">low</span>
+
+<span class="c-d"># 가능한 값: low / medium / high / xhigh</span>
+<span class="c-b">export</span> <span class="c-g">CLAUDE_CODE_SUBAGENT_EFFORT</span>=<span class="c-g">medium</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.316" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- managed.policy_mode: layered — 2026.10.31 -->
+<div class="card featured" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🧱</span>
+    <div class="card-title">
+      <h3>게이트웨이 policy_mode: layered — 매칭되는 정책 전부 합산 적용<span class="new-dot"></span></h3>
+      <p>기존엔 첫 번째 매칭 정책만 적용됐는데, 이제 조건에 맞는 정책을 전부 겹쳐서 적용할 수 있음. 세밀한 권한 레이어링이 가능해짐.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">게이트웨이</span><span class="tag tag-orange">엔터프라이즈</span><span class="date">2026.10.31 · v2.1.316</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>layered 모드가 뭐야?</h4>
+    <ul>
+      <li>기존 <code>first_match</code>: 조건 맞는 첫 번째 정책만 적용, 나머지 무시</li>
+      <li>새로운 <code>layered</code>: 매칭되는 정책을 아래에서 위로 순서대로 머지</li>
+      <li>예) 기본 정책 + 팀 정책 + 개인 정책이 순서대로 쌓여서 최종 적용</li>
+      <li>더 낮은 우선순위 정책이 기반이 되고, 높은 게 덮어씀</li>
+    </ul>
+    <h4>설정 예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 게이트웨이 설정 파일</span>
+{
+  <span class="c-g">"managed"</span>: {
+    <span class="c-g">"policy_mode"</span>: <span class="c-g">"layered"</span>
+  }
+}
+
+<span class="c-d"># layered: 매칭되는 정책 전부 머지 (아래→위 순)</span>
+<span class="c-d"># first_match: 첫 번째 매칭 정책만 적용 (기존 동작)</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.316" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- guardrail.input_tagging — 2026.10.31 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🛡️</span>
+    <div class="card-title">
+      <h3>게이트웨이 guardrail.input_tagging — Bedrock 가드레일 입력 태깅 자동화<span class="new-dot"></span></h3>
+      <p>Amazon Bedrock 가드레일의 프롬프트 공격 필터가 요구하는 입력 태그를 자동으로 감싸줌. 시스템 프롬프트까지 태깅하는 옵션도 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">게이트웨이</span><span class="tag tag-blue">Bedrock</span><span class="date">2026.10.31 · v2.1.316</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>왜 필요한 거야?</h4>
+    <ul>
+      <li>Bedrock 가드레일 프롬프트 공격 필터는 특정 입력 태그 형식을 요구함</li>
+      <li>기존엔 앱단에서 수동으로 태그를 감싸야 했음</li>
+      <li>이제 게이트웨이가 자동으로 처리해줌</li>
+    </ul>
+    <h4>설정 옵션</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 게이트웨이 Bedrock upstream 설정</span>
+{
+  <span class="c-g">"guardrail"</span>: {
+    <span class="c-g">"input_tagging"</span>: <span class="c-g">"all_messages"</span>
+  }
+}
+
+<span class="c-d"># 시스템 프롬프트까지 태깅하려면</span>
+{
+  <span class="c-g">"guardrail"</span>: {
+    <span class="c-g">"input_tagging"</span>: <span class="c-g">"all_messages_and_system"</span>
+  }
+}</pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.316" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- server-managed settings approval change — 2026.10.31 -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">✅</span>
+    <div class="card-title">
+      <h3>Team·Enterprise 서버 설정 자동 신뢰 — 검증된 설정은 팝업 없이 바로 적용<span class="new-dot"></span></h3>
+      <p>Anthropic API에서 가져온 서버 관리 설정은 이제 승인 팝업 없이 바로 적용됨. 반면 검증 안 된 로컬 사
+
 <!-- permissions.blockWritesOutsideWorkingDirectories — 2026.10.30 -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -12212,7 +12383,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.314'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.316'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

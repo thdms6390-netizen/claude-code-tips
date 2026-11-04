@@ -267,6 +267,156 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- Added record of mod enable answer — 2026-11-04 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📝</span>
+    <div class="card-title">
+      <h3>Mod 활성화 답변 기록 — 세션에서 뭘 켰는지 남긴다<span class="new-dot"></span></h3>
+      <p>Claude Code가 세션 중 작성한 Mod를 켜도 되냐고 물어볼 때, 내 답변이 이제 기록으로 남음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="date">2026-11-04 · v2.1.318</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 필요해?</h4>
+    <p>Claude Code가 세션 도중 직접 작성한 Mod(플러그인)를 활성화하려고 물어볼 때, 내가 "켜" 또는 "끄" 중 뭘 골랐는지 이제 기록으로 남아. 나중에 뭘 허용했는지 확인할 수 있고, 감사(audit)에도 도움이 됨.</p>
+    <h4>어디서 확인해?</h4>
+    <ul>
+      <li>세션 로그 및 Mod 관련 이력에서 확인 가능</li>
+      <li>조직 환경에서 어떤 Mod가 세션 중 사용자 승인을 받았는지 추적할 수 있음</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.318" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- mantle assume_role for AWS cost attribution — 2026-11-04 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🏦</span>
+    <div class="card-title">
+      <h3>게이트웨이 mantle 업스트림 assume_role — 개발자별 AWS 비용 귀속<span class="new-dot"></span></h3>
+      <p>다른 AWS 계정의 IAM 역할을 맡아 요청하고, 개발자 단위로 AWS 비용을 추적할 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">개발 도구</span><span class="tag tag-orange">자동화</span><span class="date">2026-11-04 · v2.1.318</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라졌어?</h4>
+    <ul>
+      <li>Claude apps 게이트웨이의 <code>mantle</code> 업스트림에 <code>assume_role</code> 옵션 추가됨</li>
+      <li>다른 AWS 계정의 IAM 역할을 위임받아 요청 가능 → 멀티 계정 환경에서 유용</li>
+      <li>개발자별로 AWS 비용이 별도 귀속되어, 팀원 각자의 사용량을 AWS Cost Explorer 등에서 분리해서 볼 수 있음</li>
+    </ul>
+    <h4>설정 예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 게이트웨이 설정 (mantle 업스트림)</span>
+<span class="c-g">assume_role</span><span class="c-p">:</span> <span class="c-g">arn:aws:iam::123456789012:role/ClaudeDevRole</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.318" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- $.model.fork effort option — 2026-11-04 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⚡</span>
+    <div class="card-title">
+      <h3>$.model.fork effort 옵션 — 곁가지 작업은 low로 가볍게<span class="new-dot"></span></h3>
+      <p>Mod의 <code>$.model.fork</code>에 effort 옵션을 줄 수 있음. 세션 에포트가 high여도 간단한 작업은 low로 돌릴 수 있어.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="tag tag-green">실용적</span><span class="date">2026-11-04 · v2.1.318</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 좋아?</h4>
+    <p>세션 전체 에포트가 <code>high</code>나 <code>xhigh</code>로 설정돼 있어도, Mod 안에서 간단한 사이드 작업을 <code>low</code> 에포트로 분기(fork)해서 실행할 수 있음. 비용 아끼면서 빠른 결과를 얻을 수 있고, 결과에는 실제로 사용된 effort가 함께 리포트됨.</p>
+    <h4>Mod 사용 예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># Mod에서 곁가지 작업을 low effort로 분기</span>
+<span class="c-b">const</span> result = <span class="c-b">await</span> <span class="c-p">$.model.fork</span>({
+  prompt: <span class="c-g">"간단한 요약 작업"</span>,
+  effort: <span class="c-o">"low"</span>
+});
+<span class="c-d"># result에 실제 사용된 effort 정보 포함</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.318" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- claude auth status loginExpiresAt + expiry warning — 2026-11-04 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔐</span>
+    <div class="card-title">
+      <h3>claude.ai 로그인 만료일 표시 + 사전 경고 — 세션 끊기기 전에 미리 알 수 있음<span class="new-dot"></span></h3>
+      <p><code>claude auth status</code>에 로그인 만료 날짜가 추가됐고, 만료 10일 전부터 <code>claude -p</code> 실행 시 경고가 뜸.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">명령어</span><span class="tag tag-red">자주쓰임</span><span class="date">2026-11-04 · v2.1.318</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라졌어?</h4>
+    <ul>
+      <li><code>claude auth status</code> 출력에 <code>loginExpiresAt</code> 필드 추가 — 저장된 claude.ai 로그인이 언제 만료되는지 날짜로 표시</li>
+      <li><code>claude -p</code> JSON 결과에도 <code>credential_expires_at</code> 필드 포함</li>
+      <li>만료 10일 전부터 <code>claude -p</code> 텍스트 출력 시 stderr에 한 줄짜리 경고 메시지 자동 출력</li>
+    </ul>
+    <h4>확인 방법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 로그인 상태 + 만료일 확인</span>
+<span class="c-p">claude auth status</span>
+
+<span class="c-d"># JSON 출력에서 만료일 확인</span>
+<span class="c-p">claude -p</span> <span class="c-g">"안녕"</span> <span class="c-o">--output-format json</span> | <span class="c-g">jq .credential_expires_at</span>
+
+<span class="c-d"># 만료 10일 전이면 stderr에 경고 자동 출력</span>
+<span class="c-d"># Warning: claude.ai login expires in N days. Run `claude auth login` to renew.</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.318" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- IDE extension no longer auto-installed in IDE terminal — 2026-11-04 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🧩</span>
+    <div class="card-title">
+      <h3>IDE 터미널에서 확장 자동 설치 중단 — /ide 명령어로 수동 설치<span class="new-dot"></span></h3>
+      <p>IDE 터미널에서 Claude Code 시작해도 더 이상 IDE 확장을 자동으로 설치하거나 업데이트하지 않음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">개발 도구</span><span class="tag tag-blue">VSCode</span><span class="date">2026-11-04 · v2.1.318</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>왜 바뀐 거야?</h4>
+    <p>기존에는 IDE 터미널에서 Claude Code를 실행하면 IDE 확장이 자동으로 설치/업데이트됐는데, 이제 그렇게 안 됨. 확장은 직접 설치하는 방식으로 변경.</p>
+    <h4>이제 어떻게 설치해?</h4>
+    <ul>
+      <li><strong>IDE 외부 터미널</strong>에서 <code>/ide</code> 명령어를 실행하면 설치됨</li>
+      <li>또는 에디터의 확장(Extensions) 뷰에서 직접 설치</li>
+    </ul>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># IDE 외부 일반 터미널에서 실행</span>
+<span class="c-p">/ide</span>
+
+<span class="c-d"># 또는 VS Code Extensions에서 "Claude Code" 검색 후 설치</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.318" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- Subagent stops instead of switching models on "Ask each time" — 2026-11-04 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🛑</span>
+    <div class="card-title">
+      <h3>서브에이전트 모델 전환 대신 중단 — "매번 확인" 설정 시 동작 변경<span class="new-dot"></span></h3>
+      <p>"메시지 차단 시 모델 전환"을 "매번 확인"으로 설정하면, 서브에이전트가 멋대로 모델 바꾸는 대신 그냥 멈춤.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="date">2026-11-04 · v2.1.318</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라졌어?</h4>
+    <p>"Switch models when a message is flagged"를 "Ask each time(매번 확인)"으로 설정한 경우, 기존에는 서브에이전트가 자동으로 다른 모델로 전환했음. 이제는 전환 대신 그 자리에서 멈춰(stop)서 사용자가 직접 결정할 수 있게 됨.</p>
+    <h4>왜 좋아?</h4>
+    <ul>
+      <li>내가 모르는 사이에 서브에이전트가 비싼 모델로 슬쩍 바뀌는 일 없음</li>
+      <li>모델 전환에 대한 완전한 통제권이 사용자
+
 <!-- /schedule 커넥터 경고 — 2026.11.3 -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -12547,7 +12697,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.317'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.318'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

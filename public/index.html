@@ -267,6 +267,139 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- MCP Tasks 백그라운드 자동 전환 — 2026.11.7 -->
+<div class="card featured" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⚡</span>
+    <div class="card-title">
+      <h3>MCP 태스크 백그라운드 자동 전환 — 긴 MCP 작업은 뒤로 빠진다<span class="new-dot"></span></h3>
+      <p>MCP 서버가 툴 콜을 태스크로 실행하면 Claude Code가 자동으로 백그라운드로 보내고, 끝나면 결과를 Claude에게 알려줌. 긴 작업 기다리느라 멈추는 거 없어짐.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">MCP</span><span class="tag tag-orange">자동화</span><span class="date">2026.11.7 · v2.1.319</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 좋냐면</h4>
+    <p>MCP 서버가 오래 걸리는 작업(빌드, 테스트, 배포 등)을 태스크로 돌릴 때, 기존엔 그게 끝날 때까지 Claude가 그냥 기다렸음. 이제는 바로 백그라운드로 보내고 Claude는 다른 거 계속 할 수 있어. 텔레메트리 없는 환경(Bedrock, Vertex, Foundry, LLM 게이트웨이)에서도 동작함.</p>
+    <h4>설정</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 백그라운드 전환 끄고 툴 콜 안에서 기다리게 하고 싶으면</span>
+<span class="c-b">CLAUDE_CODE_DISABLE_MCP_TASK_BACKGROUND</span>=<span class="c-g">1</span>
+
+<span class="c-d"># MCP 태스크 기능 자체를 완전히 끄려면</span>
+<span class="c-b">CLAUDE_CODE_DISABLE_MCP_TASKS</span>=<span class="c-g">1</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.319" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- permissions.denyInsteadOfPrompting — 2026.11.7 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🚫</span>
+    <div class="card-title">
+      <h3>permissions.denyInsteadOfPrompting — 권한 팝업 대신 조용히 거절<span class="new-dot"></span></h3>
+      <p>권한 확인이 필요한 툴 콜을 팝업 없이 그냥 거절하고 턴을 계속 진행. 무인 세션·서브에이전트·팀메이트에서 멈춤 없이 돌릴 때 쓰면 딱 좋음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">권한</span><span class="tag tag-orange">자동화</span><span class="date">2026.11.7 · v2.1.319</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떻게 쓰냐면</h4>
+    <p>CI/CD나 백그라운드 자동화 세션에서 권한 팝업에 아무도 응답 못 하는 상황이 있잖아. 이 설정 켜면 허가 안 된 툴 콜은 그냥 거절되고 나머지 작업은 계속 돌아감. 터미널 세션, 서브에이전트, 팀메이트 모두 적용됨.</p>
+    <h4>설정 (settings.json)</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button">{
+  <span class="c-g">"permissions"</span>: {
+    <span class="c-g">"denyInsteadOfPrompting"</span>: <span class="c-b">true</span>
+  }
+}</pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.319" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- /claude-api latency-optimize — 2026.11.7 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🏎️</span>
+    <div class="card-title">
+      <h3>/claude-api latency-optimize — API 응답 느린 곳 찾아서 빠르게 바꿔주기<span class="new-dot"></span></h3>
+      <p>내 Claude API 코드에서 사용자가 기다리는 병목을 찾아주고, 더 빠른 설정을 내 eval에 맞춰 테스트해줌.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">API</span><span class="tag tag-green">실용적</span><span class="date">2026.11.7 · v2.1.319</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이런 상황에 쓰면 됨</h4>
+    <p>Claude API로 앱 만들었는데 응답이 느리다 싶을 때. 어디서 지연이 생기는지 분석해주고, streaming 여부, 모델 선택, 캐싱 등 더 빠르게 만들 수 있는 옵션을 eval과 비교해서 추천해줌.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-p">/claude-api</span> <span class="c-g">latency-optimize</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.319" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- /tasks 완료된 서브에이전트 목록 — 2026.11.7 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📋</span>
+    <div class="card-title">
+      <h3>/tasks "Earlier in this session" 행 추가 — 끝난 서브에이전트도 다시 열 수 있음<span class="new-dot"></span></h3>
+      <p>/tasks 목록에 "Earlier in this session" 섹션이 생겨서, 이미 완료되거나 목록에서 사라진 서브에이전트도 다시 열어서 메시지 보낼 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">에이전트</span><span class="tag tag-red">자주쓰임</span><span class="date">2026.11.7 · v2.1.319</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라졌냐면</h4>
+    <p>기존엔 서브에이전트가 완료되면 /tasks 목록에서 사라져서 다시 접근하기 불편했음. 이제는 "Earlier in this session" 행에 완료된 서브에이전트들이 남아서, 세션 재시작 후에도 다시 열고 메시지 보낼 수 있어.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-p">/tasks</span>
+<span class="c-d"># 목록 하단 "Earlier in this session" 섹션에서</span>
+<span class="c-d"># 완료된 서브에이전트 클릭하면 다시 열림</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.319" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- 게이트웨이 오늘/이번 주/이번 달 지출 표시 — 2026.11.7 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">💸</span>
+    <div class="card-title">
+      <h3>/usage 오늘·이번 주·이번 달 지출 — 한도 없어도 얼마 썼는지 바로 확인<span class="new-dot"></span></h3>
+      <p>Claude apps 게이트웨이 사용자라면 spend limit 없이도 /usage에서 오늘, 이번 주, 이번 달 지출을 바로 볼 수 있음. 게이트웨이가 이 버전 이상이어야 함.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">게이트웨이</span><span class="tag tag-green">실용적</span><span class="date">2026.11.7 · v2.1.319</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떻게 쓰냐면</h4>
+    <p>지출 한도 설정 안 한 개발자도 Claude apps 게이트웨이 뒤에서 /usage 치면 오늘, 이번 주, 이번 달 쓴 금액이 표시됨. 팀 비용 관리할 때 유용함.</p>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-p">/usage</span>
+<span class="c-d"># Today: $X.XX | This week: $X.XX | This month: $X.XX</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.319" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- 게이트웨이 login_notice + 청구 조직 표시 — 2026.11.7 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔔</span>
+    <div class="card-title">
+      <h3>게이트웨이 login_notice + 청구 조직 표시 — 로그인 화면에 운영자 메시지 & 어디에 청구되는지 바로 확인<span class="new-dot"></span></h3>
+      <p>게이트웨이 관리자가 브라우저 인증 페이지와 Claude Code 로그인 화면에 커스텀 공지를 띄울 수 있음. 그리고 ant auth login으로 접속할 때 어느 조직에 비용이 청구되는지 시작 시 바로 알려줌.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">게이트웨이</span><span class="tag tag-blue">엔터프라이즈</span><span class="date">2026.11.7 · v2.1.319</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>login_notice 설정 (게이트웨이 관리자용)</h4>
+    <p>운영자가 정의한 메시지가 브라우저 인증 페이지와 Claude Code 로그인 화면에 표시됨. 보안 정책 안내, 사용 주의사항 등 띄울 때 쓰면 됨.</p>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 게이트웨이 설정 (gateway config)</span>
+{
+  <span class="c-g">"login_notice"</span>: <span class="c-g">"이 시스템은 사내 전용입니다. 외부 공유 금지."</span>
+}</pre>
+    <h4>청구 조직 확인</h4>
+    <p>ant auth login으로 접속하면 시작 시 "Usage billed to: [조직명]" 형태로 어느 Claude Console 조직에 비용이 붙는지 바로 표시됨. claude.ai 로그인이 만료되고 ant auth로 이어갈 때도 경고 뜸.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.319" target="_blank">릴리즈 노트 보기 →
+
 <!-- Added record of mod enable answer — 2026-11-04 -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -12697,7 +12830,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.318'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.319'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

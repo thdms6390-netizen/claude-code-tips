@@ -267,6 +267,37 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- Fast Mode Vertex AI 전 리전 확대 — 2026.11.10 -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⚡</span>
+    <div class="card-title">
+      <h3>Vertex AI Fast Mode 전 리전 확대 — global·us·eu 모두 지원<span class="new-dot"></span></h3>
+      <p>Vertex AI에서 Fast Mode가 global, us, eu 리전 전부에서 쓸 수 있게 됐어. 리전이 Fast Mode를 거부하면 자동으로 일반 속도로 폴백.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">Vertex AI</span><span class="tag tag-red">자주쓰임</span><span class="date">2026.11.10 · v2.1.322</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라졌어?</h4>
+    <ul>
+      <li>기존엔 Vertex AI Fast Mode가 일부 리전에서만 됐는데, 이제 <strong>global·us·eu 세 리전 전부</strong>에서 쓸 수 있음</li>
+      <li>특정 리전에서 Fast Mode를 지원 안 하면 에러 대신 <strong>자동으로 일반 속도로 폴백</strong>해서 세션이 끊기는 일 없음</li>
+      <li>Vertex AI 쓰는 팀이라면 별도 설정 없이 그냥 Fast Mode 켜면 됨</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># Vertex AI 환경에서 Fast Mode 켜기</span>
+<span class="c-p">/fast</span>
+
+<span class="c-d"># 또는 세션 시작할 때 플래그로</span>
+<span class="c-g">claude</span> <span class="c-o">--fast</span>
+
+<span class="c-d"># 리전이 Fast Mode 미지원이면 자동으로 일반 속도로 폴백됨</span>
+<span class="c-d"># → 별도 에러 처리 불필요</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.322" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
 <!-- Claude Fable 5.2 출시 — 2026.11.10 -->
 <div class="card featured" data-cat="core">
   <div class="card-header" onclick="toggle(this)">
@@ -12993,7 +13024,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.321'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.322'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

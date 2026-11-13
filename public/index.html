@@ -267,6 +267,169 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- Code Mode — 2026. 11. 13. -->
+<div class="card featured" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⚡</span>
+    <div class="card-title">
+      <h3>Code Mode — Claude가 JavaScript로 툴을 직접 호출한다<span class="new-dot"></span></h3>
+      <p>실험적 옵트인 기능. Claude가 툴 콜을 자연어 대신 JavaScript 코드로 처리해서 더 정밀하게 동작함.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">실험적</span><span class="tag tag-red">자주쓰임</span><span class="date">2026.11.13 · v2.1.323</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 뭔데?</h4>
+    <p>Claude가 툴을 호출할 때 기존 방식 대신 JavaScript 코드를 작성해서 실행하는 실험적 모드야. 더 복잡한 로직이나 조건 분기가 있는 작업을 훨씬 정밀하게 처리할 수 있음.</p>
+    <h4>켜는 법 / 끄는 법</h4>
+    <pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 공식 문서에서 활성화</span>
+<span class="c-g">https://code.claude.com/docs/en/code-mode</span>
+
+<span class="c-d"># 조직 전체 비활성화도 동일 페이지에서 설정 가능</span></pre>
+    <h4>주의할 점</h4>
+    <ul>
+      <li>현재 실험적(opt-in) 단계라 직접 켜야 써볼 수 있음</li>
+      <li>조직 관리자는 같은 문서 페이지에서 조직 전체 비활성화 가능</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.323" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- plugin.json engines — 2026. 11. 13. -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔒</span>
+    <div class="card-title">
+      <h3>플러그인 버전 범위 강제 적용 — 맞지 않으면 설치도 로드도 안 됨<span class="new-dot"></span></h3>
+      <p>plugin.json에 engines["claude-code"] 필드 추가. 버전 범위 벗어난 플러그인은 설치·업데이트·로드 전부 차단됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">플러그인</span><span class="date">2026.11.13 · v2.1.323</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 중요해?</h4>
+    <p>플러그인이 지원하지 않는 버전의 Claude Code에서 돌다가 오작동하는 걸 원천 차단해줌. 설치·업데이트 시 자동으로 버전 범위 맞는 최신 버전을 골라서 설치함.</p>
+    <h4>plugin.json 예시</h4>
+    <pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># plugin.json에 버전 범위 명시</span>
+{
+  <span class="c-g">"engines"</span>: {
+    <span class="c-g">"claude-code"</span>: <span class="c-g">">=2.1.0 <3.0.0"</span>
+  }
+}</pre>
+    <ul>
+      <li>범위 밖이면 설치·업데이트·로드 모두 거절</li>
+      <li>install/update 시 범위 안에서 가장 최신 버전 자동 선택</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.323" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- claude plugin validate TypeScript 타입 체크 — 2026. 11. 13. -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🧪</span>
+    <div class="card-title">
+      <h3>claude plugin validate TypeScript 타입 체크 — 훅 모듈 오류 미리 잡기<span class="new-dot"></span></h3>
+      <p>플러그인 TypeScript 훅 모듈을 타입 체크해줌. 경고는 그냥 표시, --strict 옵션 쓰면 타입 오류 있으면 실패 처리.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">플러그인</span><span class="tag tag-green">실용적</span><span class="date">2026.11.13 · v2.1.323</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라졌어?</h4>
+    <ul>
+      <li>TypeScript 훅 모듈 타입 오류를 경고로 표시해줌</li>
+      <li><code>--strict</code> 플래그 쓰면 타입 오류 발견 시 검증 실패로 처리</li>
+      <li>mod의 <code>engine.create</code> 훅이 추가·제거·교체하는 <code>$</code> noun 목록도 함께 표시</li>
+    </ul>
+    <h4>사용법</h4>
+    <pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 기본 검증 (경고만 표시)</span>
+<span class="c-p">claude plugin validate</span>
+
+<span class="c-d"># 타입 오류 있으면 실패 처리</span>
+<span class="c-p">claude plugin validate</span> <span class="c-o">--strict</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.323" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- 사용량 한도 옵션 메뉴 — 2026. 11. 13. -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">💳</span>
+    <div class="card-title">
+      <h3>사용량 한도 도달 시 옵션 메뉴 — 중단 말고 선택하기<span class="new-dot"></span></h3>
+      <p>모델이 사용량 크레딧을 다 쓰거나 비활성화 상태일 때 멈추는 대신 옵션 메뉴가 뜸. 중단·크레딧 전환·업그레이드 중 선택 가능.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">UX</span><span class="tag tag-red">자주쓰임</span><span class="date">2026.11.13 · v2.1.323</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 왜 편해?</h4>
+    <p>기존엔 사용량 한도 도달하면 그냥 에러로 멈췄는데, 이제는 세 가지 선택지가 메뉴로 뜸:</p>
+    <ul>
+      <li><strong>중단(Stop)</strong> — 그냥 멈추기</li>
+      <li><strong>사용량 크레딧 전환</strong> — 꺼져있거나 소진된 경우에 전환</li>
+      <li><strong>업그레이드</strong> — 플랜 업그레이드 바로 가기</li>
+    </ul>
+    <p>조용히 실패하던 거 없애고 선택권을 준 거임.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.323" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- 훅 장시간 실행 하트비트 — 2026. 11. 13. -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">💓</span>
+    <div class="card-title">
+      <h3>훅 장시간 실행 하트비트 — 30초마다 살아있다는 신호 보내기<span class="new-dot"></span></h3>
+      <p>claude -p나 SDK 세션에서 훅이 오래 걸릴 때 30초마다 진행 하트비트 전송. Claude Desktop이 hung으로 잘못 판단해서 세션 끊는 거 방지.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">자동화</span><span class="tag tag-orange">자동화</span><span class="date">2026.11.13 · v2.1.323</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>어떤 문제를 해결해?</h4>
+    <p>훅이 시간 오래 걸리는 작업(빌드, 테스트 등)을 실행할 때, 호스트(Claude Desktop 등)가 "응답 없음"으로 판단해서 세션을 끊어버리는 문제가 있었음. 이제 30초마다 자동으로 하트비트를 보내서 살아있음을 알려줌.</p>
+    <ul>
+      <li><code>claude -p</code> 헤드리스 세션에서 적용</li>
+      <li>SDK 세션에서 적용</li>
+      <li>Claude Desktop이 해당 버전 포함하면 자동으로 혜택 받음</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.323" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- .docx Artifact 업로드 — 2026. 11. 13. -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📄</span>
+    <div class="card-title">
+      <h3>Artifact 툴 .docx 업로드 지원 — Word 문서도 올릴 수 있음<span class="new-dot"></span></h3>
+      <p>Artifact 툴 에셋 업로드에 .docx 형식 추가. Word 문서를 그대로 Artifact로 올릴 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">Artifact</span><span class="date">2026.11.13 · v2.1.323</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라졌어?</h4>
+    <p>Artifact 툴에서 에셋 파일 업로드할 때 <code>.docx</code> 형식도 이제 지원됨. 문서 작업 결과를 Word 형식으로 저장하고 바로 Artifact로 올리는 워크플로우가 가능해짐.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.323" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- /diff 패널 단축키 힌트 — 2026. 11. 13. -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔍</span>
+    <div class="card-title">
+      <h3>/diff 패널 UX 개선 — 닫기 힌트 + 단축키 가이드 추가<span class="new-dot"></span></h3>
+      <p>diff 패널에 "d to close" 힌트 추가. ? 단축키 가이드에도 패널 포커스·닫기 키가 표시됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">UX</span><span class="date">2026.11.13 · v2.1.323</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card
+
 <!-- Fast Mode Vertex AI 전 리전 확대 — 2026.11.10 -->
 <div class="card" data-cat="core">
   <div class="card-header" onclick="toggle(this)">
@@ -13024,7 +13187,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.322'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.323'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

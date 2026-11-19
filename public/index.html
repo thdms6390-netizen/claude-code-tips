@@ -267,6 +267,168 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- /code-review 개선 — 버그·위반만 + 중요도 표시 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔍</span>
+    <div class="card-title">
+      <h3>/code-review 개선 — 버그·위반만 + 중요도 자동 분류<span class="new-dot"></span></h3>
+      <p>이제 대부분 모델에서 버그와 CLAUDE.md 위반만 보고해. 각 항목엔 Important·Pre-existing·Nit 등급이 붙고, 마지막엔 수정 제안까지. 클린하면 "Code review found no issues."</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">코드리뷰</span><span class="tag tag-red">자주쓰임</span><span class="date">2026.11.19 · v2.1.328</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>뭐가 달라졌나</h4>
+    <ul>
+      <li>기본 리뷰 범위: 버그 + CLAUDE.md 위반만 집중 — 노이즈 대폭 줄어듦</li>
+      <li>각 항목에 <code>Important</code> / <code>Pre-existing</code> / <code>Nit</code> 중요도 태그 자동 부착</li>
+      <li>각 요약 끝에 구체적인 수정 제안이 붙어서 바로 행동할 수 있음</li>
+      <li>문제 없으면 "Code review found no issues." 한 줄로 깔끔하게 끝</li>
+      <li>리팩터링·효율·재사용 개선은 <code>/simplify</code>로 분리됨</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 버그·위반 리뷰</span>
+<span class="c-p">/code-review</span>
+
+<span class="c-d"># 리팩터링·효율 개선은 별도 명령으로</span>
+<span class="c-p">/simplify</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.328" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- Auto Mode — Opus 4.6·Sonnet 4.6 Bedrock·Vertex·Foundry 확대 -->
+<div class="card featured" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🤖</span>
+    <div class="card-title">
+      <h3>Auto Mode — Opus 4.6·Sonnet 4.6 서드파티 전 플랫폼 확대<span class="new-dot"></span></h3>
+      <p>Amazon Bedrock, Google Cloud Agent Platform, Microsoft Foundry, Claude 앱 게이트웨이에서 Opus 4.6·Sonnet 4.6도 Auto Mode로 시작할 수 있게 됨. 권한 모드 없이 대화형 세션 열면 자동으로 Auto Mode로 진입.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-orange">자동화</span><span class="tag tag-red">자주쓰임</span><span class="date">2026.11.19 · v2.1.328</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>지원 범위</h4>
+    <ul>
+      <li>Amazon Bedrock / Google Cloud Agent Platform / Microsoft Foundry / Claude 앱 게이트웨이</li>
+      <li>대상 모델: Claude Opus 4.6, Claude Sonnet 4.6</li>
+      <li>권한 모드 미설정 대화형 세션 → 자동으로 Auto Mode 진입</li>
+      <li>끄려면 <code>disableAutoMode</code> 설정 추가</li>
+    </ul>
+    <h4>끄는 법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># CLAUDE.md 또는 설정 파일에서</span>
+<span class="c-g">disableAutoMode</span><span class="c-p">: true</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.328" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- /status · doctor OTEL 엔드포인트 경고 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📡</span>
+    <div class="card-title">
+      <h3>/status · doctor OTEL 엔드포인트 미설정 경고 — 텔레메트리 조용히 사라지는 거 이제 차단<span class="new-dot"></span></h3>
+      <p>OpenTelemetry exporter에 엔드포인트가 없으면 데이터가 그냥 버려지는데, 이제 /status와 claude doctor가 바로 알려줌. 조용히 증발하는 거 방지.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-blue">OTEL</span><span class="date">2026.11.19 · v2.1.328</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이런 상황에서 경고 뜸</h4>
+    <ul>
+      <li>OTEL exporter가 설정됐는데 엔드포인트 URL이 빠져 있을 때</li>
+      <li>트레이스·메트릭이 전송 목적지 없이 사라지고 있을 때</li>
+    </ul>
+    <h4>확인 방법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-p">/status</span>
+<span class="c-d"># 또는</span>
+<span class="c-p">claude doctor</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.328" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- /status 깨진 설정 파일·훅·샌드박스 목록 표시 -->
+<div class="card" data-cat="cmd">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🩺</span>
+    <div class="card-title">
+      <h3>/status 깨진 설정 한번에 — 에이전트·스킬·훅·샌드박스 오류 목록<span class="new-dot"></span></h3>
+      <p>이제 /status 하나로 깨진 에이전트 파일, 스킬, 명령어, 출력 스타일 파일, 키바인딩 오류, 샌드박스 사용 불가 상태, 무시된 권한 설정, 절대 매칭 안 되는 훅까지 한눈에 볼 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">진단</span><span class="tag tag-green">실용적</span><span class="date">2026.11.18 · v2.1.327</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이제 /status에서 볼 수 있는 것들</h4>
+    <ul>
+      <li>깨진 에이전트·스킬·명령어·출력 스타일 파일</li>
+      <li>키바인딩 오류</li>
+      <li>샌드박스 사용 불가 상태</li>
+      <li>무시된 권한 설정</li>
+      <li>절대 매칭 안 되는 훅 매처</li>
+      <li><code>/config</code>에서 다른 설정이 특정 항목을 덮어쓰고 있으면 메모 표시</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-p">/status</span>
+<span class="c-d"># 또는 터미널에서</span>
+<span class="c-p">claude doctor</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.327" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- claude mcp add-json stdin 지원 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔒</span>
+    <div class="card-title">
+      <h3>claude mcp add-json stdin 지원 — 토큰을 커맨드라인에 안 올려도 됨<span class="new-dot"></span></h3>
+      <p><code>claude mcp add-json &lt;name&gt; -</code>로 MCP 서버 JSON을 stdin으로 넘길 수 있게 됨. API 키나 토큰이 커맨드라인 히스토리에 남는 걸 방지할 수 있어.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-blue">MCP</span><span class="tag tag-green">실용적</span><span class="date">2026.11.18 · v2.1.327</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>왜 좋냐</h4>
+    <ul>
+      <li>MCP 서버 설정에 토큰·시크릿이 포함돼 있을 때 커맨드라인에 그대로 노출되지 않음</li>
+      <li>파일이나 파이프에서 JSON을 읽어서 넘길 수 있음</li>
+      <li>단, Claude Code 세션 안에서는 사용 불가 (외부 터미널에서만)</li>
+    </ul>
+    <h4>사용법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 파일에서 읽어서 추가</span>
+<span class="c-p">cat</span> <span class="c-g">mcp-config.json</span> <span class="c-o">|</span> <span class="c-p">claude mcp add-json</span> <span class="c-g">my-server</span> <span class="c-o">-</span>
+
+<span class="c-d"># 직접 파이프로 넘기기</span>
+<span class="c-p">echo</span> <span class="c-g">'{"command":"node","args":["server.js"]}'</span> <span class="c-o">|</span> <span class="c-p">claude mcp add-json</span> <span class="c-g">my-server</span> <span class="c-o">-</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.327" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- ExitWorktree 미저장 작업 확인 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🌿</span>
+    <div class="card-title">
+      <h3>ExitWorktree 미저장 작업 확인 — 워크트리 삭제 전에 먼저 물어봄<span class="new-dot"></span></h3>
+      <p>워크트리를 나가면서 삭제할 때, 저장 안 된 작업이 있으면 이제 확인을 먼저 물어봄. 실수로 작업 날리는 거 방지.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-blue">Worktrees</span><span class="date">2026.11.18 · v2.1.327</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>동작 방식</h4>
+    <ul>
+      <li>저장 안 된 작업이 있는 워크트리 삭제 시 → 확인 프롬프트 띄움</li>
+      <li>don't-ask 모드이거나 답할 사람이 없으면 → 거절</li>
+      <li>allow 규칙, auto 모드, bypass 권한 모드가 있으면 그냥 진행</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.327" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- attributionProject —
+
 <!-- Code Mode + Agent Teams — 2026. 11. 17. -->
 <div class="card" data-cat="auto">
   <div class="card-header" onclick="toggle(this)">
@@ -13476,7 +13638,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.326'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.328'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 

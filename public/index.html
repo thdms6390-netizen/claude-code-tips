@@ -267,6 +267,157 @@
 </div>
 
 <!-- AUTO_INSERT_MARKER -->
+<!-- MCP 서버 스킬 베타 — 2026.11.25 -->
+<div class="card featured" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔌</span>
+    <div class="card-title">
+      <h3>MCP 서버 스킬 베타 — MCP 툴이 슬래시 메뉴에 스킬로 뜬다<span class="new-dot"></span></h3>
+      <p>MCP 서버에서 제공하는 스킬이 <code>server:skill</code> 형태로 <code>/</code> 메뉴에 바로 나타남. 직접 만든 스킬이랑 나란히 쓸 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">MCP</span><span class="tag tag-green">실용적</span><span class="date">2026.11.25 · v2.1.332</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 뭔데?</h4>
+    <p>MCP 서버가 스킬을 제공하면 <code>/</code> 메뉴에 <code>서버이름:스킬이름</code> 형태로 자동으로 뜸. 별도로 스킬 파일 만들 필요 없이 MCP 서버 연결만 해도 슬래시 명령어처럼 바로 쓸 수 있음.</p>
+    <h4>슬래시 메뉴에서 보이는 형태</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># MCP 서버 스킬은 이렇게 보임</span>
+<span class="c-p">/github:create-pr</span>
+<span class="c-p">/jira:create-issue</span>
+<span class="c-d"># 직접 만든 스킬은 기존처럼</span>
+<span class="c-p">/my-custom-skill</span></pre>
+    <h4>주의</h4>
+    <p>베타 기능이라 동작이 바뀔 수 있음. MCP 서버가 스킬을 지원해야 나타남.</p>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.332" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- PreSkillShellCommand 훅 — 2026.11.25 -->
+<div class="card" data-cat="auto">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🪝</span>
+    <div class="card-title">
+      <h3>PreSkillShellCommand 훅 — 스킬 로드 중 셸 명령 실행 전에 가로채기<span class="new-dot"></span></h3>
+      <p>스킬이나 명령어가 인라인 셸 명령을 실행하려 할 때 훅으로 거절할 수 있음. 의도치 않은 셸 실행 차단 가능.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">훅</span><span class="tag tag-orange">자동화</span><span class="date">2026.11.25 · v2.1.332</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 뭔데?</h4>
+    <p>스킬이 로드될 때 인라인 셸 명령을 실행하려 하면 이 훅이 먼저 발동됨. 훅에서 거절하면 해당 명령이 실행되지 않음. <strong>v2.1.331 이하</strong>에서 설정 파일에 이 훅 이름이 있으면 시작 시 다이얼로그가 뜸.</p>
+    <h4>설정 예시</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># settings.json에 훅 등록</span>
+{
+  <span class="c-g">"hooks"</span>: {
+    <span class="c-g">"PreSkillShellCommand"</span>: [
+      {
+        <span class="c-g">"command"</span>: <span class="c-g">"./check-skill-command.sh"</span>
+      }
+    ]
+  }
+}</pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.332" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- 크로스 세션 메시지 "항상 전달" 옵션 — 2026.11.25 -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📨</span>
+    <div class="card-title">
+      <h3>크로스 세션 메시지 "항상 전달" — 보류 메시지를 무조건 받겠다고 설정하기<span class="new-dot"></span></h3>
+      <p>다른 세션에서 보낸 메시지가 보류됐을 때 "Always deliver" 옵션이 추가됨. 이제 매번 확인 없이 항상 받을 수 있음.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">세션</span><span class="date">2026.11.25 · v2.1.332</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 뭔데?</h4>
+    <p>크로스 세션 메시지가 보류 상태일 때 나타나는 프롬프트에 "Always deliver" 옵션이 추가됨. 한 번 선택하면 이후 같은 세션에서 오는 메시지는 매번 확인 없이 자동으로 전달됨.</p>
+    <h4>언제 쓰면 좋아?</h4>
+    <ul>
+      <li>특정 에이전트나 세션에서 오는 메시지를 항상 받고 싶을 때</li>
+      <li>자동화 워크플로에서 중간 확인 없이 메시지 흐름을 유지하고 싶을 때</li>
+    </ul>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.332" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- 플래그된 메시지 모델 경고 푸터 — 2026.11.25 -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">⚠️</span>
+    <div class="card-title">
+      <h3>플래그된 메시지 모델 경고 푸터 — 모델 선택 전까지 계속 알려줌<span class="new-dot"></span></h3>
+      <p>다른 세션 메시지 때문에 모델이 바뀐 상태면 <code>/model</code>로 직접 선택할 때까지 푸터에 경고가 계속 표시됨.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">UI</span><span class="date">2026.11.25 · v2.1.332</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 뭔데?</h4>
+    <p>크로스 세션 메시지로 인해 현재 세션의 모델이 다른 모델로 전환된 경우, 푸터에 경고 줄이 계속 남아 있음. <code>/model</code>로 직접 모델을 선택해야 경고가 사라짐. 모르는 사이에 다른 모델로 작업하는 걸 방지해줌.</p>
+    <h4>해결 방법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 모델 직접 선택해서 경고 없애기</span>
+<span class="c-p">/model</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.332" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- OTel assistant_response 이벤트 — 2026.11.25 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">📡</span>
+    <div class="card-title">
+      <h3>OTel assistant_response 이벤트 — SendUserMessage·Cowork 응답도 트레이스로 잡기<span class="new-dot"></span></h3>
+      <p>Claude가 SendUserMessage나 Cowork 메시지 툴로 보낸 텍스트를 OpenTelemetry <code>assistant_response</code> 이벤트로 수집할 수 있음. 응답 로깅 켜야 동작.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-purple">OTel</span><span class="tag tag-blue">모니터링</span><span class="date">2026.11.25 · v2.1.332</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 뭔데?</h4>
+    <p>멀티 에이전트 환경에서 Claude가 다른 세션이나 에이전트에 보내는 메시지도 이제 OTel 트레이스로 추적 가능. 응답 로깅(<code>OTEL_LOG_ASSISTANT_RESPONSES=1</code>)이 켜진 상태에서만 실제 텍스트가 수집됨.</p>
+    <h4>활성화 방법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 응답 로깅 켜기</span>
+<span class="c-b">OTEL_LOG_ASSISTANT_RESPONSES</span>=<span class="c-g">1</span>
+
+<span class="c-d"># tool_input에서는 응답 로깅 꺼져 있으면</span>
+<span class="c-d"># 텍스트 내용 대신 길이만 기록됨</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.332" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- VS Code·Desktop 코드 탭 저장 경고 — 2026.11.25 -->
+<div class="card" data-cat="dev">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">💾</span>
+    <div class="card-title">
+      <h3>VS Code·Desktop 코드 탭 저장 경고 — 세션 일부 저장 안 됐으면 바로 알려줌<span class="new-dot"></span></h3>
+      <p>VS Code나 Desktop의 Code 탭에서 세션 일부가 저장되지 않으면 경고가 뜨고, <code>/compact</code>로 저장하는 방법을 안내해줌.</p>
+      <div class="card-tags"><span class="tag tag-pink">NEW</span><span class="tag tag-blue">VS Code</span><span class="tag tag-purple">UI</span><span class="date">2026.11.25 · v2.1.332</span></div>
+    </div>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-body">
+    <h4>이게 뭔데?</h4>
+    <p>VS Code 또는 Desktop의 Code 탭에서 세션 내용 일부가 저장되지 못했을 때 경고 메시지가 표시됨. 이전 메시지가 로드되지 않은 재개 세션도 별도 안내가 나타남 (터미널에서 이미 보여주던 것과 동일).</p>
+    <h4>저장 안 됐을 때 해결법</h4>
+<pre class="code"><button class="cp" onclick="copyCode(this)">복사</button><span class="c-d"># 세션 압축해서 저장하기</span>
+<span class="c-p">/compact</span></pre>
+    <p class="release-link"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.332" target="_blank">릴리즈 노트 보기 →</a></p>
+  </div>
+</div>
+
+<!-- Cyber Verification Program 티어 표시 — 2026.11.25 -->
+<div class="card" data-cat="core">
+  <div class="card-header" onclick="toggle(this)">
+    <span class="card-icon">🔐</span>
+    <div class="card-title">
+      <h3>Cyber Verification Program
+
 <!-- v2.1.331 — Code Mode 단말기 세션 확대 -->
 <div class="card featured" data-cat="core">
   <div class="card-header" onclick="toggle(this)">
@@ -13949,7 +14100,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ==================== AUTO UPDATE ====================
-const KNOWN_VERSION = 'v2.1.331'; // 현재 페이지에 반영된 버전
+const KNOWN_VERSION = 'v2.1.332'; // 현재 페이지에 반영된 버전
 const KNOWN_BLOG_DATE = '2026-07-24'; // 블로그 글 반영 기준일
 const LAST_UPDATE = '2026-06-02T00:07:41Z'; // 루틴 마지막 실행 시간 (UTC)
 
